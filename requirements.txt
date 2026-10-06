@@ -1,0 +1,6 @@
+# Optional pip setup for Linux/macOS. The tested Windows setup uses environment.yml.
+pybullet>=3.2.6
+numpy>=1.23
+Pillow>=9
+imageio>=2.30
+imageio-ffmpeg>=0.4

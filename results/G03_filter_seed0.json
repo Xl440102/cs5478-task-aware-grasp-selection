@@ -1,0 +1,24 @@
+{
+  "seed": 0,
+  "status": "ok",
+  "feasible_candidates": [
+    {
+      "id": "G03",
+      "region": "body",
+      "approach": "from_robot_side",
+      "gripper_width": 0.078,
+      "geometry_score": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "G03",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.276167754968432e-06,
+      "grasp_position_error_m": 9.064973298475877e-06,
+      "min_table_clearance_m": 0.009788283487225104,
+      "collision_details": []
+    }
+  ]
+}

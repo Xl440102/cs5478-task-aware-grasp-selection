@@ -1,0 +1,20 @@
+[
+  {
+    "id": "G01",
+    "region": "body",
+    "approach": "from_robot_side",
+    "gripper_width": 0.078,
+    "geometry_score": 0.75,
+    "grasp_pose": {"position": [0.0, 0.0, 0.0], "quaternion": [0.0, 0.70710678, 0.0, 0.70710678]},
+    "pregrasp_pose": {"position": [-0.12, 0.0, 0.0], "quaternion": [0.0, 0.70710678, 0.0, 0.70710678]}
+  },
+  {
+    "id": "G02",
+    "region": "body",
+    "approach": "from_robot_side_high",
+    "gripper_width": 0.078,
+    "geometry_score": 0.66,
+    "grasp_pose": {"position": [0.0, 0.0, 0.012], "quaternion": [0.0, 0.70710678, 0.0, 0.70710678]},
+    "pregrasp_pose": {"position": [-0.12, 0.0, 0.012], "quaternion": [0.0, 0.70710678, 0.0, 0.70710678]}
+  }
+]

@@ -1,0 +1,10 @@
+name: grasp-a
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pybullet
+  - numpy
+  - pillow
+  - imageio
+  - imageio-ffmpeg

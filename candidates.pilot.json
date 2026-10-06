@@ -1,0 +1,17 @@
+[
+  {
+    "id": "G03",
+    "region": "body",
+    "approach": "from_robot_side",
+    "gripper_width": 0.078,
+    "geometry_score": 0.0,
+    "grasp_pose": {
+      "position": [0.0, 0.0, 0.01],
+      "quaternion": [0.0, 0.7071067811865475, 0.0, 0.7071067811865476]
+    },
+    "pregrasp_pose": {
+      "position": [-0.08, 0.0, 0.01],
+      "quaternion": [0.0, 0.7071067811865475, 0.0, 0.7071067811865476]
+    }
+  }
+]

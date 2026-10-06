@@ -1,0 +1,44 @@
+{
+  "seed": 0,
+  "status": "ok",
+  "feasible_candidates": [
+    {
+      "id": "G02",
+      "region": "body",
+      "approach": "from_robot_side_high",
+      "gripper_width": 0.078,
+      "geometry_score": 0.66
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "G01",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 9.014977433810499e-06,
+      "grasp_position_error_m": 8.405124383990893e-06,
+      "min_table_clearance_m": -0.00014116684328625666,
+      "collision_details": [
+        {
+          "type": "robot_table",
+          "robot_link": "panda_link6",
+          "other_link": "-1",
+          "penetration_m": 0.001116,
+          "path": "approach",
+          "sample": 1
+        }
+      ]
+    },
+    {
+      "candidate_id": "G02",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.462614107698911e-06,
+      "grasp_position_error_m": 8.796952121560706e-06,
+      "min_table_clearance_m": 0.011830796044550675,
+      "collision_details": []
+    }
+  ]
+}
