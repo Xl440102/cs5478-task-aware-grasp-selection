@@ -21,5 +21,12 @@ G02，在 `results\local\visuals\handover_prep_seed0_G02.mp4` 保存抓取视频
 本方案只验证一条候选、一个 seed 的完整流程。正式实验需要 B 提供约八条带
 预先定义 `geometry_score` 的候选，并在 pilot 后冻结场景、任务目标和参数。
 `candidates.pilot.json` 另存了一条 G03 杯身抓取用于校准，其
-`geometry_score: 0.0` 只是接口占位值，不能用于正式 M1 排名。G03 在
-`pour_prep` 下能完成抓取和抬升，但任务目标逆运动学求解失败。
+`geometry_score: 0.0` 只是接口占位值，不能用于正式 M1 排名。
+
+2026-10-15 的 `bounded_ik_v1` 修复了抬升与倒水动作的 IK 越限。G02/G03
+在 seed 0–9 的两个任务中均为 10/10 成功，见
+[回归汇总](results/ik_fix_20261015/summary.json)。要录制倒水视频：
+
+```bat
+python -m grasp_a run --task pour_prep --seed 0 --id G02 --visualize --media-dir results\local\visuals --out results\local\G02_pour_seed0.json
+```

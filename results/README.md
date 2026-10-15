@@ -4,7 +4,21 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
-## 当前可复现的 seed 0 参考结果
+## 2026 年 10 月 15 日 IK 修复回归
+
+`ik_fix_20261015/` 对应控制器 `bounded_ik_v1`，与旧控制器结果分开保存：
+
+| 文件 | 含义 |
+|---|---|
+| `ik_fix_20261015/summary.json` | seed 0–9，G02/G03，两个任务共 40 次全部成功；相同条件复跑完全一致 |
+| `ik_fix_20261015/handover_G02_seed1.json` | 原抬升失败 seed 1 的修复后完整日志 |
+| `ik_fix_20261015/pour_G02_seed0.json` | 原倒水 IK 失败 seed 0 的修复后日志与媒体路径 |
+| `ik_fix_20261015/visuals/pour_prep_seed0_G02.mp4` | 修复后的真实倒水准备视频 |
+
+新日志的 `ik_diagnostics` 保存了原始越限关节、备用解和 FK 复核结果；
+`controller_version` 用于区分控制器。40 次回归不是选择器正式对比实验。
+
+## 2026 年 10 月 6 日旧控制器的 seed 0 参考结果
 
 | 文件 | 候选来源 | 含义 |
 |---|---|---|

@@ -2,7 +2,7 @@
 
 本目录实现小组项目的 **A 部分**：在 PyBullet 中建立杯子和 Panda 机械臂场景，筛选可行抓取，并用同一套控制器执行 B/C 选出的抓取 ID。候选生成与 M0/M1/M2 由 B 负责，LLM 选择和批量评估由 C 负责。
 
-目前是 **pilot 版本**。默认候选 G02 已在 seed 0 的 `handover_prep` 任务中完成抓取、抬升、转向和 2 秒保持，并录制真实仿真视频。这不是计划中的 200 次正式实验；`pour_prep` 尚未跑通完整任务动作。
+目前是 **pilot 版本**。2026-10-15 修复了抬升和倒水动作的 IK 越限问题，控制器版本为 `bounded_ik_v1`。G02/G03 在 seed 0–9 的交接与倒水准备任务中均为 10/10 成功，共 40 个 pilot episode，另一次相同条件复跑结果完全一致。详见 [回归结果](results/ik_fix_20261015/summary.json)。这些是控制器回归数据，正式选择器实验尚未开始。
 
 ## 1. 先跑通一次视频
 
@@ -52,6 +52,8 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 
 Windows 使用 `environment.yml`：Python 3.11、`pybullet`、`numpy`、`pillow`、`imageio`、`imageio-ffmpeg`。PyBullet 和 `pybullet_data` 提供机械臂模型与物理仿真，其余依赖用于图片和视频。在 Miniforge Prompt 中用 Conda 安装即可，不需要再执行 `pip install -r requirements.txt`。
 
+请先 `conda activate grasp-a` 再运行；仅直接调用环境里的 `python.exe` 可能缺少 Conda 数值库的 DLL 路径。NumPy 也用于备用 IK 的有界数值求解。
+
 Linux/macOS 可在 Python 3.11 虚拟环境中使用 `requirements.txt`，前提是该平台能安装 PyBullet：
 
 ```bash
@@ -88,7 +90,7 @@ python -m grasp_a --candidates candidates.pilot.json filter --seed 0 --out resul
 
 `scene` 生成的环绕视频只展示初始场景；真正的抓取视频需要 `run` 或 `demo` 的 `--visualize`，并可用 `--media-dir` 指定输出目录。
 
-开发时可运行 `python -m unittest discover -s tests -v` 检查输入协议。`python -m scripts.find_pilot_candidate --seed 0 --out results\local\pilot_search.json` 只搜索能通过可行性筛选的试验位姿，不执行抓取，也不替代 B 提供的正式候选集。
+开发时可运行 `python -m unittest discover -s tests -v` 检查输入协议和 IK 回归。`tests/test_simulation_ik.py` 会复现原来的抬升/倒水失败，检查关节限位、求解后的状态恢复及不可达目标的拒绝；未安装 PyBullet 时跳过这部分测试。`python -m scripts.find_pilot_candidate --seed 0 --out results\local\pilot_search.json` 只搜索能通过可行性筛选的试验位姿，不执行抓取，也不替代 B 提供的正式候选集。
 
 ## 5. A/B/C 统一接口
 
@@ -123,7 +125,7 @@ else:
     result = None  # 记录 no_feasible_candidate，跳过该 seed
 ```
 
-`EpisodeResult` 包含 `success`、`failure_reason`、`dropped`、`collision`、`collision_types`、`grasp_maintained`、最终位姿、位姿误差和按阶段采样的 `trajectory`。完整执行还包含目标位姿；提前失败时误差可能为 `null`。录制视频时增加 `media` 路径。完整协议见 [interface.md](interface.md)。
+`EpisodeResult` 包含 `success`、`failure_reason`、`dropped`、`collision`、`collision_types`、`grasp_maintained`、最终位姿、位姿误差和按阶段采样的 `trajectory`。新增 `controller_version` 与 `ik_diagnostics`，可查看每个阶段的目标、局部/有界求解、原始越限关节及 FK 误差。完整执行还包含目标位姿；提前失败时误差可能为 `null`。录制视频时增加 `media` 路径。完整协议见 [interface.md](interface.md)。
 
 ## 6. 仿真检查与任务
 
@@ -133,7 +135,9 @@ else:
 
 统一执行顺序：预抓取 → 接近 → 闭合夹爪 → 抬升约 14 cm → 任务动作 → 保持 2 秒。`pour_prep` 的目标是倾斜 35°；`handover_prep` 的目标是转动杯子让把手朝交接方向展示。成功需保持抓取、无意外碰撞，最终位置误差不超过 4 cm、方向误差不超过 15°。这些仍是 pilot 参数，正式实验前应冻结。
 
-杯子模型没有液体、视觉感知或真人交接。当前 G02 在 seed 0 的 `handover_prep` 成功，G01 接近时撞桌；G03 也有成功的交接 pilot，但在 `pour_prep` 的抬升后出现 `task_ik_failed`。单次成功不能当作两项任务或多 seed 的成功率。
+杯子模型没有液体、视觉感知或真人交接。当前 G02/G03 的两个任务均通过 seed 0–9 的 pilot 回归，G01 仍因接近时撞桌被拒绝。原来 `lift_ik_failed` / `task_ik_failed` 的典型原因是局部 IK 把第 5 关节推到限位外；新版保留通过 FK/限位校验的局部解，必要时改用包含两指的 9 自由度限位、当前姿态和有界 FK 数值细化。所有关节限位与成功容差继续生效。
+
+倒水视频可用 `python -m grasp_a run --task pour_prep --seed 0 --id G02 --visualize --media-dir results\local\visuals --out results\local\G02_pour_seed0.json` 重现；已保存的 [新视频](results/ik_fix_20261015/visuals/pour_prep_seed0_G02.mp4) 与 [结果 JSON](results/ik_fix_20261015/pour_G02_seed0.json) 对应 `bounded_ik_v1`。
 
 ## 7. 结果与后续工作
 

@@ -10,6 +10,8 @@ import math
 from pathlib import Path
 import random
 
+import numpy as np
+
 from .contracts import Candidate, Pose, TASKS, validate_task_id
 from .collision_rules import fixed_link_groups
 
@@ -20,6 +22,7 @@ except ImportError as exc:
     raise ImportError("PyBullet missing. On Windows use: conda env create -f environment.yml") from exc
 
 STEP = 1 / 240
+CONTROLLER_VERSION = "bounded_ik_v1"
 # Bullet's mesh contacts can report submillimetre numerical penetration.
 # This pilot tolerance applies only to collision classification, not grasp contact.
 PENETRATION_TOLERANCE_M = 0.001
@@ -61,6 +64,7 @@ class MugScene:
         if self.client < 0:
             raise RuntimeError("Could not start PyBullet")
         self.recorder = None
+        self.ik_diagnostics = []
         try:
             p.resetSimulation(physicsClientId=self.client)
             p.setAdditionalSearchPath(pybullet_data.getDataPath(), physicsClientId=self.client)
@@ -89,6 +93,12 @@ class MugScene:
             self.arm = [self._joint_index(f"panda_joint{i}") for i in range(1, 8)]
             self.fingers = [self._joint_index("panda_finger_joint1"),
                             self._joint_index("panda_finger_joint2")]
+            # Bullet IK arrays and return values follow all movable DOFs, not
+            # just the seven arm joints. Panda also has two finger DOFs.
+            self.movable = sorted(
+                (j for j, info in enumerate(joints) if info[3] >= 0),
+                key=lambda j: joints[j][3])
+            self.arm_dofs = [self.movable.index(j) for j in self.arm]
             self.tip = self._link_index("panda_grasptarget")
             rng = random.Random(seed)
             start = [0.55+rng.uniform(-0.008, 0.008), rng.uniform(-0.008, 0.008), MUG_CENTER_Z]
@@ -161,27 +171,131 @@ class MugScene:
                                           local.position, local.quaternion)
         return Pose(tuple(pos), tuple(quat))
 
-    def ik(self, target: Pose, *, pos_tol=0.025, rot_tol_deg=15.0):
-        limits = [p.getJointInfo(self.robot, j, physicsClientId=self.client) for j in self.arm]
-        lower = [x[8] for x in limits]
-        upper = [x[9] for x in limits]
-        solution = p.calculateInverseKinematics(
-            self.robot, self.tip, target.position, target.quaternion,
-            lowerLimits=lower, upperLimits=upper,
-            jointRanges=[u-l for l,u in zip(lower,upper)], restPoses=list(ARM_HOME),
-            maxNumIterations=200, residualThreshold=1e-5, physicsClientId=self.client)
-        q = tuple(solution[:7])
-        if len(q) != 7 or any(v < lo-1e-4 or v > hi+1e-4 for v,lo,hi in zip(q,lower,upper)):
-            return None, float("inf"), float("inf")
-        saved = self._angles()
-        self._set_arm(q)
+    def _ik_residual(self, target: Pose, q):
+        """Weighted pose residual for bounded refinement; never steps physics."""
+        for joint, value in zip(self.arm, q):
+            p.resetJointState(self.robot, joint, float(value),
+                              physicsClientId=self.client)
         got = self._tip_pose()
-        self._set_arm(saved)
-        pe = position_error(got.position, target.position)
-        re = orientation_error_deg(got.quaternion, target.quaternion)
-        if pe > pos_tol or re > rot_tol_deg:
-            return None, pe, re
-        return q, pe, re
+        inverse = p.invertTransform((0, 0, 0), got.quaternion)[1]
+        delta = p.multiplyTransforms((0, 0, 0), target.quaternion,
+                                     (0, 0, 0), inverse)[1]
+        if delta[3] < 0:
+            delta = tuple(-x for x in delta)
+        length = math.sqrt(sum(x*x for x in delta[:3]))
+        factor = 2 * math.atan2(length, delta[3]) / length if length > 1e-10 else 2
+        # Scale radians to a comparable length for optimization only. Acceptance
+        # still uses the caller's unchanged metre/degree tolerances.
+        residual = np.concatenate((
+            np.asarray(target.position) - got.position,
+            0.2 * factor * np.asarray(delta[:3])))
+        return residual, position_error(got.position, target.position), \
+            orientation_error_deg(got.quaternion, target.quaternion)
+
+    def _refine_ik(self, target: Pose, initial, lower, upper):
+        """Projected damped least squares with a finite-difference FK Jacobian."""
+        q = np.clip(np.asarray(initial, dtype=float), lower, upper)
+        for _ in range(60):
+            error, pe, re = self._ik_residual(target, q)
+            if pe <= 0.0002 and re <= 0.1:
+                break
+            jacobian = np.zeros((6, len(q)))
+            for column in range(len(q)):
+                left, right = q.copy(), q.copy()
+                left[column] = max(lower[column], q[column] - 0.0001)
+                right[column] = min(upper[column], q[column] + 0.0001)
+                distance = right[column] - left[column]
+                if distance > 0:
+                    a = self._ik_residual(target, left)[0]
+                    b = self._ik_residual(target, right)[0]
+                    jacobian[:, column] = (b-a) / distance
+            free = np.ones(len(q), dtype=bool)
+            step = np.zeros(len(q))
+            for _ in range(len(q)):
+                matrix = jacobian[:, free]
+                step[:] = 0
+                step[free] = -matrix.T @ np.linalg.solve(
+                    matrix @ matrix.T + np.eye(6)*1e-6, error)
+                blocked = ((q <= lower+1e-7) & (step < 0)) | \
+                          ((q >= upper-1e-7) & (step > 0))
+                if not np.any(blocked & free):
+                    break
+                free[blocked] = False
+            step /= max(1.0, float(np.max(np.abs(step))) / 0.15)
+            for scale in (1.0, 0.5, 0.25, 0.125, 0.0625):
+                trial = np.clip(q + scale*step, lower, upper)
+                trial_error = self._ik_residual(target, trial)[0]
+                if float(trial_error @ trial_error) < float(error @ error):
+                    q = trial
+                    break
+            else:
+                break
+        return tuple(float(v) for v in q)
+
+    def ik(self, target: Pose, *, pos_tol=0.025, rot_tol_deg=15.0, stage="unspecified"):
+        """Validate local IK, then retry with all DOF limits and bounded FK refinement.
+
+        A returned solution always satisfies arm limits and FK tolerances.
+        All positions, velocities and contact state are restored after probing.
+        """
+        info = [p.getJointInfo(self.robot, j, physicsClientId=self.client)
+                for j in self.movable]
+        lower = [item[8] for item in info]
+        upper = [item[9] for item in info]
+        current = [p.getJointState(self.robot, j, physicsClientId=self.client)[0]
+                   for j in self.movable]
+        arm_lower = np.asarray([lower[d] for d in self.arm_dofs])
+        arm_upper = np.asarray([upper[d] for d in self.arm_dofs])
+        saved = p.saveState(physicsClientId=self.client)
+        record = {"stage": stage, "target_pose": asdict(target),
+                  "movable_dofs": len(self.movable), "success": False, "attempts": []}
+        result = (None, None, None)
+        try:
+            for method in ("local", "bounded"):
+                p.restoreState(stateId=saved, physicsClientId=self.client)
+                options = {}
+                if method == "bounded":
+                    options = dict(
+                        lowerLimits=lower, upperLimits=upper,
+                        jointRanges=[hi-lo for lo, hi in zip(lower, upper)],
+                        restPoses=current)
+                solution = p.calculateInverseKinematics(
+                    self.robot, self.tip, target.position, target.quaternion,
+                    maxNumIterations=1000 if method == "bounded" else 200,
+                    residualThreshold=1e-5, physicsClientId=self.client, **options)
+                attempt = {"method": method}
+                record["attempts"].append(attempt)
+                if len(solution) != len(self.movable) or not all(
+                        math.isfinite(v) for v in solution):
+                    attempt["reason"] = "invalid_solver_output"
+                    continue
+                raw = tuple(solution[d] for d in self.arm_dofs)
+                violations = [p.getJointInfo(self.robot, joint,
+                                             physicsClientId=self.client)[1].decode()
+                              for joint, value, lo, hi
+                              in zip(self.arm, raw, arm_lower, arm_upper)
+                              if value < lo or value > hi]
+                attempt["raw_joint_limit_violations"] = violations
+                q = raw
+                if method == "bounded":
+                    q = self._refine_ik(target, raw, arm_lower, arm_upper)
+                _, pe, re = self._ik_residual(target, q)
+                attempt.update(position_error_m=pe, orientation_error_deg=re)
+                result = (None, pe, re)
+                if any(v < lo or v > hi for v, lo, hi in zip(q, arm_lower, arm_upper)):
+                    attempt["reason"] = "joint_limit"
+                elif pe > pos_tol or re > rot_tol_deg:
+                    attempt["reason"] = "fk_tolerance"
+                else:
+                    attempt["reason"] = "accepted"
+                    record.update(success=True, solver=method, joint_positions=list(q))
+                    result = (q, pe, re)
+                    break
+        finally:
+            p.restoreState(stateId=saved, physicsClientId=self.client)
+            p.removeState(stateUniqueId=saved, physicsClientId=self.client)
+            self.ik_diagnostics.append(record)
+        return result
 
     def _link_name(self, link_index: int) -> str:
         if link_index < 0:
@@ -239,8 +353,8 @@ class MugScene:
         saved = self._angles()
         collision_details = []
         try:
-            q_pre, pe_pre, _ = self.ik(pre)
-            q_grasp, pe_grasp, _ = self.ik(grasp)
+            q_pre, pe_pre, _ = self.ik(pre, stage="filter_pregrasp")
+            q_grasp, pe_grasp, _ = self.ik(grasp, stage="filter_grasp")
             if q_pre is None: reasons.append("pregrasp_ik_or_fk_error")
             if q_grasp is None: reasons.append("grasp_ik_or_fk_error")
             min_clearance = None
@@ -322,14 +436,15 @@ class MugScene:
             if "type" in detail
         }
         all_collision_types = set(problems) | check_collision_types
-        return {"seed":self.seed,"task_id":task,"selected_id":candidate.id,
+        return {"controller_version":CONTROLLER_VERSION,
+                "seed":self.seed,"task_id":task,"selected_id":candidate.id,
                 "feasibility":asdict(checks),"success":False,"failure_reason":reason,
                 "dropped":reason in ("no_grasp", "lost_grasp"),
                 "collision":bool(all_collision_types),
                 "collision_types":sorted(all_collision_types),
                 "grasp_maintained":False,"position_error_m":None,
                 "orientation_error_deg":None,"final_mug_pose":asdict(obj),
-                "trajectory":trajectory}
+                "trajectory":trajectory,"ik_diagnostics":self.ik_diagnostics}
 
     def run_episode(self, task: str, candidate: Candidate) -> dict:
         validate_task_id(task)
@@ -340,8 +455,8 @@ class MugScene:
 
         pre = self.world_pose(candidate.pregrasp_pose)
         grasp = self.world_pose(candidate.grasp_pose)
-        q_pre, _, _ = self.ik(pre)
-        q_grasp, _, _ = self.ik(grasp)
+        q_pre, _, _ = self.ik(pre, stage="pregrasp")
+        q_grasp, _, _ = self.ik(grasp, stage="grasp")
         self._drive_fingers(0.04)
         self._move(q_pre,180,"pregrasp",trajectory,problems)
         self._move(q_grasp,120,"grasp",trajectory,problems)
@@ -357,7 +472,7 @@ class MugScene:
                                                 obj_at_grasp.quaternion)
         lifted_tip = Pose((tool_at_grasp.position[0],tool_at_grasp.position[1],
                            tool_at_grasp.position[2]+0.14),tool_at_grasp.quaternion)
-        q_lift, _, _ = self.ik(lifted_tip, pos_tol=0.035)
+        q_lift, _, _ = self.ik(lifted_tip, pos_tol=0.035, stage="lift")
         if q_lift is None:
             return self._fail(candidate,task,checks,"lift_ik_failed",trajectory,problems)
         self._move(q_lift,200,"lift",trajectory,problems)
@@ -374,7 +489,8 @@ class MugScene:
                            obj_at_grasp.position[2]+0.14),tuple(target_q))
         inv_rel = p.invertTransform(*relative_object)
         tpos,tquat = p.multiplyTransforms(target_obj.position,target_obj.quaternion,*inv_rel)
-        q_task, _, _ = self.ik(Pose(tuple(tpos),tuple(tquat)),pos_tol=0.035)
+        q_task, _, _ = self.ik(Pose(tuple(tpos),tuple(tquat)),pos_tol=0.035,
+                              stage="task_motion")
         if q_task is None:
             return self._fail(candidate,task,checks,"task_ik_failed",trajectory,problems)
         self._move(q_task,200,"task_motion",trajectory,problems)
@@ -384,7 +500,8 @@ class MugScene:
         re = orientation_error_deg(final.quaternion,target_obj.quaternion)
         held = self._finger_contacts()>0 and final.position[2]>TABLE_TOP+0.09
         success = held and not problems and pe<=0.04 and re<=15.0
-        return {"seed":self.seed,"task_id":task,"selected_id":candidate.id,
+        return {"controller_version":CONTROLLER_VERSION,
+                "seed":self.seed,"task_id":task,"selected_id":candidate.id,
                 "feasibility":asdict(checks),"success":success,
                 "failure_reason":None if success else ("lost_grasp" if not held else
                     "unintended_collision" if problems else "target_pose_error"),
@@ -392,7 +509,7 @@ class MugScene:
                 "collision_types":sorted(problems),"grasp_maintained":held,
                 "position_error_m":pe,"orientation_error_deg":re,
                 "target_mug_pose":asdict(target_obj),"final_mug_pose":asdict(final),
-                "trajectory":trajectory}
+                "trajectory":trajectory,"ik_diagnostics":self.ik_diagnostics}
 
 
 def get_feasible_candidates(seed: int, candidates: list[Candidate]):
@@ -402,6 +519,7 @@ def get_feasible_candidates(seed: int, candidates: list[Candidate]):
     allowed = {c.candidate_id for c in checks if c.feasible}
     feasible_candidates = [c.public_metadata() for c in candidates if c.id in allowed]
     return {
+        "controller_version": CONTROLLER_VERSION,
         "seed": seed,
         "status": "ok" if feasible_candidates else "no_feasible_candidate",
         "feasible_candidates": feasible_candidates,

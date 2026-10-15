@@ -88,6 +88,12 @@ sampled `trajectory`. A completed motion also includes `target_mug_pose`.
 Early failures can omit that target and set pose errors to `null`. With
 `--visualize`, the result includes `media` paths for the video and images.
 
+The `bounded_ik_v1` controller adds `controller_version` to filter and episode
+results, and `ik_diagnostics` to episode results. Each diagnostic records the
+stage, target pose, movable DOF count, solver attempts, raw joint-limit
+violations, FK errors, and accepted joint positions. These are additional
+debugging fields; candidate and selector inputs are unchanged.
+
 An invalid `task_id` or an ID absent from the supplied candidate set raises
 `ValueError`. An existing but infeasible ID returns `failure_reason:
 "infeasible"` and preserves collision evidence. B/C must choose from the
