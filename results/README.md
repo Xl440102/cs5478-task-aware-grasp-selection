@@ -4,6 +4,10 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
+`interface_v02_smoke/pour_seed0.json` 是 C 接口示例的一次真实包装记录，
+方法标签为 SMOKE，包含候选 SHA-256、选择输出和完整 EpisodeResult；
+它是接口验收样本，不是 M0/M1/M2/M3/A1 对比数据。
+
 ## 2026 年 10 月 15 日 IK 修复回归
 
 `ik_fix_20261015/` 对应控制器 `bounded_ik_v1`，与旧控制器结果分开保存：

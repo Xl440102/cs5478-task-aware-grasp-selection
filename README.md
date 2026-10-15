@@ -33,6 +33,8 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 |---|---|
 | `README.md` | 项目入口、安装和使用 |
 | [`interface.md`](interface.md) | A/B/C 的候选、筛选和结果协议 |
+| [`docs/EVALUATION_INTERFACE.md`](docs/EVALUATION_INTERFACE.md) | C 的详细评估接入定义、字段、失败与统计口径 |
+| `examples/evaluate_one_trial.py` | C 可替换 selector 的可运行示例，含空列表/非法输出/异常处理 |
 | [`PILOT.md`](PILOT.md) | 单次视频的简短命令 |
 | `environment.yml`、`requirements.txt` | Conda 与 pip 依赖 |
 | `setup_and_run_windows.cmd` | Windows 一键 pilot |
@@ -93,6 +95,11 @@ python -m grasp_a --candidates candidates.pilot.json filter --seed 0 --out resul
 开发时可运行 `python -m unittest discover -s tests -v` 检查输入协议和 IK 回归。`tests/test_simulation_ik.py` 会复现原来的抬升/倒水失败，检查关节限位、求解后的状态恢复及不可达目标的拒绝；未安装 PyBullet 时跳过这部分测试。`python -m scripts.find_pilot_candidate --seed 0 --out results\local\pilot_search.json` 只搜索能通过可行性筛选的试验位姿，不执行抓取，也不替代 B 提供的正式候选集。
 
 ## 5. A/B/C 统一接口
+
+C 开发评估程序请先读 [详细评估定义 v0.2](docs/EVALUATION_INTERFACE.md)，并运行
+`python -m examples.evaluate_one_trial --task pour_prep --seed 0` 验证联调。
+包装记录会区分完成、无可行候选、非法选择、选择器异常和执行异常；当前控制器的
+最后一帧成功判定、目标随实际抓取变化及 dropped 标记含义也在该文档中明确说明。
 
 候选文件是 JSON 数组，每个 `Candidate` 有以下字段：
 

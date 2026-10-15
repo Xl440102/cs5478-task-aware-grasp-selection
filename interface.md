@@ -1,5 +1,10 @@
 # Part A Interface v0.1
 
+**C 的详细评估接入定义 v0.2：见 [docs/EVALUATION_INTERFACE.md](docs/EVALUATION_INTERFACE.md)。**
+该文档包含全部返回字段、可空/可缺失规则、失败枚举、统计口径、
+当前 pilot 语义限制及可运行的 [evaluate_trial 示例](examples/evaluate_one_trial.py)。
+本文件保留基础 API 的快速说明；文档 v0.2 未修改 A 的原有函数签名。
+
 This is the integration contract between A (simulation and feasibility), B
 (candidates and non-LLM selectors), and C (LLM selection and evaluation).
 
