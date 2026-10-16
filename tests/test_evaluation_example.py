@@ -1,5 +1,6 @@
 """Contract regressions for C's integration example; no physical episodes here."""
 from copy import deepcopy
+from dataclasses import asdict
 import json
 from pathlib import Path
 import unittest
@@ -21,6 +22,8 @@ class EvaluationExampleTests(unittest.TestCase):
         self.candidates = load_candidates(ROOT / "candidates.example.json")
         self.filtered = {
             "controller_version": bridge.CONTROLLER_VERSION, "seed": 0, "status": "ok",
+            "candidate_sha256": bridge.candidate_sha256(self.candidates),
+            "observation_config": asdict(bridge.ObservationConfig()),
             "feasible_candidates": [self.candidates[1].public_metadata()],
             "checks": [{"candidate_id": "G01", "feasible": False},
                        {"candidate_id": "G02", "feasible": True}],
@@ -29,6 +32,7 @@ class EvaluationExampleTests(unittest.TestCase):
             "controller_version": bridge.CONTROLLER_VERSION,
             "seed": 0, "task_id": "pour_prep", "selected_id": "G02",
             "feasibility": {"feasible": True},
+            "observation_config": asdict(bridge.ObservationConfig()),
             "success": False, "failure_reason": "lost_grasp",
         }
 
@@ -96,6 +100,16 @@ class EvaluationExampleTests(unittest.TestCase):
                             bridge.candidate_sha256([self.candidates[0], changed]))
         self.assertNotEqual(bridge.candidate_sha256(self.candidates),
                             bridge.candidate_sha256(list(reversed(self.candidates))))
+
+    def test_stale_pose_fingerprint_and_observation_config_are_rejected(self):
+        for field, value in (("candidate_sha256", "stale"),
+                             ("observation_config", {"source": "oracle"})):
+            with self.subTest(field=field):
+                previous = self.filtered[field]
+                self.filtered[field] = value
+                with self.assertRaisesRegex(ValueError, "fingerprint/observation"):
+                    self.evaluate(lambda *args: "G02")
+                self.filtered[field] = previous
 
 
 if __name__ == "__main__":

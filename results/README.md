@@ -4,7 +4,27 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
-`interface_v02_smoke/pour_seed0.json` 是 C 接口示例的一次真实包装记录，
+## 2026 年 10 月 16 日可观测控制 v2（当前）
+
+`observable_v2_20261016/` 对应 `observable_primitives_v2`，评分 `fixed_target_hold_v2`。
+控制使用标定先验而非运行时物体真值；世界共同目标固定，保持区间逐物理步检查。
+
+| 文件/目录 | 内容 |
+|---|---|
+| `observable_v2_20261016/summary.json` | G02/G03、两个任务、seed0–9、3种观测条件，共120次，含版本/资产哈希及失败原因 |
+| `observable_v2_20261016/baseline/` | 无额外估计扰动：33/40成功；仍有真实场景与先验之间的偏差 |
+| `observable_v2_20261016/mild/` | 先验额外加均匀±3 mm xyz、±2°偏航：15/40成功 |
+| `observable_v2_20261016/stress/` | 先验额外加均匀±8 mm xyz、±5°偏航：15/40成功 |
+| `observable_v2_20261016/*/filter_seed*.json` | 同条件筛选、观测配置、选择空间警告 |
+| `observable_v2_20261016/visuals/` | 新版 seed0 G02 倒水与交接录像和起止截图 |
+
+各任务/候选/seed完整episode日志均保存，包括失败，不选择性剔除。
+噪声不是从真实物体位姿生成的视觉估计，也不代表实测传感器分布；相同成功数不证明噪声强度无影响。
+这些是控制器开发回归，不是M0–M3/A1对比。0–9已用于调试，不能充当未见测试集。
+可用 `python -m scripts.check_observable_control --out results/local/observable_regression` 重跑。
+本版改变了观测、任务路径与成功规则，不与下面旧版40/40合并比较。
+
+`interface_v02_smoke/pour_seed0.json` 是旧 v0.2 C 接口示例的一次真实包装记录，
 方法标签为 SMOKE，包含候选 SHA-256、选择输出和完整 EpisodeResult；
 它是接口验收样本，不是 M0/M1/M2/M3/A1 对比数据。
 
