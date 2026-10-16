@@ -59,3 +59,24 @@ and height 0.012/0.024 m, with one offset and width. This supports integration
 and multi-candidate selection checks, but does not establish distinct task
 outcomes or adequate benchmark contact diversity. These seeds are development
 seeds, not a held-out evaluation set. No M0/M1/M2 is implemented here.
+
+## Post-PR review additions (2026-10-16)
+
+`python -m grasp_b.generation --check` now allocates a fresh run directory
+under `results/local/part_b_review/`; earlier development data is preserved.
+It additionally writes `features.internal.json` with static geometric formulas,
+model/source hashes, units, contact-model limitations and equivalence pairs.
+These are INTERNAL DIAGNOSTICS and must not be supplied to ID-only selectors.
+A maps local poses through the initial estimate in v0.3; the historical v0.1
+seed counts above were obtained with bounded_ik_v1 and are not new evaluation.
+
+`selectors.py` validates the exact five public fields, checks ranking IDs and
+provides deterministic score sorting with stable ID ties. Sorting is disabled
+unless the caller explicitly supplies a validated score version; no actual
+score version is approved here. `smoke_selector` uses sorted IDs, not scores,
+and is explicitly SMOKE_ONLY. `runner.evaluate_smoke` delegates to C's real
+wrapper; it raises a clear unavailable error before the A/C v0.3 merge.
+No private geometry lookup, execution data or diagnostic sidecar enters it.
+
+See `docs/PART_B_IMPLEMENTATION_REPORT.md` and
+`docs/PART_B_TEAM_DECISIONS.md` for tested revisions and remaining decisions.

@@ -73,13 +73,19 @@ def diversity(records):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', type=Path, default=DEFAULT_CONFIG)
-    parser.add_argument('--out-dir', type=Path, default=ROOT / 'results/local/part_b_v1')
+    parser.add_argument('--out-dir', type=Path, default=ROOT / 'results/local/part_b_review')
     parser.add_argument('--check', action='store_true')
     args = parser.parse_args()
     # This development CLI deliberately confines artifacts to the local area.
     output = args.out_dir.resolve()
     if not output.is_relative_to((ROOT / 'results/local').resolve()):
         parser.error('--out-dir must be under results/local')
+    # Allocate a fresh run directory; preserve earlier development artifacts.
+    from datetime import datetime, timezone
+    import tempfile
+    output.mkdir(parents=True, exist_ok=True)
+    output = Path(tempfile.mkdtemp(prefix=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ_'),
+                                   dir=output))
     import pybullet_data
     mug_path = ROOT / 'assets/mug.urdf'
     panda_path = Path(pybullet_data.getDataPath()) / 'franka_panda/panda.urdf'
@@ -91,6 +97,10 @@ def main():
                   score_status='placeholder_zero_do_not_use_for_ranking',
                   source_sha256={str(p): hashlib.sha256(p.read_bytes()).hexdigest()
                                  for p in (mug_path, panda_path)}, checks=[])
+    from .features import feature_sidecar
+    (output / 'features.internal.json').write_text(json.dumps(
+        feature_sidecar(candidates, geometry, report['source_sha256']),
+        indent=2, allow_nan=False)+'\n', encoding='utf-8')
     if args.check:
         from grasp_a.simulation import get_feasible_candidates
         for seed in config['development_seeds']:

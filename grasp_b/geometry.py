@@ -11,6 +11,7 @@ class Geometry:
     height: float
     max_opening: float
     tool_offset: float
+    com: tuple[float, float, float] = (0.0, 0.0, 0.0)
 
 
 def read_geometry(mug_path: Path, panda_path: Path) -> Geometry:
@@ -38,9 +39,13 @@ def read_geometry(mug_path: Path, panda_path: Path) -> Geometry:
     xyz = tuple(float(x) for x in tool.get('xyz').split())
     if xyz[:2] != (0.0, 0.0):
         raise ValueError('unsupported tool translation')
+    inertial = mug.find("./link[@name='mug']/inertial/origin")
+    com = tuple(float(x) for x in inertial.get('xyz', '0 0 0').split()) if inertial is not None else None
+    if com is None or len(com) != 3 or not all(math.isfinite(x) for x in com):
+        raise ValueError('finite URDF COM required')
     result = Geometry(float(cylinder.get('radius')), float(cylinder.get('length')),
-                      sum(limits), xyz[2])
-    if not all(math.isfinite(x) and x > 0 for x in vars(result).values()):
+                      sum(limits), xyz[2], com)
+    if not all(math.isfinite(x) and x > 0 for x in (result.radius, result.height, result.max_opening, result.tool_offset)):
         raise ValueError('geometry dimensions must be finite and positive')
     return result
 
