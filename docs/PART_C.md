@@ -4,6 +4,29 @@ C 在 A 提供的可行候选中选择抓取 ID，并让同一套物理控制器
 A1、一次输出修复、几何回退、原始回答缓存、批量运行、恢复和汇总。所有输出仍为
 **pilot**：当前 A 为 `observable_primitives_v2`，使用共同固定目标与整个两秒保持区间逐步评分（`fixed_target_hold_v2`）；正式候选、评分及消融定义仍需全组冻结。旧 `bounded_ik_v1` 的目标/评分不同，旧验收数据保留在独立目录，不与本版混算。
 
+单次真实调用示例见 [`examples/llm_smoke.py`](../examples/llm_smoke.py)。它关闭缓存，
+打印原始模型回答和物理执行结果，并保存完整 trial；只有未缓存、未回退的模型回答
+加上物理成功才退出 0。已存在的输出路径会被拒绝，避免覆盖上一条真实请求。
+
+```bash
+source .venv/bin/activate
+python -m examples.llm_smoke --provider codex --model gpt-5.6-luna
+```
+
+该命令使用当前 ChatGPT CLI 登录。标准 API 版本为
+`python -m examples.llm_smoke --provider openai --model gpt-6-luna`，需要本地设置
+`OPENAI_API_KEY`。默认完整记录写入 `results/local/llm_live_smoke.json`，另可通过
+`--out` 指定新路径、`--task handover_prep` 更换任务。两种 provider 均使用相同 C/A 接口。
+
+2026-10-16，关闭缓存的 `gpt-5.6-luna`/Codex CLI 调用实测返回
+`{"selected_id":"G02","ranking":["G02","G03"]}`，live_requests=1、cache_hit=false、
+repair_attempts=0、fallback_to_geometry=false。新版 A 的倒水准备执行成功，位置误差
+0.0166469 m、方向误差 3.20883°，完整保持 2 秒，无碰撞或掉落。该样本仅证明链路
+可用。已有 seed 0 的 M3、A1 和几何参考都选 G02，因此现有记录不能证明 LLM 更优。
+
+C 的即时输出是给 A 的 `selected_id/ranking` 和审计 metadata；物理成功由 A 判定。
+C 的最终实验交付是第 7–8 节的 manifest、逐条 trial 和多方法统计 summary。
+
 ## 1. 安装与快速验证
 
 推荐 Python 3.11 或 3.12，在仓库根目录运行：
