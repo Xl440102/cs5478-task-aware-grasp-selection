@@ -1,0 +1,178 @@
+{
+  "success": false,
+  "failure_reason": "infeasible",
+  "dropped": false,
+  "collision": true,
+  "collision_types": [
+    "robot_table"
+  ],
+  "grasp_maintained": false,
+  "position_error_m": 0.14017333526526174,
+  "orientation_error_deg": 89.86280954050855,
+  "target_mug_pose": {
+    "position": [
+      0.55,
+      0.0,
+      0.785
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      -0.7071067690849304,
+      0.7071067690849304
+    ]
+  },
+  "final_mug_pose": {
+    "position": [
+      0.5546934413401866,
+      0.005151264677115628,
+      0.645
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      -0.0011972294795143629,
+      0.9999992833205299
+    ]
+  },
+  "trajectory": [],
+  "hold_steps": 0,
+  "hold_duration_s": 0.0,
+  "hold_pose_within_tolerance": false,
+  "evaluation_version": "fixed_target_hold_v2",
+  "controller_version": "observable_primitives_v2",
+  "seed": 6,
+  "task_id": "handover_prep",
+  "selected_id": "G02",
+  "feasibility": {
+    "candidate_id": "G02",
+    "feasible": false,
+    "reasons": [
+      "approach:robot_table"
+    ],
+    "pregrasp_position_error_m": 1.2608427625417029e-05,
+    "grasp_position_error_m": 8.579280787381798e-06,
+    "min_table_clearance_m": 0.004186167908200715,
+    "collision_details": [
+      {
+        "type": "robot_table",
+        "robot_link": "panda_link6",
+        "other_link": "-1",
+        "penetration_m": 0.001114,
+        "path": "approach",
+        "sample": 8
+      }
+    ]
+  },
+  "ik_diagnostics": [
+    {
+      "stage": "filter_pregrasp",
+      "target_pose": {
+        "position": [
+          0.4278849959373474,
+          -0.013356462121009827,
+          0.6491982936859131
+        ],
+        "quaternion": [
+          -0.02657865360379219,
+          0.7066070437431335,
+          0.02657865360379219,
+          0.7066071033477783
+        ]
+      },
+      "movable_dofs": 9,
+      "success": true,
+      "attempts": [
+        {
+          "method": "local",
+          "raw_joint_limit_violations": [],
+          "position_error_m": 1.2608427625417029e-05,
+          "orientation_error_deg": 0.015096151942628935,
+          "reason": "accepted"
+        }
+      ],
+      "solver": "local",
+      "joint_positions": [
+        1.018401702546115,
+        0.9806558851233402,
+        -0.5877286181230819,
+        -2.758026819772785,
+        -2.6169864596056502,
+        1.3870657603787113,
+        1.4485332450165793
+      ]
+    },
+    {
+      "stage": "filter_grasp",
+      "target_pose": {
+        "position": [
+          0.5475459098815918,
+          -0.004341742489486933,
+          0.6491982936859131
+        ],
+        "quaternion": [
+          -0.02657865360379219,
+          0.7066070437431335,
+          0.02657865360379219,
+          0.7066071033477783
+        ]
+      },
+      "movable_dofs": 9,
+      "success": true,
+      "attempts": [
+        {
+          "method": "local",
+          "raw_joint_limit_violations": [],
+          "position_error_m": 8.579280787381798e-06,
+          "orientation_error_deg": 0.032988769771869514,
+          "reason": "accepted"
+        }
+      ],
+      "solver": "local",
+      "joint_positions": [
+        0.9656640700196346,
+        1.0164698061856636,
+        -0.7176358157783262,
+        -2.457605050772379,
+        -2.7639775424888393,
+        1.6369510351596213,
+        1.4043161861162854
+      ]
+    }
+  ],
+  "primitive_log": [],
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.008,
+    "yaw_noise_deg": 5.0,
+    "noise_seed": 1006
+  },
+  "initial_object_pose_estimate": {
+    "position": [
+      0.5475459193057829,
+      -0.004341742462667082,
+      0.6371982795244653
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      0.03758789226412773,
+      0.999293327331543
+    ]
+  },
+  "policy_mode": "fixed",
+  "schema_version": "episode_v0.3"
+}

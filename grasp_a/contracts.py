@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import json
+import hashlib
 import math
 from pathlib import Path
 
@@ -71,6 +72,13 @@ def load_candidates(path: str | Path) -> list[Candidate]:
     if len(ids) != len(set(ids)):
         raise ValueError("duplicate candidate IDs")
     return candidates
+
+
+def candidate_sha256(candidates: list[Candidate]) -> str:
+    """Fingerprint the ordered full input, not only selector-visible labels."""
+    payload = json.dumps([asdict(c) for c in candidates], sort_keys=True,
+                         separators=(",", ":"), ensure_ascii=False, allow_nan=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def as_jsonable(obj):

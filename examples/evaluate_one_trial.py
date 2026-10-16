@@ -8,33 +8,31 @@ from __future__ import annotations
 import argparse
 from copy import deepcopy
 from dataclasses import asdict
-import hashlib
 import json
 from pathlib import Path
 import re
 from time import perf_counter
 from typing import Callable
 
-from grasp_a.contracts import Candidate, TASKS, load_candidates, validate_task_id
+from grasp_a.contracts import Candidate, TASKS, candidate_sha256, load_candidates, validate_task_id
+from grasp_a.control import ObservationConfig
 from grasp_a.simulation import CONTROLLER_VERSION, get_feasible_candidates, run_episode
 
 ROOT = Path(__file__).resolve().parents[1]
 Selector = Callable[[str, list[dict], int], str | dict]
 
 
-def candidate_sha256(candidates: list[Candidate]) -> str:
-    """Hash the ordered full candidate snapshot, including execution poses."""
-    payload = json.dumps([asdict(c) for c in candidates], sort_keys=True,
-                         separators=(",", ":"), ensure_ascii=False, allow_nan=False)
-    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
-
-
-def _check_filter(filtered: dict, seed: int, candidates: list[Candidate]) -> None:
+def _check_filter(filtered: dict, seed: int, candidates: list[Candidate],
+                  observation_config: ObservationConfig) -> None:
     expected = {c.id: c.public_metadata() for c in candidates}
     checks = filtered["checks"]
     public = filtered["feasible_candidates"]
     if filtered["seed"] != seed or filtered["controller_version"] != CONTROLLER_VERSION:
         raise ValueError("filter seed/controller does not match this trial")
+    if (filtered.get("candidate_sha256") != candidate_sha256(candidates) or
+            json.dumps(filtered.get("observation_config"), sort_keys=True) !=
+            json.dumps(asdict(observation_config), sort_keys=True)):
+        raise ValueError("filter candidate fingerprint/observation config does not match this trial")
     if len(checks) != len(expected) or {c["candidate_id"] for c in checks} != set(expected):
         raise ValueError("filter checks do not match the supplied candidate IDs")
     allowed = {c["candidate_id"] for c in checks if c["feasible"]}
@@ -76,8 +74,9 @@ def evaluate_trial(
     *,
     filtered: dict | None = None,
     media_dir: str | Path | None = None,
+    observation_config: ObservationConfig | None = None,
 ) -> dict:
-    """Wrap one selection/execution in the evaluation_trial_v0.1 record.
+    """Wrap one selection/execution in the evaluation_trial_v0.2 record.
 
     A supplied filter must be freshly obtained from the exact same candidate
     poses, seed, controller, and scene. Public metadata cannot prove pose equality.
@@ -90,15 +89,17 @@ def evaluate_trial(
         raise ValueError("method_id must contain only letters, digits, underscores, or hyphens")
     if len({c.id for c in candidates}) != len(candidates):
         raise ValueError("duplicate candidate IDs")
+    config = observation_config or ObservationConfig()
     if filtered is None:
-        filtered = get_feasible_candidates(seed, candidates)
-    _check_filter(filtered, seed, candidates)
+        filtered = get_feasible_candidates(seed, candidates, observation_config=config)
+    _check_filter(filtered, seed, candidates, config)
     record = {
-        "schema_version": "evaluation_trial_v0.1",
+        "schema_version": "evaluation_trial_v0.2",
         "evaluation_scope": "pilot",
         "controller_version": CONTROLLER_VERSION,
         "method_id": method_id, "task_id": task_id, "seed": seed,
         "candidate_sha256": candidate_sha256(candidates),
+        "observation_config": asdict(config),
         "status": "no_feasible_candidate",
         "selected_id": None,
         "selection": None,
@@ -132,12 +133,14 @@ def evaluate_trial(
         output = (Path(media_dir) / method_id / f"{task_id}_seed{seed}"
                   if media_dir is not None else None)
         episode = run_episode(task_id, seed, record["selected_id"], candidates,
-                              gui=False, media_dir=output)
+                              gui=False, media_dir=output, observation_config=config)
         record["episode"] = episode
         if (episode["seed"] != seed or episode["task_id"] != task_id
                 or episode["selected_id"] != record["selected_id"]
                 or episode["controller_version"] != CONTROLLER_VERSION
-                or not episode["feasibility"]["feasible"]):
+                or not episode["feasibility"]["feasible"]
+                or json.dumps(episode["observation_config"], sort_keys=True) !=
+                json.dumps(asdict(config), sort_keys=True)):
             raise ValueError("execution result disagrees with trial identity or feasibility")
         record["status"] = "completed"
     except Exception as exc:

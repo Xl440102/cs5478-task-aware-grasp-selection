@@ -1,0 +1,92 @@
+{
+  "controller_version": "observable_primitives_v2",
+  "seed": 6,
+  "candidate_sha256": "c722e094d4ea4dea047944fc61b428686def498b16e69b652753a8a01235375e",
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.008,
+    "yaw_noise_deg": 5.0,
+    "noise_seed": 1006
+  },
+  "initial_object_pose_estimate": {
+    "position": [
+      0.5475459193057829,
+      -0.004341742462667082,
+      0.6371982795244653
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      0.03758789226412773,
+      0.999293327331543
+    ]
+  },
+  "status": "ok",
+  "feasible_candidates": [
+    {
+      "id": "G03",
+      "region": "body",
+      "approach": "from_robot_side",
+      "gripper_width": 0.078,
+      "geometry_score": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "G02",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 1.2608427625417029e-05,
+      "grasp_position_error_m": 8.579280787381798e-06,
+      "min_table_clearance_m": 0.004186167908200715,
+      "collision_details": [
+        {
+          "type": "robot_table",
+          "robot_link": "panda_link6",
+          "other_link": "-1",
+          "penetration_m": 0.001114,
+          "path": "approach",
+          "sample": 8
+        }
+      ]
+    },
+    {
+      "candidate_id": "G03",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.997540892375997e-06,
+      "grasp_position_error_m": 8.77225601779019e-06,
+      "min_table_clearance_m": 0.0021325804224191242,
+      "collision_details": []
+    }
+  ],
+  "selection_space": {
+    "feasible_count": 1,
+    "regions": [
+      "body"
+    ],
+    "approaches": [
+      "from_robot_side"
+    ],
+    "warnings": [
+      "task_diversity_not_validated",
+      "fewer_than_two_feasible_candidates",
+      "single_or_no_semantic_region"
+    ]
+  }
+}
