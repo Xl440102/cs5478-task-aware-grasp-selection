@@ -56,7 +56,10 @@ class SelectorTests(unittest.TestCase):
         self.assertEqual(result["ranking"], ["G02", "G01"])
         metadata = result["metadata"]
         self.assertEqual(metadata["repair_attempts"], 0)
+        self.assertFalse(metadata["fallback_to_geometry"])
         self.assertFalse(metadata["fallback_to_m1"])
+        self.assertEqual(metadata["fallback_to_m1_semantics"],
+                         "legacy_alias_for_fallback_to_geometry_not_official_b_m1")
         self.assertEqual(metadata["raw_initial_response"], VALID)
         self.assertEqual(metadata["calls"][0]["request_id"], "fake-1")
         self.assertEqual(metadata["calls"][0]["validation"], {"valid": True, "errors": []})
@@ -92,11 +95,34 @@ class SelectorTests(unittest.TestCase):
         self.assertEqual(len(provider.requests), 2)
         metadata = result["metadata"]
         self.assertEqual(metadata["repair_attempts"], 1)
+        self.assertTrue(metadata["fallback_to_geometry"])
         self.assertTrue(metadata["fallback_to_m1"])
+        self.assertEqual(metadata["fallback_method"], "geometry_reference")
+        self.assertEqual(metadata["score_scope"], "pilot_input")
         self.assertEqual(metadata["fallback_count"], 1)
         self.assertEqual(metadata["fallback_reason"], "invalid_model_output")
         self.assertEqual(metadata["raw_initial_response"], "not JSON")
         self.assertFalse(metadata["calls"][1]["validation"]["valid"])
+
+    def test_repair_prompt_excludes_independent_labels_and_execution_diagnostics(self):
+        public = deepcopy(PUBLIC)
+        for item in public:
+            item.update(acceptable_sets={"pour_prep": ["private_oracle_id"]},
+                        task_suitability="private_task_label",
+                        selection_space={"warnings": ["private_audit_warning"]},
+                        episode={"success": True, "target": "private_pose"})
+        provider = FakeProvider("invalid JSON", VALID)
+        self.select(provider, public=public)
+        self.assertEqual(len(provider.requests), 2)
+        for request in provider.requests:
+            initial_payload = json.loads(request.messages[1]["content"])
+            for item in initial_payload["candidates"]:
+                self.assertEqual(set(item), set(PUBLIC_FIELDS))
+            prompt = json.dumps(request.messages)
+            for private_value in ("acceptable_sets", "private_oracle_id", "task_suitability",
+                                  "private_task_label", "selection_space", "private_audit_warning",
+                                  "episode", "private_pose"):
+                self.assertNotIn(private_value, prompt)
 
     def test_strict_json_and_complete_permutation_validation(self):
         invalid = [
@@ -176,6 +202,12 @@ class SelectorTests(unittest.TestCase):
         self.assertEqual(geometry_selector("pour_prep", public, 0)["selected_id"], "G01")
         self.assertEqual(random_selector("pour_prep", public, 42),
                          random_selector("pour_prep", public, 42))
+
+    def test_geometry_reference_does_not_claim_the_unimplemented_b_baseline(self):
+        metadata = geometry_selector("pour_prep", PUBLIC, 0)["metadata"]
+        self.assertEqual(metadata["method_id"], "reference_geometry")
+        self.assertEqual(metadata["fallback_method"], "geometry_reference")
+        self.assertEqual(metadata["score_scope"], "pilot_input")
 
     def test_invalid_input_or_configuration_never_calls_provider(self):
         provider = FakeProvider()

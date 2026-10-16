@@ -1,5 +1,6 @@
 """C evaluation regressions: no paid calls or physical simulation required."""
 from copy import deepcopy
+from dataclasses import asdict
 import hashlib
 import json
 from pathlib import Path
@@ -9,7 +10,8 @@ import types
 import unittest
 from unittest.mock import Mock, patch
 
-from grasp_c.config import load_config
+from grasp_a.contracts import candidate_sha256
+from grasp_c.config import load_config, load_observation_config
 from grasp_c.metrics import summarize_records
 from grasp_c import runner
 from grasp_c.providers import ProviderConfigurationError
@@ -43,6 +45,29 @@ class ConfigTests(EvaluationFixture, unittest.TestCase):
         self.assertEqual(validated["candidates"], str(self.base / "candidates.json"))
         self.assertEqual(validated["methods"][0]["variant"], "M3")
         self.assertEqual(validated["methods"][0]["cache_mode"], "read_write")
+        self.assertEqual(validated["policy_mode"], "fixed")
+        self.assertEqual(validated["observation_config"]["source"], "calibrated_prior")
+
+    def test_observation_configuration_is_normalized_offline(self):
+        self.config["observation_config"] = {"source": "external_estimate",
+            "object_pose": {"position": [.55, 0, .645], "quaternion": [0, 0, 0, 1.005]},
+            "position_noise_m": .003, "yaw_noise_deg": 2, "noise_seed": 1000}
+        config = self.load()
+        self.assertEqual(config["observation_config"]["object_pose"]["quaternion"], [0, 0, 0, 1])
+        self.assertEqual(config["observation_config"]["noise_seed"], 1000)
+        self.assertEqual(config["observation_config"], json.loads(json.dumps(asdict(
+            load_observation_config(config["observation_config"])))))
+
+    def test_bad_observations_and_incremental_policy_are_rejected(self):
+        for values in ({"source": "oracle"}, {"noise_seed": True}, {"position_noise_m": True},
+                       {"position_noise_m": -1}, {"yaw_noise_deg": float("inf")}, {"unexpected": 1},
+                       {"object_pose": {"position": [0, 0], "quaternion": [0, 0, 0, 1]}},
+                       {"object_pose": {"position": [0, 0, 0], "quaternion": [0, 0, 0, 0]}},
+                       {"object_pose": {"position": [True, 0, 0], "quaternion": [0, 0, 0, 1]}}):
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                self.load(dict(self.config, observation_config=values))
+        with self.assertRaisesRegex(ValueError, "ID-only"):
+            self.load(dict(self.config, policy_mode="incremental"))
 
     def test_bad_protocol_and_literal_keys_are_rejected_offline(self):
         cases = []
@@ -172,7 +197,7 @@ class RunnerTests(EvaluationFixture, unittest.TestCase):
         self.filtered = {"status": "ok", "feasible_candidates": [
             {"id": "G02", "region": "body", "approach": "side", "gripper_width": 0.078,
              "geometry_score": 0.66}], "checks": []}
-        self.filter = Mock(side_effect=lambda seed, candidates: dict(deepcopy(self.filtered), seed=seed))
+        self.filter = Mock(side_effect=self.fake_filter)
         self.evaluate = Mock(side_effect=self.fake_evaluate)
         simulation = types.ModuleType("grasp_a.simulation")
         simulation.get_feasible_candidates = self.filter
@@ -189,21 +214,34 @@ class RunnerTests(EvaluationFixture, unittest.TestCase):
         self.addCleanup(self.provenance.stop)
 
     def fake_provenance(self, config, providers, *, media, out_dir):
-        return {"schema_version": "grasp_c_run_v1", "configuration": config,
+        return {"schema_version": runner.RUN_SCHEMA, "configuration": config,
                 "plan": runner.trial_plan(config), "evaluation_scope": "pilot",
                 "controller_version": "test-controller", "run_options": {"media": media},
-                "candidate_sha256": hashlib.sha256(Path(config["candidates"]).read_bytes()).hexdigest(),
+                "evaluation_version": runner.EVALUATION_VERSION, "policy_mode": "fixed",
+                "observation_config": config["observation_config"],
+                "candidate_sha256": candidate_sha256(runner.load_candidates(config["candidates"])),
+                "candidate_file_sha256": hashlib.sha256(Path(config["candidates"]).read_bytes()).hexdigest(),
                 "acceptable_sets_canonical_sha256":
                     runner._sha(json.loads(Path(config["acceptable_sets"]).read_text()))
                     if config.get("acceptable_sets") else None}
 
-    def fake_evaluate(self, task, seed, method, candidates, selector, *, filtered, media_dir):
+    def fake_filter(self, seed, candidates, *, observation_config):
+        return dict(deepcopy(self.filtered), seed=seed, controller_version="test-controller",
+                    candidate_sha256=candidate_sha256(candidates),
+                    observation_config=asdict(observation_config))
+
+    def fake_evaluate(self, task, seed, method, candidates, selector, *, filtered, media_dir,
+                      observation_config):
         raw = selector(task, deepcopy(filtered["feasible_candidates"]), seed)
         selected = raw if isinstance(raw, str) else raw["selected_id"]
         record = MetricsTests().record(method=method, seed=seed)
-        record.update(task_id=task, controller_version="test-controller", filter=deepcopy(filtered),
-                      candidate_sha256=hashlib.sha256((self.base / "candidates.json").read_bytes()).hexdigest(),
-                      selected_id=selected, error=None)
+        record.update(schema_version=runner.TRIAL_SCHEMA, task_id=task,
+                      controller_version="test-controller", filter=deepcopy(filtered),
+                      candidate_sha256=candidate_sha256(candidates),
+                      observation_config=asdict(observation_config), selected_id=selected, error=None)
+        record["episode"].update(schema_version=runner.EPISODE_SCHEMA,
+                                 controller_version="test-controller", evaluation_version=runner.EVALUATION_VERSION,
+                                 policy_mode="fixed", observation_config=asdict(observation_config))
         return record
 
     def run_config(self, **kwargs):
@@ -228,7 +266,7 @@ class RunnerTests(EvaluationFixture, unittest.TestCase):
         self.evaluate.assert_not_called()
         self.run_config(resume=True)
         self.assertEqual(self.filter.call_count, 2)
-        self.filter.side_effect = lambda seed, candidates: dict(deepcopy(self.filtered), seed=seed)
+        self.filter.side_effect = self.fake_filter
         retried = self.run_config(resume=True, retry_errors=True)
         self.assertEqual(self.filter.call_count, 4)
         self.assertEqual(self.evaluate.call_count, 16)
@@ -246,6 +284,61 @@ class RunnerTests(EvaluationFixture, unittest.TestCase):
             handle.write("\n")
         with self.assertRaisesRegex(ValueError, "resume refused"):
             self.run_config(resume=True)
+
+    def test_same_observation_instance_is_shared_and_changed_noise_cannot_resume(self):
+        self.config["observation_config"] = {"position_noise_m": .003, "yaw_noise_deg": 2,
+            "noise_seed": 1000, "source": "external_estimate",
+            "object_pose": {"position": [.55, 0, .645],
+                            "quaternion": [-.016128291811177944, .7518085506781914,
+                                           .19364814031913513, -.6300985471189021]}}
+        self.run_config()
+        first = self.filter.call_args_list[0].kwargs["observation_config"]
+        self.assertIs(self.filter.call_args_list[1].kwargs["observation_config"], first)
+        self.assertTrue(all(call.kwargs["observation_config"] is first
+                            for call in self.evaluate.call_args_list))
+        manifest = json.loads((self.out / "manifest.json").read_text())
+        self.assertEqual(manifest["observation_config"], json.loads(json.dumps(asdict(first))))
+        self.config["observation_config"]["noise_seed"] += 1
+        with self.assertRaisesRegex(ValueError, "resume refused"):
+            self.run_config(resume=True)
+
+    def test_completed_resume_and_summary_reject_tampered_shared_filters(self):
+        self.run_config()
+        path = self.out / "filters" / "seed0.json"
+        saved = json.loads(path.read_text())
+        for payload, field, value in ((False, "schema_version", "old"),
+                                       (False, "seed", 99), (False, "controller_version", "old"),
+                                       (False, "candidate_sha256", "stale"),
+                                       (False, "observation_config", {}),
+                                       (True, "seed", 99), (True, "controller_version", "old"),
+                                       (True, "candidate_sha256", "stale"),
+                                       (True, "observation_config", {})):
+            altered = deepcopy(saved)
+            (altered["filter"] if payload else altered)[field] = value
+            runner.atomic_json(path, altered)
+            with self.subTest(payload=payload, field=field):
+                with self.assertRaisesRegex(ValueError, "saved filter"):
+                    self.run_config(resume=True)
+                with self.assertRaisesRegex(ValueError, "saved filter"):
+                    runner.summarize_run(self.out)
+        runner.atomic_json(path, saved)
+        self.filter.reset_mock()
+        self.evaluate.reset_mock()
+        self.run_config(resume=True)
+        self.filter.assert_not_called()
+        self.evaluate.assert_not_called()
+
+    def test_incremental_or_stale_scoring_episode_is_an_execution_error(self):
+        original = self.evaluate.side_effect
+        for field, value in (("policy_mode", "incremental"), ("evaluation_version", "last_frame")):
+            def incompatible(*args, **kwargs):
+                record = original(*args, **kwargs)
+                record["episode"][field] = value
+                return record
+            self.evaluate.side_effect = incompatible
+            self.out = self.base / field
+            summary = self.run_config()
+            self.assertEqual(summary["methods"]["SMOKE"]["pour_prep"]["status_counts"]["execution_error"], 4)
 
     def test_preflight_fails_before_any_filter_or_evaluation(self):
         self.config["methods"] = [{"id": "BAD", "kind": "llm", "model": "example-model",
@@ -278,10 +371,11 @@ class RunnerTests(EvaluationFixture, unittest.TestCase):
     def test_read_only_replay_skips_authentication_preflight(self):
         self.config["methods"] = [{"id": "OFFLINE", "kind": "llm", "model": "example-model",
                                     "cache_mode": "read_only", "provider": {"type": "openai"}}]
-        def fake_replay(task, seed, method, candidates, selector, *, filtered, media_dir):
+        def fake_replay(task, seed, method, candidates, selector, *, filtered, media_dir, observation_config):
             # Selector/cache behavior is covered independently; exercise runner authentication policy.
             return self.fake_evaluate(task, seed, method, candidates,
-                                      lambda *args: "G02", filtered=filtered, media_dir=media_dir)
+                                      lambda *args: "G02", filtered=filtered, media_dir=media_dir,
+                                      observation_config=observation_config)
         self.evaluate.side_effect = fake_replay
         with patch("grasp_c.providers.OpenAIProvider.preflight", side_effect=AssertionError("unexpected preflight")):
             self.run_config()

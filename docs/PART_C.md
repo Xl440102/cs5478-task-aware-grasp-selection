@@ -2,7 +2,7 @@
 
 C 在 A 提供的可行候选中选择抓取 ID，并让同一套物理控制器执行。现在包含 M3、
 A1、一次输出修复、几何回退、原始回答缓存、批量运行、恢复和汇总。所有输出仍为
-**pilot**：A 的任务目标随实际抓取变化，保持成功由最后一帧判断，候选和评分也未正式冻结。
+**pilot**：当前 A 为 `observable_primitives_v2`，使用共同固定目标与整个两秒保持区间逐步评分（`fixed_target_hold_v2`）；正式候选、评分及消融定义仍需全组冻结。旧 `bounded_ik_v1` 的目标/评分不同，旧验收数据保留在独立目录，不与本版混算。
 
 ## 1. 安装与快速验证
 
@@ -153,7 +153,7 @@ LLM 只收到 `id/region/approach/gripper_width/geometry_score`。位姿、筛�
 
 输出必须严格为 `{"selected_id": "G02", "ranking": ["G02", "G03"]}`：ranking 是
 当前所有可行 ID 的完整排列，首项等于 selected_id。非法 JSON、ID 或排名只修复一次；
-仍无效则按 M1 几何规则回退。超时、限流、拒绝或截断单独记原因并回退；鉴权、
+仍无效则按几何参考规则回退。`fallback_to_geometry` 是当前主字段；`fallback_to_m1` 只保留为旧日志兼容别名，不能据此声称执行了 B 的正式 M1。超时、限流、拒绝或截断单独记原因并回退；鉴权、
 模型访问、配置及缓存损坏不当成一次成功的 LLM 回答。SDK 的网络重试与这一次格式修复
 分开，SDK 重试上限由 `provider.max_retries` 配置。
 
@@ -187,7 +187,7 @@ python -m grasp_c summarize results/local/my_run
 
 | 输出 | 内容 |
 |---|---|
-| manifest.json | 配置、候选/源码/资产哈希、Git 状态、包版本、provider、计划、seed 划分 |
+| manifest.json | 配置、候选/源码/资产哈希、Git 状态、包版本、provider、评分版本、观测配置、固定策略模式、计划、seed 划分 |
 | filters/seedN.json | 每个 seed 共享的完整筛选或筛选异常 |
 | trials/METHOD/TASK/seedN_repeatR.json | 完整 filter、selection、episode、repeat、原始回答和异常 |
 | summary.json | 各方法/任务统计、配对比较、分母与排除数 |
@@ -215,4 +215,40 @@ summary 区分 completed、空候选、筛选异常、选择异常、非法选�
 
 这是文件结构示意，不是任务真值。标签必须独立冻结；代码不会从物理成功反推标签，
 也不会把标签加入 prompt。当前候选少且两个任务上都较容易成功，结果主要用于接口
-验收；正式选择器收益仍需 B 补齐有任务区分度的候选并升级 A 的共同目标/保持判定。
+验收；正式选择器收益仍需 B 补齐有任务区分度的候选并冻结评分与独立标签。A 的共同固定目标与完整保持判定已接入本版。
+
+
+## 9. 与 A/B 主分支对齐
+
+本次已同步 `main` 的 `5ae48d2`。仓库实际默认分支是 `main`，不存在 `master`。
+C 的主实验只选择抓取 ID，所有方法共用 A 的 `policy_mode=fixed`；新增的逐步
+primitive 控制属于另一条实验轨道，当前批量配置会拒绝混入 incremental 模式。
+
+每个配置都显式记录 `observation_config`，同一份规范化配置用于筛选、任务执行
+及 manifest。可测试观测估计误差或接入外部估计位姿，例如：
+
+```json
+{
+  "policy_mode": "fixed",
+  "observation_config": {
+    "object_pose": {"position": [0.55, 0.0, 0.645], "quaternion": [0.0, 0.0, 0.0, 1.0]},
+    "source": "calibrated_prior",
+    "position_noise_m": 0.003,
+    "yaw_noise_deg": 2.0,
+    "noise_seed": 1000
+  }
+}
+```
+
+`object_pose` 是标定先验或外部估计，不从仿真真实杯子位姿取得；noise_seed 仅控制
+估计扰动，与环境 seed、LLM 的 sample_id 分开。观测配置、评分版本或策略模式不同
+时不能作配对比较；恢复运行也会拒绝配置变化或不匹配的筛选缓存。
+
+```bash
+python -m grasp_c run --config configs/c.mock.noisy.json --out results/local/c_mock_noisy
+```
+
+主分支目前仍只有 G01/G02/G03 pilot 候选，没有 B 的正式模块、M0/M1/M2 或独立
+任务真值。当前五字段公开候选、选择器函数签名和 acceptable_sets 标签接口均与
+A/B/C 共享协议一致；GEOMETRY_REFERENCE 及其回退仍明确使用 pilot 输入分数。
+待 B 提交正式选择器后应直接使用其实现，不能把本地参考算法重命名成 B 的实验结果。

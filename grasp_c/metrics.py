@@ -6,6 +6,8 @@ from itertools import combinations
 import math
 from statistics import mean
 
+from .cache import canonical_json
+
 
 def _ratio(numerator: int, denominator: int) -> float | None:
     return numerator / denominator if denominator else None
@@ -29,6 +31,58 @@ def _oracle_ids(acceptable_sets: dict | None, task: str, seed: int) -> list[str]
     return values
 
 
+def _fallback_flag(metadata: dict) -> bool | None:
+    """Prefer the geometry name; old logs used the provisional M1 alias."""
+    return metadata.get("fallback_to_geometry", metadata.get("fallback_to_m1"))
+
+
+def _execution_protocol(record: dict) -> dict:
+    """Keep missing historical version fields missing instead of relabeling them."""
+    episode = record.get("episode") or {}
+    return {
+        "controller_version": record.get("controller_version", episode.get("controller_version")),
+        "evaluation_version": episode.get("evaluation_version", record.get("evaluation_version")),
+        "policy_mode": episode.get("policy_mode", record.get("policy_mode")),
+    }
+
+
+def _execution_protocols(records: list[dict]) -> list[dict]:
+    protocols = {}
+    for record in records:
+        if record.get("status") != "completed":
+            continue
+        protocol = _execution_protocol(record)
+        key = canonical_json(protocol)
+        if key not in protocols:
+            protocols[key] = dict(protocol, completed_n=0)
+        protocols[key]["completed_n"] += 1
+    return [protocols[key] for key in sorted(protocols)]
+
+
+def _pairing_context(record: dict) -> str:
+    episode = record.get("episode") or {}
+    return canonical_json({
+        **_execution_protocol(record),
+        "observation_config": record.get("observation_config", episode.get("observation_config")),
+        "trial_schema_version": record.get("schema_version"),
+        "episode_schema_version": episode.get("schema_version"),
+    })
+
+
+def _scoring_notes(protocols: list[dict]) -> list[str]:
+    notes = []
+    if any(p["evaluation_version"] == "fixed_target_hold_v2" for p in protocols):
+        notes.append("fixed_target_hold_v2 uses shared fixed world targets and checks the full two-second hold.")
+    if any(p["controller_version"] == "bounded_ik_v1" and p["evaluation_version"] is None
+           for p in protocols):
+        notes.append("Unversioned bounded_ik_v1 records retain their legacy candidate-dependent targets and terminal-frame holding semantics.")
+    if any(p["evaluation_version"] not in ("fixed_target_hold_v2",) for p in protocols):
+        notes.append("Missing or other evaluator versions are preserved as recorded and are not relabeled fixed_target_hold_v2.")
+    if len(protocols) > 1:
+        notes.append("Multiple execution protocols are present; aggregate physical rates span these protocols, and paired comparisons require matching protocols.")
+    return notes
+
+
 def _group_summary(records: list[dict], planned: list[dict], acceptable_sets: dict | None) -> dict:
     completed = [r for r in records if r["status"] == "completed"]
     selections = [r for r in records if r.get("selected_id") is not None]
@@ -50,7 +104,7 @@ def _group_summary(records: list[dict], planned: list[dict], acceptable_sets: di
     initial_calls = [call for call in calls if call.get("phase") == "initial"]
     initial_valid = sum((call.get("validation") or {}).get("valid") is True for call in initial_calls)
     initial_checked = sum(call.get("validation") is not None for call in initial_calls)
-    model_usable = sum(m.get("fallback_to_m1", m.get("fallback_to_geometry")) is False for m in llm_metadata)
+    model_usable = sum(_fallback_flag(m) is False for m in llm_metadata)
     call_outcomes = Counter()
     for call in calls:
         error = call.get("error")
@@ -111,6 +165,7 @@ def _group_summary(records: list[dict], planned: list[dict], acceptable_sets: di
         "planned_n": len(planned), "saved_n": len(records),
         "status_counts": dict(sorted(statuses.items())),
         "completed_n": len(completed), "success_n": success_n,
+        "execution_protocols": _execution_protocols(records),
         "conditional_success_rate": _ratio(success_n, len(completed)),
         "completed_coverage": _ratio(len(completed), len(planned)),
         "success_coverage": _ratio(success_n, len(planned)),
@@ -143,10 +198,8 @@ def _group_summary(records: list[dict], planned: list[dict], acceptable_sets: di
             "repair_trial_n": sum(m.get("repair_attempts", 0) > 0 for m in llm_metadata),
             "repair_attempt_n": sum(m.get("repair_attempts", 0) for m in llm_metadata),
             "repair_rate": _ratio(sum(m.get("repair_attempts", 0) > 0 for m in llm_metadata), len(llm_metadata)),
-            "fallback_trial_n": sum(bool(m.get("fallback_to_geometry", m.get("fallback_to_m1", False)))
-                                    for m in llm_metadata),
-            "fallback_rate": _ratio(sum(bool(m.get("fallback_to_geometry", m.get("fallback_to_m1", False)))
-                                        for m in llm_metadata), len(llm_metadata)),
+            "fallback_trial_n": sum(_fallback_flag(m) is True for m in llm_metadata),
+            "fallback_rate": _ratio(sum(_fallback_flag(m) is True for m in llm_metadata), len(llm_metadata)),
             "usage_record_n": usage_records, "token_usage": dict(tokens) if usage_records else None,
             "live_usage_record_n": live_usage_records,
             "live_token_usage": dict(live_tokens) if live_usage_records else None,
@@ -197,6 +250,7 @@ def summarize_records(records: list[dict], planned: list[dict], *,
             for key in sorted(a.keys() & b.keys()):
                 same = all(a[key].get(field) is not None and a[key].get(field) == b[key].get(field)
                            for field in ("candidate_sha256", "controller_version", "manifest_sha256"))
+                same = same and _pairing_context(a[key]) == _pairing_context(b[key])
                 if same:
                     joint.append((a[key], b[key]))
                 else:
@@ -226,14 +280,16 @@ def summarize_records(records: list[dict], planned: list[dict], *,
                               _ratio(left_wins - right_wins, len(joint)),
                           "selected_id_agreement_rate": _ratio(
                               sum(x["selected_id"] == y["selected_id"] for x, y in joint), len(joint))})
+    protocols = _execution_protocols(records)
     return {"schema_version": "grasp_c_summary_v1", "evaluation_scope": "pilot",
             "planned_n": len(planned), "saved_n": len(records),
+            "execution_protocols": protocols,
             "methods": output, "paired_comparisons": pairs,
             "notes": ["Physical rates use completed episodes only; errors are separate statuses.",
                       "Method metrics describe the current final trial records; archived retries are accounted separately.",
                       "Valid selections include geometry fallbacks; model output validity is reported separately.",
                       "token_usage includes cached generations; live_token_usage counts current uncached calls only.",
                       "Missing pose errors remain null and are excluded from numeric means.",
-                      "dropped/grasp_maintained are controller flags, not full-trajectory event sensors.",
+                      "Physical flags follow the recorded evaluator version; unobserved events are not inferred.",
                       "An acceptable-set metric is null unless independently supplied ground truth exists.",
-                      "Current controller uses candidate-dependent pilot targets and last-frame holding checks."]}
+                      "Paired trials require matching observation configurations, controller/evaluator versions, policy modes and schemas."] + _scoring_notes(protocols)}

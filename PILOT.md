@@ -23,10 +23,14 @@ G02，在 `results\local\visuals\handover_prep_seed0_G02.mp4` 保存抓取视频
 `candidates.pilot.json` 另存了一条 G03 杯身抓取用于校准，其
 `geometry_score: 0.0` 只是接口占位值，不能用于正式 M1 排名。
 
-2026-10-15 的 `bounded_ik_v1` 修复了抬升与倒水动作的 IK 越限。G02/G03
-在 seed 0–9 的两个任务中均为 10/10 成功，见
-[回归汇总](results/ik_fix_20261015/summary.json)。要录制倒水视频：
+当前版本为 2026-10-16 的 `observable_primitives_v2`：不用运行时物体真值来决策，
+采用初始位姿估计、固定任务目标和全过程两秒保持评分。
+G02/G03、seed 0–9、两个任务的新版回归为 33/40；旧版40/40不能沿用。
+见 [新版回归](results/observable_v2_20261016/summary.json)。seed 0 的 G02 可录制倒水视频：
 
 ```bat
 python -m grasp_a run --task pour_prep --seed 0 --id G02 --visualize --media-dir results\local\visuals --out results\local\G02_pour_seed0.json
 ```
+
+位姿误差测试和逐步控制示例见 [README](README.md) 与 [接口定义](docs/EVALUATION_INTERFACE.md)。
+本项目没有真实视觉估计，候选标签仍是人工标注，不能将演示解释为真机部署验证。

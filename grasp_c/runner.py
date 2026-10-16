@@ -17,12 +17,17 @@ import tempfile
 from typing import Callable
 from uuid import uuid4
 
-from grasp_a.contracts import load_candidates
-from .config import load_acceptable_sets, load_config
+from grasp_a.contracts import candidate_sha256, load_candidates
+from .config import load_acceptable_sets, load_config, load_observation_config
 from .metrics import summarize_records, trial_identity
 
 ROOT = Path(__file__).resolve().parents[1]
 ERROR_STATUSES = {"filter_error", "selector_error", "invalid_selection", "execution_error"}
+RUN_SCHEMA = "grasp_c_run_v2"
+FILTER_SCHEMA = "grasp_c_filter_v2"
+TRIAL_SCHEMA = "evaluation_trial_v0.2"
+EPISODE_SCHEMA = "episode_v0.3"
+EVALUATION_VERSION = "fixed_target_hold_v2"
 
 
 def _canonical(value) -> bytes:
@@ -126,10 +131,12 @@ def build_provenance(config: dict, providers: dict, *, media: bool, out_dir: Pat
         if name:
             versions[name] = dist.version
     return {
-        "schema_version": "grasp_c_run_v1", "configuration": config,
+        "schema_version": RUN_SCHEMA, "configuration": config,
         "configuration_sha256": _sha(config), "evaluation_scope": "pilot",
         "controller_version": CONTROLLER_VERSION,
-        "candidate_sha256": _sha([asdict(c) for c in candidates]),
+        "evaluation_version": EVALUATION_VERSION, "policy_mode": config["policy_mode"],
+        "observation_config": config["observation_config"],
+        "candidate_sha256": candidate_sha256(candidates),
         "candidate_file_sha256": hashlib.sha256(candidate_file.read_bytes()).hexdigest(),
         "acceptable_sets_sha256": (hashlib.sha256(Path(config["acceptable_sets"]).read_bytes()).hexdigest()
                                    if config.get("acceptable_sets") else None),
@@ -167,6 +174,48 @@ def _check_manifest(manifest: dict) -> None:
         raise ValueError("manifest contents do not match its fingerprint")
 
 
+def _check_saved_filter(saved: dict, manifest: dict, seed: int) -> None:
+    """Check the full shared condition even when all trials already completed."""
+    expected = {"schema_version": FILTER_SCHEMA, "manifest_sha256": manifest["manifest_sha256"],
+                "seed": seed, "controller_version": manifest["controller_version"],
+                "candidate_sha256": manifest["candidate_sha256"],
+                "evaluation_version": manifest["evaluation_version"], "policy_mode": manifest["policy_mode"],
+                "observation_config": manifest["observation_config"]}
+    for field, value in expected.items():
+        if _canonical(saved.get(field)) != _canonical(value):
+            raise ValueError(f"saved filter {field} mismatch")
+    status = saved.get("status")
+    if status == "filter_error":
+        if saved.get("filter") is not None or not isinstance(saved.get("error"), dict):
+            raise ValueError("saved filter error record is invalid")
+        return
+    filtered = saved.get("filter")
+    if status not in {"ok", "no_feasible_candidate"} or not isinstance(filtered, dict):
+        raise ValueError("saved filter status is invalid")
+    for field in ("seed", "controller_version", "candidate_sha256", "observation_config"):
+        if _canonical(filtered.get(field)) != _canonical(expected[field]):
+            raise ValueError(f"saved filter payload {field} mismatch")
+    public = filtered.get("feasible_candidates")
+    if (filtered.get("status") != status or not isinstance(public, list) or
+            (status == "ok") != bool(public) or saved.get("error") is not None):
+        raise ValueError("saved filter payload status is inconsistent")
+
+
+def _check_trial_protocol(record: dict, manifest: dict, path: Path) -> None:
+    if record.get("schema_version") != TRIAL_SCHEMA:
+        raise ValueError(f"saved trial schema mismatch: {path}")
+    for field in ("evaluation_version", "policy_mode", "observation_config"):
+        if _canonical(record.get(field)) != _canonical(manifest[field]):
+            raise ValueError(f"saved trial {field} mismatch: {path}")
+    episode = record.get("episode")
+    if record.get("status") == "completed":
+        if not isinstance(episode, dict) or episode.get("schema_version") != EPISODE_SCHEMA:
+            raise ValueError(f"saved episode schema mismatch: {path}")
+        for field in ("controller_version", "evaluation_version", "policy_mode", "observation_config"):
+            if _canonical(episode.get(field)) != _canonical(manifest[field]):
+                raise ValueError(f"saved episode {field} mismatch: {path}")
+
+
 def read_run_records(out: str | Path, manifest: dict) -> list[dict]:
     out = Path(out)
     _check_manifest(manifest)
@@ -175,6 +224,17 @@ def read_run_records(out: str | Path, manifest: dict) -> list[dict]:
     unexpected = set((out / "trials").rglob("*.json")) - expected_paths
     if unexpected:
         raise ValueError("unexpected trial files in the run directory")
+    # Historical runs can still be summarized with their original protocol.
+    # They cannot resume because their provenance differs from RUN_SCHEMA.
+    if manifest.get("schema_version") == RUN_SCHEMA:
+        planned_seeds = {item["seed"] for item in manifest["plan"]}
+        expected_filters = {out / "filters" / f"seed{seed}.json" for seed in planned_seeds}
+        if set((out / "filters").glob("*.json")) - expected_filters:
+            raise ValueError("unexpected saved filter files in the run directory")
+        for seed in planned_seeds:
+            filter_path = out / "filters" / f"seed{seed}.json"
+            if filter_path.exists():
+                _check_saved_filter(_read_json(filter_path), manifest, seed)
     for item in manifest["plan"]:
         path = _trial_path(out, item)
         if path.exists():
@@ -188,6 +248,11 @@ def read_run_records(out: str | Path, manifest: dict) -> list[dict]:
                     raise ValueError(f"saved trial {field} mismatch: {path}")
             if record.get("status") not in ERROR_STATUSES | {"completed", "no_feasible_candidate"}:
                 raise ValueError(f"unknown saved trial status: {path}")
+            if manifest.get("schema_version") == RUN_SCHEMA:
+                _check_trial_protocol(record, manifest, path)
+                filter_path = out / "filters" / f"seed{item['seed']}.json"
+                if not filter_path.exists():
+                    raise ValueError(f"saved trial has no shared filter: {path}")
             records.append(record)
     return records
 
@@ -237,13 +302,19 @@ def summarize_run(out: str | Path) -> dict:
                    controller_version=manifest["controller_version"],
                    candidate_sha256=manifest["candidate_sha256"],
                    method_definitions=manifest["configuration"]["methods"])
+    for field in ("evaluation_version", "policy_mode", "observation_config"):
+        if field in manifest:
+            summary[field] = manifest[field]
     atomic_json(out / "summary.json", summary)
     return summary
 
 
-def _filter_error(item: dict, candidates_hash: str, controller: str, error: dict) -> dict:
-    return {"schema_version": "evaluation_trial_v0.1", "evaluation_scope": "pilot",
-            "controller_version": controller, "candidate_sha256": candidates_hash,
+def _filter_error(item: dict, manifest: dict, error: dict) -> dict:
+    return {"schema_version": TRIAL_SCHEMA, "evaluation_scope": "pilot",
+            "controller_version": manifest["controller_version"],
+            "candidate_sha256": manifest["candidate_sha256"],
+            "evaluation_version": manifest["evaluation_version"], "policy_mode": manifest["policy_mode"],
+            "observation_config": manifest["observation_config"],
             "method_id": item["method_id"], "task_id": item["task_id"], "seed": item["seed"],
             "status": "filter_error", "selected_id": None, "selection": None,
             "filter": None, "episode": None, "error": error}
@@ -256,6 +327,11 @@ def run_evaluation(config_path: str | Path, out: str | Path, *, resume: bool = F
     if retry_errors and not resume:
         raise ValueError("--retry-errors requires --resume")
     config = load_config(config_path)
+    observation_config = load_observation_config(config["observation_config"])
+    # Reuse this exact validated instance throughout the run. Normalizing an
+    # arbitrary quaternion again can change its final floating-point bit; sign
+    # the actual runtime configuration rather than the pre-reconstruction JSON.
+    config["observation_config"] = json.loads(json.dumps(asdict(observation_config)))
     from .providers import ProviderConfigurationError, build_provider
     from .selectors import LLMSelector, geometry_selector
     from examples.evaluate_one_trial import evaluate_trial, smoke_selector
@@ -307,30 +383,32 @@ def run_evaluation(config_path: str | Path, out: str | Path, *, resume: bool = F
             pending = [p for p in manifest["plan"] if p["seed"] == seed and
                        (trial_identity(p) not in existing or
                         (retry_errors and existing[trial_identity(p)]["status"] in ERROR_STATUSES))]
-            if not pending:
-                continue
             filter_path = out / "filters" / f"seed{seed}.json"
             saved_filter = _read_json(filter_path) if filter_path.exists() else None
-            if saved_filter and saved_filter.get("manifest_sha256") != provenance_hash:
-                raise ValueError("saved filter manifest mismatch")
-            if saved_filter and saved_filter.get("seed") != seed:
-                raise ValueError("saved filter seed mismatch")
+            if saved_filter is not None:
+                _check_saved_filter(saved_filter, manifest, seed)
+            if not pending:
+                continue
             if saved_filter is None or (retry_errors and saved_filter["status"] == "filter_error"):
                 try:
-                    filtered = get_feasible_candidates(seed, candidates)
-                    saved_filter = {"schema_version": "grasp_c_filter_v1", "seed": seed,
-                                    "status": filtered["status"], "filter": filtered, "error": None}
+                    filtered = get_feasible_candidates(seed, candidates, observation_config=observation_config)
+                    saved_filter = {"status": filtered["status"], "filter": filtered, "error": None}
                 except Exception as exc:
-                    saved_filter = {"schema_version": "grasp_c_filter_v1", "seed": seed,
-                                    "status": "filter_error", "filter": None,
+                    saved_filter = {"status": "filter_error", "filter": None,
                                     "error": {"type": type(exc).__name__, "message": str(exc)}}
-                saved_filter["manifest_sha256"] = provenance_hash
+                saved_filter.update(schema_version=FILTER_SCHEMA, seed=seed,
+                                    controller_version=manifest["controller_version"],
+                                    candidate_sha256=manifest["candidate_sha256"],
+                                    evaluation_version=manifest["evaluation_version"],
+                                    policy_mode=manifest["policy_mode"],
+                                    observation_config=config["observation_config"],
+                                    manifest_sha256=provenance_hash)
+                _check_saved_filter(saved_filter, manifest, seed)
                 atomic_json(filter_path, saved_filter)
             for item in pending:
                 method = methods[item["method_id"]]
                 if saved_filter["status"] == "filter_error":
-                    record = _filter_error(item, manifest["candidate_sha256"],
-                                           manifest["controller_version"], saved_filter["error"])
+                    record = _filter_error(item, manifest, saved_filter["error"])
                 else:
                     selector_key = (method["id"], item["repeat"])
                     if selector_key not in selectors:
@@ -345,7 +423,15 @@ def run_evaluation(config_path: str | Path, out: str | Path, *, resume: bool = F
                     media_dir = out / "media" / f"repeat{item['repeat']}" if media else None
                     record = evaluate_trial(item["task_id"], seed, method["id"], candidates,
                                             selectors[selector_key], filtered=saved_filter["filter"],
-                                            media_dir=media_dir)
+                                            media_dir=media_dir, observation_config=observation_config)
+                record.update(evaluation_version=manifest["evaluation_version"],
+                              policy_mode=manifest["policy_mode"])
+                if record["status"] == "completed":
+                    try:
+                        _check_trial_protocol(record, manifest, _trial_path(out, item))
+                    except ValueError as exc:
+                        record.update(status="execution_error", error={"type": type(exc).__name__,
+                                                                      "message": str(exc)})
                 record.update(repeat=item["repeat"], sample_id=item["sample_id"],
                               run_id=manifest["run_id"], manifest_sha256=provenance_hash,
                               method_definition=method)

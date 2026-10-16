@@ -12,8 +12,10 @@ import random
 
 import numpy as np
 
-from .contracts import Candidate, Pose, TASKS, validate_task_id
+from .contracts import Candidate, Pose, TASKS, candidate_sha256, validate_task_id
 from .collision_rules import fixed_link_groups
+from .control import ControlSession, ObservationConfig, Primitive
+from .evaluation import EpisodeEvaluator
 
 try:
     import pybullet as p
@@ -22,7 +24,7 @@ except ImportError as exc:
     raise ImportError("PyBullet missing. On Windows use: conda env create -f environment.yml") from exc
 
 STEP = 1 / 240
-CONTROLLER_VERSION = "bounded_ik_v1"
+CONTROLLER_VERSION = "observable_primitives_v2"
 # Bullet's mesh contacts can report submillimetre numerical penetration.
 # This pilot tolerance applies only to collision classification, not grasp contact.
 PENETRATION_TOLERANCE_M = 0.001
@@ -58,8 +60,13 @@ class Feasibility:
 
 
 class MugScene:
-    def __init__(self, seed: int, gui: bool = False):
+    def __init__(self, seed: int, gui: bool = False,
+                 observation_config: ObservationConfig | None = None):
         self.seed = seed
+        self.observation_config = observation_config or ObservationConfig()
+        self.primitive_log = []
+        self.physics_steps = 0
+        self.evaluator = None
         self.client = p.connect(p.GUI if gui else p.DIRECT)
         if self.client < 0:
             raise RuntimeError("Could not start PyBullet")
@@ -110,6 +117,18 @@ class MugScene:
                                  physicsClientId=self.client)
             p.changeDynamics(self.mug, -1, lateralFriction=1.2, physicsClientId=self.client)
             self.initial_mug_pose = Pose(tuple(start), tuple(start_q))
+            # Control starts from a calibrated prior / external estimate, never
+            # from start or getBasePositionAndOrientation. Independent RNG.
+            config = self.observation_config
+            sensor_rng = random.Random(config.noise_seed)
+            observed_position = tuple(v + sensor_rng.uniform(-config.position_noise_m,
+                                                             config.position_noise_m)
+                                      for v in config.object_pose.position)
+            yaw = math.radians(sensor_rng.uniform(-config.yaw_noise_deg, config.yaw_noise_deg))
+            observed_q = p.multiplyTransforms(
+                (0, 0, 0), p.getQuaternionFromEuler((0, 0, yaw)),
+                (0, 0, 0), config.object_pose.quaternion)[1]
+            self.observed_mug_pose = Pose(observed_position, tuple(observed_q))
             self._reset_robot()
         except Exception:
             self.close()
@@ -166,8 +185,8 @@ class MugScene:
         return Pose(tuple(pos), tuple(quat))
 
     def world_pose(self, local: Pose) -> Pose:
-        pos, quat = p.multiplyTransforms(self.initial_mug_pose.position,
-                                          self.initial_mug_pose.quaternion,
+        pos, quat = p.multiplyTransforms(self.observed_mug_pose.position,
+                                          self.observed_mug_pose.quaternion,
                                           local.position, local.quaternion)
         return Pose(tuple(pos), tuple(quat))
 
@@ -350,9 +369,14 @@ class MugScene:
             return Feasibility(candidate.id, False, ["gripper_width_out_of_range"])
         pre = self.world_pose(candidate.pregrasp_pose)
         grasp = self.world_pose(candidate.grasp_pose)
-        saved = self._angles()
+        saved = p.saveState(physicsClientId=self.client)
         collision_details = []
         try:
+            # Planning uses the known mesh AT THE ESTIMATED pose, not the true
+            # mug position. This is an idealized collision model, not perception.
+            p.resetBasePositionAndOrientation(self.mug, self.observed_mug_pose.position,
+                                              self.observed_mug_pose.quaternion,
+                                              physicsClientId=self.client)
             q_pre, pe_pre, _ = self.ik(pre, stage="filter_pregrasp")
             q_grasp, pe_grasp, _ = self.ik(grasp, stage="filter_grasp")
             if q_pre is None: reasons.append("pregrasp_ik_or_fk_error")
@@ -383,7 +407,8 @@ class MugScene:
             return Feasibility(candidate.id, not reasons, reasons, pe_pre, pe_grasp,
                                min_clearance, collision_details)
         finally:
-            self._set_arm(saved)
+            p.restoreState(stateId=saved, physicsClientId=self.client)
+            p.removeState(stateUniqueId=saved, physicsClientId=self.client)
 
     def _finger_contacts(self) -> int:
         return sum(1 for cp in p.getContactPoints(self.robot, self.mug,
@@ -395,19 +420,41 @@ class MugScene:
             p.setJointMotorControl2(self.robot, j, p.POSITION_CONTROL, targetPosition=half_width,
                                     force=35, physicsClientId=self.client)
 
-    def _step(self, n: int, stage: str, trajectory: list, problems: set):
+    def observe(self) -> dict:
+        """Only proprioception and the frozen pose estimate; no object tracking.
+
+        The estimate is intentionally NOT updated when the mug slips. Width is
+        an encoder measurement, not evidence that the intended object is held.
+        """
+        last = None
+        if self.primitive_log:
+            entry = self.primitive_log[-1]
+            last = {"kind": entry["command"]["kind"],
+                    **{k: v for k, v in entry["feedback"].items() if k != "observation"}}
+        return {"tool_pose": asdict(self._tip_pose()),
+                "joint_positions": list(self._angles()),
+                "gripper_width": sum(p.getJointState(self.robot, j,
+                                      physicsClientId=self.client)[0] for j in self.fingers),
+                "initial_object_pose_estimate": asdict(self.observed_mug_pose),
+                "observation_source": self.observation_config.source,
+                "elapsed_s": self.physics_steps * STEP,
+                "actions_executed": len(self.primitive_log), "last_action": last}
+
+    def _after_step(self, stage, step, last):
+        self.physics_steps += 1
+        if self.recorder is not None:
+            self.recorder.on_step(stage)
+        if self.evaluator is not None:
+            # Scoring is a write-only side channel from the controller's view.
+            # It must never influence an action or be sent to a policy callback.
+            self.evaluator.sample(stage, step, last)
+
+    def _step(self, n: int, stage: str):
         for i in range(n):
             p.stepSimulation(physicsClientId=self.client)
-            if self.recorder is not None:
-                self.recorder.on_step(stage)
-            if i % 24 == 0 or i == n-1:
-                obj = self._object_pose()
-                tip = self._tip_pose()
-                trajectory.append({"stage": stage, "step": i, "mug_pose": asdict(obj),
-                                   "tool_pose": asdict(tip), "finger_contacts": self._finger_contacts()})
-                problems.update(self._unexpected_collision(allow_finger_mug=stage != "pregrasp"))
+            self._after_step(stage, i, i == n-1)
 
-    def _move(self, q_target, steps: int, stage: str, trajectory: list, problems: set):
+    def _move(self, q_target, steps: int, stage: str, offset=0, total_steps=None):
         q_start = self._angles()
         for i in range(steps):
             fraction = (i+1)/steps
@@ -416,125 +463,201 @@ class MugScene:
                                         targetPositions=q_cmd, forces=[87]*7,
                                         physicsClientId=self.client)
             p.stepSimulation(physicsClientId=self.client)
-            if self.recorder is not None:
-                self.recorder.on_step(stage)
-            if i % 24 == 0 or i == steps-1:
-                obj = self._object_pose()
-                trajectory.append({"stage":stage,"step":i,"mug_pose":asdict(obj),
-                                   "tool_pose":asdict(self._tip_pose()),
-                                   "finger_contacts":self._finger_contacts()})
-                problems.update(self._unexpected_collision(allow_finger_mug=stage != "pregrasp"))
+            self._after_step(stage, i + offset,
+                             i + offset == (total_steps or steps) - 1)
 
-    def _fail(self, candidate: Candidate, task: str, checks: Feasibility,
-              reason: str, trajectory: list, problems: set) -> dict:
-        obj = self._object_pose()
-        # An infeasible candidate may be rejected before execution starts.  Its
-        # collision evidence still belongs in the common result contract so
-        # evaluators can count failures consistently with executed episodes.
-        check_collision_types = {
-            detail["type"] for detail in checks.collision_details
-            if "type" in detail
-        }
-        all_collision_types = set(problems) | check_collision_types
-        return {"controller_version":CONTROLLER_VERSION,
-                "seed":self.seed,"task_id":task,"selected_id":candidate.id,
-                "feasibility":asdict(checks),"success":False,"failure_reason":reason,
-                "dropped":reason in ("no_grasp", "lost_grasp"),
-                "collision":bool(all_collision_types),
-                "collision_types":sorted(all_collision_types),
-                "grasp_maintained":False,"position_error_m":None,
-                "orientation_error_deg":None,"final_mug_pose":asdict(obj),
-                "trajectory":trajectory,"ik_diagnostics":self.ik_diagnostics}
+    def execute_primitive(self, command: Primitive, *, _stage="policy") -> dict:
+        """Execute a bounded physical action; feedback contains no scoring truth.
+
+        Workspace/duration bounds and IK are not a collision-free guarantee.
+        A primitive moves at most 25 cm; policies must segment longer motions.
+        """
+        if not isinstance(command, Primitive):
+            raise ValueError("action must be a Primitive")
+        steps = max(1, round(command.duration_s / STEP))
+        status = "executed"
+        if command.kind == "move_tcp":
+            target = Pose.from_dict(asdict(command.target))
+            if position_error(self._tip_pose().position, target.position) > 0.25:
+                raise ValueError("move_tcp exceeds the 0.25 m per-action translation limit")
+            if command.path == "cartesian":
+                waypoints = self._plan_cartesian(target, _stage)
+            else:
+                q, _, _ = self.ik(target, pos_tol=0.025, stage=_stage)
+                waypoints = [q] if q is not None else None
+            if waypoints is None:
+                status = "ik_failed"
+            else:
+                # Preserve requested total duration; at least one step per
+                # waypoint. Current waypoint density is below 240 per second.
+                if len(waypoints) > steps:
+                    raise ValueError("duration too short for Cartesian waypoint count")
+                for index, q in enumerate(waypoints):
+                    n = (index + 1) * steps // len(waypoints) - index * steps // len(waypoints)
+                    self._move(q, n, _stage, index * steps // len(waypoints), steps)
+        else:
+            if command.kind == "gripper":
+                self._drive_fingers(command.width / 2)
+            self._step(steps, _stage)
+        feedback = {"status": status, "observation": self.observe()}
+        if command.kind == "move_tcp":
+            tip = self._tip_pose()
+            feedback["tool_position_error_m"] = position_error(tip.position, target.position)
+            feedback["tool_orientation_error_deg"] = orientation_error_deg(tip.quaternion,
+                                                                           target.quaternion)
+        self.primitive_log.append({"stage": _stage, "command": asdict(command),
+                                   "feedback": feedback})
+        # Return the post-action count, consistently with a subsequent observe.
+        feedback["observation"]["actions_executed"] = len(self.primitive_log)
+        feedback["observation"]["last_action"] = self.observe()["last_action"]
+        from copy import deepcopy
+        return deepcopy(feedback)
+
+    def _plan_cartesian(self, target: Pose, stage: str):
+        """Small TCP segments keep IK on a nearby branch; no physics is stepped."""
+        start = self._tip_pose()
+        count = max(1, math.ceil(position_error(start.position, target.position) / 0.015),
+                    math.ceil(orientation_error_deg(start.quaternion, target.quaternion) / 5))
+        saved = p.saveState(physicsClientId=self.client)
+        waypoints = []
+        try:
+            for index in range(1, count + 1):
+                fraction = index / count
+                pos = tuple((1-fraction)*a+fraction*b
+                            for a, b in zip(start.position, target.position))
+                quat = p.getQuaternionSlerp(start.quaternion, target.quaternion, fraction)
+                q, _, _ = self.ik(Pose(pos, tuple(quat)), pos_tol=0.025,
+                                  rot_tol_deg=15, stage=stage)
+                if q is None:
+                    return None
+                waypoints.append(q)
+                self._set_arm(q)
+            return waypoints
+        finally:
+            p.restoreState(stateId=saved, physicsClientId=self.client)
+            p.removeState(stateUniqueId=saved, physicsClientId=self.client)
+
+    def task_target(self, task: str) -> Pose:
+        """Calibrated WORLD goal, independent of seed, estimate, grasp and outcome."""
+        validate_task_id(task)
+        angle = math.radians(35) if task == "pour_prep" else -math.pi/2
+        axis = [0, 1, 0] if task == "pour_prep" else [0, 0, 1]
+        rotation = p.getQuaternionFromAxisAngle(axis, angle)
+        initial = ObservationConfig().object_pose
+        quat = p.multiplyTransforms((0, 0, 0), rotation, (0, 0, 0), initial.quaternion)[1]
+        return Pose((initial.position[0], initial.position[1], initial.position[2] + 0.14),
+                    tuple(quat))
+
+    def _episode_result(self, candidate, task, checks, failure=None, policy_mode="fixed"):
+        # Only terminal reporting reads privileged evaluation data.
+        result = self.evaluator.finish()
+        if failure is not None:
+            result.update(success=False, failure_reason=failure)
+        collision_types = set(result["collision_types"]) | {
+            detail["type"] for detail in checks.collision_details if "type" in detail}
+        result.update(controller_version=CONTROLLER_VERSION, seed=self.seed,
+                      task_id=task, selected_id=candidate.id, feasibility=asdict(checks),
+                      collision=bool(collision_types), collision_types=sorted(collision_types),
+                      ik_diagnostics=self.ik_diagnostics, primitive_log=self.primitive_log,
+                      observation_config=asdict(self.observation_config),
+                      initial_object_pose_estimate=asdict(self.observed_mug_pose),
+                      policy_mode=policy_mode, schema_version="episode_v0.3")
+        return result
 
     def run_episode(self, task: str, candidate: Candidate) -> dict:
         validate_task_id(task)
+        self.evaluator = EpisodeEvaluator(self, self.task_target(task))
         checks = self.check_candidate(candidate)
-        trajectory, problems = [], set()
         if not checks.feasible:
-            return self._fail(candidate,task,checks,"infeasible",trajectory,problems)
+            return self._episode_result(candidate, task, checks, "infeasible")
 
         pre = self.world_pose(candidate.pregrasp_pose)
         grasp = self.world_pose(candidate.grasp_pose)
-        q_pre, _, _ = self.ik(pre, stage="pregrasp")
-        q_grasp, _, _ = self.ik(grasp, stage="grasp")
+        # Opening before pregrasp does not step physics; the first primitive
+        # physically opens while moving. Subsequent phases all use the same API
+        # that is available to an incremental policy.
         self._drive_fingers(0.04)
-        self._move(q_pre,180,"pregrasp",trajectory,problems)
-        self._move(q_grasp,120,"grasp",trajectory,problems)
-        self._drive_fingers(0.0)
-        self._step(180,"close",trajectory,problems)
-        if self._finger_contacts() == 0:
-            return self._fail(candidate,task,checks,"no_grasp",trajectory,problems)
+        for stage, target, steps in (("pregrasp", pre, 180), ("grasp", grasp, 120)):
+            feedback = self.execute_primitive(Primitive("move_tcp", target, duration_s=steps*STEP,
+                                                        path="joint"),
+                                              _stage=stage)
+            if feedback["status"] != "executed":
+                return self._episode_result(candidate, task, checks, stage + "_ik_failed")
+        self.execute_primitive(Primitive("gripper", width=0, duration_s=180*STEP), _stage="close")
 
+        # No exact contact-count or true object-height gate. The default policy
+        # continues open-loop; a custom policy may use encoder/tool feedback.
         tool_at_grasp = self._tip_pose()
-        obj_at_grasp = self._object_pose()
-        inv_tool = p.invertTransform(tool_at_grasp.position, tool_at_grasp.quaternion)
-        relative_object = p.multiplyTransforms(*inv_tool, obj_at_grasp.position,
-                                                obj_at_grasp.quaternion)
         lifted_tip = Pose((tool_at_grasp.position[0],tool_at_grasp.position[1],
                            tool_at_grasp.position[2]+0.14),tool_at_grasp.quaternion)
-        q_lift, _, _ = self.ik(lifted_tip, pos_tol=0.035, stage="lift")
-        if q_lift is None:
-            return self._fail(candidate,task,checks,"lift_ik_failed",trajectory,problems)
-        self._move(q_lift,200,"lift",trajectory,problems)
-        lifted_obj = self._object_pose()
-        if lifted_obj.position[2] < TABLE_TOP+0.09 or self._finger_contacts() == 0:
-            return self._fail(candidate,task,checks,"lost_grasp",trajectory,problems)
-
-        # A1/M0/M1/M2/M3 all use this exact same task motion after selection.
-        angle = math.radians(35) if task == "pour_prep" else -math.pi/2
-        axis = [0,1,0] if task == "pour_prep" else [0,0,1]
-        rotation = p.getQuaternionFromAxisAngle(axis,angle)
-        target_q = p.multiplyTransforms([0,0,0],rotation,[0,0,0],obj_at_grasp.quaternion)[1]
-        target_obj = Pose((lifted_obj.position[0],lifted_obj.position[1],
-                           obj_at_grasp.position[2]+0.14),tuple(target_q))
-        inv_rel = p.invertTransform(*relative_object)
-        tpos,tquat = p.multiplyTransforms(target_obj.position,target_obj.quaternion,*inv_rel)
-        q_task, _, _ = self.ik(Pose(tuple(tpos),tuple(tquat)),pos_tol=0.035,
-                              stage="task_motion")
-        if q_task is None:
-            return self._fail(candidate,task,checks,"task_ik_failed",trajectory,problems)
-        self._move(q_task,200,"task_motion",trajectory,problems)
-        self._step(480,"hold",trajectory,problems)
-        final = self._object_pose()
-        pe = position_error(final.position,target_obj.position)
-        re = orientation_error_deg(final.quaternion,target_obj.quaternion)
-        held = self._finger_contacts()>0 and final.position[2]>TABLE_TOP+0.09
-        success = held and not problems and pe<=0.04 and re<=15.0
-        return {"controller_version":CONTROLLER_VERSION,
-                "seed":self.seed,"task_id":task,"selected_id":candidate.id,
-                "feasibility":asdict(checks),"success":success,
-                "failure_reason":None if success else ("lost_grasp" if not held else
-                    "unintended_collision" if problems else "target_pose_error"),
-                "dropped":not held,"collision":bool(problems),
-                "collision_types":sorted(problems),"grasp_maintained":held,
-                "position_error_m":pe,"orientation_error_deg":re,
-                "target_mug_pose":asdict(target_obj),"final_mug_pose":asdict(final),
-                "trajectory":trajectory,"ik_diagnostics":self.ik_diagnostics}
+        # Nominal T_tool_mug comes from the candidate, not achieved true pose.
+        target_obj = self.task_target(task)
+        tpos, tquat = p.multiplyTransforms(target_obj.position, target_obj.quaternion,
+                                          candidate.grasp_pose.position, candidate.grasp_pose.quaternion)
+        # T_world_tool = T_world_mug * T_mug_tool (equivalently inverse of
+        # nominal T_tool_mug). Keep no achieved-object transform in control.
+        task_tip = Pose(tuple(tpos), tuple(tquat))
+        # Move toward the robot before pouring, then rotate and return. This
+        # fixed, observation-based waypoint avoids the near-table wrist branch
+        # switch of a direct rotation at the original x. It is not GT-adaptive.
+        clearance_tip = Pose((grasp.position[0] - 0.10, grasp.position[1],
+                              grasp.position[2] + 0.18), grasp.quaternion)
+        rotated_tip = Pose((task_tip.position[0] - 0.10, task_tip.position[1],
+                            task_tip.position[2] + 0.04), task_tip.quaternion)
+        motion = [("lift", lifted_tip)]
+        if task == "pour_prep":
+            motion += [("task_clearance", clearance_tip), ("task_rotate", rotated_tip)]
+        motion += [("task_motion", task_tip)]
+        for stage, target in motion:
+            feedback = self.execute_primitive(Primitive("move_tcp", target, duration_s=200*STEP),
+                                              _stage=stage)
+            if feedback["status"] != "executed":
+                reason = "lift_ik_failed" if stage == "lift" else "task_ik_failed"
+                return self._episode_result(candidate, task, checks, reason)
+        self.execute_primitive(Primitive("wait", duration_s=2), _stage="hold")
+        return self._episode_result(candidate, task, checks)
 
 
-def get_feasible_candidates(seed: int, candidates: list[Candidate]):
+def get_feasible_candidates(seed: int, candidates: list[Candidate], *,
+                            observation_config: ObservationConfig | None = None):
     """Return all checks and public records usable by B/C's selectors."""
-    with MugScene(seed) as scene:
+    with MugScene(seed, observation_config=observation_config) as scene:
         checks = [scene.check_candidate(c) for c in candidates]
+        estimate = asdict(scene.observed_mug_pose)
+        config = asdict(scene.observation_config)
     allowed = {c.candidate_id for c in checks if c.feasible}
     feasible_candidates = [c.public_metadata() for c in candidates if c.id in allowed]
+    feasible_full = [c for c in candidates if c.id in allowed]
+    warnings = ["task_diversity_not_validated"]
+    if len(feasible_full) < 2:
+        warnings.append("fewer_than_two_feasible_candidates")
+    if len({c.region for c in feasible_full}) <= 1:
+        warnings.append("single_or_no_semantic_region")
     return {
         "controller_version": CONTROLLER_VERSION,
         "seed": seed,
+        "candidate_sha256": candidate_sha256(candidates),
+        "observation_config": config,
+        "initial_object_pose_estimate": estimate,
         "status": "ok" if feasible_candidates else "no_feasible_candidate",
         "feasible_candidates": feasible_candidates,
         "checks": [asdict(x) for x in checks],
+        "selection_space": {"feasible_count": len(feasible_full),
+                            "regions": sorted({c.region for c in feasible_full}),
+                            "approaches": sorted({c.approach for c in feasible_full}),
+                            "warnings": warnings},
     }
 
 
 def run_episode(task_id: str, seed: int, selected_id: str,
                 candidates: list[Candidate], gui: bool = False,
-                media_dir: str | Path | None = None):
+                media_dir: str | Path | None = None, *,
+                observation_config: ObservationConfig | None = None):
     validate_task_id(task_id)
     matches = [c for c in candidates if c.id == selected_id]
     if len(matches) != 1:
         raise ValueError("selected_id must match exactly one supplied candidate")
-    with MugScene(seed,gui=gui) as scene:
+    with MugScene(seed,gui=gui,observation_config=observation_config) as scene:
         if media_dir is not None:
             from .visualization import EpisodeRecorder
             stem = f"{task_id}_seed{seed}_{selected_id}"
@@ -544,3 +667,44 @@ def run_episode(task_id: str, seed: int, selected_id: str,
             result["media"] = scene.recorder.finish(result)
             scene.recorder = None
         return result
+
+
+def run_primitive_episode(task_id: str, seed: int, selected_id: str,
+                          candidates: list[Candidate], policy, *,
+                          observation_config: ObservationConfig | None = None,
+                          max_actions: int = 32):
+    """Separate incremental-control track; do NOT mix with ID-only comparisons.
+
+    policy(context, observation) returns Primitive or None (stop). Context
+    contains estimated poses only. None triggers a standard 2-second hold
+    before privileged terminal scoring. No automatic retry or task execution.
+    """
+    from copy import deepcopy
+    validate_task_id(task_id)
+    if type(max_actions) is not int or not 1 <= max_actions <= 64:
+        raise ValueError("max_actions must be an integer in [1, 64]")
+    matches = [c for c in candidates if c.id == selected_id]
+    if len(matches) != 1:
+        raise ValueError("selected_id must match exactly one supplied candidate")
+    candidate = matches[0]
+    with MugScene(seed, observation_config=observation_config) as scene:
+        scene.evaluator = EpisodeEvaluator(scene, scene.task_target(task_id))
+        checks = scene.check_candidate(candidate)
+        if not checks.feasible:
+            return scene._episode_result(candidate, task_id, checks, "infeasible", "incremental")
+        session = ControlSession(scene)
+        context = {"task_id": task_id, "candidate": asdict(candidate),
+                   "pregrasp_tool_pose": asdict(scene.world_pose(candidate.pregrasp_pose)),
+                   "grasp_tool_pose": asdict(scene.world_pose(candidate.grasp_pose)),
+                   "target_object_pose": asdict(scene.task_target(task_id))}
+        # Last callback can stop after exactly max_actions; another action is
+        # rejected without being executed. Bound total simulated time as well.
+        for index in range(max_actions + 1):
+            command = policy(deepcopy(context), session.observe())
+            if command is None:
+                scene.execute_primitive(Primitive("wait", duration_s=2), _stage="hold")
+                return scene._episode_result(candidate, task_id, checks, policy_mode="incremental")
+            if index == max_actions:
+                return scene._episode_result(candidate, task_id, checks,
+                                              "action_budget_exceeded", "incremental")
+            session.act(command)

@@ -2,15 +2,43 @@
 from __future__ import annotations
 
 from copy import deepcopy
+from dataclasses import asdict
 import json
+import math
 from pathlib import Path
 import re
 
-from grasp_a.contracts import TASKS, load_candidates
+from grasp_a.contracts import Pose, TASKS, load_candidates
+from grasp_a.control import ObservationConfig
 
 ID_PATTERN = re.compile(r"[A-Za-z0-9_-]+")
 PROVIDER_TYPES = {"openai", "openai_compatible", "codex", "mock"}
 CACHE_MODES = {"read_write", "read_only", "off"}
+
+
+def load_observation_config(raw: dict | None = None) -> ObservationConfig:
+    """Parse A's public estimate configuration without importing the simulator."""
+    values = deepcopy(_json_object({} if raw is None else raw, "observation_config"))
+    fields = {"object_pose", "source", "position_noise_m", "yaw_noise_deg", "noise_seed"}
+    if set(values) - fields:
+        raise ValueError("observation_config contains unknown fields")
+    if "object_pose" in values:
+        pose = _json_object(values["object_pose"], "observation_config.object_pose")
+        if set(pose) != {"position", "quaternion"}:
+            raise ValueError("observation_config.object_pose needs position and quaternion")
+        for field, size in (("position", 3), ("quaternion", 4)):
+            items = pose[field]
+            if (not isinstance(items, (list, tuple)) or len(items) != size or
+                    any(type(x) not in (int, float) or not math.isfinite(x) for x in items)):
+                raise ValueError(f"observation_config.object_pose.{field} needs {size} finite numbers")
+        values["object_pose"] = Pose.from_dict(pose)
+    for field in ("position_noise_m", "yaw_noise_deg"):
+        if field in values and (type(values[field]) not in (int, float) or
+                                not math.isfinite(values[field]) or values[field] < 0):
+            raise ValueError(f"observation_config.{field} must be finite and nonnegative")
+    if "noise_seed" in values:
+        _integer(values["noise_seed"], "observation_config.noise_seed")
+    return ObservationConfig(**values)
 
 
 def _integer(value, label: str, *, minimum: int | None = None) -> int:
@@ -55,6 +83,13 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
     candidates = load_candidates(config["candidates"])
     if not candidates:
         raise ValueError("candidates must contain at least one candidate")
+    observation = load_observation_config(config.get("observation_config"))
+    # A uses tuples internally; JSON canonicalization makes loaded and in-memory
+    # configurations identical for provenance, cache checks, and comparisons.
+    config["observation_config"] = json.loads(json.dumps(asdict(observation)))
+    config.setdefault("policy_mode", "fixed")
+    if config["policy_mode"] != "fixed":
+        raise ValueError("C evaluates ID-only methods with policy_mode='fixed'")
     seeds = config.get("seeds")
     if not isinstance(seeds, list) or not seeds:
         raise ValueError("seeds must be a nonempty integer list")

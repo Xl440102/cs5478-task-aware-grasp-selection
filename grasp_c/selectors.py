@@ -16,13 +16,13 @@ from grasp_c.providers import (ModelRequest, ModelResponse, ProviderConfiguratio
 
 
 def geometry_selector(task_id: str, candidates: list[dict], seed: int) -> dict:
-    """Pilot M1 fallback: descending input geometry score, stable ID tie-break."""
+    """Pilot geometry reference, pending B's official score and M1 definition."""
     validate_task_id(task_id)
     public = public_snapshot(candidates)
     ranking = [item["id"] for item in sorted(
         public, key=lambda item: (-item["geometry_score"], item["id"]))]
     return {"selected_id": ranking[0], "ranking": ranking,
-            "metadata": {"method_id": "reference_geometry", "fallback_method": "M1",
+            "metadata": {"method_id": "reference_geometry", "fallback_method": "geometry_reference",
                          "score_scope": "pilot_input", "tie_break": "candidate_id_ascending"}}
 
 
@@ -210,7 +210,11 @@ class LLMSelector:
             "prompt_version": self.prompt_version, "parameters": deepcopy(self.parameters),
             "sample_id": self.sample_id, "selection_seed": seed,
             "ablation": "remove_task_information" if self.variant == "A1" else None,
-            "repair_attempts": repair_count, "fallback_to_m1": fallback,
+            "repair_attempts": repair_count, "fallback_to_geometry": fallback,
+            "fallback_method": "geometry_reference", "score_scope": "pilot_input",
+            # Retain old consumers without claiming the pilot scores implement B's M1.
+            "fallback_to_m1": fallback,
+            "fallback_to_m1_semantics": "legacy_alias_for_fallback_to_geometry_not_official_b_m1",
             "fallback_count": int(fallback),
             "fallback_reason": ("provider_error" if any(c["error"] for c in calls)
                                 else "invalid_model_output") if fallback else None,

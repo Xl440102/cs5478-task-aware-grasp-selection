@@ -1,0 +1,74 @@
+{
+  "candidates": "candidates.c-pilot.json",
+  "seeds": [
+    0,
+    1
+  ],
+  "tasks": [
+    "pour_prep",
+    "handover_prep"
+  ],
+  "repeats": 1,
+  "evaluation_scope": "pilot",
+  "cache_dir": "../.cache/grasp_c",
+  "seed_split": {
+    "pilot_controller": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "methods": [
+    {
+      "id": "GEOMETRY_REFERENCE",
+      "kind": "geometry"
+    },
+    {
+      "id": "M3_MOCK",
+      "kind": "llm",
+      "variant": "M3",
+      "provider": {
+        "type": "mock"
+      },
+      "model": "mock",
+      "parameters": {}
+    },
+    {
+      "id": "A1_MOCK",
+      "kind": "llm",
+      "variant": "A1",
+      "provider": {
+        "type": "mock"
+      },
+      "model": "mock",
+      "parameters": {}
+    }
+  ],
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.003,
+    "yaw_noise_deg": 2.0,
+    "noise_seed": 1000
+  },
+  "policy_mode": "fixed"
+}
