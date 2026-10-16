@@ -1,0 +1,3 @@
+# Part C includes the Part A simulator, plus the official OpenAI API client.
+-r requirements.txt
+openai>=1.68,<3

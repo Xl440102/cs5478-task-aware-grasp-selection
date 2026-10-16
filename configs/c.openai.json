@@ -1,0 +1,92 @@
+{
+  "candidates": "candidates.c-pilot.json",
+  "seeds": [
+    0
+  ],
+  "tasks": [
+    "pour_prep",
+    "handover_prep"
+  ],
+  "repeats": 1,
+  "evaluation_scope": "pilot",
+  "cache_dir": "../.cache/grasp_c",
+  "seed_split": {
+    "pilot_controller": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "methods": [
+    {
+      "id": "GEOMETRY_REFERENCE",
+      "kind": "geometry"
+    },
+    {
+      "id": "M3_GPT_LUNA",
+      "kind": "llm",
+      "variant": "M3",
+      "provider": {
+        "type": "openai"
+      },
+      "model": "gpt-6-luna",
+      "parameters": {
+        "reasoning_effort": "low",
+        "max_output_tokens": 1024
+      }
+    },
+    {
+      "id": "A1_GPT_LUNA",
+      "kind": "llm",
+      "variant": "A1",
+      "provider": {
+        "type": "openai"
+      },
+      "model": "gpt-6-luna",
+      "parameters": {
+        "reasoning_effort": "low",
+        "max_output_tokens": 1024
+      }
+    },
+    {
+      "id": "M3_GPT_SOL",
+      "kind": "llm",
+      "variant": "M3",
+      "provider": {
+        "type": "openai"
+      },
+      "model": "gpt-6.1-sol",
+      "parameters": {
+        "reasoning_effort": "low",
+        "max_output_tokens": 1024
+      }
+    }
+  ],
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.0,
+    "yaw_noise_deg": 0.0,
+    "noise_seed": 0
+  },
+  "policy_mode": "fixed"
+}

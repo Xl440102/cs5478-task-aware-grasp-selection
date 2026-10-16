@@ -5,7 +5,8 @@ import argparse
 import json
 from pathlib import Path
 
-from .contracts import TASKS, load_candidates
+from .contracts import TASKS, Pose, load_candidates
+from .control import ObservationConfig
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -51,6 +52,12 @@ def main():
     demo.add_argument("--out", default="results/demo.json")
     demo.add_argument("--visualize", action="store_true", help="Record MP4 and scene/final PNGs")
     demo.add_argument("--media-dir", default="results/visuals")
+    for command in (filt, run, demo):
+        command.add_argument("--observed-pose", help="JSON Pose file from an external pose estimator")
+        command.add_argument("--pose-noise-m", type=float, default=0.0,
+                             help="Uniform +/- perturbation of estimate per world axis, metres")
+        command.add_argument("--yaw-noise-deg", type=float, default=0.0)
+        command.add_argument("--observation-seed", type=int, default=0)
     args = parser.parse_args()
     candidates = load_candidates(args.candidates)
     if args.command == "validate":
@@ -59,6 +66,13 @@ def main():
 
     # Import only when a simulation command is requested; validate works offline.
     from .simulation import get_feasible_candidates, run_episode
+    config = None
+    if args.command != "scene":
+        observed = (Pose.from_dict(json.loads(Path(args.observed_pose).read_text(encoding="utf-8")))
+                    if args.observed_pose else ObservationConfig().object_pose)
+        config = ObservationConfig(observed,
+                                   "external_estimate" if args.observed_pose else "calibrated_prior",
+                                   args.pose_noise_m, args.yaw_noise_deg, args.observation_seed)
     if args.command == "scene":
         from .simulation import MugScene
         from .visualization import save_scene_image, save_scene_orbit
@@ -68,18 +82,20 @@ def main():
         print(f"Saved {saved}")
         print(f"Saved {movie}")
     elif args.command == "filter":
-        save(get_feasible_candidates(args.seed,candidates),args.out)
+        save(get_feasible_candidates(args.seed,candidates,observation_config=config),args.out)
     elif args.command == "run":
         save(run_episode(args.task,args.seed,args.id,candidates,gui=args.gui,
-                         media_dir=args.media_dir if args.visualize else None),args.out)
+                         media_dir=args.media_dir if args.visualize else None,
+                         observation_config=config),args.out)
     else:
-        filtered = get_feasible_candidates(args.seed,candidates)
+        filtered = get_feasible_candidates(args.seed,candidates,observation_config=config)
         if not filtered["feasible_candidates"]:
             save({"status":"no_feasible_candidate","filter":filtered},args.out)
         else:
             selected = filtered["feasible_candidates"][0]["id"]
             save(run_episode(args.task,args.seed,selected,candidates,
-                             media_dir=args.media_dir if args.visualize else None),args.out)
+                             media_dir=args.media_dir if args.visualize else None,
+                             observation_config=config),args.out)
 
 
 if __name__ == "__main__":

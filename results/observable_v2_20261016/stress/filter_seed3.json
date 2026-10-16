@@ -1,0 +1,88 @@
+{
+  "controller_version": "observable_primitives_v2",
+  "seed": 3,
+  "candidate_sha256": "c722e094d4ea4dea047944fc61b428686def498b16e69b652753a8a01235375e",
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.008,
+    "yaw_noise_deg": 5.0,
+    "noise_seed": 1003
+  },
+  "initial_object_pose_estimate": {
+    "position": [
+      0.5499574627350369,
+      -0.0022401526902358915,
+      0.6485529881075796
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      -0.004649429582059383,
+      0.9999892115592957
+    ]
+  },
+  "status": "ok",
+  "feasible_candidates": [
+    {
+      "id": "G02",
+      "region": "body",
+      "approach": "from_robot_side_high",
+      "gripper_width": 0.078,
+      "geometry_score": 0.66
+    },
+    {
+      "id": "G03",
+      "region": "body",
+      "approach": "from_robot_side",
+      "gripper_width": 0.078,
+      "geometry_score": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "G02",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.7113925347351678e-05,
+      "grasp_position_error_m": 8.887898209461085e-06,
+      "min_table_clearance_m": 0.01541695757470009,
+      "collision_details": []
+    },
+    {
+      "candidate_id": "G03",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.306588016614953e-06,
+      "grasp_position_error_m": 9.099283481718465e-06,
+      "min_table_clearance_m": 0.013359833206338812,
+      "collision_details": []
+    }
+  ],
+  "selection_space": {
+    "feasible_count": 2,
+    "regions": [
+      "body"
+    ],
+    "approaches": [
+      "from_robot_side",
+      "from_robot_side_high"
+    ],
+    "warnings": [
+      "task_diversity_not_validated",
+      "single_or_no_semantic_region"
+    ]
+  }
+}
