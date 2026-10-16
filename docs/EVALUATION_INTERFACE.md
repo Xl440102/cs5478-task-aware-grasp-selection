@@ -5,6 +5,8 @@
 文档版本 v0.2 不改变 A 的函数签名；A 原始字典没有 `schema_version`。
 [调用示例](../examples/evaluate_one_trial.py) 另外提供 `evaluation_trial_v0.1` 包装记录。
 
+C 的实际选择器、批量运行和汇总已在 `grasp_c/` 实现，接入说明见 [PART_C.md](PART_C.md)。本文件继续定义 A 的原始接口和包装记录。
+
 当前可做 pilot 联调。正式实验前需要冻结共同任务目标、保持判定、候选与评分、环境和测试 seed；第 8 节明确尚未满足的评估条件。
 
 ## 1. 调用顺序与责任

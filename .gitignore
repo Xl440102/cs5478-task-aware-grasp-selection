@@ -6,6 +6,7 @@ venv/
 .env
 .env.*
 results/local/
+.cache/grasp_c/
 archive/
 *.log
 .DS_Store

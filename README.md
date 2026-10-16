@@ -1,6 +1,6 @@
-# A 部分：杯子抓取仿真与统一执行
+# 杯子任务感知抓取：仿真与多模型评估
 
-本目录实现小组项目的 **A 部分**：在 PyBullet 中建立杯子和 Panda 机械臂场景，筛选可行抓取，并用同一套控制器执行 B/C 选出的抓取 ID。候选生成与 M0/M1/M2 由 B 负责，LLM 选择和批量评估由 C 负责。
+本目录包含小组项目的 **A 部分和 C 部分**：A 在 PyBullet 中建立杯子和 Panda 场景、筛选抓取并统一执行；C 提供可扩展的 LLM 选择、一次输出修复、几何回退、缓存和批量评估。候选生成、正式评分及 M0/M1/M2 仍由 B 负责。C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
 
 目前是 **pilot 版本**。2026-10-15 修复了抬升和倒水动作的 IK 越限问题，控制器版本为 `bounded_ik_v1`。G02/G03 在 seed 0–9 的交接与倒水准备任务中均为 10/10 成功，共 40 个 pilot episode，另一次相同条件复跑结果完全一致。详见 [回归结果](results/ik_fix_20261015/summary.json)。这些是控制器回归数据，正式选择器实验尚未开始。
 
@@ -45,6 +45,8 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 | `grasp_a/collision_rules.py` | Panda 固定连杆组的自碰撞规则 |
 | `grasp_a/visualization.py` | PyBullet 视频帧和截图 |
 | `grasp_a/__main__.py` | `python -m grasp_a` 命令入口 |
+| `grasp_c/`、[`docs/PART_C.md`](docs/PART_C.md) | 多服务/多模型选择器、缓存、批量运行和统计 |
+| `configs/c.*.json`、`requirements-c.txt` | C 的运行配置与依赖 |
 | [`results/README.md`](results/README.md) | 当前结果与历史调试数据索引 |
 | `tests/`、`scripts/find_pilot_candidate.py` | 接口检查与可行性网格搜索工具 |
 
@@ -52,7 +54,7 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 
 ## 3. 安装环境
 
-Windows 使用 `environment.yml`：Python 3.11、`pybullet`、`numpy`、`pillow`、`imageio`、`imageio-ffmpeg`。PyBullet 和 `pybullet_data` 提供机械臂模型与物理仿真，其余依赖用于图片和视频。在 Miniforge Prompt 中用 Conda 安装即可，不需要再执行 `pip install -r requirements.txt`。
+Windows 使用 `environment.yml`：Python 3.11、`pybullet`、`numpy`、`pillow`、`imageio`、`imageio-ffmpeg`、`openai`。PyBullet 和 `pybullet_data` 提供机械臂模型与物理仿真，其余依赖用于图片和视频。在 Miniforge Prompt 中用 Conda 安装即可，不需要再执行 `pip install -r requirements.txt`。
 
 请先 `conda activate grasp-a` 再运行；仅直接调用环境里的 `python.exe` 可能缺少 Conda 数值库的 DLL 路径。NumPy 也用于备用 IK 的有界数值求解。
 
@@ -150,4 +152,22 @@ else:
 
 [results/README.md](results/README.md) 区分当前可复现输出和旧待机位姿下的历史文件。参考视频：[G02 交接准备抓取](results/visuals/handover_prep_seed0_G02.mp4)；对应结果：[demo_handover_seed0.json](results/demo_handover_seed0.json)。旧 `filter_seed0.json`、`demo_seed0.json` 等仍保留，不能与当前参数下的结果混算。
 
-正式比较前，组员还需共同确认杯子与任务目标、补齐约 8 条候选、定义 `geometry_score`、检查至少两个不同抓法能通过筛选，并在固定参数下做匹配 seed 的重复运行。B/C 的选择器与批量评估尚未包含在本目录中。
+正式比较前，组员还需共同确认杯子与任务目标、补齐约 8 条候选、定义 `geometry_score`、检查至少两个不同抓法能通过筛选，并在固定参数下做匹配 seed 的重复运行。B 的正式候选与 M0/M1/M2 仍未包含。C 的 M3、暂定 A1 及批量评估已经实现，当前验收结果仍为 pilot，未宣称完成正式方法对比。
+
+
+## 8. C：用当前账号跑 LLM 选择
+
+C 支持官方 OpenAI Responses API、OpenAI 兼容接口，以及复用本机 ChatGPT 登录的 Codex CLI。
+一个配置可以同时比较多个模型；完整说明见 [C 接入文档](docs/PART_C.md)。
+
+```bash
+python -m pip install -r requirements-c.txt
+python -m grasp_c validate --config configs/c.codex.json
+python -m grasp_c run --config configs/c.codex.json --out results/local/c_codex
+python -m grasp_c summarize results/local/c_codex
+```
+
+`configs/c.codex.json` 使用 `codex login` 的现有账号；标准 API 配置
+`configs/c.openai.json` 读取 `OPENAI_API_KEY`，API 用量单独计费。
+`configs/c.mock.json` 可无凭据验证完整物理流水线。C 的 A1 当前明确定义为去掉任务信息；
+几何回退使用 pilot 输入分数。正式实验前仍需全组冻结候选、评分、任务和消融定义。

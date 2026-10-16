@@ -8,3 +8,4 @@ dependencies:
   - pillow
   - imageio
   - imageio-ffmpeg
+  - openai>=1.68,<3

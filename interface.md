@@ -1,5 +1,7 @@
 # Part A Interface v0.1
 
+C 的多模型实现、账号接入和批量运行见 [docs/PART_C.md](docs/PART_C.md)。
+
 **C 的详细评估接入定义 v0.2：见 [docs/EVALUATION_INTERFACE.md](docs/EVALUATION_INTERFACE.md)。**
 该文档包含全部返回字段、可空/可缺失规则、失败枚举、统计口径、
 当前 pilot 语义限制及可运行的 [evaluate_trial 示例](examples/evaluate_one_trial.py)。

@@ -1,0 +1,53 @@
+{
+  "candidates": "candidates.c-pilot.json",
+  "seeds": [
+    0
+  ],
+  "tasks": [
+    "pour_prep",
+    "handover_prep"
+  ],
+  "repeats": 1,
+  "evaluation_scope": "pilot",
+  "cache_dir": "../.cache/grasp_c",
+  "seed_split": {
+    "pilot_controller": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "methods": [
+    {
+      "id": "GEOMETRY_REFERENCE",
+      "kind": "geometry"
+    },
+    {
+      "id": "M3_MOCK",
+      "kind": "llm",
+      "variant": "M3",
+      "provider": {
+        "type": "mock"
+      },
+      "model": "mock",
+      "parameters": {}
+    },
+    {
+      "id": "A1_MOCK",
+      "kind": "llm",
+      "variant": "A1",
+      "provider": {
+        "type": "mock"
+      },
+      "model": "mock",
+      "parameters": {}
+    }
+  ]
+}
