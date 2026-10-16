@@ -12,7 +12,7 @@ from grasp_a.contracts import Pose, TASKS, load_candidates
 from grasp_a.control import ObservationConfig
 
 ID_PATTERN = re.compile(r"[A-Za-z0-9_-]+")
-PROVIDER_TYPES = {"openai", "openai_compatible", "codex", "mock"}
+PROVIDER_TYPES = {"openai", "openai_compatible", "gemini", "codex", "mock"}
 CACHE_MODES = {"read_write", "read_only", "off"}
 
 
@@ -130,11 +130,17 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
                 raise ValueError(f"{method_id}: variant must be M3 or A1")
             method.setdefault("parameters", {})
             _json_object(method["parameters"], f"{method_id}.parameters")
-            allowed_parameters = ({"reasoning_effort"} if provider["type"] == "codex"
-                                  else {"temperature", "top_p", "max_output_tokens",
-                                        "reasoning_effort", "seed"})
+            if provider["type"] == "codex":
+                allowed_parameters = {"reasoning_effort"}
+            elif provider["type"] == "gemini":
+                allowed_parameters = {"temperature", "top_p", "max_output_tokens",
+                                      "thinking_budget", "thinking_level", "seed"}
+            else:
+                allowed_parameters = {"temperature", "top_p", "max_output_tokens", "reasoning_effort", "seed"}
             if set(method["parameters"]) - allowed_parameters:
                 raise ValueError(f"{method_id}: unsupported model parameters")
+            if {"thinking_budget", "thinking_level"} <= method["parameters"].keys():
+                raise ValueError(f"{method_id}: thinking_budget and thinking_level are mutually exclusive")
             for key, value in method["parameters"].items():
                 if key == "temperature" and (type(value) not in (int, float) or not 0 <= value <= 2):
                     raise ValueError(f"{method_id}: temperature must be a number in [0, 2]")
@@ -144,6 +150,11 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
                     _integer(value, f"{method_id}.max_output_tokens", minimum=1)
                 if key == "seed":
                     _integer(value, f"{method_id}.parameters.seed")
+                if key == "thinking_budget":
+                    _integer(value, f"{method_id}.thinking_budget", minimum=-1)
+                if key == "thinking_level" and (not isinstance(value, str) or
+                                                value not in {"minimal", "low", "medium", "high"}):
+                    raise ValueError(f"{method_id}: thinking_level must be minimal, low, medium, or high")
                 if key == "reasoning_effort" and (not isinstance(value, str) or not value):
                     raise ValueError(f"{method_id}: reasoning_effort must be a nonempty string")
             if getattr(adapter, "api", None) == "responses" and "seed" in method["parameters"]:

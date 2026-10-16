@@ -60,7 +60,7 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 
 ## 3. 安装环境
 
-Windows 使用 `environment.yml`：Python 3.11、`pybullet`、`numpy`、`pillow`、`imageio`、`imageio-ffmpeg`、`openai`。PyBullet 和 `pybullet_data` 提供机械臂模型与物理仿真，其余依赖用于图片和视频。在 Miniforge Prompt 中用 Conda 安装即可，不需要再执行 `pip install -r requirements.txt`。
+Windows 使用 `environment.yml`：Python 3.11、`pybullet`、`numpy`、`pillow`、`imageio`、`imageio-ffmpeg`，以及 C 的 `openai`、`google-genai`、`python-dotenv`。PyBullet 和 `pybullet_data` 提供机械臂模型与物理仿真，其余依赖用于图片、视频和模型调用。在 Miniforge Prompt 中用 Conda 安装即可，不需要再执行 `pip install -r requirements.txt`。
 
 请先 `conda activate grasp-a` 再运行；仅直接调用环境里的 `python.exe` 可能缺少 Conda 数值库的 DLL 路径。NumPy 也用于备用 IK 的有界数值求解。
 
@@ -182,21 +182,32 @@ python -m scripts.check_observable_control --out results\local\observable_regres
 正式比较前，组员还需补齐约 8 条有实质差异的候选、定义 `geometry_score` 和独立任务适用性、冻结目标/评分/环境，并使用未参与调试的匹配 seed。多条相近杯身抓取不等于任务选择空间充分。B 的正式候选与 M0/M1/M2 仍未包含。C 的 M3、暂定 A1 和批量评估已实现并对齐新版 A，当前仍为 pilot。
 
 
-## 8. C：用当前账号跑 LLM 选择
+## 8. C：用各自 API key 跑 GPT / Gemini 选择
 
-C 支持官方 OpenAI Responses API、OpenAI 兼容接口，以及复用本机 ChatGPT 登录的 Codex CLI。
-一个配置可以同时比较多个模型；完整说明见 [C 接入文档](docs/PART_C.md)。
+C 默认通过官方 SDK 调用 GPT 和 Gemini，分别读取 `OPENAI_API_KEY` 和
+`GEMINI_API_KEY`。小组成员只需在本机配置自己的 key；一个配置可同时比较多个模型。
+完整说明见 [C 接入文档](docs/PART_C.md)。
 
 ```bash
 python -m pip install -r requirements-c.txt
-python -m grasp_c validate --config configs/c.codex.json
-python -m grasp_c run --config configs/c.codex.json --out results/local/c_codex
-python -m grasp_c summarize results/local/c_codex
+cp .env.example .env
+# 用本地编辑器在 .env 中填写自己的 key；也可以使用终端已导出的环境变量
+python -m examples.llm_smoke --out results/local/openai_smoke.json
+python -m examples.llm_smoke --provider gemini --out results/local/gemini_smoke.json
+python -m grasp_c validate --config configs/c.api.json
+python -m grasp_c run --config configs/c.api.json --out results/local/c_api
+python -m grasp_c summarize results/local/c_api
 ```
 
-`configs/c.codex.json` 使用 `codex login` 的现有账号；标准 API 配置
-`configs/c.openai.json` 读取 `OPENAI_API_KEY`，API 用量单独计费。
-`configs/c.mock.json` 可无凭据验证完整物理流水线。C 的 A1 当前明确定义为去掉任务信息；
-几何回退使用 pilot 输入分数。正式实验前仍需全组冻结候选、评分、任务和消融定义。
+Windows PowerShell 复制模板用 `Copy-Item .env.example .env`；Conda 用户先执行
+`conda env update -f environment.yml`。`.env` 已被 Git 忽略，终端已导出的变量优先。
+关闭缓存的样例会打印真实原始回答与物理结果；再次运行请用新的 `--out` 路径。
+
+只测 GPT 用 `configs/c.openai.json`，只测 Gemini 用 `configs/c.gemini.json`，
+同时比较用 `configs/c.api.json`。默认模型为 `gpt-6-luna` 和 `gemini-3.8-flash`，
+可改为各自账户可访问的准确模型 ID。API key 缺失会明确报错，不会自动使用登录态。
+`configs/c.codex.json` 仍保留为显式可选的 Codex CLI 方式；
+`configs/c.mock.json` 可无凭据验证完整物理流水线。C 的 A1 暂定义为去掉任务信息，
+几何回退使用 pilot 分数。正式实验前仍需全组冻结候选、评分、任务和消融定义。
 
 C 已对齐 `observable_primitives_v2`：同一次运行的筛选与物理执行使用同一份显式 `observation_config`，记录 `fixed_target_hold_v2` 与 `policy_mode=fixed`。旧 `bounded_ik_v1` 验收保留在独立目录，不与新版结果混算。

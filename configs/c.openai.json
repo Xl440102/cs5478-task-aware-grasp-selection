@@ -34,7 +34,8 @@
       "kind": "llm",
       "variant": "M3",
       "provider": {
-        "type": "openai"
+        "type": "openai",
+        "api_key_env": "OPENAI_API_KEY"
       },
       "model": "gpt-6-luna",
       "parameters": {
@@ -47,22 +48,10 @@
       "kind": "llm",
       "variant": "A1",
       "provider": {
-        "type": "openai"
+        "type": "openai",
+        "api_key_env": "OPENAI_API_KEY"
       },
       "model": "gpt-6-luna",
-      "parameters": {
-        "reasoning_effort": "low",
-        "max_output_tokens": 1024
-      }
-    },
-    {
-      "id": "M3_GPT_SOL",
-      "kind": "llm",
-      "variant": "M3",
-      "provider": {
-        "type": "openai"
-      },
-      "model": "gpt-6.1-sol",
       "parameters": {
         "reasoning_effort": "low",
         "max_output_tokens": 1024

@@ -52,7 +52,7 @@ class ProviderTests(unittest.TestCase):
         self.assertEqual(result.metadata["status"], "refused")
 
     def test_no_key_fails_before_client_or_fallback(self):
-        with patch.dict(os.environ, {}, clear=True):
+        with patch.dict(os.environ, {}, clear=True), patch("grasp_c.env.load_local_env"):
             with self.assertRaisesRegex(ProviderConfigurationError, "OPENAI_API_KEY"):
                 OpenAIProvider().preflight()
 

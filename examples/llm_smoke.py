@@ -1,10 +1,13 @@
 """One fresh LLM selection followed by A's physical evaluation, with no cache.
 
-Run with your existing ChatGPT CLI login:
-    python -m examples.llm_smoke --provider codex --model gpt-5.6-luna
+Run with OPENAI_API_KEY (or add it to the project-root .env):
+    python -m examples.llm_smoke --out results/local/openai_smoke.json
 
-Or with an OpenAI Platform key in OPENAI_API_KEY:
-    python -m examples.llm_smoke --provider openai --model gpt-6-luna
+Run with GEMINI_API_KEY using the official google-genai SDK:
+    python -m examples.llm_smoke --provider gemini --out results/local/gemini_smoke.json
+
+The existing ChatGPT CLI login remains an explicit optional backend:
+    python -m examples.llm_smoke --provider codex --model gpt-5.6-luna
 """
 from __future__ import annotations
 
@@ -23,8 +26,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--provider", choices=("codex", "openai"), default="codex")
-    parser.add_argument("--model", help="Defaults: codex=gpt-5.6-luna, openai=gpt-6-luna")
+    parser.add_argument("--provider", choices=("openai", "gemini", "codex"), default="openai")
+    parser.add_argument("--model", help="Defaults: openai=gpt-6-luna, gemini=gemini-3.8-flash, codex=gpt-5.6-luna")
     parser.add_argument("--task", choices=TASKS, default="pour_prep")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--candidates", type=Path, default=ROOT / "configs/candidates.c-pilot.json")
@@ -37,11 +40,19 @@ def main(argv=None) -> int:
     try:
         from examples.evaluate_one_trial import evaluate_trial
 
-        model = args.model or ("gpt-5.6-luna" if args.provider == "codex" else "gpt-6-luna")
+        model = args.model or {"openai": "gpt-6-luna", "gemini": "gemini-3.8-flash",
+                               "codex": "gpt-5.6-luna"}[args.provider]
         candidates = load_candidates(args.candidates)
         provider = build_provider({"type": args.provider})
         provider.preflight()
-        parameters = {"reasoning_effort": "low"}
+        if args.provider == "gemini":
+            parameters = {"max_output_tokens": 1024}
+            if model.startswith("gemini-2.5-"):
+                parameters["thinking_budget"] = 0
+            else:
+                parameters["thinking_level"] = "low"
+        else:
+            parameters = {"reasoning_effort": "low"}
         if args.provider == "openai":
             parameters["max_output_tokens"] = 1024
         # A missing/invalid LLM response may fall back in the normal pipeline.
@@ -69,6 +80,7 @@ def main(argv=None) -> int:
             "cache_hit": metadata.get("cache_hit"),
             "repair_attempts": metadata.get("repair_attempts"),
             "fallback_to_geometry": fallback,
+            "llm_errors": [call["error"] for call in metadata.get("calls", []) if call.get("error")],
             "live_usage": metadata.get("live_usage"),
             "episode": {key: episode.get(key) for key in (
                 "controller_version", "evaluation_version", "success", "failure_reason",

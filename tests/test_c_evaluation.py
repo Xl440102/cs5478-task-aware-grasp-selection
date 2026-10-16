@@ -343,7 +343,8 @@ class RunnerTests(EvaluationFixture, unittest.TestCase):
     def test_preflight_fails_before_any_filter_or_evaluation(self):
         self.config["methods"] = [{"id": "BAD", "kind": "llm", "model": "example-model",
                                     "provider": {"type": "openai"}}]
-        with patch.dict("os.environ", {}, clear=True), self.assertRaises(ProviderConfigurationError):
+        with patch.dict("os.environ", {}, clear=True), patch("grasp_c.env.load_local_env"), \
+                self.assertRaises(ProviderConfigurationError):
             self.run_config()
         self.filter.assert_not_called()
         self.evaluate.assert_not_called()

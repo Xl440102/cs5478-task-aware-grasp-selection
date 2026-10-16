@@ -98,9 +98,11 @@ class OpenAIProvider:
                 "max_retries": self.max_retries, "structured_outputs": self.structured_outputs}
 
     def preflight(self):
+        from .env import load_local_env
+        load_local_env()
         if not os.environ.get(self.api_key_env):
             raise ProviderConfigurationError(
-                f"Set {self.api_key_env} in your local environment; ChatGPT login is available through provider type codex")
+                f"Set {self.api_key_env} in your local environment or the project's ignored .env file")
         if importlib.util.find_spec("openai") is None:
             raise ProviderConfigurationError("Install requirements-c.txt to use the OpenAI SDK")
 
@@ -301,6 +303,7 @@ def build_provider(config: dict) -> LLMProvider:
     options = {k: v for k, v in config.items() if k != "type"}
     allowed = {"openai": {"api", "api_key_env", "base_url", "timeout_s", "max_retries", "structured_outputs"},
                "openai_compatible": {"api", "api_key_env", "base_url", "timeout_s", "max_retries", "structured_outputs"},
+               "gemini": {"api_key_env", "timeout_s", "max_retries"},
                "codex": {"executable", "timeout_s"}, "mock": set()}
     if kind not in allowed or set(options) - allowed[kind]:
         raise ProviderConfigurationError("Unknown provider type or provider options; credentials must use api_key_env")
@@ -318,4 +321,7 @@ def build_provider(config: dict) -> LLMProvider:
         return OpenAIProvider(provider_type=kind, **options)
     if kind == "codex":
         return CodexProvider(**options)
+    if kind == "gemini":
+        from .gemini import GeminiProvider
+        return GeminiProvider(**options)
     return MockProvider()

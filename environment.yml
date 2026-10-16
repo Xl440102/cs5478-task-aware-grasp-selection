@@ -9,3 +9,7 @@ dependencies:
   - imageio
   - imageio-ffmpeg
   - openai>=1.68,<3
+  - pip
+  - pip:
+      - google-genai>=2.31,<3
+      - python-dotenv>=1,<2
