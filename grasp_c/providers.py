@@ -211,11 +211,21 @@ class CodexProvider:
             raise ProviderConfigurationError("Could not determine Codex CLI version")
         self.version = version.stdout.strip()
 
+    @staticmethod
+    def _chatgpt_environment():
+        # This backend is explicitly for the saved ChatGPT login. API keys may
+        # coexist in the parent process for separately configured API methods.
+        child_env = os.environ.copy()
+        for key in ("OPENAI_API_KEY", "CODEX_API_KEY"):
+            child_env.pop(key, None)
+        return child_env
+
     def preflight(self):
         self._resolve_version()
         try:
             auth = subprocess.run([self.executable, "login", "status"], capture_output=True,
-                                  text=True, timeout=15, check=False)
+                                  text=True, timeout=15, check=False,
+                                  env=self._chatgpt_environment())
         except (OSError, subprocess.TimeoutExpired) as exc:
             raise ProviderConfigurationError("Could not check Codex CLI authentication") from exc
         # Do not read/copy auth.json or return account/session tokens.
@@ -247,7 +257,8 @@ class CodexProvider:
                       "Return the requested JSON object.\n" + json.dumps(request.messages, ensure_ascii=False))
             try:
                 result = subprocess.run(command, input=prompt, cwd=directory, capture_output=True,
-                                        text=True, timeout=self.timeout_s, check=False)
+                                        text=True, timeout=self.timeout_s, check=False,
+                                        env=self._chatgpt_environment())
             except subprocess.TimeoutExpired as exc:
                 raise ProviderError("Codex inference timed out", code="timeout") from exc
             except OSError as exc:

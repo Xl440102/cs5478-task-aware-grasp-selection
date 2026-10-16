@@ -193,35 +193,45 @@ python -m scripts.check_observable_control --out results\local\observable_regres
 
 正式比较前，组员还需补齐约 8 条有实质差异的候选、定义 `geometry_score` 和独立任务适用性、冻结目标/评分/环境，并使用未参与调试的匹配 seed。多条相近杯身抓取不等于任务选择空间充分。B 已实现第 9 节的阶段性候选、Random/Geometry prototype；正式候选、评分权重与 M0/M1/M2 方法定义仍未冻结，Rule-based Task-aware 尚未实现。C 的 M3、暂定 A1 和批量评估已实现并对齐新版 A，当前仍为 pilot。
 
-## 8. C：用各自 API key 跑 GPT / Gemini 选择
+## 8. C：现有 GPT 登录与 Gemini API
 
-C 默认通过官方 SDK 调用 GPT 和 Gemini，分别读取 `OPENAI_API_KEY` 和
-`GEMINI_API_KEY`。小组成员只需在本机配置自己的 key；一个配置可同时比较多个模型。
+GPT 默认沿用 **Codex CLI 的现有 ChatGPT 登录**，模型为 `gpt-5.6-luna`；
+Gemini 使用官方 `google-genai` SDK、`gemini-3.8-flash` 和 `GEMINI_API_KEY`。
+默认流程无需配置 `OPENAI_API_KEY`，不调用单独计费的 OpenAI API。
 完整说明见 [C 接入文档](docs/PART_C.md)。
 
 ```bash
 python -m pip install -r requirements-c.txt
+codex login status
+# 尚未登录时运行 codex login
 cp .env.example .env
-# 用本地编辑器在 .env 中填写自己的 key；也可以使用终端已导出的环境变量
-python -m examples.llm_smoke --out results/local/openai_smoke.json
+# 用本地编辑器填写 GEMINI_API_KEY；也可以使用终端已导出的变量
+python -m examples.llm_smoke --out results/local/codex_smoke.json
 python -m examples.llm_smoke --provider gemini --out results/local/gemini_smoke.json
-python -m grasp_c validate --config configs/c.api.json
-python -m grasp_c run --config configs/c.api.json --out results/local/c_api
-python -m grasp_c summarize results/local/c_api
+python -m grasp_c validate --config configs/c.multimodel.json
+python -m grasp_c run --config configs/c.multimodel.json --out results/local/c_multimodel
+python -m grasp_c summarize results/local/c_multimodel
 ```
 
 Windows PowerShell 复制模板用 `Copy-Item .env.example .env`；Conda 用户先执行
 `conda env update -f environment.yml`。`.env` 已被 Git 忽略，终端已导出的变量优先。
-关闭缓存的样例会打印真实原始回答与物理结果；再次运行请用新的 `--out` 路径。
+关闭缓存的样例打印原始回答与物理结果；重跑请使用新的 `--out` 路径。
 
-只测 GPT 用 `configs/c.openai.json`，只测 Gemini 用 `configs/c.gemini.json`，
-同时比较用 `configs/c.api.json`。默认模型为 `gpt-6-luna` 和 `gemini-3.8-flash`，
-可改为各自账户可访问的准确模型 ID。API key 缺失会明确报错，不会自动使用登录态。
-`configs/c.codex.json` 仍保留为显式可选的 Codex CLI 方式；
-`configs/c.mock.json` 可无凭据验证完整物理流水线。C 的 A1 暂定义为去掉任务信息，
-几何回退使用 pilot 分数。正式实验前仍需全组冻结候选、评分、任务和消融定义。
+只测 GPT 用 `configs/c.codex.json`，只测 Gemini 用 `configs/c.gemini.json`，
+同时比较用 `configs/c.multimodel.json`。模型访问权限由各自账户决定，失败不会静默
+切换模型。Codex 与 Gemini 的输入环境不同，在统计中保留独立方法/provider 身份。
 
-C 已对齐 `observable_primitives_v2`：同一次运行的筛选与物理执行使用同一份显式 `observation_config`，记录 `fixed_target_hold_v2` 与 `policy_mode=fixed`。旧 `bounded_ik_v1` 验收保留在独立目录，不与新版结果混算。
+恢复默认 Codex 后已重新关闭缓存实测：`gpt-5.6-luna` 返回 G02，真实请求 1 次、
+无修复或回退，A 物理执行成功并完整保持 2 秒。本次 Gemini 官方 SDK 已能读取 key，
+但 3.8 Flash 生成请求遇到 HTTP 503，尚未取得
+有效 Gemini 回答；物理回退成功不能视为模型成功。OpenAI API 尚未实测，且已退出
+默认流程。`configs/c.openai.json` 和 `configs/c.api.json` 仅保留为需要额外 API
+计费的显式可选方式；`configs/c.mock.json` 可无凭据验证完整物理流水线。
+
+C 的 A1 暂定义为去掉任务信息，几何回退使用 pilot 分数。正式实验前仍需全组冻结
+候选、评分、任务和消融定义。同一次运行的筛选与物理执行使用同一份显式
+`observation_config`，记录 `observable_primitives_v2`、`fixed_target_hold_v2` 与
+`policy_mode=fixed`。旧控制器验收保留在独立目录，不与新版结果混算。
 
 ## 9. Part B — Candidate Generation and Geometry-Based Selection
 
@@ -278,4 +288,4 @@ python -m unittest discover -s tests -v
 
 Prototype 报告包含 score breakdown、公式版本、权重、来源哈希、等价候选诊断、A filter、选择和可选 episode。Random 忽略分数选择，但仍使用同一评分候选流程，以匹配 Geometry 的输入。相同 **有序可行列表和 selection seed** 可复现随机排名；默认 selection seed 等于 scene seed。内部特征 sidecar 不属于正式 selector 可见输入，不能凭 ID 私下读取。
 
-新增 B 测试覆盖解析几何、非法/缺失输入、分数范围与单调性、权重归一化、确定性、稳定平分、合法 ID、Random 复用及 A 集成。合并 Gemini/API key 测试后，当前完整测试套件为 **144/144 通过**；真实 API 验证状态见 [C 接入文档](docs/PART_C.md)。
+新增 B 测试覆盖解析几何、非法/缺失输入、分数范围与单调性、权重归一化、确定性、稳定平分、合法 ID、Random 复用及 A 集成。合并 Gemini 与账号登录隔离测试后，当前完整测试套件为 **149/149 通过**；真实 API 验证状态见 [C 接入文档](docs/PART_C.md)。

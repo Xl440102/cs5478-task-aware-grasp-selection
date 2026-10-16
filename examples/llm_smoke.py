@@ -1,13 +1,13 @@
 """One fresh LLM selection followed by A's physical evaluation, with no cache.
 
-Run with OPENAI_API_KEY (or add it to the project-root .env):
-    python -m examples.llm_smoke --out results/local/openai_smoke.json
+Run with the existing ChatGPT CLI login (default; no OpenAI API key needed):
+    python -m examples.llm_smoke --out results/local/codex_smoke.json
 
 Run with GEMINI_API_KEY using the official google-genai SDK:
     python -m examples.llm_smoke --provider gemini --out results/local/gemini_smoke.json
 
-The existing ChatGPT CLI login remains an explicit optional backend:
-    python -m examples.llm_smoke --provider codex --model gpt-5.6-luna
+An explicit OpenAI API backend remains available and uses separate API billing:
+    python -m examples.llm_smoke --provider openai --out results/local/openai_smoke.json
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--provider", choices=("openai", "gemini", "codex"), default="openai")
+    parser.add_argument("--provider", choices=("codex", "gemini", "openai"), default="codex")
     parser.add_argument("--model", help="Defaults: openai=gpt-6-luna, gemini=gemini-3.8-flash, codex=gpt-5.6-luna")
     parser.add_argument("--task", choices=TASKS, default="pour_prep")
     parser.add_argument("--seed", type=int, default=0)
@@ -47,7 +47,10 @@ def main(argv=None) -> int:
         provider.preflight()
         if args.provider == "gemini":
             parameters = {"max_output_tokens": 1024}
-            if model.startswith("gemini-2.5-"):
+            if model.startswith("gemini-2.5-pro"):
+                # Pro cannot disable thinking; reserve its minimum budget.
+                parameters["thinking_budget"] = 128
+            elif model.startswith("gemini-2.5-"):
                 parameters["thinking_budget"] = 0
             else:
                 parameters["thinking_level"] = "low"

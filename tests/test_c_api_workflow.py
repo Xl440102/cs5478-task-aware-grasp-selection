@@ -13,7 +13,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from grasp_c import env
-from grasp_c.config import validate_config
+from grasp_c.config import load_config, validate_config
 from grasp_c.providers import (ModelRequest, ModelResponse, OpenAIProvider,
                                ProviderConfigurationError, build_provider)
 from grasp_c.selectors import LLMSelector
@@ -89,6 +89,20 @@ class OfflineGeminiConfigurationTests(unittest.TestCase):
             validated = validate_config(self.config())
         self.assertEqual(validated["methods"][0]["provider"]["api_key_env"], "GEMINI_API_KEY")
         self.assertEqual(validated["methods"][0]["variant"], "M3")
+
+    def test_team_multimodel_config_uses_codex_and_native_gemini_without_openai_key(self):
+        with patch.dict(os.environ, {}, clear=True), patch.dict(sys.modules, {"google.genai": None}), \
+                patch("grasp_c.env.load_local_env", side_effect=AssertionError("offline env load")), \
+                patch("grasp_c.gemini._load_sdk", side_effect=AssertionError("offline SDK import")), \
+                patch("grasp_c.providers.subprocess.run", side_effect=AssertionError("offline CLI call")):
+            config = load_config(ROOT / "configs/c.multimodel.json")
+        methods = {method["provider"]["type"]: method for method in config["methods"]
+                   if method["kind"] == "llm"}
+        self.assertEqual(set(methods), {"codex", "gemini"})
+        self.assertEqual(methods["codex"]["model"], "gpt-5.6-luna")
+        self.assertEqual(methods["gemini"]["model"], "gemini-3.8-flash")
+        self.assertNotIn("api_key_env", methods["codex"]["provider"])
+        self.assertEqual(methods["gemini"]["provider"]["api_key_env"], "GEMINI_API_KEY")
 
     def test_native_gemini_parameters_are_checked_before_any_sdk_import(self):
         invalid = ({"reasoning_effort": "low"}, {"thinking_budget": True},
@@ -169,20 +183,31 @@ class TeamSmokeExampleTests(unittest.TestCase):
 
     def fake_provider(self, provider_type):
         provider = Mock()
-        provider.identity = {"type": provider_type, "api_key_env":
-                             "GEMINI_API_KEY" if provider_type == "gemini" else "OPENAI_API_KEY"}
+        provider.identity = {"type": provider_type}
+        if provider_type == "codex":
+            provider.identity["auth"] = "existing_chatgpt_cli_login"
+        else:
+            provider.identity["api_key_env"] = (
+                "GEMINI_API_KEY" if provider_type == "gemini" else "OPENAI_API_KEY")
         provider.generate.return_value = ModelResponse(
             ANSWER, "test-snapshot", {"input_tokens": 10, "output_tokens": 5},
             metadata={"status": "completed"})
         return provider
 
-    def test_default_example_uses_direct_openai_and_a_fresh_call(self):
-        self.check_successful_example("openai", [], "gpt-6-luna",
+    def test_default_example_uses_existing_codex_login_and_a_fresh_call(self):
+        self.check_successful_example("codex", [], "gpt-5.6-luna", {"reasoning_effort": "low"})
+
+    def test_explicit_openai_example_uses_direct_api_and_a_fresh_call(self):
+        self.check_successful_example("openai", ["--provider", "openai"], "gpt-6-luna",
                                       {"reasoning_effort": "low", "max_output_tokens": 1024})
 
     def test_gemini_example_uses_native_provider_with_its_own_defaults(self):
         self.check_successful_example("gemini", ["--provider", "gemini"], "gemini-3.8-flash",
                                       {"thinking_level": "low", "max_output_tokens": 1024})
+
+    def test_explicit_gemini_25_pro_uses_the_minimum_supported_thinking_budget(self):
+        self.check_successful_example("gemini", ["--provider", "gemini", "--model", "gemini-2.5-pro"],
+                                      "gemini-2.5-pro", {"thinking_budget": 128, "max_output_tokens": 1024})
 
     def check_successful_example(self, provider_type, arguments, model, parameters):
         provider = self.fake_provider(provider_type)

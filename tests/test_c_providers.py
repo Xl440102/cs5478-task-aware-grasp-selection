@@ -85,6 +85,38 @@ class ProviderTests(unittest.TestCase):
         self.assertEqual(provider.identity["cli_version"], "codex-cli 0.152.0")
         self.assertNotIn("token", json.dumps(provider.identity))
 
+    def test_codex_login_and_inference_ignore_parent_api_keys(self):
+        provider = CodexProvider()
+        provider.version = "test"
+        parent = {"OPENAI_API_KEY": "synthetic-api-key", "CODEX_API_KEY": "synthetic-codex-key",
+                  "GEMINI_API_KEY": "synthetic-gemini-key", "PATH": "/bin"}
+
+        def run(command, **kwargs):
+            self.assertNotIn("OPENAI_API_KEY", kwargs["env"])
+            self.assertNotIn("CODEX_API_KEY", kwargs["env"])
+            self.assertEqual(kwargs["env"]["PATH"], "/bin")
+            if "login" in command:
+                return subprocess.CompletedProcess(command, 0, "Logged in using ChatGPT", "")
+            Path(command[command.index("--output-last-message") + 1]).write_text(
+                '{"selected_id":"G02","ranking":["G02","G03"]}')
+            return subprocess.CompletedProcess(command, 0, '{"type":"turn.completed"}', "")
+
+        with patch.dict(os.environ, parent, clear=True), \
+                patch("grasp_c.providers.subprocess.run", side_effect=run):
+            provider.preflight()
+            provider.generate(request())
+            self.assertEqual(os.environ["OPENAI_API_KEY"], parent["OPENAI_API_KEY"])
+            self.assertEqual(os.environ["CODEX_API_KEY"], parent["CODEX_API_KEY"])
+
+    def test_codex_rejects_api_key_login_instead_of_using_api_billing(self):
+        provider = CodexProvider()
+        provider.version = "test"
+        with patch("grasp_c.providers.subprocess.run", return_value=subprocess.CompletedProcess(
+                [], 0, "Logged in using an API key", "")), \
+                self.assertRaisesRegex(ProviderConfigurationError, "ChatGPT account"):
+            provider.preflight()
+        self.assertFalse(provider._authenticated)
+
     def test_codex_is_empty_directory_stdin_structured_and_records_usage(self):
         provider = CodexProvider()
         provider.version = "codex-cli test"

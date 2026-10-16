@@ -1,13 +1,13 @@
 # C：多模型抓取选择与评估
 
-C 在 A 提供的可行候选中选择抓取 ID，并让同一套物理控制器执行。包含 M3、
-A1、一次输出修复、几何回退、原始回答缓存、批量运行、恢复和汇总。GPT 默认使用
-官方 `openai` SDK 和 `OPENAI_API_KEY`；Gemini 使用官方 `google-genai` SDK 和
-`GEMINI_API_KEY`。组员配置各自的 key 即可使用同一份代码，无须登录 Codex。
+C 在 A 的可行候选中选择抓取 ID，并让同一套物理控制器执行，包含 M3、A1、一次
+输出修复、几何回退、缓存、批量运行、恢复和汇总。**GPT 默认恢复为 Codex CLI 的
+现有 ChatGPT 登录**；Gemini 使用官方 `google-genai` SDK 和 `GEMINI_API_KEY`。
+默认运行不需要 `OPENAI_API_KEY`，不会调用额外计费的 OpenAI API。
 
-当前仍为 **pilot**：A 使用 `observable_primitives_v2` 控制器及
+当前仍为 **pilot**：A 使用 `observable_primitives_v2` 控制器和
 `fixed_target_hold_v2` 评分；正式候选、评分及消融定义仍需全组冻结。
-C 给 A 的即时输出为 `selected_id/ranking` 和审计 metadata，物理成功由 A 判定。
+C 给 A 的即时输出是 `selected_id/ranking` 和审计 metadata，物理成功由 A 判定。
 最终交付是第 7–8 节的 manifest、逐条 trial 和多方法统计 summary。
 
 ## 1. 安装与离线验证
@@ -19,112 +19,126 @@ python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements-c.txt
 python -m unittest discover -s tests -v
-python -m grasp_c validate --config configs/c.api.json
+python -m grasp_c validate --config configs/c.multimodel.json
 ```
 
 Windows 可执行 `conda env update -f environment.yml`、`conda activate grasp-a`，
 再运行上述 `python -m ...` 命令。已有虚拟环境需重新安装 `requirements-c.txt`，
-其中包含 `openai`、`google-genai` 和 `python-dotenv`。跨平台安装使用该文件；
-`requirements-c.lock.txt` 是 macOS arm64/Python 3.12 的版本快照。
-每次运行的 manifest 记录实际环境。
+其中包含 `google-genai`、`python-dotenv` 和可选 OpenAI API 适配器使用的 `openai`。
+Codex CLI 需单独安装，并在本机运行 `codex login` 完成 ChatGPT 登录。
+跨平台安装使用 `requirements-c.txt`；`requirements-c.lock.txt` 是 macOS arm64/
+Python 3.12 的版本快照，每次运行的 manifest 会记录实际环境。
 
-无凭据也可以验证完整流水线：
+无凭据可以验证完整物理流水线：
 
 ```bash
 python -m grasp_c run --config configs/c.mock.json --out results/local/c_mock
 ```
 
-`mock` 是确定性接口测试，物理执行仍由真实 PyBullet 完成，不能用作 LLM 性能结果。
+`mock` 是确定性接口测试，物理执行由真实 PyBullet 完成，不能用作 LLM 性能结果。
 macOS arm64 编译 PyBullet 若在自带旧版 zlib 的 `fdopen` 处报错，可使用：
 
 ```bash
 CFLAGS='-include stdio.h' python -m pip install -r requirements-c.txt
 ```
 
-## 2. 为小组成员配置 API key
+## 2. 默认账号配置与真实调用
 
-在项目根目录复制模板，再用本地编辑器填写自己的 key：
+GPT 使用本机 Codex CLI 的 ChatGPT 登录：
+
+```bash
+codex login status
+# 尚未登录时执行 codex login，并在浏览器完成登录
+```
+
+模型沿用已验证的 `gpt-5.6-luna`，参数为 `reasoning_effort=low`。GPT 不需要
+OpenAI API key。适配器不读取、复制或提交登录 token；ChatGPT/Codex 额度和模型
+访问权限由各自账户决定。模型不可用、登录失败或参数错误都会记录并停止，不会自动
+改用 API key 或其他模型。Codex 子进程会移除继承的 `OPENAI_API_KEY` 和
+`CODEX_API_KEY`，并拒绝 API key 登录状态；父进程环境不变，独立 API 方法仍可使用。
+
+Gemini key 在 [Google AI Studio](https://aistudio.google.com/apikey) 创建。
+复制项目模板后在本地编辑器填写 `GEMINI_API_KEY`：
 
 ```bash
 cp .env.example .env
 ```
 
-Windows PowerShell 使用 `Copy-Item .env.example .env`。`.env` 不进入 Git；
-不要把真实 key 放入 JSON、源码或聊天。只用一个服务时，另一个 key 可以保持空白。
-项目只加载仓库根目录的 `.env`，不会搜索父目录；已导出的环境变量优先，
-并且不会展开 key 中的变量表达式。
-
-也可以在运行命令的同一终端导出环境变量：
+Windows PowerShell 用 `Copy-Item .env.example .env`。也可以在运行终端直接设置：
 
 ```bash
-export OPENAI_API_KEY='你的 OpenAI API key'
 export GEMINI_API_KEY='你的 Gemini API key'
 ```
 
 ```powershell
-$env:OPENAI_API_KEY = '你的 OpenAI API key'
 $env:GEMINI_API_KEY = '你的 Gemini API key'
 ```
 
-OpenAI key 在 [OpenAI Platform](https://platform.openai.com/api-keys) 创建；
-Gemini key 在 [Google AI Studio](https://aistudio.google.com/apikey) 创建。
-OpenAI API key 与 ChatGPT 登录分别配置，API 用量按 API 账户结算。
-若终端更新了变量而 IDE/Codex 仍未读取，请在该进程的运行配置中更新变量，
-或重启进程使其继承新环境；也可把 key 写入仓库根目录 `.env`。
-缺少所选服务的 key 会在预检查时明确停止，不会自动换成 Codex 登录。
+`.env` 已被 Git 忽略；不要把真实 key 放入 JSON、源码或聊天。项目只加载仓库根目录
+`.env`，不会搜索父目录或展开 key 内的变量表达式；已导出的环境变量优先。
+若 IDE/Codex 未读取终端更新的变量，更新其运行配置或重启进程，或使用本地 `.env`。
+缺少 Gemini key 会明确报错，不会把该方法换成 GPT 或几何方法并冒充模型成功。
 
-选择与凭据对应的配置：
-
-| 配置 | 所需环境变量 | 方法 |
+| 配置 | 所需凭据 | 方法 |
 |---|---|---|
-| `configs/c.openai.json` | `OPENAI_API_KEY` | GPT 的 M3、A1，以及几何参考 |
-| `configs/c.gemini.json` | `GEMINI_API_KEY` | Gemini 的 M3、A1，以及几何参考 |
-| `configs/c.api.json` | 两个 key | 同条件比较 GPT、Gemini 的 M3/A1 和几何参考 |
+| `configs/c.codex.json` | 本机 Codex 的 ChatGPT 登录 | GPT 的 M3/A1 和几何参考 |
+| `configs/c.gemini.json` | `GEMINI_API_KEY` | Gemini 的 M3/A1 和几何参考 |
+| `configs/c.multimodel.json` | 上述两项 | 同条件比较 GPT、Gemini 的 M3/A1 和几何参考 |
 
-先用关闭缓存的单次样例验证鉴权、模型权限、输出和物理执行：
+先运行关闭缓存的单次样例：
 
 ```bash
-python -m examples.llm_smoke --out results/local/openai_smoke.json
+python -m examples.llm_smoke --out results/local/codex_smoke.json
 python -m examples.llm_smoke --provider gemini --out results/local/gemini_smoke.json
 ```
 
-默认 GPT 模型沿用 `gpt-6-luna`，Gemini 使用 `gemini-3.8-flash`；
-模型访问权限取决于各自账户，可用 `--model` 指定可访问的准确 ID。
-Gemini 3.8 Flash 默认设置 `thinking_level=low`；更换模型时需同步调整批量配置的
-模型参数。样例为仍有旧模型访问权限的账户保留 2.5 系列的 `thinking_budget=0` 分支。
-本次真实调用发现：即使 `models.list()` 列出了 `gemini-2.5-flash`，新用户调用仍可能
-收到 404，提示该模型不再向新用户提供，并建议 `gemini-3.8-flash`。模型出现在列表
-中不保证该账户能够生成内容，应以关闭缓存的真实调用结果判断。
+Gemini 默认是 `gemini-3.8-flash`、`thinking_level=low` 和 1024 输出 token 上限。
+可用 `--model` 指定账户可访问的准确 ID，更换模型时应同步调整批量配置中的参数。
+样例为仍有旧模型权限的账户保留 2.5 Flash 的 `thinking_budget=0` 分支；
+显式指定 `gemini-2.5-pro` 时使用其最小思考预算 `thinking_budget=128`，不关闭思考。
+真实调用发现：`models.list()` 即使列出 `gemini-2.5-flash`，新用户生成请求仍可能
+收到 404，提示该模型不再向新用户提供并建议 3.8 Flash。列表不保证实际生成权限。
 
-样例代码见 [`examples/llm_smoke.py`](../examples/llm_smoke.py)。它打印
-`raw_initial_response`、`selected_id`、`ranking`、`live_requests`、`cache_hit`、
-修复/回退标记及 `episode.success`，并保存完整 trial。只有新调用、未回退的
-模型回答与物理成功同时成立时才退出 0；物理失败本身不意味着 API 不通。
-输出路径若已存在会被拒绝，重跑请指定新路径。
+样例见 [`examples/llm_smoke.py`](../examples/llm_smoke.py)。它打印
+`raw_initial_response`、`selected_id`、`ranking`、`live_requests`、`cache_hit`、修复/
+回退标记与 `episode.success`，并保存完整 trial。只有新调用、未回退的模型回答与
+物理成功同时成立时才退出 0；物理失败本身不意味着模型调用失败。输出若已存在会被
+拒绝，重跑请指定新路径。
 
-2026-10-16 本次接入验证：已读取 `GEMINI_API_KEY`，官方 SDK 的模型列表请求成功。
-按账户提示改用 `gemini-3.8-flash` 后，两次关闭缓存的完整样例及一次最小生成请求
-均返回 HTTP 503 / UNAVAILABLE，服务端说明模型需求过高、建议稍后重试。
-完整样例保存了错误与 `fallback_to_geometry=true`，其物理执行成功来自几何回退，
-**不能算 Gemini 生成或 LLM 评估成功**。当前进程仍未读取到 `OPENAI_API_KEY`，
-因此本次也尚未完成 OpenAI API key 的真实验证。此前 Codex 登录方式的成功记录
-不能替代这两个 API 的验证；服务恢复、凭据可见后，应重新运行上述关闭缓存样例。
+2026-10-16 恢复默认 Codex 方式后，关闭缓存重新实测返回
+`{"selected_id":"G02","ranking":["G02","G03"]}`，请求模型 `gpt-5.6-luna`，
+真实请求 1 次、cache_hit=false、无修复/回退。新版 A 的倒水准备执行成功，完整
+保持 2 秒，无碰撞/掉落。完整记录为本地
+`results/local/codex_restored_default_live_smoke.json`。
+本次 Gemini 官方 SDK 已读取 key，模型列表请求成功，
+但改用 3.8 Flash 后两次完整样例及一次最小生成请求均返回 HTTP 503/UNAVAILABLE，
+服务端提示需求过高、稍后重试。完整样例的物理成功来自几何回退，**不能视为 Gemini
+生成或评估成功**。OpenAI API key 方式尚未实测；它不属于默认流程，无需为此配置
+`OPENAI_API_KEY`。Gemini 服务恢复后应重跑关闭缓存的样例。
 
-通过单次测试后运行批量比较：
+随后按要求测试 `gemini-2.5-pro`：项目样例与最小 SDK 生成请求均返回
+HTTP 404 / NOT_FOUND，服务端明确说明该模型不再向新用户开放，建议
+`gemini-3.1-pro-preview`。本次没有取得 Pro 回答，也没有自动换模型；完整项目记录
+在 `results/local/gemini25_pro_native_live_smoke.json`。可使用
+`python -m examples.llm_smoke --provider gemini --model gemini-2.5-pro --out results/local/gemini_pro_retry.json`
+复测；当前默认仍保留已确认的 `gemini-3.8-flash`。
+
+通过单次测试后运行多模型比较：
 
 ```bash
-python -m grasp_c run --config configs/c.api.json --out results/local/c_api
-python -m grasp_c summarize results/local/c_api
+python -m grasp_c run --config configs/c.multimodel.json --out results/local/c_multimodel
+python -m grasp_c summarize results/local/c_multimodel
 ```
 
-需要代理时在本机设置 `HTTP_PROXY`/`HTTPS_PROXY`；SDK 会继承进程环境，
-无需把代理凭据写进实验配置。官方接入参考：[OpenAI quickstart](https://developers.openai.com/api/docs/quickstart)、
+Gemini SDK 继承 `HTTP_PROXY`/`HTTPS_PROXY` 环境变量，无需把代理凭据写进实验
+配置。官方说明：[Codex 登录](https://learn.chatgpt.com/docs/auth)、
+[Codex 非交互运行](https://learn.chatgpt.com/docs/non-interactive-mode)、
 [Gemini quickstart](https://ai.google.dev/gemini-api/docs/quickstart)。
 
 ## 3. 在代码中调用 GPT 或 Gemini
 
-两个 SDK 适配器共用 `LLMProvider` 边界；选择器、修复、缓存和评估器无需修改。
-下面示例加载本地 `.env` 后调用预检查（由适配器处理），并让 A 执行所选抓法：
+两种后端共用 `LLMProvider` 边界；选择器、修复、缓存和评估器无需修改。
+默认 GPT 使用 Codex CLI：
 
 ```python
 from grasp_a.contracts import load_candidates
@@ -132,15 +146,15 @@ from examples.evaluate_one_trial import evaluate_trial
 from grasp_c.providers import build_provider
 from grasp_c.selectors import LLMSelector
 
-provider = build_provider({"type": "openai", "api_key_env": "OPENAI_API_KEY"})
+provider = build_provider({"type": "codex", "timeout_s": 120})
 provider.preflight()
 selector = LLMSelector(
-    provider, "gpt-6-luna", variant="M3",
-    parameters={"reasoning_effort": "low", "max_output_tokens": 1024},
+    provider, "gpt-5.6-luna", variant="M3",
+    parameters={"reasoning_effort": "low"},
     cache_dir=".cache/grasp_c",
 )
 trial = evaluate_trial(
-    "pour_prep", 0, "M3_GPT_LUNA",
+    "pour_prep", 0, "M3_CODEX",
     load_candidates("configs/candidates.c-pilot.json"), selector,
 )
 ```
@@ -157,25 +171,23 @@ selector = LLMSelector(
 )
 ```
 
-GPT 适配器内部使用 `OpenAI(...).responses.create(..., store=False)`，
-并以 JSON Schema 约束输出。Gemini 适配器使用
-`genai.Client(...).models.generate_content(...)`，以 `system_instruction` 和
-对话内容传入相同的 prompt，用 JSON MIME 类型和 JSON Schema 约束输出。
-两者均记录模型实际返回文本、token 用量和请求状态，随后执行相同本地输出校验。
+GPT 适配器通过 `codex exec` 在空临时目录中调用，关闭项目指令、命令、图片、搜索
+和多 agent 工具，并检查事件以排除工具调用。Codex 自身仍有系统指令，与直接 API
+的输入环境不同，统计中保留独立方法/provider 身份；模型 ID 是请求 ID，不声称已经
+核实底层模型快照。
 
-不会默认给所有模型发送 temperature 或解码 seed。环境 seed 只固定仿真并进入
-日志/缓存；服务端模型参数取决于具体模型能力，不支持的参数明确报错。
-Gemini 3 的 `thinking_level` 和 Gemini 2.5 的 `thinking_budget` 不能混用，也不能直接复制到 GPT。
-官方参考：[OpenAI Python SDK](https://developers.openai.com/api/reference/python)、
-[OpenAI 结构化输出](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses)、
-[Gemini 结构化输出](https://ai.google.dev/gemini-api/docs/structured-output)。
+Gemini 使用 `genai.Client(...).models.generate_content(...)`，将相同 prompt 映射
+为 `system_instruction` 与对话内容，使用 JSON MIME 类型与 JSON Schema 约束
+输出。两种后端均保存实际文本、token 用量和状态，再执行相同的本地输出校验。
+环境 seed 只固定仿真并进入日志/缓存，不自动作为模型解码 seed。Gemini 3 的
+`thinking_level` 与 2.5 的 `thinking_budget` 不能混用，也不能复制到 Codex 参数。
 
 ## 4. 多模型与其他服务
 
-一个配置可包含多个方法，每个方法独立指定 provider、model、parameters 和 variant。
-`configs/c.api.json` 同时包含 GPT 与 Gemini，所有方法共享同一份 seed、候选、
-观测配置和固定执行器。为新的模型增加独立方法 ID，并使用新的运行目录。
-配置中的模型 ID 可以改为各自账户可访问的准确 ID；没有任何静默换模型行为。
+`configs/c.multimodel.json` 是默认多模型配置，包含 Codex GPT 和 Gemini 的 M3/A1，
+以及几何参考；所有方法共享同一份 seed、候选、观测配置和固定执行器。
+每个方法独立指定 provider、model、parameters 和 variant。新增模型应使用独立
+方法 ID 和新的运行目录，不会静默换模型。
 
 Qwen、DeepSeek 或本地服务可使用 OpenAI 兼容接口：
 
@@ -196,14 +208,14 @@ Qwen、DeepSeek 或本地服务可使用 OpenAI 兼容接口：
 ```
 
 `openai_compatible` 默认使用 Chat Completions；支持 Responses 的服务可加
-`"api": "responses"`。服务不支持 JSON Schema 时可设置 `structured_outputs: false`，
-仍会执行本地严格输出校验。兼容接口在输出字段、参数和 token 用量上可能有差异，
-接入新服务时需先做该服务的真实冒烟测试。示例见 `configs/c.compatible.json`。
-原生 Gemini 使用 `type: gemini`，无须填写 OpenAI 兼容的 base_url。
+`"api": "responses"`。不支持 JSON Schema 时可设置 `structured_outputs: false`，
+仍执行本地严格输出校验。各服务参数和 token 字段可能有差异，需先做真实冒烟测试；
+示例见 `configs/c.compatible.json`。原生 Gemini 使用 `type: gemini`，不填 OpenAI
+兼容 base_url。
 
-新服务若不兼容 OpenAI，增加实现 `LLMProvider` 的适配器：提供 `identity`、
-`preflight()`、`generate(ModelRequest) -> ModelResponse`，再在 `build_provider()` 注册。
-选择器、缓存和物理评估器不依赖具体 SDK。
+新服务若不兼容 OpenAI，可增加实现 `LLMProvider` 的适配器，提供 `identity`、
+`preflight()`、`generate(ModelRequest) -> ModelResponse`，再在 `build_provider()`
+注册。选择器、缓存和物理评估器不依赖具体 SDK。
 
 ## 5. 方法与失败策略
 
@@ -246,8 +258,8 @@ LLM 只收到 `id/region/approach/gripper_width/geometry_score`。位姿、筛�
 ## 7. 批量运行、恢复与输出
 
 ```bash
-python -m grasp_c run --config configs/c.api.json --out results/local/my_run --media
-python -m grasp_c run --config configs/c.api.json --out results/local/my_run --media --resume
+python -m grasp_c run --config configs/c.multimodel.json --out results/local/my_run --media
+python -m grasp_c run --config configs/c.multimodel.json --out results/local/my_run --media --resume
 python -m grasp_c summarize results/local/my_run
 ```
 
@@ -327,25 +339,23 @@ GEOMETRY_REFERENCE 及其回退明确使用输入分数，不声称执行 B 的�
 内部几何 sidecar 不进入 prompt。正式比较前应全组确认评分版本与候选集，创建新的
 输出目录，不能把参考算法重命名成正式实验结果。
 
-## 10. 可选：保留的 Codex CLI 接入
+## 10. 显式可选：OpenAI API key 方式
 
-`codex` 适配器仍可复用本机已有的 ChatGPT CLI 登录，需要显式选择：
+默认 GPT 不需要本节。仅当组员明确希望使用额外计费的 OpenAI API 时，才在
+[OpenAI Platform](https://platform.openai.com/api-keys) 创建 key，并在本机设置
+`OPENAI_API_KEY`。其 API 计费和用量独立于 ChatGPT 订阅。
 
 ```bash
-codex login status
-python -m examples.llm_smoke --provider codex --model gpt-5.6-luna --out results/local/codex_smoke.json
-python -m grasp_c run --config configs/c.codex.json --out results/local/c_codex
+export OPENAI_API_KEY='你的 OpenAI API key'
+python -m examples.llm_smoke --provider openai --model gpt-6-luna --out results/local/openai_smoke.json
+python -m grasp_c run --config configs/c.openai.json --out results/local/c_openai
 ```
 
-此方式不读取、复制或提交登录凭据。适配器在空临时目录运行，关闭项目指令、命令、
-图片、搜索和多 agent 工具，并检查 CLI 事件以排除工具调用。Codex 自身仍有系统
-指令，与直接 API 的输入环境不同，需作为独立方法比较，不能把它的测试结果视作
-OpenAI API key 的验证。模型 ID 为请求 ID，不声称已核实底层快照。
+`configs/c.api.json` 将 GPT 的 OpenAI API 和 Gemini API 放在同一实验中，需要两个
+key；与默认 `configs/c.multimodel.json` 的 Codex GPT 方式不同。OpenAI 适配器使用
+官方 SDK 的 Responses API、`store=False` 和严格 JSON Schema。此方式尚未使用
+当前账户完成真实联网验证；Codex 登录的成功记录不能替代 API key 验证。
 
-历史上 2026-10-16 关闭缓存的 `gpt-5.6-luna`/Codex CLI 测试返回
-`{"selected_id":"G02","ranking":["G02","G03"]}`，真实请求 1 次、无修复/回退，
-新版 A 的倒水准备执行成功。该记录只证明当时 Codex 链路可用，且现有候选不足以
-证明 LLM 比几何参考更优。旧 `bounded_ik_v1` 记录与当前评分分开保存。
-
-官方说明：[Codex 登录](https://learn.chatgpt.com/docs/auth)、
-[非交互运行](https://learn.chatgpt.com/docs/non-interactive-mode)。
+官方参考：[OpenAI quickstart](https://developers.openai.com/api/docs/quickstart)、
+[OpenAI Python SDK](https://developers.openai.com/api/reference/python)、
+[OpenAI 结构化输出](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses)。
