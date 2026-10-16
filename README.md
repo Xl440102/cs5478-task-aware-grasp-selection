@@ -1,6 +1,15 @@
 # 杯子任务感知抓取：仿真与多模型评估
 
-本目录包含小组项目的 **A 部分和 C 部分**：A 在 PyBullet 中建立杯子和 Panda 场景、筛选抓取并统一执行；C 提供可扩展的 LLM 选择、一次输出修复、几何参考回退、缓存和批量评估。候选生成、正式评分及 M0/M1/M2 仍由 B 负责。C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
+本仓库包含 CS5478 小组项目的 **A/B/C 三部分**，研究在统一仿真条件下，从可行候选中选择杯子抓取。
+
+| 部分                                    | 职责与当前实现                                                                                          |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| A — Simulation and Execution           | PyBullet 杯子/Panda 场景、基础抓取可行性筛选、统一执行器与独立终端物理评价                              |
+| B — Candidate Generation and Selection | 确定性候选生成、解析几何特征、实验性几何评分、Random/Geometry 选择与 A 集成；正式方法及任务规则尚未冻结 |
+| C — LLM Selection and Evaluation       | 多模型 LLM 选择、一次输出修复、几何参考回退、缓存、批量评估与统计                                       |
+
+主流程为 **B 生成候选 → A 筛选 → B/C 选择已有 ID → A 统一执行 → C 汇总评价**。
+B 的使用方式见[第 9 节](#9-part-b--candidate-generation-and-geometry-based-selection)；C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
 
 目前是 **pilot 版本**。2026-10-16 升级为 `observable_primitives_v2`：控制器不再读取运行时杯子真实位姿或接触数来决策，使用标定先验/外部位姿估计与关节反馈；物体真值留给终端评分。新增可选的逐步控制接口、位姿估计误差测试、固定共同目标与完整两秒保持检查。
 
@@ -31,30 +40,33 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 
 ## 2. 目录与阅读顺序
 
-| 路径 | 内容 |
-|---|---|
-| `README.md` | 项目入口、安装和使用 |
-| [`interface.md`](interface.md) | A/B/C 的候选、筛选和结果协议 |
-| [`docs/EVALUATION_INTERFACE.md`](docs/EVALUATION_INTERFACE.md) | C 的详细评估接入定义、字段、失败与统计口径 |
-| `examples/evaluate_one_trial.py` | C 可替换 selector 的可运行示例，含空列表/非法输出/异常处理 |
-| `examples/incremental_policy.py` | 可选的逐步末端/夹爪策略，不是 LLM 或正式 baseline |
-| [`PILOT.md`](PILOT.md) | 单次视频的简短命令 |
-| `environment.yml`、`requirements.txt` | Conda 与 pip 依赖 |
-| `setup_and_run_windows.cmd` | Windows 一键 pilot |
-| `candidates.example.json`、`candidates.pilot.json` | 默认 G01/G02 候选与单独的 G03 校准候选 |
-| `assets/mug.urdf` | 简化杯子模型 |
-| `grasp_a/contracts.py` | `Pose`、`Candidate`、任务 ID 与输入校验 |
-| `grasp_a/simulation.py` | 场景、IK/FK、碰撞筛选、统一执行 |
-| `grasp_a/control.py` | 位姿估计配置、受限 primitive、只含控制观测的会话接口 |
-| `grasp_a/evaluation.py` | 独立的物体真值评分，不把真值反馈给策略 |
-| `grasp_a/collision_rules.py` | Panda 固定连杆组的自碰撞规则 |
-| `grasp_a/visualization.py` | PyBullet 视频帧和截图 |
-| `grasp_a/__main__.py` | `python -m grasp_a` 命令入口 |
-| `grasp_c/`、[`docs/PART_C.md`](docs/PART_C.md) | 多服务/多模型选择器、缓存、批量运行和统计 |
-| `configs/c.*.json`、`requirements-c.txt` | C 的运行配置、观测误差设置与依赖 |
-| [`results/README.md`](results/README.md) | 当前结果与历史调试数据索引 |
-| `tests/`、`scripts/find_pilot_candidate.py` | 接口检查与可行性网格搜索工具 |
-| `scripts/check_observable_control.py` | 120 次控制器/估计噪声回归，保留失败样本 |
+| 路径                                                            | 内容                                                       |
+| --------------------------------------------------------------- | ---------------------------------------------------------- |
+| `README.md`                                                   | 项目入口、安装和使用                                       |
+| [`interface.md`](interface.md)                                 | A/B/C 的候选、筛选和结果协议                               |
+| [`docs/EVALUATION_INTERFACE.md`](docs/EVALUATION_INTERFACE.md) | C 的详细评估接入定义、字段、失败与统计口径                 |
+| `examples/evaluate_one_trial.py`                              | C 可替换 selector 的可运行示例，含空列表/非法输出/异常处理 |
+| `examples/incremental_policy.py`                              | 可选的逐步末端/夹爪策略，不是 LLM 或正式 baseline          |
+| [`PILOT.md`](PILOT.md)                                         | 单次视频的简短命令                                         |
+| `environment.yml`、`requirements.txt`                       | Conda 与 pip 依赖                                          |
+| `setup_and_run_windows.cmd`                                   | Windows 一键 pilot                                         |
+| `candidates.example.json`、`candidates.pilot.json`          | 默认 G01/G02 候选与单独的 G03 校准候选                     |
+| `assets/mug.urdf`                                             | 简化杯子模型                                               |
+| `grasp_a/contracts.py`                                        | `Pose`、`Candidate`、任务 ID 与输入校验                |
+| `grasp_a/simulation.py`                                       | 场景、IK/FK、碰撞筛选、统一执行                            |
+| `grasp_a/control.py`                                          | 位姿估计配置、受限 primitive、只含控制观测的会话接口       |
+| `grasp_a/evaluation.py`                                       | 独立的物体真值评分，不把真值反馈给策略                     |
+| `grasp_a/collision_rules.py`                                  | Panda 固定连杆组的自碰撞规则                               |
+| `grasp_a/visualization.py`                                    | PyBullet 视频帧和截图                                      |
+| `grasp_a/__main__.py`                                         | `python -m grasp_a` 命令入口                             |
+| `grasp_b/`、[`grasp_b/README.md`](grasp_b/README.md)         | 候选生成、内部几何诊断、实验性评分与选择 prototype         |
+| `configs/part_b/generation_v1.json`                           | 杯身候选生成参数及 development seeds                       |
+| `configs/part_b/scoring_experimental_v1.json`                 | 仅供 smoke 的实验性几何评分权重                            |
+| `grasp_c/`、[`docs/PART_C.md`](docs/PART_C.md)               | 多服务/多模型选择器、缓存、批量运行和统计                  |
+| `configs/c.*.json`、`requirements-c.txt`                    | C 的运行配置、观测误差设置与依赖                           |
+| [`results/README.md`](results/README.md)                       | 当前结果与历史调试数据索引                                 |
+| `tests/`、`scripts/find_pilot_candidate.py`                 | 接口检查与可行性网格搜索工具                               |
+| `scripts/check_observable_control.py`                         | 120 次控制器/估计噪声回归，保留失败样本                    |
 
 建议先运行第 1 节，再读第 3–5 节。与 B/C 联调时看 [interface.md](interface.md)，查看已有数据时看 [results/README.md](results/README.md)。
 
@@ -78,13 +90,13 @@ python -m pip install -r requirements.txt
 
 在项目根目录运行 `python -m grasp_a <命令>`。不指定候选文件时读取 `candidates.example.json`。
 
-| 命令 | 作用 |
-|---|---|
-| `validate` | 校验候选 JSON、列出 ID；不启动仿真 |
-| `filter` | 检查全部候选，输出可行列表与拒绝原因 |
-| `run` | 在新场景中执行指定候选 ID |
-| `demo` | 选列表中第一个可行 ID，跑通流水线 |
-| `scene` | 保存初始场景 PNG 和静态环绕视频 |
+| 命令         | 作用                                 |
+| ------------ | ------------------------------------ |
+| `validate` | 校验候选 JSON、列出 ID；不启动仿真   |
+| `filter`   | 检查全部候选，输出可行列表与拒绝原因 |
+| `run`      | 在新场景中执行指定候选 ID            |
+| `demo`     | 选列表中第一个可行 ID，跑通流水线    |
+| `scene`    | 保存初始场景 PNG 和静态环绕视频      |
 
 `demo` 只是冒烟演示，不代表 M0/M1/M2/M3。要执行 B/C 给出的 ID，用 `run`：
 
@@ -111,13 +123,13 @@ C 开发评估程序请先读 [详细评估定义 v0.3](docs/EVALUATION_INTERFAC
 
 候选文件是 JSON 数组，每个 `Candidate` 有以下字段：
 
-| 字段 | 含义 |
-|---|---|
-| `id` | 同一候选集内唯一、稳定的字符串 ID |
+| 字段                              | 含义                                                                           |
+| --------------------------------- | ------------------------------------------------------------------------------ |
+| `id`                            | 同一候选集内唯一、稳定的字符串 ID                                              |
 | `grasp_pose`、`pregrasp_pose` | 杯子坐标系下的目标位姿：`position: [x,y,z]`（米），`quaternion: [x,y,z,w]` |
-| `region`、`approach` | 手工标注的部位和接近方向描述 |
-| `gripper_width` | 两指总开口，单位米 |
-| `geometry_score` | B 预先定义的几何评分；A 仅透传 |
+| `region`、`approach`          | 手工标注的部位和接近方向描述                                                   |
+| `gripper_width`                 | 两指总开口，单位米                                                             |
+| `geometry_score`                | B 预先定义的几何评分；A 仅透传                                                 |
 
 杯子坐标原点在杯身中心，把手位于本地 **+Y** 方向。A 用**初始位姿估计**把候选转换到世界坐标系，不读取按 seed 扰动后的真实位姿来校正抓取。`task_id` 只能是 `pour_prep` 或 `handover_prep`。所有方法共享 scene seed、候选、控制器及位姿估计/噪声配置。
 
@@ -179,8 +191,7 @@ python -m scripts.check_observable_control --out results\local\observable_regres
 
 [results/README.md](results/README.md) 区分新版回归和旧控制器的历史文件。旧结果均保留，不能与新版参数、观测和成功规则混算。
 
-正式比较前，组员还需补齐约 8 条有实质差异的候选、定义 `geometry_score` 和独立任务适用性、冻结目标/评分/环境，并使用未参与调试的匹配 seed。多条相近杯身抓取不等于任务选择空间充分。B 的正式候选与 M0/M1/M2 仍未包含。C 的 M3、暂定 A1 和批量评估已实现并对齐新版 A，当前仍为 pilot。
-
+正式比较前，组员还需补齐约 8 条有实质差异的候选、定义 `geometry_score` 和独立任务适用性、冻结目标/评分/环境，并使用未参与调试的匹配 seed。多条相近杯身抓取不等于任务选择空间充分。B 已实现第 9 节的阶段性候选、Random/Geometry prototype；正式候选、评分权重与 M0/M1/M2 方法定义仍未冻结，Rule-based Task-aware 尚未实现。C 的 M3、暂定 A1 和批量评估已实现并对齐新版 A，当前仍为 pilot。
 
 ## 8. C：用当前账号跑 LLM 选择
 
@@ -200,3 +211,60 @@ python -m grasp_c summarize results/local/c_codex
 几何回退使用 pilot 输入分数。正式实验前仍需全组冻结候选、评分、任务和消融定义。
 
 C 已对齐 `observable_primitives_v2`：同一次运行的筛选与物理执行使用同一份显式 `observation_config`，记录 `fixed_target_hold_v2` 与 `policy_mode=fixed`。旧 `bounded_ik_v1` 验收保留在独立目录，不与新版结果混算。
+
+## 9. Part B — Candidate Generation and Geometry-Based Selection
+
+B 已完成可运行的候选生成与选择 prototype，沿用现有 `Candidate` schema 和 A 的 feasibility/execution API，不修改 A 控制器。Random 直接复用 `grasp_c.selectors.random_selector()`，不重复实现随机算法；两种选择方法都只接收当次可行候选的五个公开字段。
+
+### 已实现功能
+
+| 模块                                       | 功能与边界                                                                                                                                      |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `grasp_b/generation.py`、`geometry.py` | 读取杯身与 Panda URDF；生成 mug-local 位姿和稳定唯一 ID；四元数归一化；pregrasp 沿 tool +Z 接近轴反向偏移；JSON 经 `load_candidates()` 校验   |
+| `grasp_b/features.py`                    | 高度、方位、开口余量、接近/闭合轴，以及理想圆柱 contact alignment、contact symmetry、接触中点到 URDF COM 距离；记录 provenance 和近似等价候选对 |
+| `grasp_b/scoring.py`                     | 校验 Alignment/Symmetry 的 [0,1] proxy，计算 COM 距离分数与可配置加权总分；保存分项、版本和参数                                                 |
+| `grasp_b/selectors.py`、`prototype.py` | Geometry 按分数降序、ID 升序排序；Random 使用本地 seeded RNG；验证完整排名和所选 ID；空可行集跳过执行                                           |
+| A integration                              | 两方法使用相同生成/评分候选流程、观测配置和基础 feasibility API；选择先于 `run_episode()`，不读取执行结果决定选择                             |
+
+当前生成配置为 12 条 body 候选：高度 0.012/0.024 m，yaw 0/45/315°，tool roll 0/180°，pregrasp offset 0.12 m，夹爪总开口 0.078 m。尚无 handle 抓取生成。默认观测下 development seeds 0–2 各有 5 条可行候选；可行集中包含两对理想接触近似等价候选，不能将其视为五种独立任务抓法。
+
+### 实验性评分
+
+设理想接触中点到 URDF COM 的距离为 `d`，杯高为 `H`：
+
+```text
+S_alignment = validated contact_alignment_proxy
+S_symmetry  = validated contact_symmetry_proxy
+S_com       = max(0, 1 - d / (H / 2))
+S_geometry  = sum(w_i * S_i) / sum(w_i)
+```
+
+`configs/part_b/scoring_experimental_v1.json` 使用 **experimental 等权重 1:1:1**，版本为 `experimental_geometry_weighted_v0.1`，仅供 smoke，不代表正式 M1。缺失或非法分项保留原因，不补零或自动重分配权重；该候选不会导出到评分候选文件，排除记录保存在报告中。原生成器的 `geometry_score=0.0` 仍是占位，只有 prototype 导出的新文件包含计算分数。
+
+这些分数是 **heuristic geometric proxies，不是 force closure、Ferrari–Canny epsilon 或物理稳定性证明**。当前中心杯身抓取的 Alignment/Symmetry 几乎均为 1，总分主要由 COM 距离区分；12 条候选按六位小数只有两个分数层级。模型不包含液体，执行成功只表示 preparation 阶段的物理评价成功，不是真实倒水验证或真人交接成功。
+
+### 配置、运行与输出
+
+在仓库根目录激活现有 `grasp-a` 环境（Python 3.11），无需为 B 另装依赖。以下入口已实际运行验证：
+
+```bash
+conda activate grasp-a
+python -m grasp_b.generation --check
+python -m grasp_b.prototype --execute
+python -m grasp_b.prototype --method random --execute
+python -m unittest discover -s tests -v
+```
+
+生成参数位于 `configs/part_b/generation_v1.json`，实验性评分配置位于 `configs/part_b/scoring_experimental_v1.json`。Prototype 默认执行 `handover_prep`、seeds 0/1/2；可用 `--task`、`--seeds`、`--scoring-config` 指定条件，不加 `--execute` 时仅评分、筛选和选择。当前已验证的两方法执行结果均为该默认任务下 3/3 成功；这只是开发 smoke，不是方法优劣的统计证据。
+
+每次运行自动创建新的本地目录，不覆盖示例候选、参考结果或之前的开发记录：
+
+| 入口               | 输出                                                                                                     |
+| ------------------ | -------------------------------------------------------------------------------------------------------- |
+| Generation         | `results/local/part_b_review/<run>/`：`candidates.json`、`features.internal.json`、`report.json` |
+| Geometry prototype | `results/local/geometry_prototype_<run>/`：`candidates.scored.json`、`report.json`                 |
+| Random prototype   | `results/local/random_prototype_<run>/`：相同形状的评分候选与运行报告                                  |
+
+Prototype 报告包含 score breakdown、公式版本、权重、来源哈希、等价候选诊断、A filter、选择和可选 episode。Random 忽略分数选择，但仍使用同一评分候选流程，以匹配 Geometry 的输入。相同 **有序可行列表和 selection seed** 可复现随机排名；默认 selection seed 等于 scene seed。内部特征 sidecar 不属于正式 selector 可见输入，不能凭 ID 私下读取。
+
+新增 B 测试覆盖解析几何、非法/缺失输入、分数范围与单调性、权重归一化、确定性、稳定平分、合法 ID、Random 复用及 A 集成。当前开发快照的完整测试套件为 **119/119 通过**；测试数量会随仓库更新变化。

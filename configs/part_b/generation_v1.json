@@ -1,0 +1,9 @@
+{
+  "version": "body_v0.1",
+  "yaw_deg": [0, 45, 315],
+  "roll_deg": [0, 180],
+  "height_m": [0.012, 0.024],
+  "pregrasp_offset_m": [0.12],
+  "opening_margin_m": 0.008,
+  "development_seeds": [0, 1, 2]
+}
