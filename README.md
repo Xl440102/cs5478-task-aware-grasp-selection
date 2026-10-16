@@ -278,4 +278,4 @@ python -m unittest discover -s tests -v
 
 Prototype 报告包含 score breakdown、公式版本、权重、来源哈希、等价候选诊断、A filter、选择和可选 episode。Random 忽略分数选择，但仍使用同一评分候选流程，以匹配 Geometry 的输入。相同 **有序可行列表和 selection seed** 可复现随机排名；默认 selection seed 等于 scene seed。内部特征 sidecar 不属于正式 selector 可见输入，不能凭 ID 私下读取。
 
-新增 B 测试覆盖解析几何、非法/缺失输入、分数范围与单调性、权重归一化、确定性、稳定平分、合法 ID、Random 复用及 A 集成。当前开发快照的完整测试套件为 **119/119 通过**；测试数量会随仓库更新变化。
+新增 B 测试覆盖解析几何、非法/缺失输入、分数范围与单调性、权重归一化、确定性、稳定平分、合法 ID、Random 复用及 A 集成。合并 Gemini/API key 测试后，当前完整测试套件为 **144/144 通过**；真实 API 验证状态见 [C 接入文档](docs/PART_C.md)。
