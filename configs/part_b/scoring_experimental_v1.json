@@ -1,0 +1,6 @@
+{
+  "version": "experimental_geometry_weighted_v0.1",
+  "scope": "experimental_smoke_only_not_formal_M1",
+  "weights": {"alignment": 1.0, "symmetry": 1.0, "com_distance": 1.0},
+  "rationale": "Equal component weights demonstrate plumbing only; not fitted to episode results."
+}
