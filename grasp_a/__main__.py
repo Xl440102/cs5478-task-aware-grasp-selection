@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .contracts import TASKS, Pose, load_candidates
 from .control import ObservationConfig
+from .sequence_contracts import SEQUENCE_TASKS, SequenceConfig, task_spec
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -52,13 +53,39 @@ def main():
     demo.add_argument("--out", default="results/demo.json")
     demo.add_argument("--visualize", action="store_true", help="Record MP4 and scene/final PNGs")
     demo.add_argument("--media-dir", default="results/visuals")
-    for command in (filt, run, demo):
+    spec = commands.add_parser("task-spec", help="Export detailed sequence definition without simulation")
+    spec.add_argument("--task", choices=SEQUENCE_TASKS, required=True)
+    spec.add_argument("--config", help="SequenceConfig JSON overrides")
+    spec.add_argument("--out")
+    seq = commands.add_parser("sequence", help="Run opt-in full physical task")
+    seq.add_argument("--task", choices=SEQUENCE_TASKS, required=True)
+    seq.add_argument("--id", required=True)
+    seq.add_argument("--seed", type=int, default=0)
+    seq.add_argument("--config", help="SequenceConfig JSON overrides")
+    seq.add_argument("--gui", action="store_true")
+    seq.add_argument("--visualize", action="store_true")
+    seq.add_argument("--landmarks", action=argparse.BooleanOptionalAction,
+                     dest="show_landmarks", default=True,
+                     help="Show A/B video overlays (default); --no-landmarks keeps the plain view")
+    seq.add_argument("--media-dir", default="results/local/sequences/media")
+    seq.add_argument("--out", default="results/local/sequences/episode.json")
+    seq_filter = commands.add_parser("sequence-filter", help="Initial grasp checks in the new task scene")
+    seq_filter.add_argument("--task", choices=SEQUENCE_TASKS, required=True)
+    seq_filter.add_argument("--seed", type=int, default=0)
+    seq_filter.add_argument("--config")
+    seq_filter.add_argument("--out", default="results/local/sequences/filter.json")
+    for command in (filt, run, demo, seq, seq_filter):
         command.add_argument("--observed-pose", help="JSON Pose file from an external pose estimator")
         command.add_argument("--pose-noise-m", type=float, default=0.0,
                              help="Uniform +/- perturbation of estimate per world axis, metres")
         command.add_argument("--yaw-noise-deg", type=float, default=0.0)
         command.add_argument("--observation-seed", type=int, default=0)
     args = parser.parse_args()
+    sequence_config = (SequenceConfig(**json.loads(Path(args.config).read_text(encoding="utf-8")))
+                       if getattr(args,"config",None) else SequenceConfig())
+    if args.command == "task-spec":
+        save(task_spec(args.task,sequence_config),args.out)
+        return
     candidates = load_candidates(args.candidates)
     if args.command == "validate":
         save({"candidate_count":len(candidates),"ids":[x.id for x in candidates]},None)
@@ -81,6 +108,16 @@ def main():
             movie = save_scene_orbit(world.client, args.video, args.seed)
         print(f"Saved {saved}")
         print(f"Saved {movie}")
+    elif args.command in ("sequence", "sequence-filter"):
+        from .sequence import run_sequence, get_sequence_candidates
+        if args.command == "sequence-filter":
+            save(get_sequence_candidates(args.task,args.seed,candidates,config=sequence_config,
+                                         observation_config=config),args.out)
+        else:
+            save(run_sequence(args.task,args.seed,args.id,candidates,config=sequence_config,
+                              observation_config=config,gui=args.gui,
+                              media_dir=args.media_dir if args.visualize else None,
+                              show_landmarks=args.show_landmarks),args.out)
     elif args.command == "filter":
         save(get_feasible_candidates(args.seed,candidates,observation_config=config),args.out)
     elif args.command == "run":

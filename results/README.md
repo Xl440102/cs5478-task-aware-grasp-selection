@@ -4,7 +4,15 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
-## 2026 年 10 月 16 日可观测控制 v2（当前）
+## 2026 年 10 月 17 日完整任务序列
+
+新增 `staged_sequences_v1 / physical_outcomes_v1`，场景为开口杯、物理接收夹爪和 PBF 数值液体。完整定义和复现方式见 [任务序列说明](../docs/TASK_SEQUENCES.md)。本轨道与下面准备任务分别统计。
+
+三个任务的有／无 A/B 标记版共六条视频及起止截图已纳入 Git，见 [视频索引](sequence_v1_20261017/README.md)。
+
+`sequence_v1_20261017/summary.json` 保存 G02、三个任务、seed 0–2 的逐项物理证据、失败样本、任务定义及液体分辨率检查。原始稠密日志保留在本机 `results/local/sequence_v1/final/`；演示视频与截图另存到上面的可追踪目录。组员可通过 `scripts/validate_sequences.py` 复现。它是执行器开发回归，不是不同选择方法的正式对比或真实水验证。
+
+## 2026 年 10 月 16 日可观测控制 v2 准备任务
 
 `observable_v2_20261016/` 对应 `observable_primitives_v2`，评分 `fixed_target_hold_v2`。
 控制使用标定先验而非运行时物体真值；世界共同目标固定，保持区间逐物理步检查。

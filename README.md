@@ -11,6 +11,20 @@
 主流程为 **B 生成候选 → A 筛选 → B/C 选择已有 ID → A 统一执行 → C 汇总评价**。
 B 的使用方式见[第 9 节](#9-part-b--candidate-generation-and-geometry-based-selection)；C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
 
+2026-10-17 新增独立的完整小序列轨道：`transport_place`（放置后松手撤离）、`handover_transfer`（接收夹爪独立抬升）、`pour_water`（开口双杯与 PBF 数值液体，按接水量和撒漏评分）。逐步入口、动作、退出、超时、成功定义与 B/C 接口见 [完整任务定义](docs/TASK_SEQUENCES.md)。液体使用密度约束和黏性求解，不是刚体小球；属于低分辨率近似，未做真实水 CFD 标定。旧 `run/demo` 与 C 批量入口仍是准备任务，不会自动升级。
+
+组员接入请读 [完整任务接口](docs/SEQUENCE_INTERFACE.md)。三个任务的 [有 A/B 标记和无 A/B 标记视频](results/sequence_v1_20261017/README.md) 均已纳入仓库，不依赖本机临时目录。交接使用标准化配合接收器，不代表未知人手运动下的自主交接。
+
+新任务在现有 `grasp-a` 环境中运行，例如：
+
+```bat
+python -m grasp_a sequence --task pour_water --seed 0 --id G02 --visualize --out results\local\water.json
+```
+
+新任务默认显示 A/B 标记；增加 `--no-landmarks` 可生成无 A/B 标记版，也可显式使用 `--landmarks`。输出视频分别带 `_plain / _ab` 后缀，可以放在同一媒体目录；阶段标题、液体仿真和成功判据不变。
+
+水仿真在 CPU 上可能需要数分钟。不要将新 `physical_outcomes_v1` 的成功率与下面旧准备任务回归混算。
+
 目前是 **pilot 版本**。2026-10-16 升级为 `observable_primitives_v2`：控制器不再读取运行时杯子真实位姿或接触数来决策，使用标定先验/外部位姿估计与关节反馈；物体真值留给终端评分。新增可选的逐步控制接口、位姿估计误差测试、固定共同目标与完整两秒保持检查。
 
 新版 G02/G03、两个任务、seed 0–9 的基线回归为 **33/40 成功**；额外 ±3 mm/±2° 和 ±8 mm/±5° 估计扰动下均为 15/40，见 [本版回归](results/observable_v2_20261016/summary.json)。这表明当前控制器仍对估计误差敏感。旧 `bounded_ik_v1` 的 40/40 使用不同观测与评分规则，不能与新版混算。以上均非正式选择器对比；本项目尚无视觉感知或真机验证。
@@ -45,6 +59,12 @@ python -m grasp_a demo --task handover_prep --seed 0 --visualize --media-dir res
 | `README.md`                                                   | 项目入口、安装和使用                                       |
 | [`interface.md`](interface.md)                                 | A/B/C 的候选、筛选和结果协议                               |
 | [`docs/EVALUATION_INTERFACE.md`](docs/EVALUATION_INTERFACE.md) | C 的详细评估接入定义、字段、失败与统计口径                 |
+| [`docs/TASK_SEQUENCES.md`](docs/TASK_SEQUENCES.md) | 三个完整任务的场景、逐步定义、流体模型、评分和新接口 |
+| [`docs/SEQUENCE_INTERFACE.md`](docs/SEQUENCE_INTERFACE.md) | 新轨道 API 签名、输出字段、两种视频模式与 B/C 接入边界 |
+| `grasp_a/sequence_contracts.py`、`grasp_a/sequence.py` | 机器可读任务定义、分阶段执行、接收夹爪与新 API |
+| `grasp_a/sequence_evaluation.py`、`grasp_a/fluid.py` | 支撑转移与液体留存评分、CPU PBF 流体求解 |
+| `assets/mug_hollow.urdf`、`assets/receiver_cup.urdf` | 新轨道空心源杯与开口接水杯；旧模型保持不变 |
+| `scripts/validate_sequences.py`、`tests/test_sequences.py` | 新任务重复运行、失败判据与流体基础检查 |
 | `examples/evaluate_one_trial.py`                              | C 可替换 selector 的可运行示例，含空列表/非法输出/异常处理 |
 | `examples/incremental_policy.py`                              | 可选的逐步末端/夹爪策略，不是 LLM 或正式 baseline          |
 | [`PILOT.md`](PILOT.md)                                         | 单次视频的简短命令                                         |
