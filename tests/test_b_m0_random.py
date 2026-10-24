@@ -1,5 +1,6 @@
 """Reuse C's reference random selector; verify B's adapter, not a new RNG."""
 from copy import deepcopy
+from collections import Counter
 import random
 import unittest
 from unittest.mock import patch
@@ -36,6 +37,19 @@ class RandomPrototypeTests(unittest.TestCase):
             r['geometry_score'] = i/10
         self.assertEqual(first, select_random(changed,task_id='pour_prep',seed=0))
         self.assertEqual(first, select_random(self.public,task_id='handover_prep',seed=0))
+
+    def test_seed_sweep_covers_candidates_without_order_skew(self):
+        forward = Counter(select_random(self.public,task_id='transport_place',seed=s)['selected_id']
+                          for s in range(1000))
+        reverse = Counter(select_random(list(reversed(self.public)),task_id='transport_place',seed=s)['selected_id']
+                          for s in range(1000))
+        expected_ids = {row['id'] for row in self.public}
+        self.assertEqual(set(forward),expected_ids)
+        self.assertEqual(set(reverse),expected_ids)
+        self.assertTrue(all(160 <= forward[cid] <= 240 for cid in expected_ids),forward)
+        self.assertTrue(all(160 <= reverse[cid] <= 240 for cid in expected_ids),reverse)
+        self.assertTrue(all(abs(forward[cid]-reverse[cid]) <= 60 for cid in expected_ids),
+                        (forward,reverse))
 
     def test_empty_skips_C_and_singleton_is_valid(self):
         with patch('grasp_c.selectors.random_selector') as reused:
