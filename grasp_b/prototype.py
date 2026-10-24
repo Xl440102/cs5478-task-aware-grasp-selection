@@ -1,7 +1,9 @@
-"""Experimental geometry/random reference selection. python -m grasp_b.prototype --execute
+"""Legacy geometry/random adapter. python -m grasp_b.prototype --execute
 
 Creates new local artifacts every run. Execution is optional, AFTER selection.
-No official method numbering, task scoring, or A/C interface modifications.
+The paired benchmark defines its seeded random path as M0 and keeps this
+adapter's historical smoke-only result metadata for compatibility. This CLI is
+not the standardized benchmark; it does not change the A/C selector contract.
 """
 from dataclasses import asdict, replace
 import argparse

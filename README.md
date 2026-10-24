@@ -5,7 +5,7 @@
 | 部分                                    | 职责与当前实现                                                                                          |
 | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | A — Simulation and Execution           | PyBullet 杯子/Panda 场景、基础抓取可行性筛选、统一执行器与独立终端物理评价                              |
-| B — Candidate Generation and Selection | 确定性候选生成、解析几何特征、实验性几何评分、Random/Geometry 选择与 A 集成；正式方法及任务规则尚未冻结 |
+| B — Candidate Generation and Selection | 确定性几何自适应候选、M0 Random、M1 几何/静态物理评分、M2 任务规则风险评分与 A 集成；M1 Static v2 为内部改进/消融版本 |
 | C — LLM Selection and Evaluation       | 多模型 LLM 选择、一次输出修复、几何参考回退、缓存、批量评估与统计                                       |
 
 主流程为 **B 生成候选 → A 筛选 → B/C 选择已有 ID → A 统一执行 → C 汇总评价**。
@@ -226,7 +226,7 @@ python -m scripts.check_observable_control --out results\local\observable_regres
 
 [results/README.md](results/README.md) 区分新版回归和旧控制器的历史文件。旧结果均保留，不能与新版参数、观测和成功规则混算。
 
-正式比较前，组员还需补齐约 8 条有实质差异的候选、定义 `geometry_score` 和独立任务适用性、冻结目标/评分/环境，并使用未参与调试的匹配 seed。多条相近杯身抓取不等于任务选择空间充分。B 已实现第 9 节的阶段性候选、Random/Geometry prototype；正式候选、评分权重与 M0/M1/M2 方法定义仍未冻结，Rule-based Task-aware 尚未实现。C 的 M3、暂定 A1 和批量评估已实现并对齐新版 A，当前仍为 pilot。
+当前 Part B 将 M0 定义为 A 可行集合内的 seeded Random；M1 为 task independent 几何与静态物理评分（Legacy 主基线，Static v2 内部改进/消融）；M2 为结合任务运动与交接/倾倒几何的 handcrafted rule-based physics proxy。候选仍以杯身侧夹为主，柄抓取和 held-out seeds 尚未覆盖，评分不能当作真实成功概率。详见 [算法与假设](docs/PART_B_RISK_V2.md) 和 [开发实验](docs/PART_B_RISK_RESULTS.md)。C 的 M3、暂定 A1 和批量评估已实现并对齐新版 A，当前仍为 pilot。
 
 ## 8. C：现有 GPT 登录与 Gemini API
 
@@ -274,6 +274,8 @@ B 已完成可运行的候选生成与选择 prototype，沿用现有 `Candidate
 
 ### 已实现功能
 
+下方候选数量、参数与评分示例记录的是历史 v0.1 prototype，保留作兼容和背景说明；当前 Part B 的 M0/M1/M2 定义、80 候选生成与实验结果见 [v2 算法说明](docs/PART_B_RISK_V2.md) 和 [标准化对照结果](docs/PART_B_RISK_RESULTS.md)。不要将旧 prototype 的数字当作当前结果。
+
 | 模块                                       | 功能与边界                                                                                                                                      |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `grasp_b/generation.py`、`geometry.py` | 读取杯身与 Panda URDF；生成 mug-local 位姿和稳定唯一 ID；四元数归一化；pregrasp 沿 tool +Z 接近轴反向偏移；JSON 经 `load_candidates()` 校验   |
@@ -295,7 +297,7 @@ S_com       = max(0, 1 - d / (H / 2))
 S_geometry  = sum(w_i * S_i) / sum(w_i)
 ```
 
-`configs/part_b/scoring_experimental_v1.json` 使用 **experimental 等权重 1:1:1**，版本为 `experimental_geometry_weighted_v0.1`，仅供 smoke，不代表正式 M1。缺失或非法分项保留原因，不补零或自动重分配权重；该候选不会导出到评分候选文件，排除记录保存在报告中。原生成器的 `geometry_score=0.0` 仍是占位，只有 prototype 导出的新文件包含计算分数。
+`configs/part_b/scoring_experimental_v1.json` 的等权重 `experimental_geometry_weighted_v0.1` 是历史 prototype 版本。本轮标准化实验将它作为 M1 Legacy 历史评分，另将 `static_load_margin_v2` 作为 M1 内部消融；两者与当前生成器/API 的细节见 v2 算法说明。Legacy 缺失或非法分项仍保留原因，不补零或自动重分配权重。
 
 这些分数是 **heuristic geometric proxies，不是 force closure、Ferrari–Canny epsilon 或物理稳定性证明**。当前中心杯身抓取的 Alignment/Symmetry 几乎均为 1，总分主要由 COM 距离区分；12 条候选按六位小数只有两个分数层级。模型不包含液体，执行成功只表示 preparation 阶段的物理评价成功，不是真实倒水验证或真人交接成功。
 

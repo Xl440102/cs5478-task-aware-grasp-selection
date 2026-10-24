@@ -58,7 +58,7 @@ membership. Feasible candidates cover yaw 0/45 degrees, roll 0/180 degrees,
 and height 0.012/0.024 m, with one offset and width. This supports integration
 and multi-candidate selection checks, but does not establish distinct task
 outcomes or adequate benchmark contact diversity. These seeds are development
-seeds, not a held-out evaluation set. No M0/M1/M2 is implemented here.
+seeds, not a held-out evaluation set. Historical v0.1 generation only; current standardized M0/M1/M2 APIs are documented below.
 
 ## Post-PR review additions (2026-10-16)
 
@@ -80,3 +80,18 @@ No private geometry lookup, execution data or diagnostic sidecar enters it.
 
 See `docs/PART_B_IMPLEMENTATION_REPORT.md` and
 `docs/PART_B_TEAM_DECISIONS.md` for tested revisions and remaining decisions.
+
+## Explicit model and task-risk experimental API (v2)
+
+New work uses `models.py`, `adaptive.py`, `motion.py`, `risk.py`,
+`benchmark.py` and `sensitivity.py`. It supports the solid and hollow A cup
+profiles, geometry-scaled body candidates, an independent static load baseline
+and three task-specific trajectory/space-risk evaluators. Legacy entry points,
+score versions and C integration above remain unchanged. Earlier paragraphs
+about zero-only scoring and no task-risk implementation describe historical
+v0.1, not this independent v2 API. Current definitions: M0 is seeded random,
+M1 is task independent geometry scoring (Legacy primary; Static v2 internal
+refinement/ablation), and M2 is the task rule based risk scorer.
+See [formulas, trajectory audit, assumptions and commands](../docs/PART_B_RISK_V2.md).
+
+Standardized method tests are split by responsibility: `test_b_m0_random.py`, `test_b_m1_geometry.py`, `test_b_m1_static.py`, `test_b_m2_transport.py`, `test_b_m2_handover.py`, `test_b_m2_pouring.py`, `test_b_m2_common.py`, and `test_b_integration.py`. Asset and motion input contracts remain in `test_b_models.py` and `test_b_motion.py`; generation, feature and scoring tests retain their functional names. Run all B tests with `python -m unittest discover -s tests -p 'test_b*.py' -v`.
