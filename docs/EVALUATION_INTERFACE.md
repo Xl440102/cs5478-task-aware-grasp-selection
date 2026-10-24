@@ -1,5 +1,7 @@
 # C 评估接入接口定义 v0.3
 
+本页只描述旧 `pour_prep / handover_prep` 准备任务。完整放置、交接、液体倒水使用独立的 [完整任务接口](SEQUENCE_INTERFACE.md)，不要将新 ID 送入本页旧函数，或共用成功率与缓存。
+
 C 的多模型选择、账号接入、观测配置与批量运行已在 `grasp_c/` 实现，使用说明见 [PART_C.md](PART_C.md)。
 
 更新：2026-10-16。控制器 `observable_primitives_v2`；评分 `fixed_target_hold_v2`。

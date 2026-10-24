@@ -60,6 +60,8 @@ class Feasibility:
 
 
 class MugScene:
+    MUG_ASSET = ASSETS / "mug.urdf"
+
     def __init__(self, seed: int, gui: bool = False,
                  observation_config: ObservationConfig | None = None):
         self.seed = seed
@@ -110,7 +112,7 @@ class MugScene:
             rng = random.Random(seed)
             start = [0.55+rng.uniform(-0.008, 0.008), rng.uniform(-0.008, 0.008), MUG_CENTER_Z]
             start_q = p.getQuaternionFromEuler([0, 0, rng.uniform(-0.08, 0.08)])
-            self.mug = p.loadURDF(str(ASSETS / "mug.urdf"), start, start_q,
+            self.mug = p.loadURDF(str(self.MUG_ASSET), start, start_q,
                                   physicsClientId=self.client)
             for f in self.fingers:
                 p.changeDynamics(self.robot, f, lateralFriction=2.0, spinningFriction=0.05,

@@ -1,0 +1,156 @@
+{
+  "schema_version": "sequence_demo_manifest_v1",
+  "controller_version": "staged_sequences_v1",
+  "evaluation_version": "physical_outcomes_v1",
+  "trials": [
+    {
+      "task_id": "transport_place",
+      "seed": 0,
+      "selected_id": "G02",
+      "success": true,
+      "task_spec_sha256": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6",
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "final_evidence": {
+        "source_position": [
+          0.5604322210456816,
+          0.16389098833792673,
+          0.6459893475637979
+        ],
+        "source_quaternion": [
+          0.000022312910506304663,
+          0.000004470628733329676,
+          -0.047588508373275266,
+          0.9988670248601433
+        ],
+        "source_z_m": 0.6459893475637979,
+        "source_upright_deg": 0.00260768818706555,
+        "source_xy_error_m": 0.01113422768726428,
+        "source_goal_error_m": 0.15441260340405022,
+        "source_linear_speed_m_s": 0.0000034685084602514656,
+        "source_angular_speed_deg_s": 0.005657985567930514,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": true,
+        "donor_clearance_m": 0.1350376578558011
+      },
+      "physics_identical_between_modes": true,
+      "videos": {
+        "plain": {
+          "path": "videos/plain/transport_place_seed0_G02_plain.mp4",
+          "sha256": "4bdd10494d0af5150e7f71e304330526a183e463cb7a8132b09e54d037073e08"
+        },
+        "with_landmarks": {
+          "path": "videos/with_landmarks/transport_place_seed0_G02_ab.mp4",
+          "sha256": "ef0ebc8d61c9d761498a3ccb82aac992cffdd8c9658be2adda7ba482fb8ab0db"
+        }
+      }
+    },
+    {
+      "task_id": "handover_transfer",
+      "seed": 0,
+      "selected_id": "G02",
+      "success": true,
+      "task_spec_sha256": "b37c9f727dea28c931f4dd0fe6cbc9ccda290d8c5263d10341e651b1db819457",
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "final_evidence": {
+        "source_position": [
+          0.5603828421016563,
+          0.16375596345325577,
+          0.8500007931359062
+        ],
+        "source_quaternion": [
+          -0.0000160294317968133,
+          -0.000025785860088088578,
+          -0.04575131798601797,
+          0.9989528597389814
+        ],
+        "source_z_m": 0.8500007931359062,
+        "source_upright_deg": 0.0034792330982156804,
+        "source_xy_error_m": 0.011041316568694132,
+        "source_goal_error_m": 0.051205370673297494,
+        "source_linear_speed_m_s": 0.000010075733747078785,
+        "source_angular_speed_deg_s": 0.0061445460282502,
+        "donor_contact": false,
+        "receiver_contact": true,
+        "receiver_contact_links": [
+          2,
+          3
+        ],
+        "table_contact": false,
+        "donor_clearance_m": 0.10203785831483322
+      },
+      "physics_identical_between_modes": true,
+      "videos": {
+        "plain": {
+          "path": "videos/plain/handover_transfer_seed0_G02_plain.mp4",
+          "sha256": "4f00398e948b57799bdf04b94da88cf149db091fc862b28347a142e4c62cb133"
+        },
+        "with_landmarks": {
+          "path": "videos/with_landmarks/handover_transfer_seed0_G02_ab.mp4",
+          "sha256": "a86601af34f437a6f53278b87c4ee42914e5c9a7b2596a8bed1bb12657c61cdf"
+        }
+      }
+    },
+    {
+      "task_id": "pour_water",
+      "seed": 0,
+      "selected_id": "G02",
+      "success": true,
+      "task_spec_sha256": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "final_evidence": {
+        "source_position": [
+          0.5601068167084616,
+          0.11873901320066513,
+          0.8011558218016899
+        ],
+        "source_quaternion": [
+          0.0007444732169306745,
+          0.0005205273033484786,
+          -0.04634727102430654,
+          0.9989249748001875
+        ],
+        "source_z_m": 0.8011558218016899,
+        "source_upright_deg": 0.10409489093308762,
+        "source_xy_error_m": 0.0424807812502704,
+        "source_goal_error_m": 0.010838075831550905,
+        "source_linear_speed_m_s": 0.00025137874261203867,
+        "source_angular_speed_deg_s": 0.3330888766319204,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": false,
+        "donor_clearance_m": -0.0004444741128962269,
+        "target_upright_deg": 0,
+        "target_linear_speed_m_s": 8.662994964115738e-15,
+        "target_angular_speed_deg_s": 6.097962231430635e-12,
+        "target_displacement_m": 0.0009900202317602224,
+        "water": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0,
+          "target_mass_kg": 0.09843750000000001,
+          "outside_mass_kg": 0.0015625,
+          "transfer_ratio": 0.9843750000000001,
+          "spill_ratio": 0.015625,
+          "accounting_error_kg": 5.637851296924623e-18,
+          "fluid_sample_count": 256,
+          "max_compression": 0.021360232644818344,
+          "maximum_sample_speed_m_s": 1.2057679855837746,
+          "finite_state": true
+        }
+      },
+      "physics_identical_between_modes": true,
+      "videos": {
+        "plain": {
+          "path": "videos/plain/pour_water_seed0_G02_plain.mp4",
+          "sha256": "bca95a4a230ba9e30f333570edd502717d2af0516eeaccc1b6d0d3b7dbf336fd"
+        },
+        "with_landmarks": {
+          "path": "videos/with_landmarks/pour_water_seed0_G02_ab.mp4",
+          "sha256": "f8fab0a79e7cb54a7f77922072ff169b18f296f366d19cfc1fb2d85ee387b546"
+        }
+      }
+    }
+  ]
+}

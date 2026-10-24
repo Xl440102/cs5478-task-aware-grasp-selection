@@ -1,0 +1,1325 @@
+{
+  "purpose": "G02 executor smoke/regression; not a selector comparison or real-water validation",
+  "controller_version": "staged_sequences_v1",
+  "evaluation_version": "physical_outcomes_v1",
+  "scene_version": "hollow_cup_sequences_v1",
+  "counts": {
+    "transport_place": {
+      "success": 3,
+      "trials": 3
+    },
+    "handover_transfer": {
+      "success": 3,
+      "trials": 3
+    },
+    "pour_water": {
+      "success": 2,
+      "trials": 3
+    }
+  },
+  "trials": [
+    {
+      "task_id": "transport_place",
+      "seed": 0,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 10.15,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "at_B": true,
+        "tabletop_height": true,
+        "table_support": true,
+        "donor_released": true,
+        "donor_clear": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5604322210456816,
+          0.16389098833792673,
+          0.6459893475637979
+        ],
+        "source_quaternion": [
+          2.2312910506304663e-05,
+          4.470628733329676e-06,
+          -0.047588508373275266,
+          0.9988670248601433
+        ],
+        "source_z_m": 0.6459893475637979,
+        "source_upright_deg": 0.00260768818706555,
+        "source_xy_error_m": 0.01113422768726428,
+        "source_goal_error_m": 0.15441260340405022,
+        "source_linear_speed_m_s": 3.4685084602514656e-06,
+        "source_angular_speed_deg_s": 0.005657985567930514,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": true,
+        "donor_clearance_m": 0.1350376578558011
+      },
+      "max_fluid_compression": 0
+    },
+    {
+      "task_id": "transport_place",
+      "seed": 1,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 10.15,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "at_B": true,
+        "tabletop_height": true,
+        "table_support": true,
+        "donor_released": true,
+        "donor_clear": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5593209189199194,
+          0.1606130389626223,
+          0.6459898758350182
+        ],
+        "source_quaternion": [
+          -2.6769638076696176e-05,
+          1.0486615972335395e-05,
+          -0.12693524887368676,
+          0.9919110049630423
+        ],
+        "source_z_m": 0.6459898758350182,
+        "source_upright_deg": 0.003294547450524091,
+        "source_xy_error_m": 0.009341057021633258,
+        "source_goal_error_m": 0.1542931420757077,
+        "source_linear_speed_m_s": 5.236999677201182e-05,
+        "source_angular_speed_deg_s": 0.07407779772014887,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": true,
+        "donor_clearance_m": 0.13476462978930112
+      },
+      "max_fluid_compression": 0
+    },
+    {
+      "task_id": "transport_place",
+      "seed": 2,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 10.15,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "at_B": true,
+        "tabletop_height": true,
+        "table_support": true,
+        "donor_released": true,
+        "donor_clear": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5678024779916678,
+          0.15739256954654168,
+          0.6459883078053412
+        ],
+        "source_quaternion": [
+          2.8062028447583675e-05,
+          -5.6696360227634526e-05,
+          -0.11520917507154692,
+          0.9933412515230499
+        ],
+        "source_z_m": 0.6459883078053412,
+        "source_upright_deg": 0.007249177155717709,
+        "source_xy_error_m": 0.0179924127401924,
+        "source_goal_error_m": 0.15505911211172263,
+        "source_linear_speed_m_s": 4.047002778896138e-05,
+        "source_angular_speed_deg_s": 0.06601700299389555,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": true,
+        "donor_clearance_m": 0.13876414392032424
+      },
+      "max_fluid_compression": 0
+    },
+    {
+      "task_id": "handover_transfer",
+      "seed": 0,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 11.366666666666667,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "b37c9f727dea28c931f4dd0fe6cbc9ccda290d8c5263d10341e651b1db819457",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "at_B": true,
+        "receiver_support": true,
+        "donor_released": true,
+        "donor_clear": true,
+        "independently_lifted": true,
+        "not_on_table": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5603828421016563,
+          0.16375596345325577,
+          0.8500007931359062
+        ],
+        "source_quaternion": [
+          -1.60294317968133e-05,
+          -2.5785860088088578e-05,
+          -0.04575131798601797,
+          0.9989528597389814
+        ],
+        "source_z_m": 0.8500007931359062,
+        "source_upright_deg": 0.0034792330982156804,
+        "source_xy_error_m": 0.011041316568694132,
+        "source_goal_error_m": 0.051205370673297494,
+        "source_linear_speed_m_s": 1.0075733747078785e-05,
+        "source_angular_speed_deg_s": 0.0061445460282502,
+        "donor_contact": false,
+        "receiver_contact": true,
+        "receiver_contact_links": [
+          2,
+          3
+        ],
+        "table_contact": false,
+        "donor_clearance_m": 0.10203785831483322
+      },
+      "max_fluid_compression": 0
+    },
+    {
+      "task_id": "handover_transfer",
+      "seed": 1,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 11.366666666666667,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "b37c9f727dea28c931f4dd0fe6cbc9ccda290d8c5263d10341e651b1db819457",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "at_B": true,
+        "receiver_support": true,
+        "donor_released": true,
+        "donor_clear": true,
+        "independently_lifted": true,
+        "not_on_table": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5583490729607048,
+          0.15619123769330023,
+          0.8500213872039509
+        ],
+        "source_quaternion": [
+          -0.001019430659914031,
+          -0.0074756750541857975,
+          -0.12855563156961247,
+          0.9916735978311372
+        ],
+        "source_z_m": 0.8500213872039509,
+        "source_upright_deg": 0.8645858068005879,
+        "source_xy_error_m": 0.009176801709316168,
+        "source_goal_error_m": 0.05085619792532361,
+        "source_linear_speed_m_s": 2.2399456007138012e-05,
+        "source_angular_speed_deg_s": 0.00492531465356488,
+        "donor_contact": false,
+        "receiver_contact": true,
+        "receiver_contact_links": [
+          2,
+          3
+        ],
+        "table_contact": false,
+        "donor_clearance_m": 0.10065249692164116
+      },
+      "max_fluid_compression": 0
+    },
+    {
+      "task_id": "handover_transfer",
+      "seed": 2,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 11.366666666666667,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "b37c9f727dea28c931f4dd0fe6cbc9ccda290d8c5263d10341e651b1db819457",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "at_B": true,
+        "receiver_support": true,
+        "donor_released": true,
+        "donor_clear": true,
+        "independently_lifted": true,
+        "not_on_table": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5678045062333155,
+          0.15436548804252231,
+          0.85018457110015
+        ],
+        "source_quaternion": [
+          -0.0011985672933390301,
+          -0.0007987296384730154,
+          -0.11529605168628822,
+          0.9933301293794329
+        ],
+        "source_z_m": 0.85018457110015,
+        "source_upright_deg": 0.16504900455154775,
+        "source_xy_error_m": 0.018674800325870333,
+        "source_goal_error_m": 0.053546609077673,
+        "source_linear_speed_m_s": 8.073514927895807e-05,
+        "source_angular_speed_deg_s": 0.05404999548630605,
+        "donor_contact": false,
+        "receiver_contact": true,
+        "receiver_contact_links": [
+          2,
+          3
+        ],
+        "table_contact": false,
+        "donor_clearance_m": 0.1069483004494661
+      },
+      "max_fluid_compression": 0
+    },
+    {
+      "task_id": "pour_water",
+      "seed": 0,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 13.35,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "donor_support": true,
+        "source_at_goal": true,
+        "target_stable": true,
+        "target_unmoved": true,
+        "received": true,
+        "spill_limited": true,
+        "fluid_valid": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5601068167084616,
+          0.11873901320066513,
+          0.8011558218016899
+        ],
+        "source_quaternion": [
+          0.0007444732169306745,
+          0.0005205273033484786,
+          -0.04634727102430654,
+          0.9989249748001875
+        ],
+        "source_z_m": 0.8011558218016899,
+        "source_upright_deg": 0.10409489093308762,
+        "source_xy_error_m": 0.0424807812502704,
+        "source_goal_error_m": 0.010838075831550905,
+        "source_linear_speed_m_s": 0.00025137874261203867,
+        "source_angular_speed_deg_s": 0.3330888766319204,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": false,
+        "donor_clearance_m": -0.0004444741128962269,
+        "target_upright_deg": 0.0,
+        "target_linear_speed_m_s": 8.662994964115738e-15,
+        "target_angular_speed_deg_s": 6.097962231430635e-12,
+        "target_displacement_m": 0.0009900202317602224,
+        "water": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.09843750000000001,
+          "outside_mass_kg": 0.0015625,
+          "transfer_ratio": 0.9843750000000001,
+          "spill_ratio": 0.015625,
+          "accounting_error_kg": 5.637851296924623e-18,
+          "fluid_sample_count": 256,
+          "max_compression": 0.021360232644818344,
+          "maximum_sample_speed_m_s": 1.2057679855837746,
+          "finite_state": true
+        }
+      },
+      "max_fluid_compression": 0.07458137085045569
+    },
+    {
+      "task_id": "pour_water",
+      "seed": 1,
+      "selected_id": "G02",
+      "success": true,
+      "status": "completed",
+      "failure_reason": null,
+      "elapsed_s": 13.35,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": true,
+        "full_terminal_window": true,
+        "terminal_outcome": true,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "donor_support": true,
+        "source_at_goal": true,
+        "target_stable": true,
+        "target_unmoved": true,
+        "received": true,
+        "spill_limited": true,
+        "fluid_valid": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5574825316114854,
+          0.11875737184301376,
+          0.8010641595074365
+        ],
+        "source_quaternion": [
+          0.0009475323695866668,
+          0.001727853352761717,
+          -0.14911692443239874,
+          0.9888176068178712
+        ],
+        "source_z_m": 0.8010641595074365,
+        "source_upright_deg": 0.2258151574201686,
+        "source_xy_error_m": 0.041915899806783494,
+        "source_goal_error_m": 0.008440293711762515,
+        "source_linear_speed_m_s": 0.0001749984257591799,
+        "source_angular_speed_deg_s": 0.02988437917686035,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": false,
+        "donor_clearance_m": -0.0004494219673605302,
+        "target_upright_deg": 0.006041987318741625,
+        "target_linear_speed_m_s": 4.585532737288574e-06,
+        "target_angular_speed_deg_s": 0.0025672445416495505,
+        "target_displacement_m": 0.0009883074852730356,
+        "water": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.09765625,
+          "outside_mass_kg": 0.0023437500000000003,
+          "transfer_ratio": 0.9765625,
+          "spill_ratio": 0.023437500000000003,
+          "accounting_error_kg": 5.204170427930421e-18,
+          "fluid_sample_count": 256,
+          "max_compression": 0.011402898717513654,
+          "maximum_sample_speed_m_s": 1.314380366756048,
+          "finite_state": true
+        }
+      },
+      "max_fluid_compression": 0.059898802537805995
+    },
+    {
+      "task_id": "pour_water",
+      "seed": 2,
+      "selected_id": "G02",
+      "success": false,
+      "status": "completed",
+      "failure_reason": "stage_outcomes",
+      "elapsed_s": 13.35,
+      "candidate_sha256": "2ced2429c77e9d88dd1af24e48cdc62578bf453bb43829a32196390b1b873530",
+      "task_spec_sha256": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+      "success_checks": {
+        "sequence_complete": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "stage_outcomes": false,
+        "full_terminal_window": true,
+        "terminal_outcome": false,
+        "fluid_density_valid": true
+      },
+      "terminal_checks": {
+        "source_upright": true,
+        "source_linear_stable": true,
+        "source_angular_stable": true,
+        "donor_support": true,
+        "source_at_goal": true,
+        "target_stable": true,
+        "target_unmoved": true,
+        "received": true,
+        "spill_limited": false,
+        "fluid_valid": true
+      },
+      "final_evidence": {
+        "source_position": [
+          0.5697188434350544,
+          0.12121254140278208,
+          0.8010882073345118
+        ],
+        "source_quaternion": [
+          0.0038269005550029427,
+          0.001386429725745236,
+          -0.08443308227739357,
+          0.996420838432184
+        ],
+        "source_z_m": 0.8010882073345118,
+        "source_upright_deg": 0.4664234957498745,
+        "source_xy_error_m": 0.04351206419887571,
+        "source_goal_error_m": 0.020702962403973818,
+        "source_linear_speed_m_s": 2.473023331074594e-05,
+        "source_angular_speed_deg_s": 0.019646037987935388,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "table_contact": false,
+        "donor_clearance_m": -0.0003368964017422195,
+        "target_upright_deg": 0.0036913474047211925,
+        "target_linear_speed_m_s": 2.453786358954513e-05,
+        "target_angular_speed_deg_s": 0.010129545391922899,
+        "target_displacement_m": 0.0009900116609803473,
+        "water": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.09375,
+          "outside_mass_kg": 0.00625,
+          "transfer_ratio": 0.9375,
+          "spill_ratio": 0.0625,
+          "accounting_error_kg": 5.204170427930421e-18,
+          "fluid_sample_count": 256,
+          "max_compression": 0.025347271283986617,
+          "maximum_sample_speed_m_s": 1.5496061670017423,
+          "finite_state": true
+        }
+      },
+      "max_fluid_compression": 0.06467667189739656
+    }
+  ],
+  "task_definitions": {
+    "transport_place": {
+      "task_id": "transport_place",
+      "schema_version": "task_spec_v1",
+      "controller_version": "staged_sequences_v1",
+      "evaluation_version": "physical_outcomes_v1",
+      "config": {
+        "target_xy": [
+          0.55,
+          0.16
+        ],
+        "carry_height_m": 0.8,
+        "episode_timeout_s": 25.0,
+        "arrival_position_m": 0.02,
+        "arrival_angle_deg": 10.0,
+        "arrival_continuous_s": 0.1,
+        "arrival_timeout_s": 2.0,
+        "terminal_window_s": 1.0,
+        "settle_s": 1.0,
+        "placement_tolerance_m": 0.02,
+        "upright_tolerance_deg": 5.0,
+        "linear_speed_m_s": 0.02,
+        "angular_speed_deg_s": 5.0,
+        "drop_contact_gap_s": 0.1,
+        "receiver_lift_m": 0.05,
+        "donor_clearance_m": 0.08,
+        "transfer_min_ratio": 0.9,
+        "spill_max_ratio": 0.05,
+        "water_mass_kg": 0.1,
+        "fluid_particles": 256,
+        "fluid_iterations": 8,
+        "fluid_substeps": 2,
+        "pour_angle_deg": -110.0,
+        "pour_dwell_s": 2.0
+      },
+      "point_A": [
+        0.55,
+        0,
+        0.645
+      ],
+      "point_B": [
+        0.55,
+        0.16,
+        0.645
+      ],
+      "handoff_pose": null,
+      "pouring_pose": null,
+      "material_model": "empty_cup",
+      "stages": [
+        {
+          "id": "pregrasp",
+          "actor": "donor",
+          "action": "Move to estimated pregrasp; jaws open",
+          "entry": "Fresh scene and selected candidate feasible",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "No unintended collision",
+          "timeout_s": 3,
+          "allowed_contacts": [
+            "source_table"
+          ]
+        },
+        {
+          "id": "approach",
+          "actor": "donor",
+          "action": "Move to estimated candidate grasp pose",
+          "entry": "pregrasp control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "No nonfinger source collision",
+          "timeout_s": 3,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table"
+          ]
+        },
+        {
+          "id": "close",
+          "actor": "donor",
+          "action": "Close jaws under force-limited motor control",
+          "entry": "approach control completed",
+          "control_exit": "Fixed 0.75 s close; encoder feedback only",
+          "evaluation": "Physical source/finger contact formed",
+          "timeout_s": 1,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table"
+          ]
+        },
+        {
+          "id": "lift",
+          "actor": "donor",
+          "action": "Raise nominal source by 0.14 m",
+          "entry": "close action completed, not an oracle grasp gate",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source lifted >=0.09 m with donor contact",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source"
+          ]
+        },
+        {
+          "id": "transport",
+          "actor": "donor",
+          "action": "Move upright source from A to the B work region",
+          "entry": "lift control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source near prescribed B pose; no drop/collision",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source"
+          ]
+        },
+        {
+          "id": "lower",
+          "actor": "donor",
+          "action": "Lower nominal center to z=0.642 m (3 mm compliant overtravel)",
+          "entry": "transport control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Actual source/table contact at B",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table"
+          ]
+        },
+        {
+          "id": "release",
+          "actor": "donor",
+          "action": "Open jaws; do not attach or reposition source",
+          "entry": "lower control completed",
+          "control_exit": "Fixed 0.5 s open",
+          "evaluation": "Table supports source",
+          "timeout_s": 1,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table"
+          ]
+        },
+        {
+          "id": "retreat",
+          "actor": "donor",
+          "action": "Withdraw 0.10 m along approach axis and raise 0.16 m",
+          "entry": "release completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Donor no longer supports source; clearance >= configured value",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "source_table"
+          ]
+        },
+        {
+          "id": "settle",
+          "actor": "all_actuators",
+          "action": "Keep final motor targets for a fixed settling interval",
+          "entry": "last physical action control completed",
+          "control_exit": "Fixed settle_s; no oracle stability gate",
+          "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+          "timeout_s": 1.0,
+          "allowed_contacts": [
+            "source_table"
+          ]
+        },
+        {
+          "id": "terminal",
+          "actor": "evaluator",
+          "action": "Observe released source for the final window",
+          "entry": "settle control completed",
+          "control_exit": "Fixed terminal window",
+          "evaluation": "Every step: B position, upright, speed limits, table support, donor detached",
+          "timeout_s": 1.0,
+          "allowed_contacts": [
+            "source_table"
+          ]
+        }
+      ],
+      "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+      "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels."
+    },
+    "handover_transfer": {
+      "task_id": "handover_transfer",
+      "schema_version": "task_spec_v1",
+      "controller_version": "staged_sequences_v1",
+      "evaluation_version": "physical_outcomes_v1",
+      "config": {
+        "target_xy": [
+          0.55,
+          0.16
+        ],
+        "carry_height_m": 0.8,
+        "episode_timeout_s": 25.0,
+        "arrival_position_m": 0.02,
+        "arrival_angle_deg": 10.0,
+        "arrival_continuous_s": 0.1,
+        "arrival_timeout_s": 2.0,
+        "terminal_window_s": 1.0,
+        "settle_s": 1.0,
+        "placement_tolerance_m": 0.02,
+        "upright_tolerance_deg": 5.0,
+        "linear_speed_m_s": 0.02,
+        "angular_speed_deg_s": 5.0,
+        "drop_contact_gap_s": 0.1,
+        "receiver_lift_m": 0.05,
+        "donor_clearance_m": 0.08,
+        "transfer_min_ratio": 0.9,
+        "spill_max_ratio": 0.05,
+        "water_mass_kg": 0.1,
+        "fluid_particles": 256,
+        "fluid_iterations": 8,
+        "fluid_substeps": 2,
+        "pour_angle_deg": -110.0,
+        "pour_dwell_s": 2.0
+      },
+      "point_A": [
+        0.55,
+        0,
+        0.645
+      ],
+      "point_B": [
+        0.55,
+        0.16,
+        0.645
+      ],
+      "handoff_pose": [
+        0.55,
+        0.16,
+        0.8
+      ],
+      "pouring_pose": null,
+      "material_model": "empty_cup",
+      "stages": [
+        {
+          "id": "pregrasp",
+          "actor": "donor",
+          "action": "Move to estimated pregrasp; jaws open",
+          "entry": "Fresh scene and selected candidate feasible",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "No unintended collision",
+          "timeout_s": 3,
+          "allowed_contacts": [
+            "source_table"
+          ]
+        },
+        {
+          "id": "approach",
+          "actor": "donor",
+          "action": "Move to estimated candidate grasp pose",
+          "entry": "pregrasp control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "No nonfinger source collision",
+          "timeout_s": 3,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table"
+          ]
+        },
+        {
+          "id": "close",
+          "actor": "donor",
+          "action": "Close jaws under force-limited motor control",
+          "entry": "approach control completed",
+          "control_exit": "Fixed 0.75 s close; encoder feedback only",
+          "evaluation": "Physical source/finger contact formed",
+          "timeout_s": 1,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table"
+          ]
+        },
+        {
+          "id": "lift",
+          "actor": "donor",
+          "action": "Raise nominal source by 0.14 m",
+          "entry": "close action completed, not an oracle grasp gate",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source lifted >=0.09 m with donor contact",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source"
+          ]
+        },
+        {
+          "id": "transport",
+          "actor": "donor",
+          "action": "Move upright source from A to the B work region",
+          "entry": "lift control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source near prescribed B pose; no drop/collision",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source"
+          ]
+        },
+        {
+          "id": "receiver_approach",
+          "actor": "receiver",
+          "action": "Motorized Y rail approaches known B handle region; jaws open",
+          "entry": "donor transport control completed",
+          "control_exit": "Receiver rail encoder reaches target",
+          "evaluation": "No donor/receiver collision or nonfinger source contact",
+          "timeout_s": 2,
+          "allowed_contacts": [
+            "donor_fingers_source"
+          ]
+        },
+        {
+          "id": "receiver_close",
+          "actor": "receiver",
+          "action": "Close synchronized upper/lower fingers on handle",
+          "entry": "receiver approach control completed",
+          "control_exit": "Fixed 0.75 s force-limited close",
+          "evaluation": "At least one receiver finger contacts handle; both required after donor release",
+          "timeout_s": 1,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "receiver_fingers_handle"
+          ]
+        },
+        {
+          "id": "donor_release",
+          "actor": "donor",
+          "action": "Open donor jaws",
+          "entry": "receiver close action completed, no truth-based gate",
+          "control_exit": "Fixed 0.5 s open",
+          "evaluation": "Receiver support maintained; donor release is intentional",
+          "timeout_s": 1,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "receiver_fingers_handle"
+          ]
+        },
+        {
+          "id": "retreat",
+          "actor": "donor",
+          "action": "Withdraw 0.10 m along approach axis and raise 0.16 m",
+          "entry": "donor release completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Donor detached and clear",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "receiver_fingers_handle"
+          ]
+        },
+        {
+          "id": "receiver_lift",
+          "actor": "receiver",
+          "action": "Raise Z rail by configured distance",
+          "entry": "donor retreat control completed",
+          "control_exit": "Receiver rail encoder reaches target",
+          "evaluation": "Source actually rises with receiver",
+          "timeout_s": 2,
+          "allowed_contacts": [
+            "receiver_fingers_handle"
+          ]
+        },
+        {
+          "id": "settle",
+          "actor": "all_actuators",
+          "action": "Keep final motor targets for a fixed settling interval",
+          "entry": "last physical action control completed",
+          "control_exit": "Fixed settle_s; no oracle stability gate",
+          "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+          "timeout_s": 1.0,
+          "allowed_contacts": [
+            "receiver_fingers_handle"
+          ]
+        },
+        {
+          "id": "terminal",
+          "actor": "evaluator",
+          "action": "Observe recipient-only support",
+          "entry": "settle control completed",
+          "control_exit": "Fixed terminal window",
+          "evaluation": "Every step: recipient contact, donor detached, height, B pose, upright and speed limits",
+          "timeout_s": 1.0,
+          "allowed_contacts": [
+            "receiver_fingers_handle"
+          ]
+        }
+      ],
+      "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+      "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels."
+    },
+    "pour_water": {
+      "task_id": "pour_water",
+      "schema_version": "task_spec_v1",
+      "controller_version": "staged_sequences_v1",
+      "evaluation_version": "physical_outcomes_v1",
+      "config": {
+        "target_xy": [
+          0.55,
+          0.16
+        ],
+        "carry_height_m": 0.8,
+        "episode_timeout_s": 25.0,
+        "arrival_position_m": 0.02,
+        "arrival_angle_deg": 10.0,
+        "arrival_continuous_s": 0.1,
+        "arrival_timeout_s": 2.0,
+        "terminal_window_s": 1.0,
+        "settle_s": 1.0,
+        "placement_tolerance_m": 0.02,
+        "upright_tolerance_deg": 5.0,
+        "linear_speed_m_s": 0.02,
+        "angular_speed_deg_s": 5.0,
+        "drop_contact_gap_s": 0.1,
+        "receiver_lift_m": 0.05,
+        "donor_clearance_m": 0.08,
+        "transfer_min_ratio": 0.9,
+        "spill_max_ratio": 0.05,
+        "water_mass_kg": 0.1,
+        "fluid_particles": 256,
+        "fluid_iterations": 8,
+        "fluid_substeps": 2,
+        "pour_angle_deg": -110.0,
+        "pour_dwell_s": 2.0
+      },
+      "point_A": [
+        0.55,
+        0,
+        0.645
+      ],
+      "point_B": [
+        0.55,
+        0.16,
+        0.645
+      ],
+      "handoff_pose": null,
+      "pouring_pose": [
+        0.55,
+        0.115,
+        0.8
+      ],
+      "material_model": "position_based_fluid",
+      "stages": [
+        {
+          "id": "pregrasp",
+          "actor": "donor",
+          "action": "Move to estimated pregrasp; jaws open",
+          "entry": "Fresh scene and selected candidate feasible",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "No unintended collision",
+          "timeout_s": 3,
+          "allowed_contacts": [
+            "source_table",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "approach",
+          "actor": "donor",
+          "action": "Move to estimated candidate grasp pose",
+          "entry": "pregrasp control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "No nonfinger source collision",
+          "timeout_s": 3,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "close",
+          "actor": "donor",
+          "action": "Close jaws under force-limited motor control",
+          "entry": "approach control completed",
+          "control_exit": "Fixed 0.75 s close; encoder feedback only",
+          "evaluation": "Physical source/finger contact formed",
+          "timeout_s": 1,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "lift",
+          "actor": "donor",
+          "action": "Raise nominal source by 0.14 m",
+          "entry": "close action completed, not an oracle grasp gate",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source lifted >=0.09 m with donor contact",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "transport",
+          "actor": "donor",
+          "action": "Move upright source from A to the B work region",
+          "entry": "lift control completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source near prescribed B pose; no drop/collision",
+          "timeout_s": 4,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "tilt",
+          "actor": "donor",
+          "action": "Rotate source about WORLD X at a fixed center above receiver",
+          "entry": "transport control completed",
+          "control_exit": "TCP arrival at final tilt",
+          "evaluation": "Water moves through physical open rim; source stays held",
+          "timeout_s": 5,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "pour_dwell",
+          "actor": "donor",
+          "action": "Maintain tilt for a fixed time, not until an oracle mass threshold",
+          "entry": "tilt control completed",
+          "control_exit": "Fixed pour_dwell_s",
+          "evaluation": "No drop or source/receiver collision",
+          "timeout_s": 2.0,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "return_upright",
+          "actor": "donor",
+          "action": "Restore upright at B safety pose",
+          "entry": "pour dwell completed",
+          "control_exit": "TCP arrival sustained",
+          "evaluation": "Source remains held; receiver not displaced/tipped",
+          "timeout_s": 5,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "settle",
+          "actor": "all_actuators",
+          "action": "Keep final motor targets for a fixed settling interval",
+          "entry": "last physical action control completed",
+          "control_exit": "Fixed settle_s; no oracle stability gate",
+          "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+          "timeout_s": 1.0,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        },
+        {
+          "id": "terminal",
+          "actor": "evaluator",
+          "action": "Observe water and vessels in final window",
+          "entry": "settle control completed",
+          "control_exit": "Fixed terminal window",
+          "evaluation": "Every step: transfer >= 0.9, spill <= 0.05, stable upright source and receiver; valid fluid state",
+          "timeout_s": 1.0,
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ]
+        }
+      ],
+      "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+      "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels."
+    }
+  },
+  "fluid_only_validation": {
+    "purpose": "fluid-only imposed-motion sensitivity; not robot task score",
+    "fluid_version": "numpy_pbf_v1",
+    "trials": [
+      {
+        "samples": 128,
+        "dt_s": 0.0020833333333333333,
+        "iterations": 8,
+        "static_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.1,
+          "target_mass_kg": 0.0,
+          "outside_mass_kg": 0.0,
+          "transfer_ratio": 0.0,
+          "spill_ratio": 0.0,
+          "accounting_error_kg": 0.0,
+          "fluid_sample_count": 128,
+          "max_compression": 0.0017884938049628207,
+          "maximum_sample_speed_m_s": 0.15917912122994254,
+          "finite_state": true
+        },
+        "final_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.08828125,
+          "outside_mass_kg": 0.01171875,
+          "transfer_ratio": 0.8828125,
+          "spill_ratio": 0.1171875,
+          "accounting_error_kg": 0.0,
+          "fluid_sample_count": 128,
+          "max_compression": 0.008584893814294725,
+          "maximum_sample_speed_m_s": 1.7599880214209658,
+          "finite_state": true
+        },
+        "maximum_compression": 0.032306365306500995,
+        "wall_seconds": 5.757817099999556
+      },
+      {
+        "samples": 256,
+        "dt_s": 0.0020833333333333333,
+        "iterations": 8,
+        "static_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.1,
+          "target_mass_kg": 0.0,
+          "outside_mass_kg": 0.0,
+          "transfer_ratio": 0.0,
+          "spill_ratio": 0.0,
+          "accounting_error_kg": 0.0,
+          "fluid_sample_count": 256,
+          "max_compression": 0.0021756095130591735,
+          "maximum_sample_speed_m_s": 0.09009655719545401,
+          "finite_state": true
+        },
+        "final_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.09531250000000001,
+          "outside_mass_kg": 0.004687500000000001,
+          "transfer_ratio": 0.953125,
+          "spill_ratio": 0.04687500000000001,
+          "accounting_error_kg": 3.469446951953614e-18,
+          "fluid_sample_count": 256,
+          "max_compression": 0.017155807937389245,
+          "maximum_sample_speed_m_s": 1.3114347780220434,
+          "finite_state": true
+        },
+        "maximum_compression": 0.07496609630220297,
+        "wall_seconds": 18.499430899999425
+      },
+      {
+        "samples": 256,
+        "dt_s": 0.0010416666666666667,
+        "iterations": 8,
+        "static_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.1,
+          "target_mass_kg": 0.0,
+          "outside_mass_kg": 0.0,
+          "transfer_ratio": 0.0,
+          "spill_ratio": 0.0,
+          "accounting_error_kg": 0.0,
+          "fluid_sample_count": 256,
+          "max_compression": 0.00024553066444199523,
+          "maximum_sample_speed_m_s": 0.0394720714194203,
+          "finite_state": true
+        },
+        "final_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.09531250000000001,
+          "outside_mass_kg": 0.004687500000000001,
+          "transfer_ratio": 0.953125,
+          "spill_ratio": 0.04687500000000001,
+          "accounting_error_kg": 3.469446951953614e-18,
+          "fluid_sample_count": 256,
+          "max_compression": 0.015616090718983733,
+          "maximum_sample_speed_m_s": 2.7648991872998026,
+          "finite_state": true
+        },
+        "maximum_compression": 0.031189363097211542,
+        "wall_seconds": 36.982742600000165
+      },
+      {
+        "samples": 512,
+        "dt_s": 0.0020833333333333333,
+        "iterations": 8,
+        "static_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.1,
+          "target_mass_kg": 0.0,
+          "outside_mass_kg": 0.0,
+          "transfer_ratio": 0.0,
+          "spill_ratio": 0.0,
+          "accounting_error_kg": 0.0,
+          "fluid_sample_count": 512,
+          "max_compression": 0.00297016800865868,
+          "maximum_sample_speed_m_s": 0.06095969363750463,
+          "finite_state": true
+        },
+        "final_check": {
+          "initial_mass_kg": 0.1,
+          "source_mass_kg": 0.0,
+          "target_mass_kg": 0.0966796875,
+          "outside_mass_kg": 0.0033203125000000003,
+          "transfer_ratio": 0.966796875,
+          "spill_ratio": 0.033203125,
+          "accounting_error_kg": 5.204170427930421e-18,
+          "fluid_sample_count": 512,
+          "max_compression": 0.034681975059873915,
+          "maximum_sample_speed_m_s": 3.2339083260705275,
+          "finite_state": true
+        },
+        "maximum_compression": 0.07680198873774624,
+        "wall_seconds": 64.58444839999993
+      }
+    ]
+  },
+  "full_raw_results": "results/local/sequence_v1/final",
+  "raw_results_are_local": true
+}
