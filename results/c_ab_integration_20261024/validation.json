@@ -1,0 +1,1139 @@
+{
+  "b_score_version": "experimental_geometry_weighted_v0.1",
+  "b_weights": {
+    "alignment": 1.0,
+    "com_distance": 1.0,
+    "symmetry": 1.0
+  },
+  "candidate_sha256": "a714120c111f69a83dcd33c0db10346ca370b5829fab9e5d053cac13302c342f",
+  "candidates": [
+    {
+      "approach": "tool_z_yaw_0_roll_0",
+      "geometry_score": 0.9111111111111111,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          0.0,
+          0.7071067811865476,
+          0.0,
+          0.7071067811865476
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_0b8212a8684511f4",
+      "pregrasp_pose": {
+        "position": [
+          -0.12,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          0.0,
+          0.7071067811865476,
+          0.0,
+          0.7071067811865476
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_0_roll_0",
+      "geometry_score": 0.8222222222222222,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          0.0,
+          0.7071067811865476,
+          0.0,
+          0.7071067811865476
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_1de877d1f549b510",
+      "pregrasp_pose": {
+        "position": [
+          -0.12,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          0.0,
+          0.7071067811865476,
+          0.0,
+          0.7071067811865476
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_0_roll_180",
+      "geometry_score": 0.9111111111111111,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          0.7071067811865476,
+          4.329780281177467e-17,
+          0.7071067811865476,
+          4.329780281177467e-17
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_c38260dc799347e8",
+      "pregrasp_pose": {
+        "position": [
+          -0.12,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          0.7071067811865476,
+          4.329780281177467e-17,
+          0.7071067811865476,
+          4.329780281177467e-17
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_0_roll_180",
+      "geometry_score": 0.8222222222222222,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          0.7071067811865476,
+          4.329780281177467e-17,
+          0.7071067811865476,
+          4.329780281177467e-17
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_51f970af114891a0",
+      "pregrasp_pose": {
+        "position": [
+          -0.12,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          0.7071067811865476,
+          4.329780281177467e-17,
+          0.7071067811865476,
+          4.329780281177467e-17
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_45_roll_0",
+      "geometry_score": 0.9111111111111111,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          -0.2705980500730985,
+          0.6532814824381883,
+          0.2705980500730985,
+          0.6532814824381883
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_3acb2393c55d6888",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238571,
+          -0.0848528137423857,
+          0.012
+        ],
+        "quaternion": [
+          -0.2705980500730985,
+          0.6532814824381883,
+          0.2705980500730985,
+          0.6532814824381883
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_45_roll_0",
+      "geometry_score": 0.8222222222222222,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          -0.2705980500730985,
+          0.6532814824381883,
+          0.2705980500730985,
+          0.6532814824381883
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_a5e61ab9f6998b5e",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238571,
+          -0.0848528137423857,
+          0.024
+        ],
+        "quaternion": [
+          -0.2705980500730985,
+          0.6532814824381883,
+          0.2705980500730985,
+          0.6532814824381883
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_45_roll_180",
+      "geometry_score": 0.9111111111111111,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          0.6532814824381883,
+          0.27059805007309856,
+          0.6532814824381883,
+          -0.2705980500730985
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_ab0ef4c06d8063f3",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238571,
+          -0.0848528137423857,
+          0.012
+        ],
+        "quaternion": [
+          0.6532814824381883,
+          0.27059805007309856,
+          0.6532814824381883,
+          -0.2705980500730985
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_45_roll_180",
+      "geometry_score": 0.8222222222222222,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          0.6532814824381883,
+          0.27059805007309856,
+          0.6532814824381883,
+          -0.2705980500730985
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_8062bc3defba6bfd",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238571,
+          -0.0848528137423857,
+          0.024
+        ],
+        "quaternion": [
+          0.6532814824381883,
+          0.27059805007309856,
+          0.6532814824381883,
+          -0.2705980500730985
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_315_roll_0",
+      "geometry_score": 0.911111111111111,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          -0.2705980500730986,
+          -0.6532814824381883,
+          0.2705980500730986,
+          -0.6532814824381883
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_3ebe3b2a16489e6b",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238568,
+          0.08485281374238572,
+          0.012
+        ],
+        "quaternion": [
+          -0.2705980500730986,
+          -0.6532814824381883,
+          0.2705980500730986,
+          -0.6532814824381883
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_315_roll_0",
+      "geometry_score": 0.8222222222222222,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          -0.2705980500730986,
+          -0.6532814824381883,
+          0.2705980500730986,
+          -0.6532814824381883
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_dfca01e46af54161",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238568,
+          0.08485281374238572,
+          0.024
+        ],
+        "quaternion": [
+          -0.2705980500730986,
+          -0.6532814824381883,
+          0.2705980500730986,
+          -0.6532814824381883
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_315_roll_180",
+      "geometry_score": 0.9111111111111111,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.012
+        ],
+        "quaternion": [
+          -0.6532814824381883,
+          0.27059805007309856,
+          -0.6532814824381882,
+          -0.2705980500730989
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_295a6a5aa689a267",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238568,
+          0.08485281374238572,
+          0.012
+        ],
+        "quaternion": [
+          -0.6532814824381883,
+          0.27059805007309856,
+          -0.6532814824381882,
+          -0.2705980500730989
+        ]
+      },
+      "region": "body"
+    },
+    {
+      "approach": "tool_z_yaw_315_roll_180",
+      "geometry_score": 0.8222222222222222,
+      "grasp_pose": {
+        "position": [
+          0.0,
+          0.0,
+          0.024
+        ],
+        "quaternion": [
+          -0.6532814824381883,
+          0.27059805007309856,
+          -0.6532814824381882,
+          -0.2705980500730989
+        ]
+      },
+      "gripper_width": 0.07800000000000001,
+      "id": "B1_19d28440bd90787a",
+      "pregrasp_pose": {
+        "position": [
+          -0.08485281374238568,
+          0.08485281374238572,
+          0.024
+        ],
+        "quaternion": [
+          -0.6532814824381883,
+          0.27059805007309856,
+          -0.6532814824381882,
+          -0.2705980500730989
+        ]
+      },
+      "region": "body"
+    }
+  ],
+  "legacy_prep_b_smoke": {
+    "planned_n": 4,
+    "saved_n": 4,
+    "success_n": 4
+  },
+  "limitations": [
+    "Seed 0 only; not a statistically valid superiority comparison.",
+    "B geometry uses assets/mug.urdf and excludes liquid COM; sequence physics uses assets/mug_hollow.urdf.",
+    "Recorded hashes identify the actual pre-commit run source snapshot; later source changes require a new run directory."
+  ],
+  "live_model_requests": 6,
+  "llm_fallback_n": 0,
+  "local_date": "2026-10-24",
+  "observation_config": {
+    "noise_seed": 0,
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "position_noise_m": 0.0,
+    "source": "calibrated_prior",
+    "yaw_noise_deg": 0.0
+  },
+  "planned_n": 12,
+  "providers": {
+    "A1_CODEX": {
+      "auth": "existing_chatgpt_cli_login",
+      "cli_version": "codex-cli 0.152.0",
+      "executable": "codex",
+      "isolation": "empty_cwd_no_tools_v1",
+      "timeout_s": 120,
+      "type": "codex"
+    },
+    "M3_CODEX": {
+      "auth": "existing_chatgpt_cli_login",
+      "cli_version": "codex-cli 0.152.0",
+      "executable": "codex",
+      "isolation": "empty_cwd_no_tools_v1",
+      "timeout_s": 120,
+      "type": "codex"
+    }
+  },
+  "resume_verification": {
+    "new_auth_checks": 0,
+    "new_episodes": 0,
+    "new_filter_calls": 0,
+    "new_model_calls": 0,
+    "passed": true
+  },
+  "run_manifest_sha256": "611d38f232221da853704bc19042fdeea55ea37a7265c214e746f2c8284fd32c",
+  "run_source_files": {
+    "environment.yml": "3cce4c693be586cd1d46868ac305d00478ee9f3e2373cb1ca68703f11a054ec7",
+    "examples/evaluate_one_trial.py": "ecdc2306d3e342b62c051e1ce166ab9d2b9e38b069513bfb74c5fb6c70fbb30e",
+    "examples/incremental_policy.py": "6c7df6f22245f3d6298a63c589efd9483803bdd3ee3a11ad6a913416f7bae6c2",
+    "examples/llm_smoke.py": "2f3e95668e8e8d0e4dfb576359286b02cef6436f7458f5197ed94c06bfa91730",
+    "grasp_a/__init__.py": "8e3e1ba790302e82a13f5c1c4c515362e75546ff9b1b9e3df8ac39c87d8ef4ac",
+    "grasp_a/__main__.py": "aacc4caba97f58ec37f0b9ae6399488cdaa139154498fd30365d79d02493210d",
+    "grasp_a/annotations.py": "58411488785ef29727a67ab2b9cad1ae535762114aa1297ec5ef25a13a1a4786",
+    "grasp_a/collision_rules.py": "b907887f519c47bda249d291b337ea6f9f1aa0062c3f62bdd5aa55b6a7ff8af6",
+    "grasp_a/contracts.py": "1c514b8d83eb0cd2e89704e87212397a8b716296fb6a8d9a7d5fd92cac37a0b8",
+    "grasp_a/control.py": "c8309fbea017b4592790e08e63a894dadba1d279ef1b2e7b3c5bb7d0700d09f3",
+    "grasp_a/evaluation.py": "5336f648c22cd78175a423895dada6aad754425e830cc56d0bbbd38044ce909b",
+    "grasp_a/fluid.py": "024f9ff13622031c93ae447ebb440e07b5d9f40abc7e87999154a0ddfba6e46d",
+    "grasp_a/sequence.py": "c5ec333c023de7d49cd72397756665b213269688723b85647b15a7526e69d89e",
+    "grasp_a/sequence_contracts.py": "e1dd49fa119f2e9e16933145e42699ddb4f034d1411dc83124e0ed7296a128e0",
+    "grasp_a/sequence_evaluation.py": "103fb54559f37f34c92c071a8a90454c989675da1f5b8f768db19e1308867cd8",
+    "grasp_a/simulation.py": "8382ae7f173574389933c24b93e60cf078e5f6f6b950ba33e62a6ff6cbdc516f",
+    "grasp_a/visualization.py": "380cfc0cacae17eeeff8c43d9fa0f910b83a7dbf37830ee06330c881ccddfe5a",
+    "grasp_b/__init__.py": "7295af46c1e7bf6c14ed57ec6039ff62cdcd63c58678d711df3ae781b4e6bada",
+    "grasp_b/features.py": "185fa519f63654f549fd464ed9f501fbcd9833b6fa478856d6a75f9b1ee1b303",
+    "grasp_b/generation.py": "255e1713bb03ed8770cffb6d6bd33e1d0ce820a57ec3bf32de53f576b76dac32",
+    "grasp_b/geometry.py": "8de5c0037cbb5f47ddff962b9b61bfb83d90d9bf2a94583dc29e402a2d280a0b",
+    "grasp_b/prototype.py": "f1d866cde2475e3ff5123e2049fb3a2a13d4beccfbe78e213c1f610d0522e7de",
+    "grasp_b/runner.py": "814e42087e63a254b051101fd157a1e39446673c638d5005ccd6b1d594438f3a",
+    "grasp_b/scoring.py": "51c3d3840b53c97b82c9c9c4d1d505e37c2ffbf25fbe36db78431601d840dc29",
+    "grasp_b/selectors.py": "f3cd27dbc34ac8e6ee292b06889e2bf4d83f6dba2c70962b2145c9def11821e6",
+    "grasp_c/__init__.py": "cb98293e05467eec06480a41cc94f2604384cd086afb5fa4a801cbe186872d3e",
+    "grasp_c/__main__.py": "288b8ca9c0d84e77a70ab901171d6d1026f030c1a3f7d5c8791a188b182a5ba0",
+    "grasp_c/baselines.py": "3ea027083ad47243310f5cc8132d9dffdb16a0a2eafe9ae1bc19c73bc78af2c1",
+    "grasp_c/cache.py": "ca254e129701f414b55c93e6ee73bded0f05951f16d49116dfe3a73ac5d6d980",
+    "grasp_c/config.py": "540b6cce38e9ad5044d766739066f53920ae8106ed6208d28e6e7d7143b0f9b6",
+    "grasp_c/env.py": "9d2252a4f767c010382f130f6c5c09dcedbf130c7a029b78d440fc14e4732e67",
+    "grasp_c/gemini.py": "01a4a18ab3d577775fa7d95ce399648b271fc8104dc069c204ff979f5330dc63",
+    "grasp_c/metrics.py": "89a358abf79dd641af6b97e75c632f62c4b48f4ec6b3bc7f8cb9f779f3f700fe",
+    "grasp_c/prepare_b.py": "31d0c743d4f7a557cb7904eb476a6b83532b6d59a73f86e5d8110f4039974d82",
+    "grasp_c/prompts.py": "2f2d1423a0212b5cf05c67e2015e863edd205a9c1303868e390fbac8b8f13444",
+    "grasp_c/providers.py": "08e028eeb2cd83f9c3a26f3bb52c46e10b9faba30c987b76dfa8a52baec030cd",
+    "grasp_c/runner.py": "d817230fae97350fb01a4a00d0784bc2f7a5c4f2d06fb918bcf4e39383013f38",
+    "grasp_c/selectors.py": "0dbbed6bb6c0f141df3087d12ab990ffb53f84449b2ab9625fd007050bb67406",
+    "grasp_c/sequence_metrics.py": "366af7f045cc29311525eb1fafa8979f987c313e1dcf3f283594d4cd64191cb3",
+    "grasp_c/sequence_runner.py": "1a4343c48bca1fa0cc76686558fd3573925cffaa39ea7991a3d06e95a50af5f2",
+    "grasp_c/sequence_trial.py": "3413d497172c59bb50dab337e68dc137f32b326f543391463b519f678094eecd",
+    "grasp_c/tasks.py": "8f4cfcf517abfe582994a9ab074ccd97746a29bdaebfb942c72425ad23c023c0",
+    "requirements-c.txt": "894e7e615147bac8255e0367c33174edb445279bc7ce37a1e857a93d287ece03",
+    "requirements.txt": "ca03bad1cfbe4ece727613b0c6198dd3bf815f540b31917d48d3a32379c4496a"
+  },
+  "saved_n": 12,
+  "schema_version": "part_c_ab_integration_validation_v1",
+  "scope": "single_seed_integration_smoke_not_method_superiority_evidence",
+  "sequence_config": {
+    "angular_speed_deg_s": 5.0,
+    "arrival_angle_deg": 10.0,
+    "arrival_continuous_s": 0.1,
+    "arrival_position_m": 0.02,
+    "arrival_timeout_s": 2.0,
+    "carry_height_m": 0.8,
+    "donor_clearance_m": 0.08,
+    "drop_contact_gap_s": 0.1,
+    "episode_timeout_s": 25.0,
+    "fluid_iterations": 8,
+    "fluid_particles": 256,
+    "fluid_substeps": 2,
+    "linear_speed_m_s": 0.02,
+    "placement_tolerance_m": 0.02,
+    "pour_angle_deg": -110.0,
+    "pour_dwell_s": 2.0,
+    "receiver_lift_m": 0.05,
+    "settle_s": 1.0,
+    "spill_max_ratio": 0.05,
+    "target_xy": [
+      0.55,
+      0.16
+    ],
+    "terminal_window_s": 1.0,
+    "transfer_min_ratio": 0.9,
+    "upright_tolerance_deg": 5.0,
+    "water_mass_kg": 0.1
+  },
+  "shared_filters": [
+    {
+      "feasible_ids": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_a5e61ab9f6998b5e",
+        "B1_ab0ef4c06d8063f3",
+        "B1_8062bc3defba6bfd"
+      ],
+      "seed": 0,
+      "task_id": "handover_transfer"
+    },
+    {
+      "feasible_ids": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_a5e61ab9f6998b5e",
+        "B1_ab0ef4c06d8063f3",
+        "B1_8062bc3defba6bfd"
+      ],
+      "seed": 0,
+      "task_id": "pour_water"
+    },
+    {
+      "feasible_ids": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_a5e61ab9f6998b5e",
+        "B1_ab0ef4c06d8063f3",
+        "B1_8062bc3defba6bfd"
+      ],
+      "seed": 0,
+      "task_id": "transport_place"
+    }
+  ],
+  "source_snapshot_sha256": "16d21d825eb72c0b0db1a76eb14a02598637cdd4d68f2876191ba281031b4e00",
+  "status_counts": {
+    "completed": 11,
+    "execution_failed": 1
+  },
+  "success_n": 11,
+  "task_spec_sha256": {
+    "handover_transfer": "b37c9f727dea28c931f4dd0fe6cbc9ccda290d8c5263d10341e651b1db819457",
+    "pour_water": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+    "transport_place": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6"
+  },
+  "track": "sequence",
+  "trials": [
+    {
+      "cache_hit": false,
+      "failure_reason": null,
+      "fallback_to_geometry": false,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/A1_CODEX/handover_transfer/seed0_repeat0.json",
+      "full_trial_sha256": "0de4dbabf04b6d580fac41a6a4c65d70b9e6f879a058ba3d0368a1b263be3393",
+      "live_requests": 1,
+      "live_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 8760,
+        "output_tokens": 138,
+        "reasoning_output_tokens": 36
+      },
+      "method_id": "A1_CODEX",
+      "model_id": "gpt-5.6-luna",
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_a5e61ab9f6998b5e",
+        "B1_8062bc3defba6bfd"
+      ],
+      "raw_initial_response": "{\"selected_id\":\"B1_0b8212a8684511f4\",\"ranking\":[\"B1_0b8212a8684511f4\",\"B1_3acb2393c55d6888\",\"B1_ab0ef4c06d8063f3\",\"B1_a5e61ab9f6998b5e\",\"B1_8062bc3defba6bfd\"]}",
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.010844905537749595,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "handover_transfer",
+      "water": null
+    },
+    {
+      "cache_hit": false,
+      "failure_reason": null,
+      "fallback_to_geometry": false,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/A1_CODEX/pour_water/seed0_repeat0.json",
+      "full_trial_sha256": "47836267b3969702d77e91e67db1faff8321ac3284e75e2a74adc9a39f62bae3",
+      "live_requests": 1,
+      "live_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 6656,
+        "input_tokens": 8758,
+        "output_tokens": 138,
+        "reasoning_output_tokens": 36
+      },
+      "method_id": "A1_CODEX",
+      "model_id": "gpt-5.6-luna",
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_a5e61ab9f6998b5e",
+        "B1_8062bc3defba6bfd"
+      ],
+      "raw_initial_response": "{\"selected_id\":\"B1_0b8212a8684511f4\",\"ranking\":[\"B1_0b8212a8684511f4\",\"B1_3acb2393c55d6888\",\"B1_ab0ef4c06d8063f3\",\"B1_a5e61ab9f6998b5e\",\"B1_8062bc3defba6bfd\"]}",
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.04263115824779602,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "pour_water",
+      "water": {
+        "accounting_error_kg": 2.8189256484623115e-18,
+        "finite_state": true,
+        "fluid_sample_count": 256,
+        "initial_mass_kg": 0.1,
+        "max_compression": 0.019219380674950104,
+        "maximum_sample_speed_m_s": 1.4545755919136634,
+        "outside_mass_kg": 0.00078125,
+        "source_mass_kg": 0.0,
+        "spill_ratio": 0.0078125,
+        "target_mass_kg": 0.09921875000000001,
+        "transfer_ratio": 0.9921875
+      }
+    },
+    {
+      "cache_hit": false,
+      "failure_reason": null,
+      "fallback_to_geometry": false,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/A1_CODEX/transport_place/seed0_repeat0.json",
+      "full_trial_sha256": "075f769005dc9c9e3394ef52d76dcd0c3b09c6fa2f15717644a59d33651a284b",
+      "live_requests": 1,
+      "live_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 8760,
+        "output_tokens": 122,
+        "reasoning_output_tokens": 20
+      },
+      "method_id": "A1_CODEX",
+      "model_id": "gpt-5.6-luna",
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_a5e61ab9f6998b5e",
+        "B1_8062bc3defba6bfd"
+      ],
+      "raw_initial_response": "{\"selected_id\":\"B1_0b8212a8684511f4\",\"ranking\":[\"B1_0b8212a8684511f4\",\"B1_3acb2393c55d6888\",\"B1_ab0ef4c06d8063f3\",\"B1_a5e61ab9f6998b5e\",\"B1_8062bc3defba6bfd\"]}",
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.010309388917873752,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "transport_place",
+      "water": null
+    },
+    {
+      "cache_hit": null,
+      "failure_reason": null,
+      "fallback_to_geometry": null,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/B_GEOMETRY_EXPERIMENTAL/handover_transfer/seed0_repeat0.json",
+      "full_trial_sha256": "5229989a979a4797f149883693b0585ebb480444f781706cf95d2eb857eba4a6",
+      "live_requests": 0,
+      "live_usage": null,
+      "method_id": "B_GEOMETRY_EXPERIMENTAL",
+      "model_id": null,
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_8062bc3defba6bfd",
+        "B1_a5e61ab9f6998b5e"
+      ],
+      "raw_initial_response": null,
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.010844905537749595,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "handover_transfer",
+      "water": null
+    },
+    {
+      "cache_hit": null,
+      "failure_reason": null,
+      "fallback_to_geometry": null,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/B_GEOMETRY_EXPERIMENTAL/pour_water/seed0_repeat0.json",
+      "full_trial_sha256": "1264140d1cc647b1eff2e9b8458055bc94fe735a07f976ff4e24241292232ba1",
+      "live_requests": 0,
+      "live_usage": null,
+      "method_id": "B_GEOMETRY_EXPERIMENTAL",
+      "model_id": null,
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_8062bc3defba6bfd",
+        "B1_a5e61ab9f6998b5e"
+      ],
+      "raw_initial_response": null,
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.04263115824779602,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "pour_water",
+      "water": {
+        "accounting_error_kg": 2.8189256484623115e-18,
+        "finite_state": true,
+        "fluid_sample_count": 256,
+        "initial_mass_kg": 0.1,
+        "max_compression": 0.019219380674950104,
+        "maximum_sample_speed_m_s": 1.4545755919136634,
+        "outside_mass_kg": 0.00078125,
+        "source_mass_kg": 0.0,
+        "spill_ratio": 0.0078125,
+        "target_mass_kg": 0.09921875000000001,
+        "transfer_ratio": 0.9921875
+      }
+    },
+    {
+      "cache_hit": null,
+      "failure_reason": null,
+      "fallback_to_geometry": null,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/B_GEOMETRY_EXPERIMENTAL/transport_place/seed0_repeat0.json",
+      "full_trial_sha256": "a45e59b43e0cbc949d4715446bc542baa5b8608c721fc47e0edcc3685e75415c",
+      "live_requests": 0,
+      "live_usage": null,
+      "method_id": "B_GEOMETRY_EXPERIMENTAL",
+      "model_id": null,
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_8062bc3defba6bfd",
+        "B1_a5e61ab9f6998b5e"
+      ],
+      "raw_initial_response": null,
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.010309388917873752,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "transport_place",
+      "water": null
+    },
+    {
+      "cache_hit": null,
+      "failure_reason": null,
+      "fallback_to_geometry": null,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/B_RANDOM_REFERENCE/handover_transfer/seed0_repeat0.json",
+      "full_trial_sha256": "492dd287a62f0c58bcbb8f58bbe903edee2141a72009673abb18d7d9ba40d8a3",
+      "live_requests": 0,
+      "live_usage": null,
+      "method_id": "B_RANDOM_REFERENCE",
+      "model_id": null,
+      "ranking": [
+        "B1_a5e61ab9f6998b5e",
+        "B1_3acb2393c55d6888",
+        "B1_0b8212a8684511f4",
+        "B1_8062bc3defba6bfd",
+        "B1_ab0ef4c06d8063f3"
+      ],
+      "raw_initial_response": null,
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_a5e61ab9f6998b5e",
+      "source_xy_error_m": 0.007886565968907968,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "handover_transfer",
+      "water": null
+    },
+    {
+      "cache_hit": null,
+      "failure_reason": "tilt_ik_failed",
+      "fallback_to_geometry": null,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/B_RANDOM_REFERENCE/pour_water/seed0_repeat0.json",
+      "full_trial_sha256": "35d4d9c8f1f348f151883dda79f18d42f6b7a59590d8859f6ddabdc482c5018a",
+      "live_requests": 0,
+      "live_usage": null,
+      "method_id": "B_RANDOM_REFERENCE",
+      "model_id": null,
+      "ranking": [
+        "B1_a5e61ab9f6998b5e",
+        "B1_3acb2393c55d6888",
+        "B1_0b8212a8684511f4",
+        "B1_8062bc3defba6bfd",
+        "B1_ab0ef4c06d8063f3"
+      ],
+      "raw_initial_response": null,
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_a5e61ab9f6998b5e",
+      "source_xy_error_m": 0.03726306307168977,
+      "status": "execution_failed",
+      "success": false,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": false,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": false,
+        "stage_outcomes": false,
+        "terminal_outcome": false
+      },
+      "task_id": "pour_water",
+      "water": {
+        "accounting_error_kg": 0.0,
+        "finite_state": true,
+        "fluid_sample_count": 256,
+        "initial_mass_kg": 0.1,
+        "max_compression": 0.0021237563219795863,
+        "maximum_sample_speed_m_s": 0.09190618150414682,
+        "outside_mass_kg": 0.0,
+        "source_mass_kg": 0.1,
+        "spill_ratio": 0.0,
+        "target_mass_kg": 0.0,
+        "transfer_ratio": 0.0
+      }
+    },
+    {
+      "cache_hit": null,
+      "failure_reason": null,
+      "fallback_to_geometry": null,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/B_RANDOM_REFERENCE/transport_place/seed0_repeat0.json",
+      "full_trial_sha256": "0ce6d146231a927cd02ef5743195ddf70a7f3c1366a8880558670bde7e30b8ec",
+      "live_requests": 0,
+      "live_usage": null,
+      "method_id": "B_RANDOM_REFERENCE",
+      "model_id": null,
+      "ranking": [
+        "B1_a5e61ab9f6998b5e",
+        "B1_3acb2393c55d6888",
+        "B1_0b8212a8684511f4",
+        "B1_8062bc3defba6bfd",
+        "B1_ab0ef4c06d8063f3"
+      ],
+      "raw_initial_response": null,
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_a5e61ab9f6998b5e",
+      "source_xy_error_m": 0.007904804418771826,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "transport_place",
+      "water": null
+    },
+    {
+      "cache_hit": false,
+      "failure_reason": null,
+      "fallback_to_geometry": false,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/M3_CODEX/handover_transfer/seed0_repeat0.json",
+      "full_trial_sha256": "9533e060cc5bdae635cf6f4e50b9a0dadba9543ff13b8e533a97311a32ecc262",
+      "live_requests": 1,
+      "live_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 8815,
+        "output_tokens": 171,
+        "reasoning_output_tokens": 69
+      },
+      "method_id": "M3_CODEX",
+      "model_id": "gpt-5.6-luna",
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_a5e61ab9f6998b5e",
+        "B1_8062bc3defba6bfd"
+      ],
+      "raw_initial_response": "{\"selected_id\":\"B1_0b8212a8684511f4\",\"ranking\":[\"B1_0b8212a8684511f4\",\"B1_3acb2393c55d6888\",\"B1_ab0ef4c06d8063f3\",\"B1_a5e61ab9f6998b5e\",\"B1_8062bc3defba6bfd\"]}",
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.010844905537749595,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "handover_transfer",
+      "water": null
+    },
+    {
+      "cache_hit": false,
+      "failure_reason": null,
+      "fallback_to_geometry": false,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/M3_CODEX/pour_water/seed0_repeat0.json",
+      "full_trial_sha256": "42ee33fa448662af30338674377b31485b3016e6c61bf7fcbb7254606336ea3b",
+      "live_requests": 1,
+      "live_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 8816,
+        "output_tokens": 181,
+        "reasoning_output_tokens": 79
+      },
+      "method_id": "M3_CODEX",
+      "model_id": "gpt-5.6-luna",
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_a5e61ab9f6998b5e",
+        "B1_8062bc3defba6bfd"
+      ],
+      "raw_initial_response": "{\"selected_id\":\"B1_0b8212a8684511f4\",\"ranking\":[\"B1_0b8212a8684511f4\",\"B1_3acb2393c55d6888\",\"B1_ab0ef4c06d8063f3\",\"B1_a5e61ab9f6998b5e\",\"B1_8062bc3defba6bfd\"]}",
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.04263115824779602,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "pour_water",
+      "water": {
+        "accounting_error_kg": 2.8189256484623115e-18,
+        "finite_state": true,
+        "fluid_sample_count": 256,
+        "initial_mass_kg": 0.1,
+        "max_compression": 0.019219380674950104,
+        "maximum_sample_speed_m_s": 1.4545755919136634,
+        "outside_mass_kg": 0.00078125,
+        "source_mass_kg": 0.0,
+        "spill_ratio": 0.0078125,
+        "target_mass_kg": 0.09921875000000001,
+        "transfer_ratio": 0.9921875
+      }
+    },
+    {
+      "cache_hit": false,
+      "failure_reason": null,
+      "fallback_to_geometry": false,
+      "full_trial_path": "results/local/c_sequence_b_codex_20261024/trials/M3_CODEX/transport_place/seed0_repeat0.json",
+      "full_trial_sha256": "dcd45020ea27d14a48f2350cc6ab7599e30576cb11138e76351581cd522bc751",
+      "live_requests": 1,
+      "live_usage": {
+        "cache_write_input_tokens": 0,
+        "cached_input_tokens": 0,
+        "input_tokens": 8809,
+        "output_tokens": 132,
+        "reasoning_output_tokens": 30
+      },
+      "method_id": "M3_CODEX",
+      "model_id": "gpt-5.6-luna",
+      "ranking": [
+        "B1_0b8212a8684511f4",
+        "B1_3acb2393c55d6888",
+        "B1_ab0ef4c06d8063f3",
+        "B1_a5e61ab9f6998b5e",
+        "B1_8062bc3defba6bfd"
+      ],
+      "raw_initial_response": "{\"selected_id\":\"B1_0b8212a8684511f4\",\"ranking\":[\"B1_0b8212a8684511f4\",\"B1_3acb2393c55d6888\",\"B1_ab0ef4c06d8063f3\",\"B1_a5e61ab9f6998b5e\",\"B1_8062bc3defba6bfd\"]}",
+      "repair_attempts": 0,
+      "repeat": 0,
+      "seed": 0,
+      "selected_id": "B1_0b8212a8684511f4",
+      "source_xy_error_m": 0.010309388917873752,
+      "status": "completed",
+      "success": true,
+      "success_checks": {
+        "fluid_density_valid": true,
+        "full_terminal_window": true,
+        "lift_achieved": true,
+        "no_drop": true,
+        "no_unintended_collision": true,
+        "sequence_complete": true,
+        "stage_outcomes": true,
+        "terminal_outcome": true
+      },
+      "task_id": "transport_place",
+      "water": null
+    }
+  ],
+  "upstream_main": "b713ece",
+  "versions": {
+    "controller_version": "staged_sequences_v1",
+    "evaluation_version": "physical_outcomes_v1",
+    "scene_version": "hollow_cup_sequences_v1"
+  }
+}

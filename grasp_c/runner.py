@@ -18,7 +18,7 @@ from typing import Callable
 from uuid import uuid4
 
 from grasp_a.contracts import candidate_sha256, load_candidates
-from .config import load_acceptable_sets, load_config, load_observation_config
+from .config import load_acceptable_sets, load_b_provenance, load_config, load_observation_config
 from .metrics import summarize_records, trial_identity
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -110,7 +110,7 @@ def _file_hashes(paths) -> dict:
 def build_provenance(config: dict, providers: dict, *, media: bool, out_dir: Path) -> dict:
     """Pin all code/assets, input content, controller, provider identity and environment."""
     from grasp_a.simulation import CONTROLLER_VERSION
-    sources = [path for name in ("grasp_a", "grasp_c", "examples")
+    sources = [path for name in ("grasp_a", "grasp_b", "grasp_c", "examples")
                for path in (ROOT / name).rglob("*.py")]
     sources += [ROOT / name for name in ("requirements.txt", "requirements-c.txt", "environment.yml")]
     source_hashes = _file_hashes(sources)
@@ -131,7 +131,7 @@ def build_provenance(config: dict, providers: dict, *, media: bool, out_dir: Pat
         if name:
             versions[name] = dist.version
     return {
-        "schema_version": RUN_SCHEMA, "configuration": config,
+        "schema_version": RUN_SCHEMA, "track": config.get("track", "prep"), "configuration": config,
         "configuration_sha256": _sha(config), "evaluation_scope": "pilot",
         "controller_version": CONTROLLER_VERSION,
         "evaluation_version": EVALUATION_VERSION, "policy_mode": config["policy_mode"],
@@ -151,6 +151,8 @@ def build_provenance(config: dict, providers: dict, *, media: bool, out_dir: Pat
         "environment": {"python": platform.python_version(), "executable": sys.executable,
                         "platform": platform.platform(), "packages": dict(sorted(versions.items()))},
         "providers": {key: value.identity for key, value in sorted(providers.items())},
+        "baseline_provenance": (load_b_provenance(config["b_provenance"], config["candidates"])
+                                 if config.get("b_provenance") else None),
         "run_options": {"media": media}, "plan": trial_plan(config),
         "seed_split": config["seed_split"],
     }
@@ -261,6 +263,9 @@ def summarize_run(out: str | Path) -> dict:
     """Rebuild a summary from saved trials; this never calls any model or simulator."""
     out = Path(out).resolve()
     manifest = _read_json(out / "manifest.json")
+    if manifest.get("track") == "sequence":
+        from .sequence_runner import summarize_sequence_run
+        return summarize_sequence_run(out)
     records = read_run_records(out, manifest)
     oracle_path = manifest["configuration"].get("acceptable_sets")
     oracle = None
@@ -322,11 +327,18 @@ def _filter_error(item: dict, manifest: dict, error: dict) -> dict:
 
 def run_evaluation(config_path: str | Path, out: str | Path, *, resume: bool = False,
                    retry_errors: bool = False, media: bool = False,
-                   progress: Callable[[dict], None] | None = None) -> dict:
+                   progress: Callable[[dict], None] | None = None,
+                   show_landmarks: bool = True) -> dict:
     """Run missing trials; saved errors are retried only on explicit request."""
     if retry_errors and not resume:
         raise ValueError("--retry-errors requires --resume")
     config = load_config(config_path)
+    if config["track"] == "sequence":
+        from .sequence_runner import run_sequence_evaluation
+        return run_sequence_evaluation(config, out, resume=resume, retry_errors=retry_errors,
+                                       media=media, show_landmarks=show_landmarks, progress=progress)
+    if not show_landmarks:
+        raise ValueError("plain landmark mode requires track='sequence'")
     observation_config = load_observation_config(config["observation_config"])
     # Reuse this exact validated instance throughout the run. Normalizing an
     # arbitrary quaternion again can change its final floating-point bit; sign
@@ -410,14 +422,19 @@ def run_evaluation(config_path: str | Path, out: str | Path, *, resume: bool = F
                 if saved_filter["status"] == "filter_error":
                     record = _filter_error(item, manifest, saved_filter["error"])
                 else:
-                    selector_key = (method["id"], item["repeat"])
+                    selector_key = (method["id"], item["task_id"], item["repeat"])
                     if selector_key not in selectors:
                         if method["kind"] == "llm":
                             selectors[selector_key] = LLMSelector(
                                 providers[method["id"]], method["model"], variant=method["variant"],
                                 parameters=method["parameters"], cache_dir=config["cache_dir"],
                                 cache_mode=method["cache_mode"], prompt_version=method["prompt_version"],
-                                sample_id=item["sample_id"])
+                                sample_id=item["sample_id"],
+                                cache_context=selection_context(manifest, item["task_id"]))
+                        elif method["kind"] in {"b_geometry", "b_random"}:
+                            from .baselines import build_b_selector
+                            selectors[selector_key] = build_b_selector(
+                                method["kind"], manifest["baseline_provenance"])
                         else:
                             selectors[selector_key] = geometry_selector if method["kind"] == "geometry" else smoke_selector
                     media_dir = out / "media" / f"repeat{item['repeat']}" if media else None
@@ -453,3 +470,14 @@ def run_evaluation(config_path: str | Path, out: str | Path, *, resume: bool = F
                     raise ProviderConfigurationError(record["error"]["message"],
                                                      code="fatal_selector_configuration")
         return summarize_run(out)
+
+
+def selection_context(manifest, task_id):
+    """Non-prompt cache boundary: isolate scenes, full poses and task specifications."""
+    context = {key: manifest.get(key) for key in (
+        "track", "scene_version", "controller_version", "evaluation_version",
+        "candidate_sha256", "observation_config")}
+    context["task_id"] = task_id
+    context["task_spec_sha256"] = (manifest.get("task_specs", {}).get(task_id) or {}).get("sha256")
+    context["baseline_provenance_sha256"] = _sha(manifest.get("baseline_provenance"))
+    return context

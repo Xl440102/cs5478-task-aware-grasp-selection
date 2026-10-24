@@ -5,8 +5,10 @@ C 在 A 的可行候选中选择抓取 ID，并让同一套物理控制器执行
 现有 ChatGPT 登录**；Gemini 使用官方 `google-genai` SDK 和 `GEMINI_API_KEY`。
 默认运行不需要 `OPENAI_API_KEY`，不会调用额外计费的 OpenAI API。
 
-当前仍为 **pilot**：A 使用 `observable_primitives_v2` 控制器和
-`fixed_target_hold_v2` 评分；正式候选、评分及消融定义仍需全组冻结。
+当前仍为 **pilot**：`track=prep` 使用 `observable_primitives_v2` 控制器和
+`fixed_target_hold_v2` 评分；`track=sequence` 使用 `staged_sequences_v1` 与
+`physical_outcomes_v1`，完整序列与 B 基线接入见第 11 节。正式候选、评分及消融
+定义仍需全组冻结，两轨道分别记录、缓存与统计。
 C 给 A 的即时输出是 `selected_id/ranking` 和审计 metadata，物理成功由 A 判定。
 最终交付是第 7–8 节的 manifest、逐条 trial 和多方法统计 summary。
 
@@ -223,7 +225,9 @@ Qwen、DeepSeek 或本地服务可使用 OpenAI 兼容接口：
 |---|---|
 | M3 | LLM 根据任务意图和公开候选信息排序并选择 |
 | A1 | 暂定消融：去掉 task_id 和任务描述，其余输入/输出协议相同 |
-| GEOMETRY_REFERENCE | 按输入 geometry_score 降序，分数相同时按 ID 升序 |
+| GEOMETRY_REFERENCE | 按输入 geometry_score 降序，分数相同时按 ID 升序；本地 pilot 参考 |
+| B_RANDOM_REFERENCE / b_random | 调用 B 的 Random，忽略评分，按 scene seed 和有序可行列表生成排名 |
+| B_GEOMETRY_EXPERIMENTAL / b_geometry | 调用 B 的实验几何选择器，要求可核验的评分版本、权重及候选来源 |
 | SMOKE / mock | 仅验证接口与流水线 |
 
 原仓库没有规定 A1 的消融含义，本实现把 `remove_task_information` 明确写入 metadata。
@@ -243,6 +247,8 @@ LLM 只收到 `id/region/approach/gripper_width/geometry_score`。位姿、筛�
 
 缓存存放原始模型响应而非只存选中的 ID。键包括 provider 身份、模型、参数、
 实际 prompt/schema、prompt_version、环境 seed、sample_id 和初始/修复阶段。
+批量入口还将轨道、场景/控制器/评分版本、观测配置、完整候选指纹、任务 ID、任务
+定义指纹和 B 来源绑定为缓存上下文；这些审计身份不会添加到模型输入。
 参数、候选公开信息、prompt 或模型改变会得到不同缓存。
 
 - `cache_mode: read_write`：复用已有响应，缺失时调用并保存。
@@ -250,8 +256,9 @@ LLM 只收到 `id/region/approach/gripper_width/geometry_score`。位姿、筛�
 - `cache_mode: off`：不读写，用于新的独立模型采样。
 
 设置 `repeats` 后，每个 repeat 都有独立 sample_id，避免把一个缓存回答当成多次
-独立 LLM 调用。跨任务的 A1 prompt 相同，可能复用同一个响应；它代表任务无关的相同
-选择策略，日志会显示缓存命中。若要跨任务也独立采样，请关闭缓存。
+独立 LLM 调用。A1 移除任务 ID 和公开任务描述，两个任务的候选相同时 prompt 可相同，
+但批量入口仍以任务身份区分缓存，不会跨任务复用回答。新的 B/C Codex 示例显式关闭
+缓存，用于真实模型采样；已保存 trial 的恢复仍会跳过该条，不重新调用模型。
 用相同 seed、候选、控制器和环境比较方法。seed 0–9 已参与控制器 pilot；正式
 实验划分由小组冻结，配置 `seed_split.evaluation` 时会检查不与 `pilot_controller` 重叠。
 
@@ -275,11 +282,12 @@ python -m grasp_c summarize results/local/my_run
 | summary.json | 各方法/任务统计、配对比较、分母与排除数 |
 | media/ | 按 repeat、方法和任务区分的视频与图片 |
 
-每个 seed 只筛选一次；每次物理 episode 都新建世界。结果逐条原子保存，运行目录有
+以上为 `prep` 的输出结构：每个 seed 只筛选一次；`sequence` 按 task/seed 独立筛选，
+结构及数值状态见第 11 节。每次物理 episode 都新建世界。结果逐条原子保存，运行目录有
 进程锁。`validate` 离线检查配置，不调用模型或要求 API key；`summarize` 只读取已保存记录。
 退出码 0 表示运行完整且没有运行/协议异常，物理失败需读取 `episode.success`。
 
-## 8. 统计口径
+## 8. 准备任务的统计口径
 
 summary 区分 completed、空候选、筛选异常、选择异常、非法选择、执行异常和未完成。
 物理成功/碰撞/掉落标记的分母只用 completed；缺失位姿误差保持 null，均值不补零。
@@ -303,7 +311,7 @@ summary 区分 completed、空候选、筛选异常、选择异常、非法选�
 ## 9. 与 A/B 主分支对齐
 
 C 使用 A/B/C 的公共协议。仓库实际默认分支是 `main`，不存在 `master`。
-C 的主实验只选择抓取 ID，所有方法共用 A 的 `policy_mode=fixed`；逐步
+C 的主实验只选择抓取 ID，同轨道所有方法共用 A 的 `policy_mode=fixed`；逐步
 primitive 控制属于另一条实验轨道，当前批量配置会拒绝混入 incremental 模式。
 
 每个配置都显式记录 `observation_config`，同一份规范化配置用于筛选、任务执行
@@ -359,3 +367,140 @@ key；与默认 `configs/c.multimodel.json` 的 Codex GPT 方式不同。OpenAI 
 官方参考：[OpenAI quickstart](https://developers.openai.com/api/docs/quickstart)、
 [OpenAI Python SDK](https://developers.openai.com/api/reference/python)、
 [OpenAI 结构化输出](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses)。
+
+## 11. 完整序列与 B 基线接入
+
+C 现在支持显式 `track="sequence"`，包含 `transport_place`、`handover_transfer`、
+`pour_water`。它调用 A 的 `get_sequence_candidates / run_sequence`；旧配置省略
+`track` 时仍为 `prep`，使用 `get_feasible_candidates / run_episode`。不能在同一份
+配置中混用新旧任务，也不能把两个轨道的成功率、可行列表或运行目录混用。
+
+| 配置 | 轨道和输入 | 方法 |
+|---|---|---|
+| `configs/c.sequence.mock.json` | 完整序列；现有 G01/G02/G03 pilot 候选 | 几何参考与 M3 mock，无真实模型 |
+| `configs/c.sequence.codex.json` | 完整序列；共享 B 已评分候选与来源文件 | B Random、B 实验几何、Codex M3/A1 |
+| `configs/c.prep.b.codex.json` | 旧准备任务；同一份 B 输入 | 相同四种方法 |
+
+### 先固定 B 输入，再运行 C
+
+在项目根目录激活环境，按顺序执行：
+
+```bash
+python -m grasp_c prepare-b --out results/local/c_b_inputs
+python -m grasp_c validate --config configs/c.sequence.codex.json
+codex login status
+python -m grasp_c run --config configs/c.sequence.codex.json --out results/local/c_sequence
+python -m grasp_c run --config configs/c.sequence.codex.json --out results/local/c_sequence --resume
+python -m grasp_c summarize results/local/c_sequence
+```
+
+`prepare-b` 只做静态候选生成和几何评分，不执行筛选、任务或 LLM 请求。输出目录
+必须不存在，以免覆盖上一份输入。它导出以下文件，所有比较方法读取同一份候选：
+
+| 文件 | 用途 |
+|---|---|
+| `candidates.scored.json` | B 已计算实验性评分的完整候选，供 A 执行与筛选 |
+| `provenance.json` | 评分版本、权重、候选/来源/内部报告指纹，供 C 校验与记录 |
+| `report.internal.json` | 生成参数、分项分数、排除原因及几何来源审计 |
+| `features.internal.json` | 内部几何诊断，不能发送给选择器 |
+
+两份 B/C Codex 配置默认引用 `results/local/c_b_inputs/`。如需修改生成参数或权重，
+用 `prepare-b --generation-config ... --scoring-config ... --out 新目录`，同步修改
+配置的 `candidates` 与 `b_provenance`，并使用新的 C 运行目录。`validate` 会检查
+候选与来源、内部报告指纹是否匹配；只把生成器占位零分文件改名不会得到有效 B 输入。
+
+GPT 继续使用本机 Codex 的 ChatGPT 登录和 `gpt-5.6-luna`，无需 `OPENAI_API_KEY`。
+M3/A1 在这两份配置中均设置 `cache_mode="off"`；新 trial 会真实调用模型，但
+`--resume` 会跳过已保存 trial，不会因为关闭响应缓存而重复调用。默认也保留失败
+记录；`--resume --retry-errors` 仅重试 C 的筛选/选择/执行调用异常，旧尝试归档。
+任务物理失败、A 返回的数值错误和拒绝记录不会被当成可重试调用异常。改变任务
+参数、源码、资产、环境、评分输入或 provider 身份时，恢复会拒绝，需新建运行。
+
+如需录像，首次运行及恢复均加 `--media`；完整序列可同时加 `--plain` 关闭 A/B
+标记。显示模式与录像选择也进入运行身份，恢复时必须保持一致。水仿真在 CPU 上
+可能持续数分钟。`summarize` 只读取并校验已有记录，不调用模型，也不重新执行物理。
+
+无需账号的接口检查可以直接使用现有候选，不需要 `prepare-b`：
+
+```bash
+python -m grasp_c validate --config configs/c.sequence.mock.json
+python -m grasp_c run --config configs/c.sequence.mock.json --out results/local/c_sequence_mock
+```
+
+旧准备任务与 B 的比较使用不同输出目录：
+
+```bash
+python -m grasp_c validate --config configs/c.prep.b.codex.json
+python -m grasp_c run --config configs/c.prep.b.codex.json --out results/local/c_prep_b
+```
+
+### 统一输入与审计边界
+
+完整序列按 **task/seed** 筛选一次，然后让同一条件下的所有方法使用同一有序可行
+列表。筛选绑定空心杯场景、完整候选指纹、任务定义与观测配置，不复用旧实心杯
+轨道的筛选缓存。每次物理执行均创建新世界，执行动作和接收策略不随方法改变。
+
+M3 仅收到公开任务意图和五字段候选：`id/region/approach/gripper_width/geometry_score`；
+A1 移除任务信息，其余选择协议一致。完整位姿、B 内部特征、终端评分阈值、流体
+质量、接触状态和正确答案不发送给模型。场景、候选、任务定义及评分来源指纹仅在
+缓存上下文和审计日志中使用，不会悄悄加入 prompt。
+
+`b_random` 复用 B 的 Random 实现，忽略评分，但保留相同输入候选和评分来源；
+随机种子等于 scene seed，输入顺序不变时重复运行排名一致，repeat 不会将它变成
+独立随机抽样。`b_geometry` 使用 B 的评分降序、ID 升序排名，记录评分版本与权重。
+B 的模型仍使用已知杯身、理想圆柱接触及 URDF COM 等几何近似，尚未针对空心杯、
+杯中液体和新动作完成物理验证，因此仍称 **实验性几何参考**，不能冒充正式 M1。
+`prepare-b` 的评分模型为 `assets/mug.urdf`，序列执行使用 `assets/mug_hollow.urdf`；
+当前评分不包含液体的质心变化。来源校验还会逐项比对报告与候选分数、权重和配置
+指纹，防止只替换出处权重或报告文件造成评分来源错配。
+M2 的任务规则仍不存在，C 不会替小组补造一个 M2 实验结果。
+
+### 完整序列的输出和统计分母
+
+完整序列独立使用 `grasp_c_sequence_run_v1` manifest、
+`evaluation_sequence_trial_v1` trial 和 `grasp_c_sequence_summary_v1` summary。
+manifest 保存 `hollow_cup_sequences_v1 / staged_sequences_v1 / physical_outcomes_v1`、
+规范化 `sequence_config`、每任务 `task_spec` 和指纹、候选快照、B 来源、模型身份及
+媒体选项。`sequence_config: {}` 会在校验时展开为 A 的默认值；正式比较前应冻结。
+
+| 输出 | 内容 |
+|---|---|
+| `filters/TASK/seedN.json` | 当前 task/seed 的共享筛选、身份或异常 |
+| `trials/METHOD/TASK/seedN_repeatR.json` | 筛选、选择/原始模型回答、完整 A episode 与原始执行状态 |
+| `summary.json` | 按方法/任务的选择指标、物理检查、阶段结果、数值有效性与配对比较 |
+| `attempts/`、`media/` | 显式重试的历史记录，以及启用时的录像/截图 |
+
+`completed` 只代表 A 走完动作，成功必须读取 `episode.success`。汇总保留 A 的
+`completed/rejected/execution_failed/simulation_error/simulation_invalid`，并分别保留
+C 的空候选、筛选异常、选择异常、非法输出和执行调用异常。流体数值异常不能当成
+碰撞、掉落或真实任务失败；没有明确数值有效证据的记录单独统计为 unknown。
+
+| 指标 | 分母 |
+|---|---|
+| `rates.conditional_task_success` | 数值有效且状态为 `completed` 的 episode |
+| `rates.task_success_including_execution_failures` | 数值有效的 `completed` 和 `execution_failed` episode |
+| `rates.end_to_end_success_coverage` | 全部计划 trial，显示缺失、筛选和调用失败的影响 |
+| `rates.numerical_validity` | 已返回且非 `rejected` 的 A episode |
+| `physical_flags`、阶段/任务证据 | 仅数值有效的 `completed/execution_failed`；各布尔检查还报告实际观测数 |
+
+每个 rate 同时输出 numerator、denominator 和 rate；没有样本时保持 null，不补零。
+放置统计桌面独立支撑、供体分离及位置误差；交接统计接收器支撑、供体分离和高度；
+倒水统计转移率、撒漏率、质量及数值状态。模型有效性、修复/回退、缓存与 token
+仍使用独立的选择统计分母，物理成功不会被当成模型回答有效的证明。
+
+方法间配对只比较相同 task/seed/repeat、同候选/任务定义/观测/版本和 manifest，
+且双方均数值有效的记录；配对分母为 `paired_numerically_valid_n`。其余记录按原因
+列入排除统计，不能把旧准备任务或不同数值设置补到新任务的成功样本中。
+
+### 本次集成验证
+
+2026-10-24，使用 B 默认 12 条评分候选、三种完整任务及 seed 0，执行 B 随机、
+实验几何、Codex M3/A1 共 12 条试验。六次模型请求全部为关闭缓存的新回答，无
+修复和几何回退。M3、A1、几何参考各 3/3 物理成功；随机基线 2/3 成功，倒水的
+`tilt_ik_failed` 按 `execution_failed` 保留。倒水成功样本的转移率为 0.9921875，
+撒漏率为 0.0078125，数值有效。完成后的 `--resume` 验证没有新增模型、筛选或
+物理执行；旧 prep+B 的 4 条试跑也全部成功。
+
+可追踪摘要见 [`validation.json`](../results/c_ab_integration_20261024/validation.json)，
+其中包含原始回答、候选和任务指纹、完整 trial 的哈希及恢复验证。这里只证明集成
+可用，单 seed 不能支持方法优劣结论；正式比较仍需冻结评分、任务标签和未见 seed。

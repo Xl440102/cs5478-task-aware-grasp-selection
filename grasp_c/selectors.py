@@ -7,7 +7,7 @@ import json
 import random
 from time import perf_counter
 
-from grasp_a.contracts import validate_task_id
+from .tasks import validate_task_id
 from grasp_c.cache import ResponseCache, canonical_json
 from grasp_c.prompts import (PROMPT_VERSIONS, build_messages, public_snapshot,
                              repair_messages, selection_schema)
@@ -95,7 +95,7 @@ class LLMSelector:
     def __init__(self, provider, model_id: str, *, variant: str = "M3",
                  parameters: dict | None = None, cache_dir=None,
                  cache_mode: str = "read_write", prompt_version: str = "v1",
-                 sample_id: int = 0):
+                 sample_id: int = 0, cache_context: dict | None = None):
         if variant not in ("M3", "A1"):
             raise ValueError("LLM variant must be M3 or A1")
         if not isinstance(model_id, str) or not model_id:
@@ -114,6 +114,10 @@ class LLMSelector:
         self.cache = ResponseCache(cache_dir, cache_mode)
         self.prompt_version = prompt_version
         self.sample_id = sample_id
+        if cache_context is not None and not isinstance(cache_context, dict):
+            raise ValueError("cache_context must be an object")
+        self.cache_context = deepcopy(cache_context)
+        canonical_json(self.cache_context)
 
     def _generate(self, messages: list[dict], schema: dict, seed: int,
                   phase: str) -> tuple[ModelResponse | None, dict]:
@@ -125,6 +129,8 @@ class LLMSelector:
             "parameters": request.parameters, "prompt_version": self.prompt_version,
             "seed": seed, "sample_id": self.sample_id, "phase": phase,
         })
+        if self.cache_context is not None:
+            identity["execution_context"] = self.cache_context
         started = perf_counter()
         key, cached = self.cache.lookup(identity)
         call = {"phase": phase, "cache_key": key, "cache_hit": cached is not None,
@@ -227,6 +233,8 @@ class LLMSelector:
             "live_requests": sum(not item["cache_hit"] for item in calls),
             "usage": usage, "live_usage": live_usage, "calls": calls,
         }
+        if self.cache_context is not None:
+            metadata["execution_context"] = deepcopy(self.cache_context)
         selection["metadata"] = metadata
         canonical_json(selection)
         return selection

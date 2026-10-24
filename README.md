@@ -11,7 +11,7 @@
 主流程为 **B 生成候选 → A 筛选 → B/C 选择已有 ID → A 统一执行 → C 汇总评价**。
 B 的使用方式见[第 9 节](#9-part-b--candidate-generation-and-geometry-based-selection)；C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
 
-2026-10-17 新增独立的完整小序列轨道：`transport_place`（放置后松手撤离）、`handover_transfer`（接收夹爪独立抬升）、`pour_water`（开口双杯与 PBF 数值液体，按接水量和撒漏评分）。逐步入口、动作、退出、超时、成功定义与 B/C 接口见 [完整任务定义](docs/TASK_SEQUENCES.md)。液体使用密度约束和黏性求解，不是刚体小球；属于低分辨率近似，未做真实水 CFD 标定。旧 `run/demo` 与 C 批量入口仍是准备任务，不会自动升级。
+2026-10-17 新增独立的完整小序列轨道：`transport_place`（放置后松手撤离）、`handover_transfer`（接收夹爪独立抬升）、`pour_water`（开口双杯与 PBF 数值液体，按接水量和撒漏评分）。逐步入口、动作、退出、超时、成功定义与 B/C 接口见 [完整任务定义](docs/TASK_SEQUENCES.md)。液体使用密度约束和黏性求解，不是刚体小球；属于低分辨率近似，未做真实水 CFD 标定。C 已显式接入 `track=sequence`；旧配置默认 `track=prep`，两轨道分别运行和统计。
 
 组员接入请读 [完整任务接口](docs/SEQUENCE_INTERFACE.md)。三个任务的 [有 A/B 标记和无 A/B 标记视频](results/sequence_v1_20261017/README.md) 均已纳入仓库，不依赖本机临时目录。交接使用标准化配合接收器，不代表未知人手运动下的自主交接。
 
@@ -24,6 +24,21 @@ python -m grasp_a sequence --task pour_water --seed 0 --id G02 --visualize --out
 新任务默认显示 A/B 标记；增加 `--no-landmarks` 可生成无 A/B 标记版，也可显式使用 `--landmarks`。输出视频分别带 `_plain / _ab` 后缀，可以放在同一媒体目录；阶段标题、液体仿真和成功判据不变。
 
 水仿真在 CPU 上可能需要数分钟。不要将新 `physical_outcomes_v1` 的成功率与下面旧准备任务回归混算。
+
+C 的完整序列比较使用同一份 B 评分候选，先导出输入，再比较 B Random、B 实验几何、
+Codex GPT 的 M3/A1。默认 GPT 复用现有 ChatGPT 登录，无需 `OPENAI_API_KEY`：
+
+```bash
+python -m grasp_c prepare-b --out results/local/c_b_inputs
+python -m grasp_c validate --config configs/c.sequence.codex.json
+python -m grasp_c run --config configs/c.sequence.codex.json --out results/local/c_sequence
+python -m grasp_c summarize results/local/c_sequence
+```
+
+`prepare-b` 目录必须不存在；需要续跑时使用原配置、原目录并加 `--resume`，不用重新
+生成 B 输入。无账号的接口检查可用 `configs/c.sequence.mock.json`；旧准备任务与 B 的
+比较用 `configs/c.prep.b.codex.json`。完整流程、失败分母和 B 评分限制见
+[C 的完整序列接入](docs/PART_C.md#11-完整序列与-b-基线接入)。
 
 目前是 **pilot 版本**。2026-10-16 升级为 `observable_primitives_v2`：控制器不再读取运行时杯子真实位姿或接触数来决策，使用标定先验/外部位姿估计与关节反馈；物体真值留给终端评分。新增可选的逐步控制接口、位姿估计误差测试、固定共同目标与完整两秒保持检查。
 
@@ -308,4 +323,4 @@ python -m unittest discover -s tests -v
 
 Prototype 报告包含 score breakdown、公式版本、权重、来源哈希、等价候选诊断、A filter、选择和可选 episode。Random 忽略分数选择，但仍使用同一评分候选流程，以匹配 Geometry 的输入。相同 **有序可行列表和 selection seed** 可复现随机排名；默认 selection seed 等于 scene seed。内部特征 sidecar 不属于正式 selector 可见输入，不能凭 ID 私下读取。
 
-新增 B 测试覆盖解析几何、非法/缺失输入、分数范围与单调性、权重归一化、确定性、稳定平分、合法 ID、Random 复用及 A 集成。合并 Gemini 与账号登录隔离测试后，当前完整测试套件为 **149/149 通过**；真实 API 验证状态见 [C 接入文档](docs/PART_C.md)。
+测试覆盖 A 的两种轨道、B 的生成/评分、C 的共享输入与恢复、模型缓存隔离、数值状态和出处一致性。当前完整套件为 **221/221 通过**；六次真实 Codex 调用及三任务集成结果见 [验证摘要](results/c_ab_integration_20261024/validation.json)，使用说明见 [C 接入文档](docs/PART_C.md)。

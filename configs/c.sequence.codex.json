@@ -1,0 +1,89 @@
+{
+  "candidates": "../results/local/c_b_inputs/candidates.scored.json",
+  "seeds": [
+    0
+  ],
+  "tasks": [
+    "transport_place",
+    "handover_transfer",
+    "pour_water"
+  ],
+  "repeats": 1,
+  "evaluation_scope": "pilot",
+  "cache_dir": "../.cache/grasp_c",
+  "seed_split": {
+    "pilot_controller": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "methods": [
+    {
+      "id": "B_RANDOM_REFERENCE",
+      "kind": "b_random"
+    },
+    {
+      "id": "B_GEOMETRY_EXPERIMENTAL",
+      "kind": "b_geometry"
+    },
+    {
+      "id": "M3_CODEX",
+      "kind": "llm",
+      "variant": "M3",
+      "provider": {
+        "type": "codex",
+        "timeout_s": 120
+      },
+      "model": "gpt-5.6-luna",
+      "parameters": {
+        "reasoning_effort": "low"
+      },
+      "cache_mode": "off"
+    },
+    {
+      "id": "A1_CODEX",
+      "kind": "llm",
+      "variant": "A1",
+      "provider": {
+        "type": "codex",
+        "timeout_s": 120
+      },
+      "model": "gpt-5.6-luna",
+      "parameters": {
+        "reasoning_effort": "low"
+      },
+      "cache_mode": "off"
+    }
+  ],
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.0,
+    "yaw_noise_deg": 0.0,
+    "noise_seed": 0
+  },
+  "policy_mode": "fixed",
+  "b_provenance": "../results/local/c_b_inputs/provenance.json",
+  "track": "sequence",
+  "sequence_config": {}
+}

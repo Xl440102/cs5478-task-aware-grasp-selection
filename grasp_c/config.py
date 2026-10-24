@@ -4,12 +4,15 @@ from __future__ import annotations
 from copy import deepcopy
 from dataclasses import asdict
 import json
+import hashlib
 import math
 from pathlib import Path
 import re
 
-from grasp_a.contracts import Pose, TASKS, load_candidates
+from grasp_a.contracts import Pose, candidate_sha256, load_candidates
 from grasp_a.control import ObservationConfig
+from .tasks import (PREP_TASKS, SEQUENCE_TASKS, load_sequence_config,
+                    tasks_for_track)
 
 ID_PATTERN = re.compile(r"[A-Za-z0-9_-]+")
 PROVIDER_TYPES = {"openai", "openai_compatible", "gemini", "codex", "mock"}
@@ -74,6 +77,72 @@ def _resolve_path(value, base: Path, label: str) -> str:
     return str((base / value).resolve())
 
 
+def load_b_provenance(path, candidate_file):
+    """Verify B's scored input and audit sidecar before any selection or simulation."""
+    path, candidate_file = Path(path), Path(candidate_file)
+    data = _json_object(json.loads(path.read_text(encoding="utf-8")), "b_provenance")
+    _reject_secrets(data, "b_provenance")
+    candidates = load_candidates(candidate_file)
+    if (data.get("schema_version") != "grasp_c_b_inputs_v1" or
+            data.get("candidate_sha256") != candidate_sha256(candidates) or
+            data.get("candidate_file_sha256") != hashlib.sha256(candidate_file.read_bytes()).hexdigest() or
+            type(data.get("candidate_count")) is not int or data["candidate_count"] != len(candidates)):
+        raise ValueError("B provenance does not match the scored candidate file")
+    name = data.get("report_file")
+    if not isinstance(name, str) or Path(name).name != name:
+        raise ValueError("B provenance report_file must be a sibling filename")
+    report = path.parent / name
+    if data.get("report_sha256") != hashlib.sha256(report.read_bytes()).hexdigest():
+        raise ValueError("B provenance report fingerprint mismatch")
+    from .baselines import build_b_selector
+    build_b_selector("b_geometry", data)
+    _check_b_report(data, _json_object(json.loads(report.read_text(encoding="utf-8")), "B report"), candidates)
+    return data
+
+
+def _check_b_report(provenance, report, candidates):
+    """A valid file digest alone cannot establish the claimed score formula/weights."""
+    from .cache import canonical_json
+    from grasp_b.scoring import normalized_weights
+    if not isinstance(provenance.get("source_sha256"), dict) or not provenance["source_sha256"]:
+        raise ValueError("B provenance needs its original source fingerprints")
+    expected = {"schema_version": "grasp_c_b_report_v1", "scope": provenance["scope"],
+                "score_version": provenance["score_version"],
+                "candidate_sha256": provenance["candidate_sha256"],
+                "scored_candidate_count": len(candidates), "source_sha256": provenance.get("source_sha256")}
+    if any(report.get(key) != value for key, value in expected.items()):
+        raise ValueError("B report disagrees with candidate/score provenance")
+    scoring = _json_object(report.get("scoring_config"), "B scoring configuration")
+    if (scoring.get("version") != provenance["score_version"] or
+            scoring.get("scope") != provenance["scope"] or scoring.get("weights") != provenance["weights"]):
+        raise ValueError("B report weights/version disagree with score provenance")
+    generation = _json_object(report.get("generation_config"), "B generation configuration")
+    if generation.get("version") != provenance.get("generation_version"):
+        raise ValueError("B generation version mismatch")
+    for key, value in (("scoring_config", scoring), ("generation_config", generation)):
+        digest = hashlib.sha256(canonical_json(value).encode("utf-8")).hexdigest()
+        if report.get(key + "_canonical_sha256") != digest:
+            raise ValueError("B report configuration fingerprint mismatch")
+    rows = report.get("score_breakdown")
+    if (not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows) or
+            any(not isinstance(row.get("candidate_id"), str) for row in rows) or
+            len({row["candidate_id"] for row in rows}) != len(rows)):
+        raise ValueError("invalid B score breakdown")
+    scored = {row["candidate_id"]: row for row in rows if row.get("status") == "ok"}
+    if set(scored) != {candidate.id for candidate in candidates}:
+        raise ValueError("B scored IDs do not match the exported candidates")
+    weights = normalized_weights(provenance["weights"])
+    for candidate in candidates:
+        row = scored[candidate.id]
+        parameters = _json_object(row.get("parameters"), "B score parameters")
+        if (row.get("version") != provenance["score_version"] or row.get("scope") != provenance["scope"] or
+                parameters.get("weights") != provenance["weights"] or
+                parameters.get("normalized_weights") != weights or
+                type(row.get("score")) not in (int, float) or not math.isfinite(row["score"]) or
+                not math.isclose(row["score"], candidate.geometry_score, rel_tol=0, abs_tol=1e-12)):
+            raise ValueError("B candidate score does not match its report breakdown and weights")
+
+
 def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
     """Validate inputs without importing a simulator, SDK, or calling a provider."""
     config = deepcopy(_json_object(raw, "config"))
@@ -97,10 +166,17 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
         _integer(seed, "seed")
     if len(seeds) != len(set(seeds)):
         raise ValueError("seeds must be unique")
-    tasks = config.get("tasks", list(TASKS))
+    config.setdefault("track", "prep")
+    supported_tasks = tasks_for_track(config["track"])
+    if config["track"] == "sequence":
+        config["sequence_config"] = json.loads(json.dumps(asdict(
+            load_sequence_config(config.get("sequence_config")))))
+    elif "sequence_config" in config:
+        raise ValueError("sequence_config requires track='sequence'")
+    tasks = config.get("tasks", list(supported_tasks))
     if (not isinstance(tasks, list) or not tasks or
-            any(task not in TASKS for task in tasks) or len(tasks) != len(set(tasks))):
-        raise ValueError(f"tasks must be a unique nonempty subset of {TASKS}")
+            any(task not in supported_tasks for task in tasks) or len(tasks) != len(set(tasks))):
+        raise ValueError(f"tasks must be a unique nonempty subset of {supported_tasks} for this track")
     config["tasks"] = tasks
     config["repeats"] = _integer(config.get("repeats", 1), "repeats", minimum=1)
     methods = config.get("methods")
@@ -115,8 +191,8 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
         if method_id in seen:
             raise ValueError("method IDs must be unique")
         seen.add(method_id)
-        if method.get("kind") not in {"llm", "geometry", "smoke"}:
-            raise ValueError(f"{method_id}: kind must be llm, geometry, or smoke")
+        if method.get("kind") not in {"llm", "geometry", "smoke", "b_random", "b_geometry"}:
+            raise ValueError(f"{method_id}: unsupported method kind")
         if method["kind"] == "llm":
             from .providers import build_provider
             provider = _json_object(method.get("provider"), f"{method_id}.provider")
@@ -182,10 +258,16 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
             raise ValueError("seed_split.evaluation must equal the configured seeds")
         if set(split["evaluation"]) & set(split.get("pilot_controller", [])):
             raise ValueError("evaluation seeds must not overlap pilot_controller seeds")
+    if "b_provenance" in config:
+        config["b_provenance"] = _resolve_path(config["b_provenance"], base, "b_provenance")
+        load_b_provenance(config["b_provenance"], config["candidates"])
+    elif any(m["kind"] in {"b_geometry", "b_random"} for m in methods):
+        raise ValueError("B methods require b_provenance from prepare-b scored inputs")
     if "acceptable_sets" in config:
         config["acceptable_sets"] = _resolve_path(config["acceptable_sets"], base,
                                                    "acceptable_sets")
-        load_acceptable_sets(config["acceptable_sets"], {c.id for c in candidates})
+        load_acceptable_sets(config["acceptable_sets"], {c.id for c in candidates},
+                             supported_tasks=supported_tasks)
     json.dumps(config, allow_nan=False)
     return config
 
@@ -195,11 +277,12 @@ def load_config(path: str | Path) -> dict:
     return validate_config(json.loads(path.read_text(encoding="utf-8")), base_dir=path.parent)
 
 
-def load_acceptable_sets(path: str | Path, candidate_ids: set[str] | None = None) -> dict:
+def load_acceptable_sets(path: str | Path, candidate_ids: set[str] | None = None, *,
+                         supported_tasks=None) -> dict:
     """Read an independently supplied oracle. Its contents never enter a prompt."""
     data = _json_object(json.loads(Path(path).read_text(encoding="utf-8")), "acceptable_sets")
     for task, values in data.items():
-        if task not in TASKS:
+        if task not in (supported_tasks or (*PREP_TASKS, *SEQUENCE_TASKS)):
             raise ValueError(f"acceptable_sets: unknown task {task}")
         groups = values.values() if isinstance(values, dict) else [values]
         if isinstance(values, dict) and any(

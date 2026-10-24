@@ -19,13 +19,22 @@ def main(argv=None) -> int:
     run.add_argument("--resume", action="store_true")
     run.add_argument("--retry-errors", action="store_true", help="explicitly retry saved error trials (may call paid models)")
     run.add_argument("--media", action="store_true", help="save videos and images in separate repeat/method directories")
+    run.add_argument("--plain", action="store_true", help="sequence videos without A/B landmarks; physics unchanged")
+    prepare = commands.add_parser("prepare-b", help="export one shared B-scored candidate input; no physics or LLM")
+    prepare.add_argument("--out", required=True)
+    prepare.add_argument("--generation-config")
+    prepare.add_argument("--scoring-config")
     summarize = commands.add_parser("summarize", help="rebuild metrics from saved records without model calls")
     summarize.add_argument("run_dir")
     args = parser.parse_args(argv)
     try:
-        if args.command == "validate":
+        if args.command == "prepare-b":
+            from .prepare_b import prepare_b_inputs
+            output = prepare_b_inputs(args.out, generation_config=args.generation_config,
+                                      scoring_config=args.scoring_config)
+        elif args.command == "validate":
             config = load_config(args.config)
-            output = {"valid": True, "evaluation_scope": config["evaluation_scope"],
+            output = {"valid": True, "track": config["track"], "evaluation_scope": config["evaluation_scope"],
                       "methods": [m["id"] for m in config["methods"]],
                       "planned_trials": len(config["seeds"]) * len(config["tasks"]) *
                                         config["repeats"] * len(config["methods"])}
@@ -36,14 +45,15 @@ def main(argv=None) -> int:
             else:
                 summary = run_evaluation(args.config, args.out, resume=args.resume,
                                          retry_errors=args.retry_errors, media=args.media,
+                                         show_landmarks=not args.plain,
                                          progress=lambda event: print(json.dumps(event, ensure_ascii=False), flush=True))
             output = {"run_id": summary["run_id"], "planned_n": summary["planned_n"],
                       "saved_n": summary["saved_n"], "methods": summary["methods"]}
         print(json.dumps(output, ensure_ascii=False, indent=2, allow_nan=False))
-        if args.command != "validate":
+        if args.command not in {"validate", "prepare-b"}:
             errors = sum(count for tasks in summary["methods"].values() for metrics in tasks.values()
                          for status, count in metrics["status_counts"].items()
-                         if status in {"filter_error", "selector_error", "invalid_selection", "execution_error", "missing"})
+                         if status in {"filter_error", "selector_error", "invalid_selection", "execution_error", "simulation_error", "simulation_invalid", "rejected", "missing"})
             return 1 if errors else 0
         return 0
     except (ValueError, OSError, RuntimeError, ImportError) as exc:

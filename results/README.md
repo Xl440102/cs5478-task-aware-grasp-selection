@@ -4,6 +4,20 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
+## 2026 年 10 月 24 日 A/B/C 集成验证
+
+[`c_ab_integration_20261024/validation.json`](c_ab_integration_20261024/validation.json)
+保存三种完整任务、seed 0、B 随机/实验几何和 C 的 M3/A1 共 12 条验证摘要。
+六次 Codex 登录调用均为新回答，无修复、缓存或几何回退；M3/A1 和几何参考各 3/3
+物理成功，随机基线 2/3 成功，倒水失败原因为 `tilt_ik_failed`。全部 12 条均保留，
+完成后的恢复验证新增模型、筛选和物理调用均为 0。旧准备任务与 B 的另 4 条试跑
+也均成功，两种轨道分别统计。
+
+摘要包含实际候选快照、原始回答、任务/代码/完整 trial 指纹和数值证据。完整运行
+记录在本机 `results/local/c_sequence_b_codex_20261024/`。这只是单 seed 集成检查，
+不能证明 LLM 优于几何参考；B 的几何评分仍为实验版本，M2 尚未实现。重跑步骤见
+[C 文档第 11 节](../docs/PART_C.md#11-完整序列与-b-基线接入)。
+
 ## 2026 年 10 月 17 日完整任务序列
 
 新增 `staged_sequences_v1 / physical_outcomes_v1`，场景为开口杯、物理接收夹爪和 PBF 数值液体。完整定义和复现方式见 [任务序列说明](../docs/TASK_SEQUENCES.md)。本轨道与下面准备任务分别统计。

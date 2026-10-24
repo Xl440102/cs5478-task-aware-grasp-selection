@@ -5,7 +5,7 @@ from copy import deepcopy
 import json
 import math
 
-from grasp_a.contracts import validate_task_id
+from .tasks import SEQUENCE_INTENT, validate_task_id
 
 PUBLIC_FIELDS = ("id", "region", "approach", "gripper_width", "geometry_score")
 PROMPT_VERSIONS = ("v1",)
@@ -21,6 +21,7 @@ TASK_INTENT = {
         "for the recipient."
     ),
 }
+TASK_INTENT.update(SEQUENCE_INTENT)
 
 
 def public_snapshot(candidates: list[dict]) -> list[dict]:
