@@ -58,16 +58,33 @@ def _filter_job(out, task, seed, scene):
     return task, seed, filtered
 
 
-def _episode_job(out, task, seed, cid, scene):
+LIQUID_MODES = ("proxy", "fast", "pbf")
+
+
+def _liquid_kwargs(task, liquid):
+    """pour_water only. proxy: no particles (rigid payload + spout geometry);
+    fast: particle fluid at 64 particles / 4 iterations / 1 substep; pbf: default."""
+    if task != "pour_water" or liquid == "pbf":
+        return {}
+    if liquid == "proxy":
+        return {"liquid": "proxy"}
+    from grasp_a.sequence_contracts import SequenceConfig
+    return {"config": SequenceConfig(fluid_particles=64, fluid_iterations=4, fluid_substeps=1)}
+
+
+def _episode_job(out, task, seed, cid, scene, liquid="proxy"):
     from grasp_a.sequence import run_sequence
     started = time.perf_counter()
     try:
-        episode = run_sequence(task, seed, cid, _candidates(Path(out)), scene_config=scene)
+        episode = run_sequence(task, seed, cid, _candidates(Path(out)), scene_config=scene,
+                               **_liquid_kwargs(task, liquid))
         row = dict(success=bool(episode["success"]), status=episode["status"],
                    failure_reason=episode.get("failure_reason"),
                    stages=[(s["id"], s["control_status"]) for s in episode.get("stages", [])],
                    success_checks=episode.get("success_checks"),
-                   final_evidence=episode.get("final_evidence"))
+                   final_evidence={k: v for k, v in (episode.get("final_evidence") or {}).items()
+                                   if k in ("water", "source_position", "source_upright_deg")},
+                   pour_proxy=episode.get("pour_proxy"), liquid=liquid if task == "pour_water" else None)
     except Exception as exc:  # recorded, never silently retried
         row = dict(success=False, status="execution_error", failure_reason=f"{type(exc).__name__}: {exc}")
     row.update(task_id=task, seed=seed, candidate_id=cid, wall_seconds=time.perf_counter() - started)
@@ -193,7 +210,7 @@ def markdown(report, meta):
     lines = [f"# Oracle-table experiment", "",
              f"- candidates: {meta['generator']} ({meta['candidate_count']}, profile {meta['profile']})",
              f"- scene: {meta['scene']['name']} = {json.dumps(meta['scene'])}",
-             f"- seeds: {meta['seeds']}; execute: {meta['execute']}", ""]
+             f"- seeds: {meta['seeds']}; execute: {meta['execute']}; pour_water liquid: {meta.get('liquid')}", ""]
     for task, data in report["tasks"].items():
         v = data["seed_variation"]
         lines += [f"## {task}", "",
@@ -237,6 +254,8 @@ def main(argv=None):
     parser.add_argument("--generator", choices=("multifamily_v3", "adaptive_v2"), default="multifamily_v3")
     parser.add_argument("--execute", choices=("all", "selected", "none"), default="all")
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
+    parser.add_argument("--liquid", choices=LIQUID_MODES, default="proxy",
+                        help="pour_water physics: proxy (seconds), fast particles, or default pbf (minutes)")
     parser.add_argument("--llm-config", type=Path,
                         help="C config JSON; its kind=llm methods are added (default: mock M3/A1 plumbing only)")
     args = parser.parse_args(argv)
@@ -254,11 +273,17 @@ def main(argv=None):
     candidates = _candidates(out)
     families = {r["id"]: r for r in _read(b_dir / "families.internal.json")}
     meta = dict(generator=args.generator, profile="hollow", candidate_count=len(candidates),
-                scene=asdict(scene), seeds=args.seeds, tasks=args.tasks, execute=args.execute)
+                scene=asdict(scene), seeds=args.seeds, tasks=args.tasks, execute=args.execute,
+                liquid=args.liquid)
     if (out / "meta.json").exists():
         old = _read(out / "meta.json")
         if (old["generator"], old["scene"]) != (meta["generator"], meta["scene"]):
             raise SystemExit("existing run uses another generator/scene; choose a new --out")
+        if "pour_water" in args.tasks and old.get("liquid", args.liquid) != args.liquid and \
+                (out / "episodes" / "pour_water").exists():
+            raise SystemExit("existing pour_water episodes use another --liquid; choose a new --out")
+        meta["tasks"] = sorted(set(old["tasks"]) | set(args.tasks))
+        meta["seeds"] = sorted(set(old["seeds"]) | set(args.seeds))
     _write(out / "meta.json", meta)
     log = lambda *a: print(*a, flush=True)
     # 2. A: filter
@@ -308,7 +333,7 @@ def main(argv=None):
         log(f"executing {len(jobs)} episodes on {args.workers} workers")
         done, started = 0, time.perf_counter()
         with ProcessPoolExecutor(args.workers) as pool:
-            futures = [pool.submit(_episode_job, str(out), t, s, c, asdict(scene)) for t, s, c in jobs]
+            futures = [pool.submit(_episode_job, str(out), t, s, c, asdict(scene), args.liquid) for t, s, c in jobs]
             for fut in as_completed(futures):
                 task, seed, cid, row = fut.result()
                 _write(out / "episodes" / task / f"seed{seed}" / f"{cid}.json", row)
@@ -316,7 +341,7 @@ def main(argv=None):
                 log(f"[{done}/{len(jobs)} {time.perf_counter()-started:.0f}s] {task} seed{seed} "
                     f"{families[cid]['family']} {cid}: {row['status']} {row['success']} {row.get('failure_reason')}")
     # 5. C: report
-    report = build_report(out, args.tasks, args.seeds, list(selectors), families)
+    report = build_report(out, meta["tasks"], meta["seeds"], list(selectors), families)
     report["meta"] = meta
     _write(out / "report.json", report)
     (out / "report.md").write_text(markdown(report, meta), encoding="utf-8")

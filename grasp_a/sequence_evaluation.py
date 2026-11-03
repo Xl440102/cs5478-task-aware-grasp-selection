@@ -28,17 +28,59 @@ def terminal_checks(task_id, config, evidence):
             not_on_table=not e["table_contact"])
     else:
         water = e.get("water")
+        proxy = e.get("pour_proxy")
         checks.update(donor_support=e["donor_contact"],
             source_at_goal=e["source_goal_error_m"] <= .03,
             target_stable=e["target_upright_deg"] <= c.upright_tolerance_deg and
                           e["target_linear_speed_m_s"] <= c.linear_speed_m_s and
                           e["target_angular_speed_deg_s"] <= c.angular_speed_deg_s,
             target_unmoved=e["target_displacement_m"] <= .01,
-            received=water is not None and water["transfer_ratio"] >= c.transfer_min_ratio,
-            spill_limited=water is not None and water["spill_ratio"] <= c.spill_max_ratio,
-            fluid_valid=water is not None and water["finite_state"] and
-                        water["accounting_error_kg"] < 1e-9 and water["max_compression"] <= .10)
+            )
+        if proxy is not None:
+            # Dry proxy: a dwell spent pouring over the receiver, unobstructed.
+            checks.update(spout_over_target=proxy["over_target_fraction"] >= c.transfer_min_ratio,
+                          pour_path_clear=proxy["path_clear_fraction"] >= c.transfer_min_ratio,
+                          poured_at_tilt=proxy["dwell_samples"] > 0 and proxy["min_tilt_deg"] >= 80)
+        else:
+            checks.update(
+                received=water is not None and water["transfer_ratio"] >= c.transfer_min_ratio,
+                spill_limited=water is not None and water["spill_ratio"] <= c.spill_max_ratio,
+                fluid_valid=water is not None and water["finite_state"] and
+                            water["accounting_error_kg"] < 1e-9 and water["max_compression"] <= .10)
     return checks
+
+
+def pour_proxy_sample(scene):
+    """Geometric pour proxy for liquid="proxy"; evaluation only, never control.
+
+    Spout = lowest point of the source rim. The stream falls vertically from
+    it. Over target: spout inside the receiver's inner radius (5 mm margin) and
+    above its rim. Clear: neither the cup-centre->spout ray (mouth occlusion by
+    the donor) nor the spout->receiver-rim ray hits the robot.
+    """
+    s = scene
+    source, target = s.vessels()
+    rot = rotation_matrix(source.quaternion)
+    centre = np.asarray(source.position)
+    angles = np.linspace(0, 2*math.pi, 48, endpoint=False)
+    rim = np.stack([source.outer_radius*np.cos(angles), source.outer_radius*np.sin(angles),
+                    np.full_like(angles, source.rim)], axis=1) @ rot.T + centre
+    spout = rim[int(np.argmin(rim[:, 2]))]
+    tpos = np.asarray(target.position)
+    target_rim_z = tpos[2]+target.rim
+    radial = math.hypot(spout[0]-tpos[0], spout[1]-tpos[1])
+    over = radial <= target.inner_radius-.005 and spout[2] > target_rim_z
+    mouth = centre+rot@np.array((0, 0, source.rim*.5))
+    # Rays report only the first body hit, so stop short of / start just off
+    # the source wall; otherwise the cup itself would hide the gripper.
+    near_spout = spout+(mouth-spout)*.12
+    below_spout = spout-np.array((0, 0, .006))
+    rays = p.rayTestBatch([mouth.tolist(), below_spout.tolist()],
+                          [near_spout.tolist(), [spout[0], spout[1], target_rim_z]],
+                          physicsClientId=s.client)
+    clear = all(hit[0] != s.robot for hit in rays)
+    return dict(over_target=bool(over), path_clear=bool(clear), spout_radial_m=radial,
+                tilt_deg=upright_deg(source.quaternion))
 
 
 class SequenceEvaluator:
@@ -55,6 +97,15 @@ class SequenceEvaluator:
         self.lifted = False
         self.dropped = False
         self.max_fluid_compression = 0
+        self.pour_proxy = dict(dwell_samples=0, over_target=0, path_clear=0,
+                               min_tilt_deg=180., max_spout_radial_m=0.)
+
+    def pour_proxy_summary(self):
+        pr = self.pour_proxy
+        n = max(1, pr["dwell_samples"])
+        return dict(pr, over_target_fraction=pr["over_target"]/n,
+                    path_clear_fraction=pr["path_clear"]/n,
+                    min_tilt_deg=pr["min_tilt_deg"] if pr["dwell_samples"] else 0.)
 
     def _contacts(self, first, second, links=None):
         if first is None or second is None:
@@ -164,6 +215,17 @@ class SequenceEvaluator:
                         for cp in p.getContactPoints(s.robot,s.target_cup,physicsClientId=s.client)]
                 self.collision_events.append(event)
         self.collision_types.update(collisions)
+        if (getattr(s, "liquid", "pbf") == "proxy" and s.task_id == "pour_water"
+                and stage == "pour_dwell"):
+            sample = pour_proxy_sample(s)
+            pr = self.pour_proxy
+            pr["dwell_samples"] += 1
+            pr["over_target"] += sample["over_target"]
+            pr["path_clear"] += sample["path_clear"]
+            pr["min_tilt_deg"] = min(pr["min_tilt_deg"], sample["tilt_deg"])
+            pr["max_spout_radial_m"] = max(pr["max_spout_radial_m"], sample["spout_radial_m"])
+        if stage == "terminal" and getattr(s, "liquid", "pbf") == "proxy" and s.task_id == "pour_water":
+            e["pour_proxy"] = self.pour_proxy_summary()
         if e.get("water"):
             self.max_fluid_compression = max(self.max_fluid_compression,e["water"]["max_compression"])
         if stage == "terminal":
@@ -217,4 +279,5 @@ class SequenceEvaluator:
             collision_events=self.collision_events,dropped=self.dropped,
             maximum_unsupported_s=self.max_gap_steps*STEP,terminal_samples=self.terminal_samples,
             max_fluid_compression=self.max_fluid_compression,
+            pour_proxy=self.pour_proxy_summary() if getattr(s, "liquid", "pbf") == "proxy" and s.task_id == "pour_water" else None,
             final_evidence=self.evidence(),trajectory=self.trajectory)
