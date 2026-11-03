@@ -124,4 +124,6 @@ def command_context(task_id, *, config=None, speed_scale=1., initial_position=(.
                        (0.,0.,0.),hashes,'A endpoints/durations + assumed half-cosine; static liquid at origin',tuple(audit))
 
 
-MIRROR_SOURCE_HASHES = {'grasp_a/sequence.py': 'c5ec333c023de7d49cd72397756665b213269688723b85647b15a7526e69d89e', 'grasp_a/simulation.py': '8382ae7f173574389933c24b93e60cf078e5f6f6b950ba33e62a6ff6cbdc516f', 'grasp_a/sequence_contracts.py': 'e1dd49fa119f2e9e16933145e42699ddb4f034d1411dc83124e0ed7296a128e0'}
+# Re-reviewed for SceneRandomization: only the initial cup pose/estimate source
+# changed; commanded stage endpoints and durations are unchanged.
+MIRROR_SOURCE_HASHES = {'grasp_a/sequence.py': '8314d5cd21d482eb6e86ce5b9935fcbad386a618fad34305014d8989b8e8f2ed', 'grasp_a/simulation.py': '65292f5e38f96e2f3d7e123e2611be81c4f4f5970ee3883e643b7c59d106dddf', 'grasp_a/sequence_contracts.py': 'e1dd49fa119f2e9e16933145e42699ddb4f034d1411dc83124e0ed7296a128e0'}

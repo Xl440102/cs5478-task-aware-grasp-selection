@@ -24,14 +24,22 @@ def main(argv=None) -> int:
     prepare.add_argument("--out", required=True)
     prepare.add_argument("--generation-config")
     prepare.add_argument("--scoring-config")
+    prepare.add_argument("--generator", choices=("legacy_v1", "multifamily_v3"), default="legacy_v1",
+                         help="multifamily_v3: B's side/top/rim/handle candidates for the sequence track")
+    prepare.add_argument("--profile", choices=("solid", "hollow"), default="hollow",
+                         help="cup profile for multifamily_v3 (sequence tasks use hollow)")
     summarize = commands.add_parser("summarize", help="rebuild metrics from saved records without model calls")
     summarize.add_argument("run_dir")
     args = parser.parse_args(argv)
     try:
         if args.command == "prepare-b":
-            from .prepare_b import prepare_b_inputs
-            output = prepare_b_inputs(args.out, generation_config=args.generation_config,
-                                      scoring_config=args.scoring_config)
+            if args.generator == "multifamily_v3":
+                from .prepare_b import prepare_b_v3_inputs
+                output = prepare_b_v3_inputs(args.out, profile=args.profile)
+            else:
+                from .prepare_b import prepare_b_inputs
+                output = prepare_b_inputs(args.out, generation_config=args.generation_config,
+                                          scoring_config=args.scoring_config)
         elif args.command == "validate":
             config = load_config(args.config)
             output = {"valid": True, "track": config["track"], "evaluation_scope": config["evaluation_scope"],

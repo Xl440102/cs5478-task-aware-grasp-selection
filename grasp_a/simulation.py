@@ -14,7 +14,7 @@ import numpy as np
 
 from .contracts import Candidate, Pose, TASKS, candidate_sha256, validate_task_id
 from .collision_rules import fixed_link_groups
-from .control import ControlSession, ObservationConfig, Primitive
+from .control import ControlSession, ObservationConfig, Primitive, scene_randomization
 from .evaluation import EpisodeEvaluator
 
 try:
@@ -37,6 +37,14 @@ ARM_HOME = (1.3934329285721332, 0.5211163979062032, -1.1352682332805228,
             -2.830430345242138, -2.8429055993398142, 1.7866499535174747,
             1.2101914604831052)
 ASSETS = Path(__file__).resolve().parents[1] / "assets"
+# Opt-in multi-start IK seeds (SceneRandomization.ik_restarts). Canonical Panda
+# "ready" configurations with several wrist rolls, plus a low forward reach.
+_READY = (0.0, -0.785, 0.0, -2.356, 0.0, 1.571)
+IK_RESTART_POSES = tuple(
+    [_READY + (j7,) for j7 in (0.785, -0.785, 2.356, -2.356)] +
+    [(0.0, 0.3, 0.0, -1.9, 0.0, 2.2, j7) for j7 in (0.785, -0.785)] +
+    [(0.0, -0.3, 0.0, -2.6, 0.0, 2.3, j7) for j7 in (0.785, -0.785)] +
+    [ARM_HOME])
 
 
 def orientation_error_deg(a, b) -> float:
@@ -63,8 +71,12 @@ class MugScene:
     MUG_ASSET = ASSETS / "mug.urdf"
 
     def __init__(self, seed: int, gui: bool = False,
-                 observation_config: ObservationConfig | None = None):
+                 observation_config: ObservationConfig | None = None, *,
+                 scene_config=None):
         self.seed = seed
+        self.scene_config = scene_randomization(scene_config)
+        if self.scene_config.observation == "noisy_truth" and observation_config is not None:
+            raise ValueError("noisy_truth scenes derive the estimate; omit observation_config")
         self.observation_config = observation_config or ObservationConfig()
         self.primitive_log = []
         self.physics_steps = 0
@@ -110,8 +122,10 @@ class MugScene:
             self.arm_dofs = [self.movable.index(j) for j in self.arm]
             self.tip = self._link_index("panda_grasptarget")
             rng = random.Random(seed)
-            start = [0.55+rng.uniform(-0.008, 0.008), rng.uniform(-0.008, 0.008), MUG_CENTER_Z]
-            start_q = p.getQuaternionFromEuler([0, 0, rng.uniform(-0.08, 0.08)])
+            # Same draw order as the legacy scene, so the default reproduces it.
+            sc = self.scene_config
+            start = [0.55+rng.uniform(*sc.x_range_m), rng.uniform(*sc.y_range_m), MUG_CENTER_Z]
+            start_q = p.getQuaternionFromEuler([0, 0, rng.uniform(*sc.yaw_range_rad)])
             self.mug = p.loadURDF(str(self.MUG_ASSET), start, start_q,
                                   physicsClientId=self.client)
             for f in self.fingers:
@@ -119,6 +133,9 @@ class MugScene:
                                  physicsClientId=self.client)
             p.changeDynamics(self.mug, -1, lateralFriction=1.2, physicsClientId=self.client)
             self.initial_mug_pose = Pose(tuple(start), tuple(start_q))
+            derived = sc.estimate_config(seed, self.initial_mug_pose)
+            if derived is not None:
+                self.observation_config = derived
             # Control starts from a calibrated prior / external estimate, never
             # from start or getBasePositionAndOrientation. Independent RNG.
             config = self.observation_config
@@ -253,11 +270,15 @@ class MugScene:
                 break
         return tuple(float(v) for v in q)
 
-    def ik(self, target: Pose, *, pos_tol=0.025, rot_tol_deg=15.0, stage="unspecified"):
+    def ik(self, target: Pose, *, pos_tol=0.025, rot_tol_deg=15.0, stage="unspecified",
+           restarts=False):
         """Validate local IK, then retry with all DOF limits and bounded FK refinement.
 
         A returned solution always satisfies arm limits and FK tolerances.
         All positions, velocities and contact state are restored after probing.
+        With ``restarts`` a failed or loose (>2 mm / >1 deg) single-start result
+        is retried from fixed canonical seeds and the most accurate accepted
+        solution is kept. Deterministic: seeds do not depend on the live state.
         """
         info = [p.getJointInfo(self.robot, j, physicsClientId=self.client)
                 for j in self.movable]
@@ -312,6 +333,44 @@ class MugScene:
                     record.update(success=True, solver=method, joint_positions=list(q))
                     result = (q, pe, re)
                     break
+            if restarts and (result[0] is None or result[1] > 0.002 or result[2] > 1.0):
+                best = result if result[0] is not None else None
+                for index, rest in enumerate(IK_RESTART_POSES):
+                    p.restoreState(stateId=saved, physicsClientId=self.client)
+                    rest = tuple(float(np.clip(v, lo, hi)) for v, lo, hi
+                                 in zip(rest, arm_lower, arm_upper))
+                    self._set_arm(rest)
+                    full_rest = list(current)
+                    for d, v in zip(self.arm_dofs, rest):
+                        full_rest[d] = v
+                    solution = p.calculateInverseKinematics(
+                        self.robot, self.tip, target.position, target.quaternion,
+                        lowerLimits=lower, upperLimits=upper,
+                        jointRanges=[hi-lo for lo, hi in zip(lower, upper)],
+                        restPoses=full_rest, maxNumIterations=1000,
+                        residualThreshold=1e-5, physicsClientId=self.client)
+                    attempt = {"method": f"restart_{index}"}
+                    record["attempts"].append(attempt)
+                    if len(solution) != len(self.movable) or not all(
+                            math.isfinite(v) for v in solution):
+                        attempt["reason"] = "invalid_solver_output"
+                        continue
+                    q = self._refine_ik(target, tuple(solution[d] for d in self.arm_dofs),
+                                        arm_lower, arm_upper)
+                    _, pe, re = self._ik_residual(target, q)
+                    attempt.update(position_error_m=pe, orientation_error_deg=re)
+                    if pe > pos_tol or re > rot_tol_deg:
+                        attempt["reason"] = "fk_tolerance"
+                        continue
+                    attempt["reason"] = "accepted"
+                    if best is None or pe/0.01+re/5 < best[1]/0.01+best[2]/5:
+                        best = (tuple(float(v) for v in q), pe, re)
+                        record.update(success=True, solver=attempt["method"],
+                                      joint_positions=list(best[0]))
+                    if pe <= 0.002 and re <= 1.0:
+                        break
+                if best is not None:
+                    result = best
         finally:
             p.restoreState(stateId=saved, physicsClientId=self.client)
             p.removeState(stateUniqueId=saved, physicsClientId=self.client)
@@ -379,8 +438,12 @@ class MugScene:
             p.resetBasePositionAndOrientation(self.mug, self.observed_mug_pose.position,
                                               self.observed_mug_pose.quaternion,
                                               physicsClientId=self.client)
-            q_pre, pe_pre, _ = self.ik(pre, stage="filter_pregrasp")
-            q_grasp, pe_grasp, _ = self.ik(grasp, stage="filter_grasp")
+            restarts = self.scene_config.ik_restarts
+            q_pre, pe_pre, _ = self.ik(pre, stage="filter_pregrasp", restarts=restarts)
+            if restarts and q_pre is not None:
+                # Mirror execution: the grasp move starts from the pregrasp pose.
+                self._set_arm(q_pre)
+            q_grasp, pe_grasp, _ = self.ik(grasp, stage="filter_grasp", restarts=restarts)
             if q_pre is None: reasons.append("pregrasp_ik_or_fk_error")
             if q_grasp is None: reasons.append("grasp_ik_or_fk_error")
             min_clearance = None
@@ -485,7 +548,8 @@ class MugScene:
             if command.path == "cartesian":
                 waypoints = self._plan_cartesian(target, _stage)
             else:
-                q, _, _ = self.ik(target, pos_tol=0.025, stage=_stage)
+                q, _, _ = self.ik(target, pos_tol=0.025, stage=_stage,
+                                  restarts=self.scene_config.ik_restarts)
                 waypoints = [q] if q is not None else None
             if waypoints is None:
                 status = "ik_failed"
@@ -563,6 +627,7 @@ class MugScene:
                       ik_diagnostics=self.ik_diagnostics, primitive_log=self.primitive_log,
                       observation_config=asdict(self.observation_config),
                       initial_object_pose_estimate=asdict(self.observed_mug_pose),
+                      scene_randomization=asdict(self.scene_config),
                       policy_mode=policy_mode, schema_version="episode_v0.3")
         return result
 
@@ -621,12 +686,15 @@ class MugScene:
 
 
 def get_feasible_candidates(seed: int, candidates: list[Candidate], *,
-                            observation_config: ObservationConfig | None = None):
+                            observation_config: ObservationConfig | None = None,
+                            scene_config=None):
     """Return all checks and public records usable by B/C's selectors."""
-    with MugScene(seed, observation_config=observation_config) as scene:
+    with MugScene(seed, observation_config=observation_config,
+                  scene_config=scene_config) as scene:
         checks = [scene.check_candidate(c) for c in candidates]
         estimate = asdict(scene.observed_mug_pose)
         config = asdict(scene.observation_config)
+        scene_record = asdict(scene.scene_config)
     allowed = {c.candidate_id for c in checks if c.feasible}
     feasible_candidates = [c.public_metadata() for c in candidates if c.id in allowed]
     feasible_full = [c for c in candidates if c.id in allowed]
@@ -641,6 +709,7 @@ def get_feasible_candidates(seed: int, candidates: list[Candidate], *,
         "candidate_sha256": candidate_sha256(candidates),
         "observation_config": config,
         "initial_object_pose_estimate": estimate,
+        "scene_randomization": scene_record,
         "status": "ok" if feasible_candidates else "no_feasible_candidate",
         "feasible_candidates": feasible_candidates,
         "checks": [asdict(x) for x in checks],
@@ -654,12 +723,14 @@ def get_feasible_candidates(seed: int, candidates: list[Candidate], *,
 def run_episode(task_id: str, seed: int, selected_id: str,
                 candidates: list[Candidate], gui: bool = False,
                 media_dir: str | Path | None = None, *,
-                observation_config: ObservationConfig | None = None):
+                observation_config: ObservationConfig | None = None,
+                scene_config=None):
     validate_task_id(task_id)
     matches = [c for c in candidates if c.id == selected_id]
     if len(matches) != 1:
         raise ValueError("selected_id must match exactly one supplied candidate")
-    with MugScene(seed,gui=gui,observation_config=observation_config) as scene:
+    with MugScene(seed,gui=gui,observation_config=observation_config,
+                  scene_config=scene_config) as scene:
         if media_dir is not None:
             from .visualization import EpisodeRecorder
             stem = f"{task_id}_seed{seed}_{selected_id}"
@@ -674,7 +745,7 @@ def run_episode(task_id: str, seed: int, selected_id: str,
 def run_primitive_episode(task_id: str, seed: int, selected_id: str,
                           candidates: list[Candidate], policy, *,
                           observation_config: ObservationConfig | None = None,
-                          max_actions: int = 32):
+                          max_actions: int = 32, scene_config=None):
     """Separate incremental-control track; do NOT mix with ID-only comparisons.
 
     policy(context, observation) returns Primitive or None (stop). Context
@@ -689,7 +760,8 @@ def run_primitive_episode(task_id: str, seed: int, selected_id: str,
     if len(matches) != 1:
         raise ValueError("selected_id must match exactly one supplied candidate")
     candidate = matches[0]
-    with MugScene(seed, observation_config=observation_config) as scene:
+    with MugScene(seed, observation_config=observation_config,
+                  scene_config=scene_config) as scene:
         scene.evaluator = EpisodeEvaluator(scene, scene.task_target(task_id))
         checks = scene.check_candidate(candidate)
         if not checks.feasible:
