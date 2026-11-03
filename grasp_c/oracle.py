@@ -277,7 +277,7 @@ def main(argv=None):
                 liquid=args.liquid)
     if (out / "meta.json").exists():
         old = _read(out / "meta.json")
-        if (old["generator"], old["scene"]) != (meta["generator"], meta["scene"]):
+        if (old["generator"], old["scene"]) != (meta["generator"], json.loads(json.dumps(meta["scene"]))):
             raise SystemExit("existing run uses another generator/scene; choose a new --out")
         if "pour_water" in args.tasks and old.get("liquid", args.liquid) != args.liquid and \
                 (out / "episodes" / "pour_water").exists():
