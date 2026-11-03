@@ -1,0 +1,43 @@
+{
+  "generator": "adaptive_v2",
+  "profile": "hollow",
+  "candidate_count": 80,
+  "scene": {
+    "name": "legacy",
+    "x_range_m": [
+      -0.008,
+      0.008
+    ],
+    "y_range_m": [
+      -0.008,
+      0.008
+    ],
+    "yaw_range_rad": [
+      -0.08,
+      0.08
+    ],
+    "observation": "prior",
+    "estimate_position_noise_m": 0.0,
+    "estimate_yaw_noise_deg": 0.0,
+    "ik_restarts": false
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "tasks": [
+    "transport_place",
+    "handover_transfer",
+    "pour_water"
+  ],
+  "execute": "all",
+  "liquid": "proxy"
+}
