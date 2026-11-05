@@ -216,6 +216,177 @@ class SequenceScene(MugScene):
                      self.stage_deadline-self.physics_steps*STEP)
         return self._arrive(target,stage,budget)
 
+    def donor_moves(self, candidate):
+        """Donor TCP goals per stage: {stage: (WORLD target, path, duration_s)}.
+
+        Shared by execution (run_sequence) and the execution-mode filter, so
+        both use exactly the same goals. Estimate-based; never reads truth.
+        """
+        c = self.config
+        bx, by = c.target_xy
+        upright = (0,0,0,1)
+        carry = Pose((bx,by+(math.copysign(.045,c.pour_angle_deg) if self.task_id == "pour_water" else 0),c.carry_height_m),upright)
+        def tool(obj):
+            pos,quat = p.multiplyTransforms(obj.position,obj.quaternion,
+                      candidate.grasp_pose.position,candidate.grasp_pose.quaternion)
+            return Pose(tuple(pos),tuple(quat))
+        initial_grasp = self.world_pose(candidate.grasp_pose)
+        lift = Pose((initial_grasp.position[0],initial_grasp.position[1],
+                     initial_grasp.position[2]+.14),initial_grasp.quaternion)
+        # Withdrawal depends on the specified approach, not achieved mug pose.
+        axis = rotation_matrix(initial_grasp.quaternion)[:,2]
+        # Nominal bottom is commanded 3 mm into the support plane, under the
+        # existing force-limited arm motors. Compliance/contact stops the cup;
+        # the live source pose is not read to choose this lowering distance.
+        release_pose = tool(Pose((bx,by,.642),upright)) if self.task_id == "transport_place" else tool(carry)
+        retreat = Pose(tuple(np.asarray(release_pose.position)-.10*axis+np.array((0,0,.16))),release_pose.quaternion)
+        tilt = tool(Pose(carry.position,tuple(p.getQuaternionFromEuler((math.radians(c.pour_angle_deg),0,0)))))
+        moves = {"pregrasp": (self.world_pose(candidate.pregrasp_pose),"joint",1.0),
+                 "approach": (initial_grasp,"cartesian",.7),
+                 "lift": (lift,"cartesian",1.0),
+                 "transport": (tool(carry),"cartesian",1.3),
+                 "lower": (release_pose,"cartesian",1.3),
+                 "retreat": (retreat,"cartesian",1),
+                 "tilt": (tilt,"cartesian",2),
+                 "return_upright": (tool(carry),"cartesian",2)}
+        stages = {s["id"] for s in self.spec["stages"]}
+        return {k: v for k, v in moves.items() if k in stages}
+
+    # ----------------------------------------------------- execution-mode filter
+    def check_candidate(self, candidate):
+        """legacy: A's original two-pose check. execution: kinematic replay.
+
+        The replay runs every donor stage with the same segmenting, Cartesian
+        waypoint IK, endpoint tolerances and primitive limits as execution, from
+        the same start state, without stepping physics. After ``close`` the cup
+        follows the nominal grasp, so carried-cup collisions are checked too.
+        It cannot predict dynamics (motor lag, slip, fluid loads).
+        """
+        if self.scene_config.filter_mode != "execution":
+            return super().check_candidate(candidate)
+        from .simulation import Feasibility
+        if not (0.005 <= candidate.gripper_width <= 0.08):
+            return Feasibility(candidate.id, False, ["gripper_width_out_of_range"])
+        saved = p.saveState(physicsClientId=self.client)
+        diagnostics = len(self.ik_diagnostics)
+        self._replay = dict(errors={}, details=[], clearance=None)
+        try:
+            p.resetBasePositionAndOrientation(self.mug, self.observed_mug_pose.position,
+                                              self.observed_mug_pose.quaternion,
+                                              physicsClientId=self.client)
+            reason = self._replay_sequence(candidate)
+            errors = self._replay["errors"]
+            return Feasibility(candidate.id, reason is None, [] if reason is None else [reason],
+                               errors.get("pregrasp"), errors.get("approach"),
+                               self._replay["clearance"], self._replay["details"])
+        finally:
+            # Replay IK probes are filter internals, not episode diagnostics.
+            del self.ik_diagnostics[diagnostics:]
+            p.restoreState(stateId=saved, physicsClientId=self.client)
+            p.removeState(stateUniqueId=saved, physicsClientId=self.client)
+
+    def _replay_sequence(self, candidate):
+        moves = self.donor_moves(candidate)
+        inverse_grasp = p.invertTransform(candidate.grasp_pose.position, candidate.grasp_pose.quaternion)
+        carrying = False
+        for spec in self.spec["stages"]:
+            stage = spec["id"]
+            if stage == "close":
+                carrying = True
+            elif stage in ("release", "donor_release"):
+                carrying = False
+            elif stage == "receiver_approach" and self.receiver is not None:
+                p.resetJointState(self.receiver, 0, 0, physicsClientId=self.client)
+            if stage not in moves:
+                continue
+            target, path, duration = moves[stage]
+            reason = self._replay_move(stage, target, path, duration,
+                                       inverse_grasp if carrying else None)
+            if reason is not None:
+                return reason
+        return None
+
+    def _replay_move(self, stage, target, path, duration, inverse_grasp):
+        """Mirror of move_stage (segments, primitive limits, IK, endpoint IK)."""
+        start = self._tip_pose()
+        n = max(1,math.ceil(position_error(start.position,target.position)/.20))
+        for i in range(1,n+1):
+            f = i/n
+            segment = Pose(tuple((1-f)*a+f*b for a,b in zip(start.position,target.position)),
+                           tuple(p.getQuaternionSlerp(start.quaternion,target.quaternion,f)))
+            try:
+                command = Primitive("move_tcp",segment,duration_s=duration/n,path=path)
+            except ValueError:
+                return stage+"_outside_primitive_limits"
+            if position_error(self._tip_pose().position,segment.position) > .25:
+                return stage+"_segment_too_long"
+            if path == "cartesian":
+                waypoints = self._plan_cartesian(segment, stage)
+                if waypoints is not None and len(waypoints) > max(1,round(command.duration_s/STEP)):
+                    return stage+"_duration_too_short"
+            else:
+                q,_,_ = self.ik(segment, pos_tol=0.025, stage=stage,
+                                restarts=self.scene_config.ik_restarts)
+                waypoints = [q] if q is not None else None
+            if waypoints is None:
+                return stage+"_ik_failed"
+            current = self._angles()
+            for q in waypoints:
+                # Execution interpolates joints linearly between waypoints.
+                steps = 10 if path == "joint" else 1
+                for k in range(1, steps+1):
+                    t = k/steps
+                    self._set_arm(tuple((1-t)*a+t*b for a,b in zip(current,q)))
+                    hit = self._replay_collisions(stage, inverse_grasp)
+                    if hit:
+                        return stage+":"+hit
+                current = q
+        q, pe, re = self.ik(target, pos_tol=.008, rot_tol_deg=3, stage=stage+"_endpoint")
+        if q is None:
+            return stage+"_endpoint_ik_failed"
+        self._set_arm(q)
+        self._replay["errors"][stage] = pe
+        hit = self._replay_collisions(stage, inverse_grasp)
+        if hit:
+            return stage+":"+hit
+        if stage == "pregrasp":
+            distances = p.getClosestPoints(self.robot, self.table, distance=0.10,
+                                           physicsClientId=self.client)
+            self._replay["clearance"] = min((x[8] for x in distances), default=0.10)
+        return None
+
+    def _replay_collisions(self, stage, inverse_grasp):
+        """Penetration (>1 mm) checks matching the evaluator's unintended contacts."""
+        from .simulation import PENETRATION_TOLERANCE_M as tol
+        if inverse_grasp is not None:
+            # Cup follows the nominal grasp: T_world_mug = T_world_tool * T_tool_mug.
+            tip = self._tip_pose()
+            pos, quat = p.multiplyTransforms(tip.position, tip.quaternion, *inverse_grasp)
+            p.resetBasePositionAndOrientation(self.mug, pos, quat, physicsClientId=self.client)
+        details = []
+        hits = self._unexpected_collision(allow_finger_mug=stage != "pregrasp", details=details)
+        def deep(a, b):
+            return any(cp[8] < -tol for cp in p.getClosestPoints(a, b, distance=0, physicsClientId=self.client))
+        if inverse_grasp is not None and stage not in ("lower",) and deep(self.mug, self.table):
+            hits.append("source_table_out_of_phase")
+        if self.target_cup is not None:
+            if deep(self.robot, self.target_cup):
+                hits.append("donor_target_cup")
+            if deep(self.mug, self.target_cup):
+                hits.append("source_target_cup")
+        if self.receiver is not None:
+            if deep(self.robot, self.receiver):
+                hits.append("donor_receiver")
+            for cp in p.getClosestPoints(self.receiver, self.mug, distance=0, physicsClientId=self.client):
+                if cp[8] < -tol and cp[3] not in (2, 3):
+                    hits.append("receiver_nonfinger_source")
+                    break
+        if hits:
+            for d in details:
+                d["path"] = stage
+            self._replay["details"].extend(details or [{"type": h, "path": stage} for h in hits])
+        return ",".join(sorted(set(hits)))
+
     def run_sequence(self, candidate):
         from .sequence_evaluation import SequenceEvaluator
         checks = self.check_candidate(candidate)
@@ -235,43 +406,20 @@ class SequenceScene(MugScene):
             failure, status = "infeasible", "rejected"
         self.evaluator = SequenceEvaluator(self)
         c = self.config
-        bx, by = c.target_xy
-        upright = (0,0,0,1)
-        carry = Pose((bx,by+(math.copysign(.045,c.pour_angle_deg) if self.task_id == "pour_water" else 0),c.carry_height_m),upright)
-        def tool(obj):
-            pos,quat = p.multiplyTransforms(obj.position,obj.quaternion,
-                      candidate.grasp_pose.position,candidate.grasp_pose.quaternion)
-            return Pose(tuple(pos),tuple(quat))
-        initial_grasp = self.world_pose(candidate.grasp_pose)
-        lift = Pose((initial_grasp.position[0],initial_grasp.position[1],
-                     initial_grasp.position[2]+.14),initial_grasp.quaternion)
-        # Withdrawal depends on the specified approach, not achieved mug pose.
-        axis = rotation_matrix(initial_grasp.quaternion)[:,2]
-        # Nominal bottom is commanded 3 mm into the support plane, under the
-        # existing force-limited arm motors. Compliance/contact stops the cup;
-        # the live source pose is not read to choose this lowering distance.
-        release_pose = tool(Pose((bx,by,.642),upright)) if self.task_id == "transport_place" else tool(carry)
-        retreat = Pose(tuple(np.asarray(release_pose.position)-.10*axis+np.array((0,0,.16))),release_pose.quaternion)
-        actions = {
-            "pregrasp": lambda: self.move_stage(self.world_pose(candidate.pregrasp_pose),"pregrasp","joint"),
-            "approach": lambda: self.move_stage(initial_grasp,"approach","cartesian",.7),
+        moves = self.donor_moves(candidate)
+        actions = {stage: (lambda m=m, stage=stage: self.move_stage(m[0], stage, m[1], m[2]))
+                   for stage, m in moves.items()}
+        actions.update({
             "close": lambda: self.execute_primitive(Primitive("gripper",width=0,duration_s=.75),_stage="close"),
-            "lift": lambda: self.move_stage(lift,"lift",duration=1.0),
-            "transport": lambda: self.move_stage(tool(carry),"transport",duration=1.3),
-            "lower": lambda: self.move_stage(release_pose,"lower",duration=1.3),
             "release": lambda: self.execute_primitive(Primitive("gripper",width=.08,duration_s=.5),_stage="release"),
             "donor_release": lambda: self.execute_primitive(Primitive("gripper",width=.08,duration_s=.5),_stage="donor_release"),
-            "retreat": lambda: self.move_stage(retreat,"retreat",duration=1),
             "receiver_approach": lambda: self.receiver_rail(0,0,"receiver_approach"),
             "receiver_close": self.receiver_close,
             "receiver_lift": lambda: self.receiver_rail(1,c.receiver_lift_m,"receiver_lift"),
-            "tilt": lambda: self.move_stage(tool(Pose(carry.position,
-                          tuple(p.getQuaternionFromEuler((math.radians(c.pour_angle_deg),0,0))))),"tilt",duration=2),
             "pour_dwell": lambda: self._step(round(c.pour_dwell_s/STEP),"pour_dwell"),
-            "return_upright": lambda: self.move_stage(tool(carry),"return_upright",duration=2),
             "terminal": lambda: self._step(round(c.terminal_window_s/STEP),"terminal"),
             "settle": lambda: self._step(round(c.settle_s/STEP),"settle"),
-        }
+        })
         for spec in self.spec["stages"]:
             stage = spec["id"]
             row = dict(id=stage,control_status="not_executed",start_s=None,end_s=None,feedback=None)

@@ -50,6 +50,10 @@ class SceneRandomization:
     # Protocol knob kept here so one preset defines the whole filter/controller
     # setup: multi-start IK for the feasibility filter and joint-path moves.
     ik_restarts: bool = False
+    # "legacy": A's original pregrasp/grasp check. "execution": the sequence
+    # track replays every donor stage kinematically with execution's own IK,
+    # waypoints and tolerances (SequenceScene only).
+    filter_mode: str = "legacy"
 
     def __post_init__(self):
         for key in ("x_range_m", "y_range_m", "yaw_range_rad"):
@@ -61,6 +65,8 @@ class SceneRandomization:
                 -0.10 <= self.y_range_m[0] and self.y_range_m[1] <= 0.10 and
                 -math.pi <= self.yaw_range_rad[0] and self.yaw_range_rad[1] <= math.pi):
             raise ValueError("cup must stay within +/-10 cm and +/-180 deg of nominal")
+        if self.filter_mode not in ("legacy", "execution"):
+            raise ValueError("filter_mode must be legacy or execution")
         if type(self.ik_restarts) is not bool:
             raise ValueError("ik_restarts must be a bool")
         if self.observation not in ("prior", "noisy_truth"):
@@ -91,6 +97,12 @@ SCENE_PRESETS = {
         name="wide", x_range_m=(-0.04, 0.04), y_range_m=(-0.05, 0.0),
         yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
         estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True),
+    # wide + execution-consistent filtering (sequence tasks).
+    "wide_strict": SceneRandomization(
+        name="wide_strict", x_range_m=(-0.04, 0.04), y_range_m=(-0.05, 0.0),
+        yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
+        estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True,
+        filter_mode="execution"),
     # Legacy scene with only the IK fix, to separate the two effects.
     "legacy_ik": SceneRandomization(name="legacy_ik", ik_restarts=True),
 }
