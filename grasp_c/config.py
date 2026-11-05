@@ -173,6 +173,17 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
             load_sequence_config(config.get("sequence_config")))))
     elif "sequence_config" in config:
         raise ValueError("sequence_config requires track='sequence'")
+    if "scene_randomization" in config:
+        # Optional: A's SceneRandomization preset name or field dict. Omitted =
+        # legacy scene and unchanged run identity.
+        if config["track"] != "sequence":
+            raise ValueError("scene_randomization requires track='sequence'")
+        from grasp_a.control import ObservationConfig, scene_randomization
+        scene = scene_randomization(config["scene_randomization"])
+        if (scene.observation == "noisy_truth" and
+                config["observation_config"] != json.loads(json.dumps(asdict(ObservationConfig())))):
+            raise ValueError("noisy_truth scenes derive the estimate per seed; leave observation_config at its default")
+        config["scene_randomization"] = json.loads(json.dumps(asdict(scene)))
     tasks = config.get("tasks", list(supported_tasks))
     if (not isinstance(tasks, list) or not tasks or
             any(task not in supported_tasks for task in tasks) or len(tasks) != len(set(tasks))):

@@ -58,13 +58,27 @@ def run_sequence(*args, **kwargs):
 
 
 def _identity(task_id: str, seed: int, candidates: list[Candidate],
-              sequence_config: SequenceConfig, observation_config: ObservationConfig) -> dict:
+              sequence_config: SequenceConfig, observation_config: ObservationConfig,
+              scene_config=None) -> dict:
     spec = task_spec(task_id, sequence_config)
-    return {"task_id": task_id, "seed": seed, "scene_version": SEQUENCE_SCENE,
-            "controller_version": SEQUENCE_CONTROLLER, "evaluation_version": SEQUENCE_EVALUATOR,
-            "candidate_sha256": candidate_sha256(candidates),
-            "task_spec_sha256": sequence_spec_sha256(spec), "task_spec": spec,
-            "observation_config": asdict(observation_config)}
+    identity = {"task_id": task_id, "seed": seed, "scene_version": SEQUENCE_SCENE,
+                "controller_version": SEQUENCE_CONTROLLER, "evaluation_version": SEQUENCE_EVALUATOR,
+                "candidate_sha256": candidate_sha256(candidates),
+                "task_spec_sha256": sequence_spec_sha256(spec), "task_spec": spec,
+                "observation_config": asdict(observation_config)}
+    if scene_config is not None:
+        identity["scene_randomization"] = asdict(scene_config)
+    return identity
+
+
+def _a_identity(identity: dict) -> dict:
+    """Fields A's filter/episode must echo. A noisy_truth scene derives the
+    estimate per seed, so A reports that derived ObservationConfig instead of
+    the configured one; the filter/episode estimate match is checked separately."""
+    scene = identity.get("scene_randomization")
+    if scene is not None and scene["observation"] == "noisy_truth":
+        return {k: v for k, v in identity.items() if k != "observation_config"}
+    return identity
 
 
 def _check_identity(value: dict, expected: dict, *, label: str) -> None:
@@ -77,9 +91,9 @@ def _check_identity(value: dict, expected: dict, *, label: str) -> None:
 
 def check_sequence_filter(filtered: dict, task_id: str, seed: int,
                           candidates: list[Candidate], *, sequence_config: SequenceConfig,
-                          observation_config: ObservationConfig) -> None:
+                          observation_config: ObservationConfig, scene_config=None) -> None:
     """Reject stale/cross-track filters before any selection or execution."""
-    expected = _identity(task_id, seed, candidates, sequence_config, observation_config)
+    expected = _a_identity(_identity(task_id, seed, candidates, sequence_config, observation_config, scene_config))
     _check_identity(filtered, dict(expected, schema_version=SEQUENCE_FILTER_SCHEMA), label="filter")
     checks = filtered.get("checks")
     if (not isinstance(checks, list) or len(checks) != len(candidates) or
@@ -127,7 +141,7 @@ def evaluate_sequence_trial(task_id: str, seed: int, method_id: str,
                             sequence_config: SequenceConfig | None = None,
                             observation_config: ObservationConfig | None = None,
                             filtered: dict | None = None, media_dir: str | Path | None = None,
-                            show_landmarks: bool = True) -> dict:
+                            show_landmarks: bool = True, scene_config=None) -> dict:
     """Select an ID and preserve A's execution/numerical status independently.
 
     Invalid input or an injected filter that disagrees with this condition raises
@@ -152,7 +166,14 @@ def evaluate_sequence_trial(task_id: str, seed: int, method_id: str,
         raise ValueError("show_landmarks must be a bool")
     config = sequence_config if sequence_config is not None else SequenceConfig()
     observation = observation_config if observation_config is not None else ObservationConfig()
-    identity = _identity(task_id, seed, candidates, config, observation)
+    if scene_config is not None:
+        from grasp_a.control import scene_randomization
+        scene_config = scene_randomization(scene_config)
+    # A derives the estimate itself for noisy_truth scenes and refuses one.
+    a_observation = (None if scene_config is not None and scene_config.observation == "noisy_truth"
+                     else observation)
+    scene_kwargs = {} if scene_config is None else {"scene_config": scene_config}
+    identity = _identity(task_id, seed, candidates, config, observation, scene_config)
     record = {"schema_version": SEQUENCE_TRIAL_SCHEMA, "track": "sequence",
               "evaluation_scope": "pilot", **identity,
               "method_id": method_id, "sequence_config": asdict(config),
@@ -163,15 +184,15 @@ def evaluate_sequence_trial(task_id: str, seed: int, method_id: str,
     if filtered is None:
         try:
             filtered = get_sequence_candidates(task_id, seed, candidates, config=config,
-                                               observation_config=observation)
+                                               observation_config=a_observation, **scene_kwargs)
             check_sequence_filter(filtered, task_id, seed, candidates, sequence_config=config,
-                                  observation_config=observation)
+                                  observation_config=observation, scene_config=scene_config)
         except Exception as exc:
             record.update(status="filter_error", error={"type": type(exc).__name__, "message": str(exc)})
             return record
     else:
         check_sequence_filter(filtered, task_id, seed, candidates, sequence_config=config,
-                              observation_config=observation)
+                              observation_config=observation, scene_config=scene_config)
     record["filter"] = deepcopy(filtered)
     public = filtered["feasible_candidates"]
     if not public:
@@ -195,10 +216,10 @@ def evaluate_sequence_trial(task_id: str, seed: int, method_id: str,
     try:
         output = Path(media_dir) / method_id / f"{task_id}_seed{seed}" if media_dir is not None else None
         episode = run_sequence(task_id, seed, selection["selected_id"], candidates, config=config,
-                               observation_config=observation, gui=False, media_dir=output,
-                               show_landmarks=show_landmarks)
+                               observation_config=a_observation, gui=False, media_dir=output,
+                               show_landmarks=show_landmarks, **scene_kwargs)
         record["episode"] = episode
-        expected = dict(identity, selected_id=selection["selected_id"], schema_version=SEQUENCE_EPISODE_SCHEMA)
+        expected = dict(_a_identity(identity), selected_id=selection["selected_id"], schema_version=SEQUENCE_EPISODE_SCHEMA)
         _check_identity(episode, expected, label="episode")
         if episode.get("status") not in SEQUENCE_EPISODE_STATUSES:
             raise ValueError("episode has an unknown execution status")
