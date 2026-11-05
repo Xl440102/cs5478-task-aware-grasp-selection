@@ -1,0 +1,817 @@
+{
+  "schema_version": "grasp_c_b_inputs_v2",
+  "scope": "experimental_smoke_only_not_formal_M1",
+  "generation_version": "multifamily_v3",
+  "generation_config": {
+    "version": "multifamily_v3",
+    "families": [
+      "side",
+      "top",
+      "rim",
+      "handle"
+    ],
+    "side_yaw_step_deg": 45,
+    "side_pitches_deg": [
+      0,
+      30,
+      60
+    ],
+    "side_height_fractions": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "side_rolls_deg": [
+      0,
+      180
+    ],
+    "top_depths_m": [
+      0.015,
+      0.03
+    ],
+    "top_yaw_step_deg": 45,
+    "rim_azimuth_step_deg": 45,
+    "rim_depth_m": 0.012,
+    "rim_width_m": 0.03,
+    "handle_yaws_deg": [
+      240,
+      270,
+      300
+    ],
+    "handle_pitches_deg": [
+      0,
+      30
+    ],
+    "handle_heights_m": [
+      -0.012,
+      0.0,
+      0.012
+    ],
+    "handle_rolls_deg": [
+      0,
+      180
+    ],
+    "handle_top_y_fractions": [
+      0.35,
+      0.65
+    ],
+    "handle_width_m": 0.035,
+    "body_opening_margin_ratio": 0.1,
+    "approach_radius_ratio": 3.5,
+    "finger_half_height_m": 0.008,
+    "max_candidates": 400
+  },
+  "profile": "hollow",
+  "score_version": "static_load_margin_v2",
+  "score_status": "m1_static_v2_body_only",
+  "candidate_count": 208,
+  "candidate_sha256": "48599e92ae5359815c79d510837b8fa1c5711a6e38299cee7caf42ad903320d7",
+  "candidate_file_sha256": "0d30500bf6c8947b1e736805ac28a524e9d8244832f6095515df6406317453df",
+  "families_file": "families.internal.json",
+  "families_sha256": "3a2f355eae107b44e46db0d29d92593f68d1917f341035d5c490fec074d2b082",
+  "model": {
+    "profile": "hollow",
+    "version": "cup_primitives_v2",
+    "geometry": {
+      "radius": 0.03526143599936282,
+      "height": 0.09,
+      "max_opening": 0.08,
+      "tool_offset": 0.105,
+      "com": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "mass_kg": 0.28,
+    "inertia_kg_m2": [
+      [
+        0.00035,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.00035,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.00022
+      ]
+    ],
+    "shapes": [
+      {
+        "kind": "cylinder",
+        "position": [
+          0.0,
+          0.0,
+          -0.0435
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          0.035,
+          0.003
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0335,
+          0.0,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.03285631,
+          0.00653553,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.19634954
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.03094996,
+          0.01281989,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.39269908
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.02785423,
+          0.0186116,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.58904862
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.02368808,
+          0.02368808,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.78539816
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0186116,
+          0.02785423,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.9817477
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.01281989,
+          0.03094996,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          1.17809725
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.00653553,
+          0.03285631,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          1.37444679
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0,
+          0.0335,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          1.57079633
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.00653553,
+          0.03285631,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          1.76714587
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.01281989,
+          0.03094996,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          1.96349541
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.0186116,
+          0.02785423,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          2.15984495
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.02368808,
+          0.02368808,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          2.35619449
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.02785423,
+          0.0186116,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          2.55254403
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.03094996,
+          0.01281989,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          2.74889357
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.03285631,
+          0.00653553,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          2.94524311
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.0335,
+          0.0,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          3.14159265
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.03285631,
+          -0.00653553,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          3.33794219
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.03094996,
+          -0.01281989,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          3.53429174
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.02785423,
+          -0.0186116,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          3.73064128
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.02368808,
+          -0.02368808,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          3.92699082
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.0186116,
+          -0.02785423,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          4.12334036
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.01281989,
+          -0.03094996,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          4.3196899
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.00653553,
+          -0.03285631,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          4.51603944
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          -0.0,
+          -0.0335,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          4.71238898
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.00653553,
+          -0.03285631,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          4.90873852
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.01281989,
+          -0.03094996,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          5.10508806
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0186116,
+          -0.02785423,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          5.3014376
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.02368808,
+          -0.02368808,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          5.49778714
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.02785423,
+          -0.0186116,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          5.69413668
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.03094996,
+          -0.01281989,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          5.89048623
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.03285631,
+          -0.00653553,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          6.08683577
+        ],
+        "dimensions": [
+          0.0035,
+          0.00706085,
+          0.09
+        ],
+        "region": "body"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0,
+          0.06,
+          0.029
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          0.012,
+          0.055,
+          0.012
+        ],
+        "region": "handle"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0,
+          0.06,
+          -0.029
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          0.012,
+          0.055,
+          0.012
+        ],
+        "region": "handle"
+      },
+      {
+        "kind": "box",
+        "position": [
+          0.0,
+          0.086,
+          0.0
+        ],
+        "rpy": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dimensions": [
+          0.012,
+          0.012,
+          0.069
+        ],
+        "region": "handle"
+      }
+    ],
+    "body_bounds": [
+      [
+        -0.03526143599936282,
+        -0.035261435989359116,
+        -0.045
+      ],
+      [
+        0.03526143598815843,
+        0.03526143599816214,
+        0.045
+      ]
+    ],
+    "handle_bounds": [
+      [
+        -0.006,
+        0.0325,
+        -0.035
+      ],
+      [
+        0.006,
+        0.092,
+        0.035
+      ]
+    ],
+    "asset_sha256": "27c79ceb153d9186576215ea76187bc77713a267d3d35b43e8108f1124b7cba3",
+    "panda_sha256": "9c27cf846302e26a1d3a44ccfd4dd2dbba89cccc9f17b96b6bd1f8bceedd1ff0",
+    "asset_path": "/home/user/cs5478-task-aware-grasp-selection/assets/mug_hollow.urdf"
+  }
+}

@@ -425,6 +425,9 @@ class MugScene:
         return sorted(set(issues))
 
     def check_candidate(self, candidate: Candidate) -> Feasibility:
+        if (self.scene_config.filter_mode == "execution" and
+                type(self).check_candidate is MugScene.check_candidate):
+            raise ValueError("filter_mode='execution' is implemented for the sequence track only")
         reasons = []
         if not (0.005 <= candidate.gripper_width <= 0.08):
             return Feasibility(candidate.id, False, ["gripper_width_out_of_range"])

@@ -137,3 +137,30 @@ class PourProxyChecksTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+@unittest.skipIf(PANDA is None, "pybullet_data unavailable")
+class ExecutionFilterTests(unittest.TestCase):
+    def test_preset_and_prep_track_guard(self):
+        self.assertEqual(SCENE_PRESETS["wide_strict"].filter_mode, "execution")
+        with self.assertRaises(ValueError):
+            SceneRandomization(filter_mode="fast")
+        from grasp_a.simulation import MugScene
+        from grasp_b.models import read_model
+        candidate = generate_multifamily(read_model("solid", PANDA))[0][0]
+        with MugScene(0, scene_config="wide_strict") as scene:
+            with self.assertRaises(ValueError):
+                scene.check_candidate(candidate)
+
+    def test_donor_moves_match_stage_list_and_replay_restores_state(self):
+        from grasp_a.sequence import SequenceScene
+        from grasp_b.models import read_model
+        candidates, records = generate_multifamily(read_model("hollow", PANDA))
+        top = next(c for c, r in zip(candidates, records) if r["family"] == "top")
+        with SequenceScene("pour_water", 0, scene_config="wide_strict") as scene:
+            moves = scene.donor_moves(top)
+            self.assertEqual(list(moves), ["pregrasp", "approach", "lift", "transport", "tilt", "return_upright"])
+            before = (scene._angles(), scene._object_pose(), len(scene.ik_diagnostics))
+            check = scene.check_candidate(top)
+            self.assertIsInstance(check.feasible, bool)
+            self.assertEqual(before, (scene._angles(), scene._object_pose(), len(scene.ik_diagnostics)))
