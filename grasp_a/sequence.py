@@ -331,13 +331,15 @@ class SequenceScene(MugScene):
             if waypoints is None:
                 return stage+"_ik_failed"
             current = self._angles()
-            for q in waypoints:
+            for index, q in enumerate(waypoints):
                 # Execution interpolates joints linearly between waypoints.
                 steps = 10 if path == "joint" else 1
+                final = i == n and index == len(waypoints)-1
                 for k in range(1, steps+1):
                     t = k/steps
                     self._set_arm(tuple((1-t)*a+t*b for a,b in zip(current,q)))
-                    hit = self._replay_collisions(stage, inverse_grasp)
+                    hit = self._replay_collisions(stage, inverse_grasp,
+                                                  final=final and k == steps)
                     if hit:
                         return stage+":"+hit
                 current = q
@@ -346,7 +348,7 @@ class SequenceScene(MugScene):
             return stage+"_endpoint_ik_failed"
         self._set_arm(q)
         self._replay["errors"][stage] = pe
-        hit = self._replay_collisions(stage, inverse_grasp)
+        hit = self._replay_collisions(stage, inverse_grasp, final=True)
         if hit:
             return stage+":"+hit
         if stage == "pregrasp":
@@ -355,8 +357,14 @@ class SequenceScene(MugScene):
             self._replay["clearance"] = min((x[8] for x in distances), default=0.10)
         return None
 
-    def _replay_collisions(self, stage, inverse_grasp):
-        """Penetration (>1 mm) checks matching the evaluator's unintended contacts."""
+    def _replay_collisions(self, stage, inverse_grasp, final=False):
+        """Penetration (>1 mm) checks matching the evaluator's unintended contacts.
+
+        Finger/cup contact is allowed after pregrasp. With
+        approach_finger_contact="final_only" the open fingers may touch the cup
+        during approach only at its final waypoint: earlier contact means a
+        finger lands on the cup (e.g. the handle bar) and blocks the descent.
+        """
         from .simulation import PENETRATION_TOLERANCE_M as tol
         if inverse_grasp is not None:
             # Cup follows the nominal grasp: T_world_mug = T_world_tool * T_tool_mug.
@@ -365,6 +373,11 @@ class SequenceScene(MugScene):
             p.resetBasePositionAndOrientation(self.mug, pos, quat, physicsClientId=self.client)
         details = []
         hits = self._unexpected_collision(allow_finger_mug=stage != "pregrasp", details=details)
+        if (stage == "approach" and not final and
+                self.scene_config.approach_finger_contact == "final_only" and
+                any(cp[8] < -tol and cp[3] in self.fingers for cp in
+                    p.getClosestPoints(self.robot, self.mug, distance=0, physicsClientId=self.client))):
+            hits.append("finger_contact_before_grasp")
         def deep(a, b):
             return any(cp[8] < -tol for cp in p.getClosestPoints(a, b, distance=0, physicsClientId=self.client))
         if inverse_grasp is not None and stage not in ("lower",) and deep(self.mug, self.table):

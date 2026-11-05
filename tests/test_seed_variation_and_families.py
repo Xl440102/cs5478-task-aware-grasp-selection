@@ -164,3 +164,26 @@ class ExecutionFilterTests(unittest.TestCase):
             check = scene.check_candidate(top)
             self.assertIsInstance(check.feasible, bool)
             self.assertEqual(before, (scene._angles(), scene._object_pose(), len(scene.ik_diagnostics)))
+
+
+class ApproachContactConfigTests(unittest.TestCase):
+    def test_final_only_requires_execution_filter(self):
+        self.assertEqual(SCENE_PRESETS["wide_strict_v2"].approach_finger_contact, "final_only")
+        self.assertEqual(SCENE_PRESETS["wide_strict"].approach_finger_contact, "any")
+        with self.assertRaises(ValueError):
+            SceneRandomization(approach_finger_contact="final_only")  # legacy filter
+        with self.assertRaises(ValueError):
+            SceneRandomization(filter_mode="execution", approach_finger_contact="never")
+
+
+@unittest.skipIf(PANDA is None, "pybullet_data unavailable")
+class ApproachContactReplayTests(unittest.TestCase):
+    def test_deep_top_grasp_closing_along_handle_is_rejected(self):
+        from grasp_a.sequence import SequenceScene
+        from grasp_b.models import read_model
+        candidates, _ = generate_multifamily(read_model("hollow", PANDA))
+        blocked = next(c for c in candidates if c.approach == "top_down_closing_yaw_90_depth_30mm")
+        with SequenceScene("transport_place", 0, scene_config="wide_strict_v2") as scene:
+            check = scene.check_candidate(blocked)
+        self.assertFalse(check.feasible)
+        self.assertIn("finger_contact_before_grasp", check.reasons[0])

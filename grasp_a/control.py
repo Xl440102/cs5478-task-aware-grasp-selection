@@ -54,6 +54,9 @@ class SceneRandomization:
     # track replays every donor stage kinematically with execution's own IK,
     # waypoints and tolerances (SequenceScene only).
     filter_mode: str = "legacy"
+    # execution filter only: when open fingers may touch the cup during the
+    # approach. "any" = round-2 behaviour; "final_only" = only at the grasp.
+    approach_finger_contact: str = "any"
 
     def __post_init__(self):
         for key in ("x_range_m", "y_range_m", "yaw_range_rad"):
@@ -67,6 +70,10 @@ class SceneRandomization:
             raise ValueError("cup must stay within +/-10 cm and +/-180 deg of nominal")
         if self.filter_mode not in ("legacy", "execution"):
             raise ValueError("filter_mode must be legacy or execution")
+        if self.approach_finger_contact not in ("any", "final_only"):
+            raise ValueError("approach_finger_contact must be any or final_only")
+        if self.approach_finger_contact != "any" and self.filter_mode != "execution":
+            raise ValueError("approach_finger_contact applies to the execution filter only")
         if type(self.ik_restarts) is not bool:
             raise ValueError("ik_restarts must be a bool")
         if self.observation not in ("prior", "noisy_truth"):
@@ -103,6 +110,12 @@ SCENE_PRESETS = {
         yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
         estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True,
         filter_mode="execution"),
+    # wide_strict + fingers may touch the cup only at the final approach pose.
+    "wide_strict_v2": SceneRandomization(
+        name="wide_strict_v2", x_range_m=(-0.04, 0.04), y_range_m=(-0.05, 0.0),
+        yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
+        estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True,
+        filter_mode="execution", approach_finger_contact="final_only"),
     # Legacy scene with only the IK fix, to separate the two effects.
     "legacy_ik": SceneRandomization(name="legacy_ik", ik_restarts=True),
 }
