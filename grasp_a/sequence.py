@@ -36,8 +36,10 @@ class SequenceScene(MugScene):
         # liquid="proxy" (pour_water only): no particle fluid. The water mass is a
         # rigid payload and pouring is scored by a geometric spout/occlusion proxy
         # in SequenceEvaluator. Same scene, motion, stages and timeouts.
-        if liquid not in ("pbf", "proxy"):
-            raise ValueError("liquid must be pbf or proxy")
+        # "proxy_margin" = proxy + clearance margins standing in for fluid-driven
+        # sway/slip (source vs receiver cup, palm vs source).
+        if liquid not in ("pbf", "proxy", "proxy_margin"):
+            raise ValueError("liquid must be pbf, proxy or proxy_margin")
         self.liquid = liquid
         self.config = config or SequenceConfig()
         self.spec = task_spec(task_id, self.config)

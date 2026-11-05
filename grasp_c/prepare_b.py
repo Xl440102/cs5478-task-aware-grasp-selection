@@ -113,7 +113,8 @@ def prepare_b_inputs(output_dir, *, generation_config=None, scoring_config=None)
             "report": str(report_path), "features": str(features_path)}
 
 
-def prepare_b_v3_inputs(output_dir, *, profile: str = "hollow", families=None) -> dict:
+def prepare_b_v3_inputs(output_dir, *, profile: str = "hollow", families=None,
+                        pruned: bool = False, semantic: bool = False) -> dict:
     """Shared multifamily_v3 candidate file for every compared method.
 
     ``geometry_score`` is B's task-independent M1 Static v2 score where B's
@@ -125,21 +126,25 @@ def prepare_b_v3_inputs(output_dir, *, profile: str = "hollow", families=None) -
     import pybullet_data
     from grasp_b.models import read_model
     from grasp_b.multifamily import (FAMILIES, VERSION, MultiFamilyConfig,
-                                     generate_multifamily, m2_supported)
+                                     generate_multifamily, m2_supported, pruned_config)
+    from grasp_b.semantics import VERSION as SEMANTIC_VERSION, describe, semantic_label
     from grasp_b.risk import STATIC_VERSION, static_score
     output = Path(output_dir).resolve()
     if output.exists():
         raise FileExistsError(f"B input output directory already exists: {output}")
     panda = Path(pybullet_data.getDataPath()) / "franka_panda/panda.urdf"
     model = read_model(profile, panda)
-    config = MultiFamilyConfig(families=tuple(families or FAMILIES))
+    family_set = tuple(families or FAMILIES)
+    config = pruned_config(families=family_set) if pruned else MultiFamilyConfig(families=family_set)
     candidates, records = generate_multifamily(model, config)
     scored = []
     for candidate, record in zip(candidates, records):
         supported = m2_supported(record)
         score = static_score(candidate, model)["score"] if supported else 0.0
-        record.update(m1_m2_supported=supported, geometry_score=score)
-        scored.append(replace(candidate, geometry_score=float(score)))
+        record.update(m1_m2_supported=supported, geometry_score=score,
+                      semantics=describe(candidate, record, model), short_label=candidate.approach)
+        label = semantic_label(candidate, record, model) if semantic else candidate.approach
+        scored.append(replace(candidate, geometry_score=float(score), approach=label))
     output.mkdir(parents=True, exist_ok=False)
     candidates_path = output / "candidates.scored.json"
     scored = write_candidates(candidates_path, scored)
@@ -148,6 +153,7 @@ def prepare_b_v3_inputs(output_dir, *, profile: str = "hollow", families=None) -
     provenance = {
         "schema_version": "grasp_c_b_inputs_v2", "scope": EXPERIMENTAL_SCOPE,
         "generation_version": VERSION, "generation_config": asdict(config), "profile": profile,
+        "pruned": pruned, "public_labels": SEMANTIC_VERSION if semantic else "short_v3",
         "score_version": STATIC_VERSION, "score_status": "m1_static_v2_body_only",
         "candidate_count": len(scored), "candidate_sha256": candidate_sha256(scored),
         "candidate_file_sha256": _sha(candidates_path),

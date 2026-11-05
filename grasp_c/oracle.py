@@ -58,7 +58,7 @@ def _filter_job(out, task, seed, scene):
     return task, seed, filtered
 
 
-LIQUID_MODES = ("proxy", "fast", "pbf")
+LIQUID_MODES = ("proxy", "proxy_margin", "fast", "pbf")
 
 
 def _liquid_kwargs(task, liquid):
@@ -66,8 +66,8 @@ def _liquid_kwargs(task, liquid):
     fast: particle fluid at 64 particles / 4 iterations / 1 substep; pbf: default."""
     if task != "pour_water" or liquid == "pbf":
         return {}
-    if liquid == "proxy":
-        return {"liquid": "proxy"}
+    if liquid in ("proxy", "proxy_margin"):
+        return {"liquid": liquid}
     from grasp_a.sequence_contracts import SequenceConfig
     return {"config": SequenceConfig(fluid_particles=64, fluid_iterations=4, fluid_substeps=1)}
 
@@ -98,7 +98,33 @@ def _split_supported(public, families):
     return supported, rest
 
 
-def build_selectors(llm_methods, cache_dir):
+# Stand-in for the paper's LLM part answer (no LLM key here): the part a
+# language model would typically name per task. Configurable; NOT tuned.
+PAPER_PART_TABLE = {"transport_place": "handle", "handover_transfer": "body", "pour_water": "handle"}
+
+
+def family_prior(prior_dir: Path, seeds, tasks):
+    """Success rate per (task, family) on TRAINING seeds only (outcome table)."""
+    fam = {r["id"]: r["family"] for r in _read(prior_dir / "b_inputs" / "families.internal.json")}
+    table = {}
+    for task in tasks:
+        counts = {}
+        for seed in seeds:
+            path = prior_dir / "filters" / task / f"seed{seed}.json"
+            if not path.exists():
+                continue
+            for r in _read(path)["feasible_candidates"]:
+                ep = prior_dir / "episodes" / task / f"seed{seed}" / f"{r['id']}.json"
+                if ep.exists():
+                    c = counts.setdefault(fam[r["id"]], [0, 0])
+                    c[0] += bool(_read(ep)["success"])
+                    c[1] += 1
+        # Laplace-smoothed so unseen families get 0.5.
+        table[task] = {f: (a+1)/(n+2) for f, (a, n) in counts.items()}
+    return table
+
+
+def build_selectors(llm_methods, cache_dir, *, prior=None):
     """Return {method_id: fn(task, public, seed, candidates, model, families) -> ranking}."""
     from grasp_b.prototype import select_random
     from grasp_b.risk import rank_feasible
@@ -114,9 +140,39 @@ def build_selectors(llm_methods, cache_dir):
             return head + [r["id"] for r in rest]
         return rank
 
+    from grasp_b.risk import static_score
+    import numpy as np
+
+    def force_quality(cid, by_id, model, families):
+        return static_score(by_id[cid], model)["score"] if families[cid]["m1_m2_supported"] else None
+
+    def m5_paper(task, public, seed, candidates, model, families):
+        """C(g,T) = K_force*F + K_dist*(-d_task/5 cm) on the named part first."""
+        by_id = {c.id: c for c in candidates}
+        part = PAPER_PART_TABLE[task]
+        centre = (np.mean(model.handle_bounds, axis=0) if part == "handle" else np.zeros(3))
+        scores = {r["id"]: force_quality(r["id"], by_id, model, families) for r in public}
+        known = [v for v in scores.values() if v is not None]
+        neutral = float(np.mean(known)) if known else 0.5
+        def cost(r):
+            F = scores[r["id"]] if scores[r["id"]] is not None else neutral
+            d = float(np.linalg.norm(np.asarray(by_id[r["id"]].grasp_pose.position)-centre))
+            return 1.0*F - 1.0*d/0.05
+        return [r["id"] for r in sorted(public, key=lambda r: (r["region"] != part, -cost(r), r["id"]))]
+
     selectors = {"M0_RANDOM": m0,
                  "M1_STATIC_V2": b_rank(lambda task: None),
-                 "M2_TASK_RISK": b_rank(lambda task: command_context(task))}
+                 "M2_TASK_RISK": b_rank(lambda task: command_context(task)),
+                 "M5_PAPER_STYLE": m5_paper}
+    if prior is not None:
+        def m4(task, public, seed, candidates, model, families):
+            by_id = {c.id: c for c in candidates}
+            rate = prior.get(task, {})
+            def key(r):
+                q = force_quality(r["id"], by_id, model, families)
+                return (-rate.get(families[r["id"]]["family"], 0.5), -(q if q is not None else 0.), r["id"])
+            return [r["id"] for r in sorted(public, key=key)]
+        selectors["M4_FAMILY_PRIOR"] = m4
     if llm_methods:
         from .providers import build_provider
         from .selectors import LLMSelector
@@ -134,6 +190,26 @@ def build_selectors(llm_methods, cache_dir):
 
 
 # ------------------------------------------------------------------ report
+def wilson(k, n, z=1.96):
+    if not n:
+        return None
+    phat = k/n
+    denom = 1+z*z/n
+    centre = (phat+z*z/(2*n))/denom
+    half = z*((phat*(1-phat)+z*z/(4*n))/n)**0.5/denom
+    return [max(0., centre-half), min(1., centre+half)]
+
+
+def sign_test(wins, losses):
+    """Exact two-sided McNemar/sign test p-value on discordant paired seeds."""
+    from math import comb
+    n = wins+losses
+    if n == 0:
+        return 1.0
+    tail = sum(comb(n, k) for k in range(0, min(wins, losses)+1))/2**n
+    return min(1.0, 2*tail)
+
+
 def _jaccard(a, b):
     return len(a & b) / len(a | b) if a | b else 1.0
 
@@ -188,9 +264,17 @@ def build_report(out: Path, tasks, seeds, methods, families):
                 distinct_selected_ids=len(set(chosen)) if method != "ORACLE" else None,
                 selected_families=dict(Counter(kind[c] for c in chosen)) if method != "ORACLE" else None)
         oracle = summary["ORACLE"]["success_rate"]
+        for method in list(methods) + ["ORACLE"]:
+            summary[method]["ci95"] = wilson(summary[method]["successes"], summary[method]["scored"])
         for method in methods:
             rate = summary[method]["success_rate"]
             summary[method]["regret_vs_oracle"] = (oracle - rate) if None not in (rate, oracle) else None
+            if method != "M0_RANDOM" and "M0_RANDOM" in methods:
+                pairs_ = [(r["methods"][method]["success"], r["methods"]["M0_RANDOM"]["success"]) for r in per_seed]
+                pairs_ = [(a, b) for a, b in pairs_ if a is not None and b is not None]
+                wins = sum(1 for a, b in pairs_ if a and not b)
+                losses = sum(1 for a, b in pairs_ if b and not a)
+                summary[method]["vs_M0"] = dict(wins=wins, losses=losses, p=sign_test(wins, losses))
         executed = [r for r in per_seed if r["complete"] and r["feasible"]]
         summary["UNIFORM_FEASIBLE_EXPECTATION"] = dict(success_rate=(
             sum(r["succeeded"] / r["feasible"] for r in executed) / len(per_seed)) if executed and len(executed) == len(per_seed) else None)
@@ -218,19 +302,23 @@ def markdown(report, meta):
                   f"distinct feasible sets {v['distinct_feasible_sets']}/{len(data['seeds'])}; "
                   f"mean Jaccard {v['mean_pairwise_jaccard'] if v['mean_pairwise_jaccard'] is None else round(v['mean_pairwise_jaccard'], 2)}; "
                   f"distinct successful sets {v['distinct_successful_sets']}", "",
-                  "| method | success | rate | regret vs Oracle | distinct picks | picked families |",
-                  "|---|---|---|---|---|---|"]
+                  "| method | success | rate | 95% CI | vs M0 (win/loss, p) | regret vs Oracle | distinct picks | picked families |",
+                  "|---|---|---|---|---|---|---|---|"]
         for method, s in data["summary"].items():
             if method == "UNIFORM_FEASIBLE_EXPECTATION":
                 continue
             rate = "-" if s["success_rate"] is None else f"{s['success_rate']:.2f}"
             regret = s.get("regret_vs_oracle")
-            lines.append(f"| {method} | {s['successes']}/{s['scored']} | {rate} | "
+            ci = s.get("ci95")
+            ci = "-" if not ci else f"{ci[0]:.2f}-{ci[1]:.2f}"
+            vs = s.get("vs_M0")
+            vs = "-" if not vs else f"{vs['wins']}/{vs['losses']}, p={vs['p']:.2f}"
+            lines.append(f"| {method} | {s['successes']}/{s['scored']} | {rate} | {ci} | {vs} | "
                          f"{'-' if regret is None else f'{regret:.2f}'} | {s['distinct_selected_ids'] or '-'} | "
                          f"{s['selected_families'] or '-'} |")
         u = data["summary"]["UNIFORM_FEASIBLE_EXPECTATION"]["success_rate"]
         if u is not None:
-            lines.append(f"| uniform over feasible (expectation) | | {u:.2f} | | | |")
+            lines.append(f"| uniform over feasible (expectation) | | {u:.2f} | | | | | |")
         lines += ["", "| seed | feasible (by family) | succeeded/executed | " +
                   " | ".join(report["methods"][:-1]) + " |", "|" + "---|" * (3 + len(report["methods"]) - 1)]
         for r in data["seeds"]:
@@ -251,11 +339,18 @@ def main(argv=None):
     parser.add_argument("--tasks", nargs="+", choices=SEQUENCE_TASKS, default=["transport_place", "handover_transfer"])
     parser.add_argument("--seeds", nargs="+", type=int, default=list(range(10)))
     parser.add_argument("--scene", default="wide")
-    parser.add_argument("--generator", choices=("multifamily_v3", "adaptive_v2"), default="multifamily_v3")
+    parser.add_argument("--generator", choices=("multifamily_v3", "multifamily_v3p", "adaptive_v2"),
+                        default="multifamily_v3",
+                        help="multifamily_v3p = pruned v3 with semantic_v1 public labels")
     parser.add_argument("--execute", choices=("all", "selected", "none"), default="all")
     parser.add_argument("--workers", type=int, default=os.cpu_count() or 1)
     parser.add_argument("--liquid", choices=LIQUID_MODES, default="proxy",
                         help="pour_water physics: proxy (seconds), fast particles, or default pbf (minutes)")
+    parser.add_argument("--prior-from", type=Path,
+                        help="run dir whose TRAINING-seed outcomes build the M4 family x task prior")
+    parser.add_argument("--prior-seeds", nargs="+", type=int, default=list(range(10)))
+    parser.add_argument("--report-seeds", nargs="+", type=int,
+                        help="also write report_<first>-<last>.md over these seeds (e.g. held-out test seeds)")
     parser.add_argument("--llm-config", type=Path,
                         help="C config JSON; its kind=llm methods are added (default: mock M3/A1 plumbing only)")
     args = parser.parse_args(argv)
@@ -265,9 +360,10 @@ def main(argv=None):
     # 1. B: one shared candidate file
     b_dir = out / "b_inputs"
     if not b_dir.exists():
-        if args.generator == "multifamily_v3":
+        if args.generator.startswith("multifamily_v3"):
             from .prepare_b import prepare_b_v3_inputs
-            prepare_b_v3_inputs(b_dir, profile="hollow")
+            pruned = args.generator == "multifamily_v3p"
+            prepare_b_v3_inputs(b_dir, profile="hollow", pruned=pruned, semantic=pruned)
         else:
             _prepare_v2(b_dir)
     candidates = _candidates(out)
@@ -305,7 +401,14 @@ def main(argv=None):
     else:
         llm_methods = [dict(id="M3_MOCK", variant="M3", provider={"type": "mock"}, model="mock", cache_mode="off"),
                        dict(id="A1_MOCK", variant="A1", provider={"type": "mock"}, model="mock", cache_mode="off")]
-    selectors = build_selectors(llm_methods, out / "llm_cache")
+    prior = None
+    if args.prior_from:
+        if set(args.prior_seeds) & set(args.report_seeds or []):
+            raise SystemExit("prior seeds and report seeds must not overlap")
+        prior = family_prior(args.prior_from.resolve(), args.prior_seeds, args.tasks)
+        meta["m4_prior"] = dict(source=str(args.prior_from), seeds=args.prior_seeds, table=prior)
+        _write(out / "meta.json", meta)
+    selectors = build_selectors(llm_methods, out / "llm_cache", prior=prior)
     sel_path = out / "selections.json"
     selections = _read(sel_path) if sel_path.exists() else {}
     for task, seed in itertools.product(args.tasks, args.seeds):
@@ -346,6 +449,14 @@ def main(argv=None):
     _write(out / "report.json", report)
     (out / "report.md").write_text(markdown(report, meta), encoding="utf-8")
     print(markdown(report, meta))
+    if args.report_seeds:
+        seeds = sorted(args.report_seeds)
+        sub = build_report(out, meta["tasks"], seeds, list(selectors), families)
+        sub["meta"] = dict(meta, seeds=seeds, report_scope="held-out seeds")
+        stem = f"report_seeds{seeds[0]}-{seeds[-1]}"
+        _write(out / f"{stem}.json", sub)
+        (out / f"{stem}.md").write_text(markdown(sub, sub["meta"]), encoding="utf-8")
+        print(markdown(sub, sub["meta"]))
 
 
 def _prepare_v2(b_dir: Path):

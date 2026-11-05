@@ -128,4 +128,4 @@ def command_context(task_id, *, config=None, speed_scale=1., initial_position=(.
 # execution-mode filter (stage goals moved into SequenceScene.donor_moves with
 # identical values): only the initial cup pose/estimate source, liquid payload
 # and feasibility filter changed; commanded stage endpoints and durations are unchanged.
-MIRROR_SOURCE_HASHES = {'grasp_a/sequence.py': '33a1b75b3e78edf33e4d55c8cf5eb3e5c4ee87edb2602dd48be2c774f5b315a6', 'grasp_a/simulation.py': '17b64935c0efb1d0c19b4521bb6e1a2c76f6d3b028179cf1fe2cb890e25cd861', 'grasp_a/sequence_contracts.py': 'e1dd49fa119f2e9e16933145e42699ddb4f034d1411dc83124e0ed7296a128e0'}
+MIRROR_SOURCE_HASHES = {'grasp_a/sequence.py': '7b9c14b6ef05016599fb23155b9e7814c67cd305ead061aa7246738a2ce65b29', 'grasp_a/simulation.py': '17b64935c0efb1d0c19b4521bb6e1a2c76f6d3b028179cf1fe2cb890e25cd861', 'grasp_a/sequence_contracts.py': 'e1dd49fa119f2e9e16933145e42699ddb4f034d1411dc83124e0ed7296a128e0'}
