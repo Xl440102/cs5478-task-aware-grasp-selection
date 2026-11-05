@@ -1,0 +1,93 @@
+{
+  "success": false,
+  "status": "execution_failed",
+  "failure_reason": "receiver_approach_arrival_timeout_encoder_0.0628m",
+  "stages": [
+    [
+      "pregrasp",
+      "completed"
+    ],
+    [
+      "approach",
+      "completed"
+    ],
+    [
+      "close",
+      "completed"
+    ],
+    [
+      "lift",
+      "completed"
+    ],
+    [
+      "transport",
+      "completed"
+    ],
+    [
+      "receiver_approach",
+      "failed"
+    ],
+    [
+      "receiver_close",
+      "not_executed"
+    ],
+    [
+      "donor_release",
+      "not_executed"
+    ],
+    [
+      "retreat",
+      "not_executed"
+    ],
+    [
+      "receiver_lift",
+      "not_executed"
+    ],
+    [
+      "settle",
+      "not_executed"
+    ],
+    [
+      "terminal",
+      "not_executed"
+    ]
+  ],
+  "success_checks": {
+    "sequence_complete": false,
+    "lift_achieved": true,
+    "no_drop": true,
+    "no_unintended_collision": false,
+    "stage_outcomes": false,
+    "full_terminal_window": false,
+    "terminal_outcome": false,
+    "fluid_density_valid": true
+  },
+  "final_evidence": {
+    "source_position": [
+      0.5545523387727526,
+      0.16604173036659514,
+      0.8035186736858221
+    ],
+    "source_quaternion": [
+      -0.0030187278117000285,
+      -0.006632469624619797,
+      -0.011461109313585516,
+      0.9999077660476388
+    ],
+    "source_z_m": 0.8035186736858221,
+    "source_upright_deg": 0.8350518217205356,
+    "source_xy_error_m": 0.007564806284667422,
+    "source_goal_error_m": 0.008343102458428769,
+    "source_linear_speed_m_s": 0.00027368681264892096,
+    "source_angular_speed_deg_s": 0.19393642575327077,
+    "donor_contact": true,
+    "receiver_contact": false,
+    "receiver_contact_links": [],
+    "table_contact": false,
+    "donor_clearance_m": -0.00040825975137121634
+  },
+  "task_id": "handover_transfer",
+  "seed": 9,
+  "candidate_id": "B3_2dd135a83976a239",
+  "wall_seconds": 4.009469470000113
+}

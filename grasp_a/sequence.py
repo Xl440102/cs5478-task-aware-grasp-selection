@@ -31,7 +31,14 @@ def spec_sha256(spec):
 class SequenceScene(MugScene):
     MUG_ASSET = ASSETS / "mug_hollow.urdf"
 
-    def __init__(self, task_id, seed=0, config=None, gui=False, observation_config=None):
+    def __init__(self, task_id, seed=0, config=None, gui=False, observation_config=None, *,
+                 scene_config=None, liquid="pbf"):
+        # liquid="proxy" (pour_water only): no particle fluid. The water mass is a
+        # rigid payload and pouring is scored by a geometric spout/occlusion proxy
+        # in SequenceEvaluator. Same scene, motion, stages and timeouts.
+        if liquid not in ("pbf", "proxy"):
+            raise ValueError("liquid must be pbf or proxy")
+        self.liquid = liquid
         self.config = config or SequenceConfig()
         self.spec = task_spec(task_id, self.config)
         self.task_id = task_id
@@ -40,7 +47,7 @@ class SequenceScene(MugScene):
         self.target_cup = None
         self.stage_log = []
         self.active_stage = "setup"
-        super().__init__(seed, gui, observation_config)
+        super().__init__(seed, gui, observation_config, scene_config=scene_config)
         bx, by = self.config.target_xy
         if task_id == "pour_water":
             self.target_cup = self._make_target_cup((bx, by, .645))
@@ -216,8 +223,12 @@ class SequenceScene(MugScene):
         status = "completed"
         if checks.feasible:
             try:
-                if self.task_id == "pour_water":
+                if self.task_id == "pour_water" and self.liquid == "pbf":
                     self.initialize_liquid()
+                elif self.task_id == "pour_water":
+                    mass = p.getDynamicsInfo(self.mug,-1,physicsClientId=self.client)[0]
+                    p.changeDynamics(self.mug,-1,mass=mass+self.config.water_mass_kg,
+                                     physicsClientId=self.client)
             except FluidNumericalError as exc:
                 failure, status = str(exc), "simulation_error"
         else:
@@ -295,6 +306,8 @@ class SequenceScene(MugScene):
             elapsed_s=self.physics_steps*STEP,primitive_log=self.primitive_log,
             observation_config=asdict(self.observation_config),
             initial_object_pose_estimate=asdict(self.observed_mug_pose),
+            scene_randomization=asdict(self.scene_config),
+            liquid_mode=self.liquid if self.task_id == "pour_water" else None,
             liquid_model=self.fluid.metadata() if self.fluid else None,
             liquid_initial_check=getattr(self,"fluid_initial_check",None),
             ik_diagnostics=self.ik_diagnostics)
@@ -319,8 +332,10 @@ class SequenceScene(MugScene):
                                    for j in (2,3)])
 
 
-def get_sequence_candidates(task_id,seed,candidates,*,config=None,observation_config=None):
-    with SequenceScene(task_id,seed,config,observation_config=observation_config) as scene:
+def get_sequence_candidates(task_id,seed,candidates,*,config=None,observation_config=None,
+                            scene_config=None):
+    with SequenceScene(task_id,seed,config,observation_config=observation_config,
+                       scene_config=scene_config) as scene:
         checks = [scene.check_candidate(candidate) for candidate in candidates]
         allowed = {row.candidate_id for row in checks if row.feasible}
         return dict(schema_version="sequence_filter_v1",task_id=task_id,seed=seed,
@@ -330,13 +345,14 @@ def get_sequence_candidates(task_id,seed,candidates,*,config=None,observation_co
             task_spec_sha256=spec_sha256(scene.spec),task_spec=scene.spec,
             observation_config=asdict(scene.observation_config),
             initial_object_pose_estimate=asdict(scene.observed_mug_pose),
+            scene_randomization=asdict(scene.scene_config),
             feasible_candidates=[c.public_metadata() for c in candidates if c.id in allowed],
             checks=[asdict(row) for row in checks],
             scope="initial width/IK/sampled approach only; not full-task feasibility or outcome")
 
 
 def run_sequence(task_id,seed,selected_id,candidates,*,config=None,observation_config=None,
-                 gui=False,media_dir=None,show_landmarks=True):
+                 gui=False,media_dir=None,show_landmarks=True,scene_config=None,liquid="pbf"):
     """Run a fresh physical episode; landmarks change recorded pixels only.
 
     Video stems end in _ab or _plain, so both modes can share media_dir.
@@ -347,7 +363,8 @@ def run_sequence(task_id,seed,selected_id,candidates,*,config=None,observation_c
     matches = [c for c in candidates if c.id == selected_id]
     if len(matches) != 1:
         raise ValueError("selected_id must match exactly one supplied candidate")
-    with SequenceScene(task_id,seed,config,gui,observation_config) as scene:
+    with SequenceScene(task_id,seed,config,gui,observation_config,scene_config=scene_config,
+                       liquid=liquid) as scene:
         if media_dir is not None:
             from .visualization import EpisodeRecorder
             from .annotations import sequence_annotations

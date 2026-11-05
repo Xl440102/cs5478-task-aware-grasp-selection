@@ -1,0 +1,482 @@
+[
+  {
+    "id": "B2_815fce325d295683",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_0af78a3c28b008a5",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_052a6a3d58fa8a25",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_c7109047eddf1841",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_ea7ace82a5983275",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_490659abe44ad256",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_94b9dccb7da2fe70",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_91611a93a5555678",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_f06a2b0805733b33",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_cff11e676bf20870",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_2db53f1ab2a76e9f",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_0cec5e18541c0d84",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_79425817efe0b557",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_4c7948016f46d9a0",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_86115bb599f2d365",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_0f5102895b37c96c",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_f225220150821f7c",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_37ce9a8a150e32f8",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_22c401150ebb622a",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_599f834550d64efb",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_fda3f95ef11b985c",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_2d957ba053680763",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_751d8a7ac1b4c4cc",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_a14d951aa633df10",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_06c3d3dd97b7e516",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_ca99c7139159c2cf",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_7e3bb0c2a9b2a42c",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_67f76c46acdd01a8",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_3f2dede7ccc90a52",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_4897f13bb8732a19",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_5a9a6d4cd9638a16",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_6d494ba7c4768163",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_89f415a3f32075df",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_5cbd9ba3b44bade3",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_4c42c87b2b4c43dc",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_6f0aee2a7a935b67",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_070661a4c4edb9ee",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_8d99b0a0616f5876",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_87c1e62767e7392f",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_ab070e130d6439be",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_103f74a49076b4cd",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_3b16e1629e0d8725",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_36b88eaa7c2b9aff",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_97b6890140c09eb2",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_23cd467c1e0ebbb3",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_0227f0982da14cef",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_5980bdb089b9f23c",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_29370bd6cbb6d554",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_5c6dca94e6db7609",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_325e15efe2fa595d",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_88f4b090e78630d0",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_a378a97a3856d2d6",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_e552adffa9810a01",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_9dd0012c4542f44a",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_08362e9c25e66117",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_4b2d3a0e218d054a",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_7513da672eaf5ed3",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_127188b982ae818c",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_d8207d8a6e848334",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_c0df830860a0e6d3",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_bf0871cce8dac6fc",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_1621c7dde124121e",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_3f826f5083188a1d",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_17b098b7fa7e2cd2",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_2c0e49869d86d7bd",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_a556ae7bc77a57dd",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_77b4b26e5b4a50a6",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_00168db48467b1f4",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_630c75dc96aa2072",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_1991a2a5b0f88b8b",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_7c19c6cb7d89ab45",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_a8635f05524f65b2",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_b44f5338b688a6d2",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_073d9fd2e3184393",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_d218e4da75d162fa",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_2d64b89302103c01",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_c39aa14a6531f5ee",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_d1c51cb74c17fc99",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_6824f4455f5e726e",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  },
+  {
+    "id": "B2_4c1caf2015d7f486",
+    "family": "side",
+    "region": "body",
+    "m1_m2_supported": true
+  }
+]

@@ -1,0 +1,150 @@
+{
+  "reached_pour": 186,
+  "total": 494,
+  "rows": [
+    {
+      "seed": 0,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 153.84051752090454,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": true
+    },
+    {
+      "seed": 0,
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 152.22104239463806,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": true
+    },
+    {
+      "seed": 8,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.98828125,
+      "spill": 0.011718750000000002,
+      "seconds": 154.0023250579834,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": true
+    },
+    {
+      "seed": 1,
+      "candidate_id": "B3_6e254b46f7992db7",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 160.8952865600586,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": true
+    },
+    {
+      "seed": 3,
+      "candidate_id": "B3_84b9936381c647d3",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 152.78571033477783,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": false
+    },
+    {
+      "seed": 3,
+      "candidate_id": "B3_6e254b46f7992db7",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 151.10628628730774,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": false
+    },
+    {
+      "seed": 0,
+      "candidate_id": "B3_1628311da54eab7d",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 160.95066571235657,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": false
+    },
+    {
+      "seed": 6,
+      "candidate_id": "B3_599e9b16f5782406",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 160.18737030029297,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "agree": true
+    },
+    {
+      "seed": 5,
+      "candidate_id": "B3_bd4ef202a5f07118",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 146.4571681022644,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "agree": true
+    },
+    {
+      "seed": 6,
+      "candidate_id": "B3_ee93643e3d354d36",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 164.06043601036072,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "agree": true
+    },
+    {
+      "seed": 2,
+      "candidate_id": "B3_ac60eb63dbb6dfdd",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.22656250000000003,
+      "spill": 0.7734375,
+      "seconds": 143.19905424118042,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "agree": true
+    },
+    {
+      "seed": 4,
+      "candidate_id": "B3_ff0a6731323bba4c",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.82421875,
+      "spill": 0.17578125,
+      "seconds": 155.5883903503418,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "agree": true
+    }
+  ]
+}

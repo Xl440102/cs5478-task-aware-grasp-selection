@@ -1,0 +1,1126 @@
+{
+  "schema_version": "sequence_filter_v1",
+  "task_id": "transport_place",
+  "seed": 6,
+  "status": "ok",
+  "controller_version": "staged_sequences_v1",
+  "candidate_sha256": "501556543129401be17554c64a150c2c8c3e2e87ccbd64c43ac62c4dc976c3ce",
+  "evaluation_version": "physical_outcomes_v1",
+  "scene_version": "hollow_cup_sequences_v1",
+  "task_spec_sha256": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6",
+  "task_spec": {
+    "task_id": "transport_place",
+    "schema_version": "task_spec_v1",
+    "controller_version": "staged_sequences_v1",
+    "evaluation_version": "physical_outcomes_v1",
+    "config": {
+      "target_xy": [
+        0.55,
+        0.16
+      ],
+      "carry_height_m": 0.8,
+      "episode_timeout_s": 25.0,
+      "arrival_position_m": 0.02,
+      "arrival_angle_deg": 10.0,
+      "arrival_continuous_s": 0.1,
+      "arrival_timeout_s": 2.0,
+      "terminal_window_s": 1.0,
+      "settle_s": 1.0,
+      "placement_tolerance_m": 0.02,
+      "upright_tolerance_deg": 5.0,
+      "linear_speed_m_s": 0.02,
+      "angular_speed_deg_s": 5.0,
+      "drop_contact_gap_s": 0.1,
+      "receiver_lift_m": 0.05,
+      "donor_clearance_m": 0.08,
+      "transfer_min_ratio": 0.9,
+      "spill_max_ratio": 0.05,
+      "water_mass_kg": 0.1,
+      "fluid_particles": 256,
+      "fluid_iterations": 8,
+      "fluid_substeps": 2,
+      "pour_angle_deg": -110.0,
+      "pour_dwell_s": 2.0
+    },
+    "point_A": [
+      0.55,
+      0,
+      0.645
+    ],
+    "point_B": [
+      0.55,
+      0.16,
+      0.645
+    ],
+    "handoff_pose": null,
+    "pouring_pose": null,
+    "material_model": "empty_cup",
+    "stages": [
+      {
+        "id": "pregrasp",
+        "actor": "donor",
+        "action": "Move to estimated pregrasp; jaws open",
+        "entry": "Fresh scene and selected candidate feasible",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "No unintended collision",
+        "timeout_s": 3,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "approach",
+        "actor": "donor",
+        "action": "Move to estimated candidate grasp pose",
+        "entry": "pregrasp control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "No nonfinger source collision",
+        "timeout_s": 3,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "close",
+        "actor": "donor",
+        "action": "Close jaws under force-limited motor control",
+        "entry": "approach control completed",
+        "control_exit": "Fixed 0.75 s close; encoder feedback only",
+        "evaluation": "Physical source/finger contact formed",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "lift",
+        "actor": "donor",
+        "action": "Raise nominal source by 0.14 m",
+        "entry": "close action completed, not an oracle grasp gate",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Source lifted >=0.09 m with donor contact",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "transport",
+        "actor": "donor",
+        "action": "Move upright source from A to the B work region",
+        "entry": "lift control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Source near prescribed B pose; no drop/collision",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "lower",
+        "actor": "donor",
+        "action": "Lower nominal center to z=0.642 m (3 mm compliant overtravel)",
+        "entry": "transport control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Actual source/table contact at B",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "release",
+        "actor": "donor",
+        "action": "Open jaws; do not attach or reposition source",
+        "entry": "lower control completed",
+        "control_exit": "Fixed 0.5 s open",
+        "evaluation": "Table supports source",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "retreat",
+        "actor": "donor",
+        "action": "Withdraw 0.10 m along approach axis and raise 0.16 m",
+        "entry": "release completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Donor no longer supports source; clearance >= configured value",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "settle",
+        "actor": "all_actuators",
+        "action": "Keep final motor targets for a fixed settling interval",
+        "entry": "last physical action control completed",
+        "control_exit": "Fixed settle_s; no oracle stability gate",
+        "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+        "timeout_s": 1.0,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "terminal",
+        "actor": "evaluator",
+        "action": "Observe released source for the final window",
+        "entry": "settle control completed",
+        "control_exit": "Fixed terminal window",
+        "evaluation": "Every step: B position, upright, speed limits, table support, donor detached",
+        "timeout_s": 1.0,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      }
+    ],
+    "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+    "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels."
+  },
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.55,
+        0.0,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "source": "calibrated_prior",
+    "position_noise_m": 0.0,
+    "yaw_noise_deg": 0.0,
+    "noise_seed": 0
+  },
+  "initial_object_pose_estimate": {
+    "position": [
+      0.55,
+      0.0,
+      0.645
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  },
+  "scene_randomization": {
+    "name": "legacy",
+    "x_range_m": [
+      -0.008,
+      0.008
+    ],
+    "y_range_m": [
+      -0.008,
+      0.008
+    ],
+    "yaw_range_rad": [
+      -0.08,
+      0.08
+    ],
+    "observation": "prior",
+    "estimate_position_noise_m": 0.0,
+    "estimate_yaw_noise_deg": 0.0,
+    "ik_restarts": false
+  },
+  "feasible_candidates": [
+    {
+      "id": "B2_6f0aee2a7a935b67",
+      "region": "body",
+      "approach": "tool_z_yaw_45_roll_180",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7516661933953597
+    },
+    {
+      "id": "B2_5c6dca94e6db7609",
+      "region": "body",
+      "approach": "tool_z_yaw_0_roll_0",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7201559105681073
+    },
+    {
+      "id": "B2_88f4b090e78630d0",
+      "region": "body",
+      "approach": "tool_z_yaw_45_roll_0",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7201559105681073
+    },
+    {
+      "id": "B2_a378a97a3856d2d6",
+      "region": "body",
+      "approach": "tool_z_yaw_45_roll_180",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7201559105681073
+    },
+    {
+      "id": "B2_77b4b26e5b4a50a6",
+      "region": "body",
+      "approach": "tool_z_yaw_45_roll_0",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6363557008475191
+    },
+    {
+      "id": "B2_00168db48467b1f4",
+      "region": "body",
+      "approach": "tool_z_yaw_45_roll_180",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6363557008475191
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "B2_815fce325d295683",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 8.92534693571106e-06,
+      "grasp_position_error_m": 8.62332286672323e-06,
+      "min_table_clearance_m": -0.02592339746202013
+    },
+    {
+      "candidate_id": "B2_0af78a3c28b008a5",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.039780147016587324,
+      "grasp_position_error_m": 0.029615551095974607,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_052a6a3d58fa8a25",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 1.2347695967432272e-05,
+      "grasp_position_error_m": 9.256829254288483e-06,
+      "min_table_clearance_m": -0.026657895679553387
+    },
+    {
+      "candidate_id": "B2_c7109047eddf1841",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 4.8674483375996905e-05,
+      "grasp_position_error_m": 1.8965217500027993e-05,
+      "min_table_clearance_m": -0.02645952258525419
+    },
+    {
+      "candidate_id": "B2_ea7ace82a5983275",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.055821939512941746,
+      "grasp_position_error_m": 0.03450621756555888,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_490659abe44ad256",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.05582343635525169,
+      "grasp_position_error_m": 0.03454321576242849,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_94b9dccb7da2fe70",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.06290328467957342,
+      "grasp_position_error_m": 0.0733427843641293,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_91611a93a5555678",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.06290681388900628,
+      "grasp_position_error_m": 0.0320161478692621,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_f06a2b0805733b33",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.18890116750452737,
+      "grasp_position_error_m": 0.07327415662643952,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_cff11e676bf20870",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.1074294526792318,
+      "grasp_position_error_m": 0.0563174518179889,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_2db53f1ab2a76e9f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.10836463966537535,
+      "grasp_position_error_m": 0.016459765976401537,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_0cec5e18541c0d84",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.07612891769907142,
+      "grasp_position_error_m": 0.03876032059253772,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_79425817efe0b557",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 0.00013747630280710427,
+      "grasp_position_error_m": 9.309073863632865e-06,
+      "min_table_clearance_m": -0.02619826656665096
+    },
+    {
+      "candidate_id": "B2_4c7948016f46d9a0",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self,robot_table"
+      ],
+      "pregrasp_position_error_m": 0.017952086467790073,
+      "grasp_position_error_m": 0.010279083140060125,
+      "min_table_clearance_m": -0.034380444434513824
+    },
+    {
+      "candidate_id": "B2_86115bb599f2d365",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 8.997846281969377e-06,
+      "grasp_position_error_m": 9.168943013922337e-06,
+      "min_table_clearance_m": -0.026174648505230394
+    },
+    {
+      "candidate_id": "B2_0f5102895b37c96c",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self,robot_table",
+        "approach:robot_self,robot_table"
+      ],
+      "pregrasp_position_error_m": 0.010714578726562753,
+      "grasp_position_error_m": 0.009046142670731784,
+      "min_table_clearance_m": -0.01316687116929946
+    },
+    {
+      "candidate_id": "B2_f225220150821f7c",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 8.948309152648981e-06,
+      "grasp_position_error_m": 8.80608442676782e-06,
+      "min_table_clearance_m": -0.011157798644673589
+    },
+    {
+      "candidate_id": "B2_37ce9a8a150e32f8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.03905410911812486,
+      "grasp_position_error_m": 0.028976800676740334,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_22c401150ebb622a",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 1.2098458238345923e-05,
+      "grasp_position_error_m": 8.788519437333794e-06,
+      "min_table_clearance_m": -0.011901921123620637
+    },
+    {
+      "candidate_id": "B2_599f834550d64efb",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 4.179187861241189e-05,
+      "grasp_position_error_m": 1.6297755421097726e-05,
+      "min_table_clearance_m": -0.011418390229798653
+    },
+    {
+      "candidate_id": "B2_fda3f95ef11b985c",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.051920217896738806,
+      "grasp_position_error_m": 0.031292941981455345,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_2d957ba053680763",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.051952487476176264,
+      "grasp_position_error_m": 0.03128498008906747,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_751d8a7ac1b4c4cc",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.060274831067819244,
+      "grasp_position_error_m": 0.025621786598032468,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_a14d951aa633df10",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.06024764311013454,
+      "grasp_position_error_m": 0.06157226017641375,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_06c3d3dd97b7e516",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.18113520402910677,
+      "grasp_position_error_m": 0.06846449734772432,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_ca99c7139159c2cf",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.10641624231225827,
+      "grasp_position_error_m": 0.053657746441625596,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_7e3bb0c2a9b2a42c",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.10367748825412644,
+      "grasp_position_error_m": 0.013565795821574453,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_67f76c46acdd01a8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.07407785907722977,
+      "grasp_position_error_m": 0.035541589891482366,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_3f2dede7ccc90a52",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 9.517531612593936e-05,
+      "grasp_position_error_m": 9.35909437924516e-06,
+      "min_table_clearance_m": -0.011371143337253906
+    },
+    {
+      "candidate_id": "B2_4897f13bb8732a19",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self,robot_table"
+      ],
+      "pregrasp_position_error_m": 0.01505066235144348,
+      "grasp_position_error_m": 0.00723063222581394,
+      "min_table_clearance_m": -0.023367100030186813
+    },
+    {
+      "candidate_id": "B2_5a9a6d4cd9638a16",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_table",
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 8.878744703418115e-06,
+      "grasp_position_error_m": 9.150742956984236e-06,
+      "min_table_clearance_m": -0.011347045434378214
+    },
+    {
+      "candidate_id": "B2_6d494ba7c4768163",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self,robot_table",
+        "approach:robot_self,robot_table"
+      ],
+      "pregrasp_position_error_m": 0.009524265328399818,
+      "grasp_position_error_m": 0.008040256769853019,
+      "min_table_clearance_m": -0.0027490828459028616
+    },
+    {
+      "candidate_id": "B2_89f415a3f32075df",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 9.099943542423979e-06,
+      "grasp_position_error_m": 8.776206882045194e-06,
+      "min_table_clearance_m": -8.742486080884197e-05
+    },
+    {
+      "candidate_id": "B2_5cbd9ba3b44bade3",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.03847057653297825,
+      "grasp_position_error_m": 0.028452907520076513,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_4c42c87b2b4c43dc",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 1.1118353415721595e-05,
+      "grasp_position_error_m": 6.164048752673915e-06,
+      "min_table_clearance_m": -0.0008215244313410069
+    },
+    {
+      "candidate_id": "B2_6f0aee2a7a935b67",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.977898961005303e-05,
+      "grasp_position_error_m": 1.424541762491172e-05,
+      "min_table_clearance_m": -8.597245910767063e-05
+    },
+    {
+      "candidate_id": "B2_070661a4c4edb9ee",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.04897979515405138,
+      "grasp_position_error_m": 0.028909409395024135,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_8d99b0a0616f5876",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.048985031895939,
+      "grasp_position_error_m": 0.028857262616455683,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_87c1e62767e7392f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.058368545553604656,
+      "grasp_position_error_m": 0.021107683827146544,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_ab070e130d6439be",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.0583873060849596,
+      "grasp_position_error_m": 0.021107900027927437,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_103f74a49076b4cd",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.18410986217814823,
+      "grasp_position_error_m": 0.06651437372943769,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_3b16e1629e0d8725",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.10580266100306186,
+      "grasp_position_error_m": 0.051733992951308504,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_36b88eaa7c2b9aff",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.09983977741211338,
+      "grasp_position_error_m": 0.011700464746651968,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_97b6890140c09eb2",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.07256484298911181,
+      "grasp_position_error_m": 0.033044347294287894,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_23cd467c1e0ebbb3",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.311501038307711e-05,
+      "grasp_position_error_m": 9.469537288145925e-06,
+      "min_table_clearance_m": -0.0002682426459266179
+    },
+    {
+      "candidate_id": "B2_0227f0982da14cef",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self,robot_table"
+      ],
+      "pregrasp_position_error_m": 0.01276804379228074,
+      "grasp_position_error_m": 0.0049023378473033495,
+      "min_table_clearance_m": -0.014864058999316337
+    },
+    {
+      "candidate_id": "B2_5980bdb089b9f23c",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.906657270487979e-06,
+      "grasp_position_error_m": 8.656503719849157e-06,
+      "min_table_clearance_m": -0.00021789996153434425
+    },
+    {
+      "candidate_id": "B2_29370bd6cbb6d554",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self"
+      ],
+      "pregrasp_position_error_m": 0.00854499001209974,
+      "grasp_position_error_m": 0.007255323425234744,
+      "min_table_clearance_m": 0.004898570802703299
+    },
+    {
+      "candidate_id": "B2_5c6dca94e6db7609",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.5409524574320747e-05,
+      "grasp_position_error_m": 8.502390736098399e-06,
+      "min_table_clearance_m": 0.010986488102936762
+    },
+    {
+      "candidate_id": "B2_325e15efe2fa595d",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.037776553293103365,
+      "grasp_position_error_m": 0.027903317910259916,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_88f4b090e78630d0",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.19492099430106e-05,
+      "grasp_position_error_m": 8.331162218102776e-06,
+      "min_table_clearance_m": 0.010270559580615958
+    },
+    {
+      "candidate_id": "B2_a378a97a3856d2d6",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.38765118650215e-05,
+      "grasp_position_error_m": 1.1363528954354473e-05,
+      "min_table_clearance_m": 0.011063665242285846
+    },
+    {
+      "candidate_id": "B2_e552adffa9810a01",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.04587157382285602,
+      "grasp_position_error_m": 0.02645002787986985,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_9dd0012c4542f44a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.0458737980140982,
+      "grasp_position_error_m": 0.026453040991861403,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_08362e9c25e66117",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.05653990354979597,
+      "grasp_position_error_m": 0.016859979845307318,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_4b2d3a0e218d054a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.05653150968008271,
+      "grasp_position_error_m": 0.01686838363754859,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_7513da672eaf5ed3",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.18236309837761078,
+      "grasp_position_error_m": 0.06408245462731127,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_127188b982ae818c",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.10530630065019399,
+      "grasp_position_error_m": 0.04987428604153359,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_d8207d8a6e848334",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.09535626416012795,
+      "grasp_position_error_m": 0.010077311890895469,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_c0df830860a0e6d3",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.07114768747035453,
+      "grasp_position_error_m": 0.030473396909646674,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_bf0871cce8dac6fc",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 5.685665369045531e-05,
+      "grasp_position_error_m": 9.236315001315738e-06,
+      "min_table_clearance_m": 0.010811159481859099
+    },
+    {
+      "candidate_id": "B2_1621c7dde124121e",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self,robot_table"
+      ],
+      "pregrasp_position_error_m": 0.010446419661480697,
+      "grasp_position_error_m": 0.0025622930737437205,
+      "min_table_clearance_m": -0.006111016913759468
+    },
+    {
+      "candidate_id": "B2_3f826f5083188a1d",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.496880052354832e-06,
+      "grasp_position_error_m": 9.066909807448339e-06,
+      "min_table_clearance_m": 0.010919322393500408
+    },
+    {
+      "candidate_id": "B2_17b098b7fa7e2cd2",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self"
+      ],
+      "pregrasp_position_error_m": 0.007550163480335978,
+      "grasp_position_error_m": 0.006446956650862502,
+      "min_table_clearance_m": 0.012420054144564834
+    },
+    {
+      "candidate_id": "B2_2c0e49869d86d7bd",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 4.022945213479882e-05,
+      "grasp_position_error_m": 9.019740725522836e-06,
+      "min_table_clearance_m": 0.025766600396778694
+    },
+    {
+      "candidate_id": "B2_a556ae7bc77a57dd",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.03686673191331048,
+      "grasp_position_error_m": 0.027128424274057945,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_77b4b26e5b4a50a6",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.1493123725917464e-05,
+      "grasp_position_error_m": 7.092618069797686e-06,
+      "min_table_clearance_m": 0.02509209695716033
+    },
+    {
+      "candidate_id": "B2_00168db48467b1f4",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.0644179122280695e-05,
+      "grasp_position_error_m": 1.1160386995791153e-05,
+      "min_table_clearance_m": 0.02578957133942769
+    },
+    {
+      "candidate_id": "B2_630c75dc96aa2072",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.041644409929074255,
+      "grasp_position_error_m": 0.02326982991299571,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_1991a2a5b0f88b8b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.041650118213210595,
+      "grasp_position_error_m": 0.0232556467668033,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_7c19c6cb7d89ab45",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.054195375059547364,
+      "grasp_position_error_m": 0.011584688176143733,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_a8635f05524f65b2",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.05420477349864436,
+      "grasp_position_error_m": 0.01158264867092236,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_b44f5338b688a6d2",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.16805376348685763,
+      "grasp_position_error_m": 0.06038082680299478,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_073d9fd2e3184393",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.10476145159142311,
+      "grasp_position_error_m": 0.04748239715298292,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_d218e4da75d162fa",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.09429236185549883,
+      "grasp_position_error_m": 0.008253784902834571,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_2d64b89302103c01",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_or_fk_error",
+        "grasp_ik_or_fk_error"
+      ],
+      "pregrasp_position_error_m": 0.06935706257845232,
+      "grasp_position_error_m": 0.026963507752428385,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B2_c39aa14a6531f5ee",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 4.1378435227275344e-05,
+      "grasp_position_error_m": 9.264137664515351e-06,
+      "min_table_clearance_m": 0.0255908012489331
+    },
+    {
+      "candidate_id": "B2_d1c51cb74c17fc99",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self"
+      ],
+      "pregrasp_position_error_m": 0.007233119410268834,
+      "grasp_position_error_m": 3.205779168257119e-05,
+      "min_table_clearance_m": 0.005920158924691278
+    },
+    {
+      "candidate_id": "B2_6824f4455f5e726e",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.922477004360527e-06,
+      "grasp_position_error_m": 8.60512367347114e-06,
+      "min_table_clearance_m": 0.025785192189697548
+    },
+    {
+      "candidate_id": "B2_4c1caf2015d7f486",
+      "feasible": false,
+      "reasons": [
+        "home_to_pregrasp:robot_self",
+        "approach:robot_self"
+      ],
+      "pregrasp_position_error_m": 0.006141338201337914,
+      "grasp_position_error_m": 0.0053183020712968656,
+      "min_table_clearance_m": 0.022285118428789337
+    }
+  ],
+  "scope": "initial width/IK/sampled approach only; not full-task feasibility or outcome",
+  "filter_seconds": 2.9756846430000223
+}

@@ -113,6 +113,53 @@ def prepare_b_inputs(output_dir, *, generation_config=None, scoring_config=None)
             "report": str(report_path), "features": str(features_path)}
 
 
+def prepare_b_v3_inputs(output_dir, *, profile: str = "hollow", families=None) -> dict:
+    """Shared multifamily_v3 candidate file for every compared method.
+
+    ``geometry_score`` is B's task-independent M1 Static v2 score where B's
+    contact model applies (body grasps) and 0.0 for rim/handle grasps, which
+    that model cannot score; ``families.internal.json`` records which is which.
+    No filtering or execution happens here.
+    """
+    from dataclasses import replace
+    import pybullet_data
+    from grasp_b.models import read_model
+    from grasp_b.multifamily import (FAMILIES, VERSION, MultiFamilyConfig,
+                                     generate_multifamily, m2_supported)
+    from grasp_b.risk import STATIC_VERSION, static_score
+    output = Path(output_dir).resolve()
+    if output.exists():
+        raise FileExistsError(f"B input output directory already exists: {output}")
+    panda = Path(pybullet_data.getDataPath()) / "franka_panda/panda.urdf"
+    model = read_model(profile, panda)
+    config = MultiFamilyConfig(families=tuple(families or FAMILIES))
+    candidates, records = generate_multifamily(model, config)
+    scored = []
+    for candidate, record in zip(candidates, records):
+        supported = m2_supported(record)
+        score = static_score(candidate, model)["score"] if supported else 0.0
+        record.update(m1_m2_supported=supported, geometry_score=score)
+        scored.append(replace(candidate, geometry_score=float(score)))
+    output.mkdir(parents=True, exist_ok=False)
+    candidates_path = output / "candidates.scored.json"
+    scored = write_candidates(candidates_path, scored)
+    families_path = output / "families.internal.json"
+    _write_json(families_path, records)
+    provenance = {
+        "schema_version": "grasp_c_b_inputs_v2", "scope": EXPERIMENTAL_SCOPE,
+        "generation_version": VERSION, "generation_config": asdict(config), "profile": profile,
+        "score_version": STATIC_VERSION, "score_status": "m1_static_v2_body_only",
+        "candidate_count": len(scored), "candidate_sha256": candidate_sha256(scored),
+        "candidate_file_sha256": _sha(candidates_path),
+        "families_file": families_path.name, "families_sha256": _sha(families_path),
+        "model": model.manifest(),
+    }
+    provenance_path = output / "provenance.json"
+    _write_json(provenance_path, provenance)
+    return {"candidates": str(candidates_path), "provenance": str(provenance_path),
+            "families": str(families_path)}
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", required=True)

@@ -29,6 +29,86 @@ class ObservationConfig:
 
 
 @dataclass(frozen=True)
+class SceneRandomization:
+    """Per-seed initial cup pose and where the controller's estimate comes from.
+
+    The default reproduces the legacy scene exactly (same RNG draws, same
+    +/-8 mm / +/-0.08 rad ranges, calibrated prior estimate). With that default
+    every seed is filtered against the SAME estimated pose, so A's feasible set
+    cannot change with the seed. ``observation="noisy_truth"`` instead builds the
+    estimate from the seeded true pose plus independent bounded noise, which is
+    what an external pose estimator would supply. Offsets are added to the
+    nominal pose (0.55, 0.0) in world metres; yaw is a world-Z rotation.
+    """
+    name: str = "legacy"
+    x_range_m: tuple = (-0.008, 0.008)
+    y_range_m: tuple = (-0.008, 0.008)
+    yaw_range_rad: tuple = (-0.08, 0.08)
+    observation: str = "prior"  # prior / noisy_truth
+    estimate_position_noise_m: float = 0.0
+    estimate_yaw_noise_deg: float = 0.0
+    # Protocol knob kept here so one preset defines the whole filter/controller
+    # setup: multi-start IK for the feasibility filter and joint-path moves.
+    ik_restarts: bool = False
+
+    def __post_init__(self):
+        for key in ("x_range_m", "y_range_m", "yaw_range_rad"):
+            value = tuple(float(v) for v in getattr(self, key))
+            if len(value) != 2 or not all(math.isfinite(v) for v in value) or value[0] > value[1]:
+                raise ValueError(f"{key} must be a finite (low, high) pair")
+            object.__setattr__(self, key, value)
+        if not (-0.10 <= self.x_range_m[0] and self.x_range_m[1] <= 0.10 and
+                -0.10 <= self.y_range_m[0] and self.y_range_m[1] <= 0.10 and
+                -math.pi <= self.yaw_range_rad[0] and self.yaw_range_rad[1] <= math.pi):
+            raise ValueError("cup must stay within +/-10 cm and +/-180 deg of nominal")
+        if type(self.ik_restarts) is not bool:
+            raise ValueError("ik_restarts must be a bool")
+        if self.observation not in ("prior", "noisy_truth"):
+            raise ValueError("observation must be prior or noisy_truth")
+        if not all(math.isfinite(v) and v >= 0 for v in
+                   (self.estimate_position_noise_m, self.estimate_yaw_noise_deg)):
+            raise ValueError("estimate noise must be finite and nonnegative")
+        if self.observation == "prior" and (self.estimate_position_noise_m or
+                                            self.estimate_yaw_noise_deg):
+            raise ValueError("prior mode takes noise from ObservationConfig, not here")
+
+    def estimate_config(self, seed: int, true_pose: Pose) -> ObservationConfig | None:
+        """ObservationConfig for noisy_truth mode; None keeps the caller's prior."""
+        if self.observation != "noisy_truth":
+            return None
+        return ObservationConfig(object_pose=true_pose, source="external_estimate",
+                                 position_noise_m=self.estimate_position_noise_m,
+                                 yaw_noise_deg=self.estimate_yaw_noise_deg,
+                                 noise_seed=1_000_003 * int(seed) + 17)
+
+
+# Presets. Keep ``legacy`` for reproducing archived results. ``wide`` keeps the
+# cup 10 cm or more clear of pour_water's target cup (y=0.16, r=0.058) even with
+# the handle (reach 0.092 m) pointing at it, hence the asymmetric y range.
+SCENE_PRESETS = {
+    "legacy": SceneRandomization(),
+    "wide": SceneRandomization(
+        name="wide", x_range_m=(-0.04, 0.04), y_range_m=(-0.05, 0.0),
+        yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
+        estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True),
+    # Legacy scene with only the IK fix, to separate the two effects.
+    "legacy_ik": SceneRandomization(name="legacy_ik", ik_restarts=True),
+}
+
+
+def scene_randomization(value) -> SceneRandomization:
+    if value is None:
+        return SCENE_PRESETS["legacy"]
+    if isinstance(value, SceneRandomization):
+        return value
+    if isinstance(value, str) and value in SCENE_PRESETS:
+        return SCENE_PRESETS[value]
+    if isinstance(value, dict):
+        return SceneRandomization(**value)
+    raise ValueError(f"scene randomization must be one of {sorted(SCENE_PRESETS)} or a dict")
+
+
+@dataclass(frozen=True)
 class Primitive:
     """One bounded action, not a pick/place macro.
 
