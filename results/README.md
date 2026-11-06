@@ -4,6 +4,15 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
+## 2026 年 11 月 6 日 C 真实模型评估
+
+[`c_evaluation_20261106/`](c_evaluation_20261106/) 保存第三轮 seed 10–29 的真实
+M3/A1 选择、冻结运行清单、逐条原始响应及默认 PBF 完整 episode。
+[`summary.json`](c_evaluation_20261106/summary.json) 与
+[`report.md`](c_evaluation_20261106/report.md) 给出可重算统计；中文结论和局限见
+[C 评估报告](../docs/PART_C_EVALUATION_20261106.md)。历史 oracle 表只读，模型不接收
+结果标签。物理异常、模型回退和缺失样本分别保留，倒水代理不与真实流体合并。
+
 ## 2026 年 10 月 24 日 A/B/C 集成验证
 
 [`c_ab_integration_20261024/validation.json`](c_ab_integration_20261024/validation.json)

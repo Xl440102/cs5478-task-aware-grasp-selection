@@ -1,0 +1,115 @@
+{
+  "created_at": "2026-11-06T07:29:50.026762+00:00",
+  "base_commit": "6403ba0",
+  "tests": {
+    "command": ".venv/bin/python -m unittest discover -s tests",
+    "tests_run": 271,
+    "failures": 0,
+    "errors": 0
+  },
+  "planned_selections": 120,
+  "saved_selections": 120,
+  "live_requests": 121,
+  "initial_valid": 119,
+  "repairs": 1,
+  "fallbacks": 0,
+  "model_resume_verified": true,
+  "model_resume_note": "Complete resume verified before the separately fingerprinted PBF validation fix.",
+  "pbf_unique_episodes": 73,
+  "pbf_numerically_valid": 73,
+  "pbf_status_counts": {
+    "completed": 68,
+    "execution_failed": 5
+  },
+  "historical_pbf_common": 65,
+  "historical_pbf_outcome_changes": [
+    {
+      "seed": 10,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "old_success": false,
+      "new_success": true
+    },
+    {
+      "seed": 13,
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "old_success": true,
+      "new_success": false
+    },
+    {
+      "seed": 15,
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "old_success": false,
+      "new_success": true
+    },
+    {
+      "seed": 15,
+      "candidate_id": "B3_640399fab83e671a",
+      "old_success": false,
+      "new_success": true
+    },
+    {
+      "seed": 19,
+      "candidate_id": "B3_599e9b16f5782406",
+      "old_success": true,
+      "new_success": false
+    },
+    {
+      "seed": 22,
+      "candidate_id": "B3_640399fab83e671a",
+      "old_success": false,
+      "new_success": true
+    },
+    {
+      "seed": 22,
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "old_success": true,
+      "new_success": false
+    },
+    {
+      "seed": 24,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "old_success": true,
+      "new_success": false
+    },
+    {
+      "seed": 25,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "old_success": false,
+      "new_success": true
+    },
+    {
+      "seed": 26,
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "old_success": true,
+      "new_success": false
+    },
+    {
+      "seed": 28,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "old_success": false,
+      "new_success": true
+    }
+  ],
+  "proxy_agreement": {
+    "agree": 55,
+    "total": 73,
+    "proxy_optimistic": 6,
+    "proxy_pessimistic": 12
+  },
+  "fingerprints": {
+    "manifest.json": "41f642b0c300022e403dccac6dd6d0f9a75bfd4412ee9ac0fdb73826935e18f8",
+    "pbf_manifest.json": "8752cd2532b210eef2225c01fc58b7fc996b20f50591253a9334824f81dc5b44",
+    "summary.json": "2f3bd5cc5d369fb141d37c4e88c4af319a4cea836bc8742ed18701fd515d1823"
+  },
+  "pbf_resume_verified": true,
+  "pbf_resume_new_executions": 0,
+  "raw_records_unchanged_on_resume": 193,
+  "independently_recomputed_method_task_groups": 28,
+  "record_files_sha256": "e0f73ad17d92d303c32320c75e886f190295e838290a3d3a54b859b3afb23a2c",
+  "artifacts_sha256": {
+    "tests.txt": "6b2ec9f3e2d220bd3392d806e57c1b09127035452f3d4c36fdeb3770b754272d",
+    "success_rates.png": "1716979c909fdef30040761f0154fbfbb21065d459cf24c7f28f8c8c220ca9d7",
+    "method_results.csv": "01334608af2e963063c204f4ab8ac3065042fcd2b20370633a4dc9d182d971bb",
+    "report.md": "a4ffd09e34a9908b64741d12c4c57d5ac6b2b4c39bd40f541b4e1934cc43aa09"
+  }
+}

@@ -11,6 +11,10 @@
 主流程为 **B 生成候选 → A 筛选 → B/C 选择已有 ID → A 统一执行 → C 汇总评价**。
 B 的使用方式见[第 9 节](#9-part-b--candidate-generation-and-geometry-based-selection)；C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
 
+2026-11-06 的 C 评估补全：在第三轮 116 个多族候选、seed 10–29 上比较真实
+M3/A1 与五种基线，并对选中的倒水抓取重新执行默认粒子流体。配置、统计口径、
+完整回答及结论见 [C 评估报告](docs/PART_C_EVALUATION_20261106.md)。
+
 2026-10-17 新增独立的完整小序列轨道：`transport_place`（放置后松手撤离）、`handover_transfer`（接收夹爪独立抬升）、`pour_water`（开口双杯与 PBF 数值液体，按接水量和撒漏评分）。逐步入口、动作、退出、超时、成功定义与 B/C 接口见 [完整任务定义](docs/TASK_SEQUENCES.md)。液体使用密度约束和黏性求解，不是刚体小球；属于低分辨率近似，未做真实水 CFD 标定。C 已显式接入 `track=sequence`；旧配置默认 `track=prep`，两轨道分别运行和统计。
 
 组员接入请读 [完整任务接口](docs/SEQUENCE_INTERFACE.md)。三个任务的 [有 A/B 标记和无 A/B 标记视频](results/sequence_v1_20261017/README.md) 均已纳入仓库，不依赖本机临时目录。交接使用标准化配合接收器，不代表未知人手运动下的自主交接。
