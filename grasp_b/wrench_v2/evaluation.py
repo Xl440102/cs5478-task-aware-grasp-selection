@@ -73,6 +73,16 @@ def dry_task_sets(body, config):
         if task == 'pour_water' else {})) for task in SEQUENCE_TASKS}
 
 
+def wet_task_sets(body, config):
+    """Same finite TWS parameters, explicit combined wet body, no second payload."""
+    common=dict(reference_point_m=config.reference_point_m,gravity_world_m_s2=(0,0,-9.81),
+        context_source='development rigid-water wet prediction; NOT fluid execution',
+        disturbances=axis_disturbances(horizontal_force_n=.1,vertical_force_n=0,
+            application_point_m=(0,0,0),source='unchanged uncalibrated +/-0.1 N development fixture'))
+    return {'pour_water':build_task_wrench_set('pour_water',body,**common,
+        orientations=pour_orientations_x((0,-55*np.pi/180,-110*np.pi/180),source='same finite WORLD-X attitudes as dry; not observed fluid'))}
+
+
 def _ranking_export(ranked, ids, families):
     if len(ranked['ranking']) != len(ids) or set(ranked['ranking']) != set(ids):
         raise ValueError("method ranking is not a full feasible-ID permutation")
@@ -90,7 +100,8 @@ def _ranking_export(ranked, ids, families):
 
 
 def evaluate_selection(candidates, filter_record, prepared_by_id, *, body, config,
-                       task_sets, selector_seed, resolutions=(16, 32, 64), sequence_config=None):
+                       task_sets, selector_seed, resolutions=(16, 32, 64), sequence_config=None,
+                       load_model='dry', wet_payload=None):
     """Pure numerical selection AFTER A filtering. No outcome/episode interface.
 
     Prepared models may be reused across trials only with exact candidate/config
@@ -106,6 +117,16 @@ def evaluate_selection(candidates, filter_record, prepared_by_id, *, body, confi
     if not isinstance(seq, SequenceConfig):
         raise ValueError('SequenceConfig required')
     task = filter_record['task_id']
+    binding=None
+    if load_model!='dry':
+        from .wet_payload import LABEL,LATTICE_LABEL,validate_wet_object
+        if load_model not in (LABEL,LATTICE_LABEL) or wet_payload is None or wet_payload.model_name!=load_model or task!='pour_water':
+            raise ValueError('explicit supported Pour wet model/spec required')
+        if wet_payload.config_hash!=fingerprint(asdict(seq)) or wet_payload.water_mass_kg!=seq.water_mass_kg:
+            raise ValueError('water model and SequenceConfig mismatch')
+        binding=validate_wet_object(body,wet_payload)
+    elif wet_payload is not None or 'wet_payload' in body.provenance or 'payload' in body.provenance:
+        raise ValueError('wet body/spec must not be labelled dry')
     task_set = task_sets.get(task)
     if task_set is None or task_set.task_name != task:
         raise ValueError('matching explicit task wrench set required')
@@ -137,14 +158,16 @@ def evaluate_selection(candidates, filter_record, prepared_by_id, *, body, confi
         feasible_ids=list(ids), feasible_count=len(ids), feasible_ids_sha256=fingerprint(ids),
         contact_status_counts=dict(Counter(prepared_by_id[c].spec.status.value for c in ids)),
         contact_model_identities={c: fingerprint(prepared_by_id[c].spec.to_dict()) for c in ids},
-        methods={'M0': m0}, physics=config.to_dict(), body=_plain(body), payload_mode='dry',
+        methods={'M0': m0}, physics=config.to_dict(), body=_plain(body), payload_mode=load_model,
         observation_input=asdict(initial), filter_record=filter_record,
         policy=_plain(TrajectoryPolicy()), motion_models=[asdict(m) for m in models],
         execution_performed=False, execution_outcomes_used=False,
         method_input_boundaries={'M0':'feasible IDs + independent selector seed',
             'M1':'same IDs/contact/physics + finite static TWS',
             'M2':'same IDs/contact/physics + A observed pose estimate, nominal commands, analytical dynamics'},
-        warning='kinematic feasibility is not physical task success; dry B load is not A filled pour')
+        warning='kinematic feasibility is not physical task success; dry B load is not A filled pour' if load_model=='dry' else 'rigid-water prediction is not PBF or actual draining; all parameters uncalibrated')
+    if binding is not None:
+        report['load_model_identity']=binding
     t = perf_counter()
     static_rows = [score_prepared(prepared_by_id[c], task_set) for c in ids]
     evaluation_s = perf_counter()-t
@@ -170,7 +193,7 @@ def evaluate_selection(candidates, filter_record, prepared_by_id, *, body, confi
             timings[n]['motion_s'] += perf_counter()-t
             t = perf_counter()
             dynamic = predict_dynamics(motion, body, reference_point_m=config.reference_point_m,
-                gravity_world_m_s2=(0, 0, -9.81), source='dry static snapshot + analytical command dynamics, not rollout')
+                gravity_world_m_s2=(0, 0, -9.81), source='dry static snapshot + analytical command dynamics, not rollout' if load_model=='dry' else 'explicit asset-bound rigid-water prediction + analytical dynamics; not fluid rollout')
             timings[n]['dynamics_s'] += perf_counter()-t
             dynamic_rows[n].append(score_trajectory(prepared_by_id[cid], motion, dynamic, cache=cache))
     for n, rows in dynamic_rows.items():
@@ -186,4 +209,8 @@ def evaluate_selection(candidates, filter_record, prepared_by_id, *, body, confi
             cache_hits=sum(r.timings_s['cache_hits'] for r in rows))
         report['methods'][f'M2/{n}'] = result
     report['total_selection_s'] = perf_counter()-began
+    if binding is not None:
+        for name,value in report['methods'].items():
+            value['load_model_identity']=binding
+            value['experiment_method_id']=value['method_id']+'__'+load_model
     return report
