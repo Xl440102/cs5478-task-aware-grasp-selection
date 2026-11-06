@@ -1,0 +1,1660 @@
+{
+  "tasks": {
+    "pour_water": {
+      "summary": {
+        "M0_RANDOM": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 16,
+          "success_rate": 0.8,
+          "distinct_selected_ids": 13,
+          "selected_families": {
+            "rim": 5,
+            "top": 10,
+            "side": 5
+          },
+          "ci95": [
+            0.5839782779742401,
+            0.9193436467288
+          ],
+          "regret_vs_oracle": 0.19999999999999996
+        },
+        "M1_STATIC_V2": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 17,
+          "success_rate": 0.85,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 11,
+            "top": 9
+          },
+          "ci95": [
+            0.6395767041130426,
+            0.9476322080405041
+          ],
+          "regret_vs_oracle": 0.15000000000000002,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 2,
+            "p": 1.0
+          }
+        },
+        "M2_TASK_RISK": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 18,
+          "success_rate": 0.9,
+          "distinct_selected_ids": 5,
+          "selected_families": {
+            "side": 18,
+            "top": 2
+          },
+          "ci95": [
+            0.6989617935882066,
+            0.9721341060158468
+          ],
+          "regret_vs_oracle": 0.09999999999999998,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 1,
+            "p": 0.625
+          }
+        },
+        "M5_PAPER_STYLE": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 17,
+          "success_rate": 0.85,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 11,
+            "top": 9
+          },
+          "ci95": [
+            0.6395767041130426,
+            0.9476322080405041
+          ],
+          "regret_vs_oracle": 0.15000000000000002,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 2,
+            "p": 1.0
+          }
+        },
+        "M4_FAMILY_PRIOR": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 12,
+          "success_rate": 0.6,
+          "distinct_selected_ids": 2,
+          "selected_families": {
+            "rim": 20
+          },
+          "ci95": [
+            0.3865779423152061,
+            0.7811960325858074
+          ],
+          "regret_vs_oracle": 0.4,
+          "vs_M0": {
+            "wins": 1,
+            "losses": 5,
+            "p": 0.21875
+          }
+        },
+        "M3_MOCK": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 15,
+          "success_rate": 0.75,
+          "distinct_selected_ids": 5,
+          "selected_families": {
+            "side": 20
+          },
+          "ci95": [
+            0.5312949900419365,
+            0.888139947210597
+          ],
+          "regret_vs_oracle": 0.25,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 4,
+            "p": 1.0
+          }
+        },
+        "A1_MOCK": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 15,
+          "success_rate": 0.75,
+          "distinct_selected_ids": 5,
+          "selected_families": {
+            "side": 20
+          },
+          "ci95": [
+            0.5312949900419365,
+            0.888139947210597
+          ],
+          "regret_vs_oracle": 0.25,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 4,
+            "p": 1.0
+          }
+        },
+        "ORACLE": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 20,
+          "success_rate": 1.0,
+          "distinct_selected_ids": null,
+          "selected_families": null,
+          "ci95": [
+            0.8388698745050668,
+            0.9999999999999999
+          ]
+        },
+        "UNIFORM_FEASIBLE_EXPECTATION": {
+          "success_rate": 0.6822142318465848
+        }
+      },
+      "seeds": [
+        {
+          "seed": 10,
+          "feasible": 17,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 8
+          },
+          "executed": 17,
+          "succeeded": 14,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5534079695073197,
+              -0.028856736717405,
+              0.6478667575881315
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.08571985363960266,
+              0.9963192343711853
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 11,
+          "feasible": 14,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 5
+          },
+          "executed": 14,
+          "succeeded": 8,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5433740886126359,
+              -0.022651801093746777,
+              0.6452198641798085
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.42035576701164246,
+              0.9073593616485596
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 12,
+          "feasible": 15,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 5,
+            "top": 8
+          },
+          "executed": 15,
+          "succeeded": 9,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.548167863836902,
+              -0.016706433766848976,
+              0.642734750482971
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.16740792989730835,
+              0.9858877062797546
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 13,
+          "feasible": 15,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 6,
+            "top": 7
+          },
+          "executed": 15,
+          "succeeded": 10,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.53162002501277,
+              -0.018282898807054006,
+              0.6435830682006958
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.18928208947181702,
+              0.9819227457046509
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_84b9936381c647d3",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_2c4cdd6500b2d0e0",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 14,
+          "feasible": 16,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 7
+          },
+          "executed": 16,
+          "succeeded": 8,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5160393647984352,
+              -0.013671748213541248,
+              0.6442405599467734
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.1749669313430786,
+              0.9845743179321289
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_938f155b5d840cb3",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 15,
+          "feasible": 16,
+          "feasible_by_family": {
+            "rim": 4,
+            "side": 5,
+            "top": 7
+          },
+          "executed": 16,
+          "succeeded": 9,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.586635493592661,
+              -0.050399531061797266,
+              0.643966683789817
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.25598999857902527,
+              0.9666793942451477
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_da9103d76e51550b",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_2c4cdd6500b2d0e0",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 16,
+          "feasible": 17,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 8
+          },
+          "executed": 17,
+          "succeeded": 12,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5366732669548857,
+              -0.027320289085622795,
+              0.64288064570417
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.07225091010332108,
+              0.9973865151405334
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 17,
+          "feasible": 12,
+          "feasible_by_family": {
+            "rim": 1,
+            "side": 6,
+            "top": 5
+          },
+          "executed": 12,
+          "succeeded": 7,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5518398831403524,
+              -0.01160785290399234,
+              0.6455868490686281
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.46272704005241394,
+              0.8865008354187012
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_fa973f00daa0de87",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 18,
+          "feasible": 16,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 8,
+            "top": 6
+          },
+          "executed": 16,
+          "succeeded": 13,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5263390857959407,
+              -0.01462261314303076,
+              0.6473096739264385
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.1782512217760086,
+              0.9839850068092346
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_1628311da54eab7d",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 19,
+          "feasible": 15,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 5,
+            "top": 8
+          },
+          "executed": 15,
+          "succeeded": 13,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5628546753310971,
+              -0.009554885018289827,
+              0.6427122819276991
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.031007759273052216,
+              0.9995191693305969
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_ee93643e3d354d36",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 20,
+          "feasible": 17,
+          "feasible_by_family": {
+            "rim": 3,
+            "side": 7,
+            "top": 7
+          },
+          "executed": 17,
+          "succeeded": 13,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5809821731109845,
+              -0.012850256883319049,
+              0.6456661598911808
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.27280840277671814,
+              0.9620683789253235
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 21,
+          "feasible": 16,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 7
+          },
+          "executed": 16,
+          "succeeded": 12,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5256835689736639,
+              -0.015959153055907553,
+              0.6459395226357024
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.13556340336799622,
+              0.9907686710357666
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_84b9936381c647d3",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 22,
+          "feasible": 13,
+          "feasible_by_family": {
+            "rim": 3,
+            "side": 4,
+            "top": 6
+          },
+          "executed": 13,
+          "succeeded": 10,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5885440694068346,
+              -0.04357733446993794,
+              0.647918923166157
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.4832279682159424,
+              0.8754945397377014
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_84b9936381c647d3",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_a9d9804ec06713ec",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 23,
+          "feasible": 13,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 6,
+            "top": 5
+          },
+          "executed": 13,
+          "succeeded": 11,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5818613185887099,
+              -0.0017272831132095984,
+              0.6437649452303801
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.3953257203102112,
+              0.9185410141944885
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_84b9936381c647d3",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_2c4cdd6500b2d0e0",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 24,
+          "feasible": 15,
+          "feasible_by_family": {
+            "rim": 3,
+            "side": 5,
+            "top": 7
+          },
+          "executed": 15,
+          "succeeded": 9,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5674673509525315,
+              -0.00852435086100703,
+              0.6442417393388347
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3261740505695343,
+              0.9453096985816956
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_70da83ab576cb9ca",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_a9d9804ec06713ec",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 25,
+          "feasible": 17,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 8,
+            "top": 7
+          },
+          "executed": 17,
+          "succeeded": 8,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5393812561257355,
+              -0.004911659351592856,
+              0.6471386053175668
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.35221320390701294,
+              0.9359198212623596
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_f29e04b500bca0be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 26,
+          "feasible": 16,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 7
+          },
+          "executed": 16,
+          "succeeded": 12,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5701072779207451,
+              -0.04261980413270411,
+              0.646349751984871
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.2909855544567108,
+              0.9567274451255798
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_a9d9804ec06713ec",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 27,
+          "feasible": 13,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 6,
+            "top": 5
+          },
+          "executed": 13,
+          "succeeded": 8,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.563735809272788,
+              -0.015520798958337554,
+              0.6479540441336694
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.4513745605945587,
+              0.8923345804214478
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_938f155b5d840cb3",
+              "family": "top",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_1cd02c73b1f59234",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 28,
+          "feasible": 15,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 6,
+            "top": 7
+          },
+          "executed": 15,
+          "succeeded": 9,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5204194385038695,
+              -0.044531872128659916,
+              0.6477266512978189
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.11762796342372894,
+              0.9930577278137207
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_7ff381f16d56a546",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 29,
+          "feasible": 14,
+          "feasible_by_family": {
+            "rim": 1,
+            "side": 6,
+            "top": 7
+          },
+          "executed": 14,
+          "succeeded": 11,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5557987654887884,
+              -0.03187498239172819,
+              0.6439013674025906
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.35929009318351746,
+              0.9332259297370911
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_84b9936381c647d3",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": "B3_2c4cdd6500b2d0e0",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M4_FAMILY_PRIOR": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        }
+      ],
+      "seed_variation": {
+        "feasible_mean": 15.1,
+        "feasible_min": 12,
+        "distinct_feasible_sets": 19,
+        "mean_pairwise_jaccard": 0.6425070777276308,
+        "union_feasible": 24,
+        "distinct_successful_sets": 20
+      }
+    }
+  },
+  "methods": [
+    "M0_RANDOM",
+    "M1_STATIC_V2",
+    "M2_TASK_RISK",
+    "M5_PAPER_STYLE",
+    "M4_FAMILY_PRIOR",
+    "M3_MOCK",
+    "A1_MOCK",
+    "ORACLE"
+  ],
+  "meta": {
+    "generator": "multifamily_v3p",
+    "profile": "hollow",
+    "candidate_count": 116,
+    "scene": {
+      "name": "wide_strict_v3",
+      "x_range_m": [
+        -0.04,
+        0.04
+      ],
+      "y_range_m": [
+        -0.05,
+        0.0
+      ],
+      "yaw_range_rad": [
+        -1.0471975511965976,
+        1.0471975511965976
+      ],
+      "observation": "noisy_truth",
+      "estimate_position_noise_m": 0.003,
+      "estimate_yaw_noise_deg": 2.0,
+      "ik_restarts": true,
+      "filter_mode": "execution",
+      "approach_finger_contact": "final_only",
+      "disable_wrist_hand_collision": true
+    },
+    "seeds": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "tasks": [
+      "pour_water"
+    ],
+    "execute": "all",
+    "liquid": "pbf",
+    "m4_prior": {
+      "source": "results/local/oracle_r4_pbf",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "table": {
+        "pour_water": {
+          "side": 0.6612903225806451,
+          "top": 0.6582278481012658,
+          "rim": 0.9047619047619048
+        }
+      }
+    },
+    "report_scope": "held-out seeds"
+  }
+}

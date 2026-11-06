@@ -33,6 +33,15 @@ BASELINES = ("M0_RANDOM", "M1_STATIC_V2", "M2_TASK_RISK", "M4_FAMILY_PRIOR", "M5
 SCHEMA = "grasp_c_table_run_v1"
 
 
+def _scene_dict(value) -> dict:
+    """Canonical scene dict: fields added later with archived-behaviour defaults
+    (e.g. disable_wrist_hand_collision=False) compare equal to their absence."""
+    from grasp_a.control import scene_randomization
+    if isinstance(value, dict):
+        value = {k: tuple(v) if isinstance(v, list) else v for k, v in value.items()}
+    return json.loads(json.dumps(asdict(scene_randomization(value))))
+
+
 def read(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
@@ -90,7 +99,11 @@ def load_table(source, config):
         raise ValueError("configuration and table candidates differ")
     if config["track"] != "sequence" or config["repeats"] != 1:
         raise ValueError("table evaluation requires sequence track and one sample per seed")
-    if config.get("scene_randomization") != meta["scene"]:
+    try:
+        same_scene = _scene_dict(config.get("scene_randomization")) == _scene_dict(meta["scene"])
+    except (TypeError, ValueError) as exc:
+        raise ValueError(f"configuration and table scenes differ: {exc}") from exc
+    if not same_scene:
         raise ValueError("configuration and table scenes differ")
     if not set(config["seeds"]) <= set(meta["seeds"]) or not set(config["tasks"]) <= set(meta["tasks"]):
         raise ValueError("requested task/seed absent from table")

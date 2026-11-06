@@ -1,9 +1,63 @@
 # 候选扩充与场景随机化实验（2026-11-03）
 
 讨论版（可评论）：https://claude.ai/artifact/3zibqGueK9QR9A1K6LGP7B 。本文件是仓库内的存档副本。
-原始数据：`results/oracle_20261103/{v3_wide,v2_legacy,v3_wide_strict,v3_wide_strict_v2,r3_v3p_wide_strict_v2,r3_pbf_v3p_wide_strict_v2}/`（各含 `report.md`、`report.json`、`filters/`、`episodes/`、`selections.json`）。
+原始数据：`results/oracle_20261103/{v3_wide,v2_legacy,v3_wide_strict,v3_wide_strict_v2,r3_v3p_wide_strict_v2,r3_pbf_v3p_wide_strict_v2,r4_v3p_wide_strict_v3,r4_pbf_v3p_wide_strict_v3}/`（各含 `report.md`、`report.json`、`filters/`、`episodes/`、`selections.json`）。
 
-可行候选从每个 seed 6 个、10 个 seed 完全相同，变为每个 seed 15–43 个、30 个 seed 几乎各不相同。第一轮 M1/M2 不如随机，原因是 A 的筛选比执行宽松；第二轮（筛选与执行一致）把 IK 类假可行降到 0；第三轮（手指只在最后碰杯、30 个 seed、新增 M4 查表与 M5 论文式基线）显示：最合适的抓取类型确实随任务变化，但在 20 个留出 seed 上没有一个方法在三个任务上都显著好于随机；倒水改用真实流体全量评估后，各方法都不比随机好；代理模式对侧抓严重偏悲观，不适合用来比较方法。
+可行候选从每个 seed 6 个、10 个 seed 完全相同，变为每个 seed 15–43 个、30 个 seed 几乎各不相同。第一轮 M1/M2 不如随机，原因是 A 的筛选比执行宽松；第二轮（筛选与执行一致）把 IK 类假可行降到 0；第三轮（手指只在最后碰杯、30 个 seed、新增 M4 查表与 M5 论文式基线）显示：最合适的抓取类型确实随任务变化，但在 20 个留出 seed 上没有一个方法在三个任务上都显著好于随机；倒水改用真实流体全量评估后，各方法都不比随机好；代理模式对侧抓严重偏悲观，不适合用来比较方法。第四轮修复了 Panda 手腕与手掌的自接触（预抓取超时 222→2），结论不变；真实 LLM（M3/A1）基本按 `geometry_score` 排序，而该分数与语义标签都和执行结果相反，需先修输入。
+
+## 第四轮：修复 Panda 手腕自接触（2026-11-07）
+
+**原因。** 第三轮的预抓取超时（搬运 73、交接 83、倒水 66 次，倒水真实流体 66 次）全部是侧抓，主要是“翻转 180° + 俯仰 60°”这类需要手腕（关节 7）转约 2.8 rad 的候选。Panda 模型里 `panda_link7` 与 `panda_hand` 在任何姿态下都重叠约 25 mm；`URDF_USE_SELF_COLLISION_EXCLUDE_PARENT` 排除不了这对（中间隔一个固定关节），于是一直有约 30 kN 的接触力顶住手腕转动（实测只有约 0.5 rad/s），大幅转腕就在预抓取超时。这和候选好坏无关。
+
+**修复。** `SceneRandomization` 新增 `disable_wrist_hand_collision`（默认 False，旧结果不变），为 True 时只关闭 link7–hand 这一对碰撞；新预设 `wide_strict_v3` = `wide_strict_v2` + 该开关。其余设置、候选（`multifamily_v3p`，116 个）、seed、M4 训练/测试划分都与第三轮相同。数据：`results/oracle_20261103/r4_v3p_wide_strict_v3/`（代理）与 `r4_pbf_v3p_wide_strict_v3/`（倒水真实流体，458 条，0 错误）。
+
+**效果。** 全部可行候选中预抓取超时从 222 次降到 2 次。侧抓成功率：搬运 0.49→0.63，交接 0.24→0.31，倒水真实流体 0.48→0.66（倒水代理仍为 0.22，代理对侧抓偏悲观的问题还在）。
+
+留出测试（seed 10–29，20 个 seed 中成功数；括号内为第三轮）：
+
+| 方法 | 搬运 | 交接 | 倒水（代理） | 倒水（真实流体） |
+| --- | --- | --- | --- | --- |
+| M0 随机 | 19 (15) | 14 (11) | 11 (13) | 16 (16) |
+| M1 静态几何 | 17 (17) | 7 (5) | 13 (12) | 17 (13) |
+| M2 任务风险 | 18 (19) | 5 (11) | 14 (13) | **18** (15) |
+| M5 论文式 | **20** (20) | 7 (5) | 13 (12) | 17 (13) |
+| M4 族×任务查表 | 19 (18) | **17** (17) | 12 (14) | 12 (12) |
+| 均匀随机期望 | 16.6 | 10.8 | 9.2 | 13.6 |
+
+- 留出上没有方法显著好于 M0；交接上 M1/M5（p=0.04）和 M2（p=0.01）显著差于 M0。
+- 交接：杯沿 0.83、顶抓 0.66、把手 0.47、侧抓 0.31。M4 全选杯沿；M1/M2/M5 偏侧抓，所以输给随机。
+- 倒水真实流体：侧抓修好后，三个族已接近（杯沿 0.73、顶抓 0.70、侧抓 0.66），选哪种影响不大。M1/M2/M5 选侧抓、顶抓，略好于随机但不显著。M4 在流体上建表仍全选杯沿（12/20），过拟合依旧。
+- 真实流体失败：意外碰撞 76、接近未到位 32、阶段条件 28、抬起失败 6、预抓取未到位 1。接近未到位从 12 次升到 32 次，原先卡在预抓取的候选现在走到了下一步，需要单独查。
+- 代理与流体成败一致 71%（327/458），不一致的 131 例中 86 例是侧抓“代理判失败、流体成功”。
+
+### 真实 LLM（M3/A1）为什么没有优于其他方法
+
+组员的结果见 `docs/PART_C_EVALUATION_20261106.md`。我们把 M3/A1 选中的候选放回第三轮、第四轮的执行表里重新查，并统计了每个公开字段与执行成功率的关系。脚本与输出在 `r4_v3p_wide_strict_v3/llm_relookup/`。
+
+1. **LLM 基本是按 `geometry_score` 排序。** A1 选中的都是当次最高分候选（搬运 20/20、交接 20/20、倒水 19/20），成功数与 M1 完全相同（17/5/12）；M3 的最高分比例为 18、15、11，任务描述只是把它往侧抓推了一些。
+2. **这个分数是反向信号。** 杯沿、把手不在 B 的接触模型范围内，被填成 0 分，但这两族成功率恰恰更高：0 分候选为 0.90/0.71/0.73，有分候选为 0.65/0.44/0.44（搬运/交接/倒水代理）。杯身内部分数也没有区分度：最高分 0.75（水平侧抓、在把手旁边）在交接上只成功 4/39。
+3. **语义标签与执行结果不一致。** 倒水标为 “mouth=clear” 的候选成功率 0.20、标为 “blocks pouring” 的为 0.67（真实流体下顶抓也不差于侧抓）；交接 “handle=left free” 0.55 与 “occupied” 0.49 差不多。不少候选的公开描述一字不差，模型无法区分。
+4. **手腕问题不是主因。** 第四轮执行表上，M3/A1 的选择成功数为搬运 17/17、交接 5/5、倒水代理 10/13、倒水真实流体 15/17，仍然没有优势。
+
+修改方向：
+
+- C：提示词 v2，对模型不支持的候选把分数设为 `null` 并标注 `not_modeled`；说明分数只代表杯身接触稳定性、与任务无关、不是成功概率；做 v1 / v2 / 去掉分数三组消融。
+- B：语义标签去掉 “blocks pouring” 这类价值判断，只保留几何事实；从筛选阶段的运动学回放导出执行前可算的特征（手腕需转角度、关节限位余量、交接时与接收夹爪的最小距离），区分描述相同的候选。
+- 评估：在 `wide_strict_v3` 的新 seed 30–49（未被分析过）上冻结比较，每个 seed 采样 3 次；另加“给模型训练 seed 的族成功率”一组，与 M4 信息对等。组员重跑的 65 条真实流体中有 11 条成败翻转，跨环境噪声不小，20 个 seed 内 ±3 的差别不应解读。
+
+复现（倒水真实流体先把代理目录的 `b_inputs/`、`filters/pour_water/` 复制到新目录）：
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r4 --generator multifamily_v3p --scene wide_strict_v3 --tasks transport_place handover_transfer pour_water --liquid proxy_margin --workers 4 --seeds $(seq 0 9) --execute all
+```
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r4 --generator multifamily_v3p --scene wide_strict_v3 --tasks transport_place handover_transfer pour_water --liquid proxy_margin --workers 4 --seeds $(seq 0 29) --execute all --prior-from results/local/oracle_r4 --prior-seeds $(seq 0 9) --report-seeds $(seq 10 29)
+```
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r4_pbf --generator multifamily_v3p --scene wide_strict_v3 --tasks pour_water --liquid pbf --workers 4 --seeds $(seq 0 29) --execute all --prior-from results/local/oracle_r4_pbf --prior-seeds $(seq 0 9) --report-seeds $(seq 10 29)
+```
 
 ## 第三轮：手指只在最后碰杯 + 30 个 seed（2026-11-06）
 
@@ -64,9 +118,11 @@
 下一步（更新）：
 - [x] 筛选与执行一致；接近阶段只在最后允许手指碰杯；公开字段语义描述。
 - [x] M4 查表（训练/测试分开）、M5 论文式基线、30 个 seed 与置信区间、倒水选中候选真实流体复核、精简生成器、C 正式 runner 接入场景配置。
-- [ ] 接入真实 LLM 跑 M3/A1：`--llm-config configs/c.api.json` 已走到读取凭据一步，缺 `OPENAI_API_KEY`（或安装 `google-genai`）。
+- [x] 接入真实 LLM 跑 M3/A1（组员，`docs/PART_C_EVALUATION_20261106.md`）。
+- [ ] LLM 输入：分数 `null`/`not_modeled`、去掉价值判断标签、加执行前运动学特征，在新 seed 上重评（见第四轮）。
 - [x] 倒水：方法对比改用真实流体（见“倒水：真实流体全量对比”）。
-- [ ] 修与抓取选择无关的失败：真实流体下 66/182 次失败是预抓取未到位。
+- [x] 修与抓取选择无关的失败：预抓取未到位是 Panda 手腕自接触，`wide_strict_v3` 修复（222→2）。是否设为默认需 A 同意。
+- [ ] 查第四轮真实流体中接近未到位（12→32 次）。
 - [ ] 交接：M1/M2/M5 偏向侧抓/顶抓（0.25），杯沿抓 0.86；M2 加“给接收方留出把手和空间”项，或给杯沿/把手建模型。
 - [ ] M2 补把手干涉与位姿误差鲁棒性（夹爪每侧余量 3.5 mm 对观测噪声 3 mm）。
 - [ ] M5 的部件表换成真实 LLM 输出；留出 seed 扩到 60+。
