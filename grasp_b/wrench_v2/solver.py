@@ -27,7 +27,7 @@ from .gws import (
     _scalar, normalize_wrenches,
 )
 
-SOLVER_VERSION = "shared_capacity_utilization_v1.1"
+SOLVER_VERSION = "shared_capacity_utilization_v1.2"
 
 
 class SolverStatus(str, Enum):
@@ -98,6 +98,11 @@ def _load_highs():
 
 
 class SciPyHighsBackend:
+    def __init__(self, *, method="highs", presolve=True, retry_unknown=True):
+        if method not in ("highs", "highs-ds", "highs-ipm") or type(presolve) is not bool or type(retry_unknown) is not bool:
+            raise ValueError("explicit HiGHS method and boolean presolve/retry required")
+        self.method, self.presolve, self.retry_unknown = method, presolve, retry_unknown
+
     def solve(self, problem, tolerances):
         try:
             linprog, version = _load_highs()
@@ -106,18 +111,30 @@ class SciPyHighsBackend:
                                 backend_name="scipy_highs", backend_version="not_installed", metadata={"lp_called": False})
         options = {"primal_feasibility_tolerance": tolerances.backend_feasibility,
                    "dual_feasibility_tolerance": tolerances.backend_feasibility,
-                   "small_matrix_value": tolerances.backend_small_matrix_value}
+                   "small_matrix_value": tolerances.backend_small_matrix_value,
+                   "presolve": self.presolve}
         # HiGHS' default 1e-9 coefficient cutoff distorted some static Rim
         # fixture LPs. Retain smaller coefficients without editing A or jitter.
         # SciPy forwards this HiGHS option verbatim and emits a known warning;
         # suppress only that exact passthrough notice, retaining provenance.
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", message=(
-                r"Unrecognized options detected: \{'small_matrix_value': .*\}\. "
-                r"These will be passed to HiGHS verbatim\."))
-            result = linprog(problem.objective, A_ub=problem.inequality_matrix,
-                             b_ub=problem.inequality_rhs, A_eq=problem.equality_matrix,
-                             b_eq=problem.equality_rhs, bounds=problem.bounds, method="highs", options=options)
+        attempts = []
+        def run(method):
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message=(
+                    r"Unrecognized options detected: \{'small_matrix_value': .*\}\. "
+                    r"These will be passed to HiGHS verbatim\."))
+                result = linprog(problem.objective, A_ub=problem.inequality_matrix,
+                                 b_ub=problem.inequality_rhs, A_eq=problem.equality_matrix,
+                                 b_eq=problem.equality_rhs, bounds=problem.bounds, method=method, options=options)
+            attempts.append(dict(method=method, raw_status=int(result.status), message=str(result.message),
+                                 success=bool(result.success), options=dict(options)))
+            return result
+        result = run(self.method)
+        # Bounded numerical recovery, never a change to A/B/b/w or tolerances.
+        # Two-point rank-deficient inconsistent equilibria produced HiGHS
+        # Unknown (15) under simplex; IPM resolves the same model as infeasible.
+        if self.retry_unknown and self.method != "highs-ipm" and result.status == 4 and "model_status is Unknown" in str(result.message):
+            result = run("highs-ipm")
         status = {0: SolverStatus.OPTIMAL, 1: SolverStatus.NUMERICAL_ERROR,
                   2: SolverStatus.INFEASIBLE, 3: SolverStatus.UNBOUNDED,
                   4: SolverStatus.NUMERICAL_ERROR}.get(result.status, SolverStatus.NUMERICAL_ERROR)
@@ -126,9 +143,11 @@ class SciPyHighsBackend:
         return BackendReply(status, None if result.x is None else tuple(result.x), result.fun,
             str(result.message), "scipy_highs", str(version),
             dict(raw_status=int(result.status), success=bool(result.success),
-                 iterations=None if result.nit is None else int(result.nit), method="highs",
+                 iterations=None if result.nit is None else int(result.nit), method=attempts[-1]["method"],
                  highs_version="not_exposed_by_public_linprog_api", lp_called=True,
-                 options=options, highs_options_passed_through_scipy=["small_matrix_value"]))
+                 options=options, attempts=attempts, linprog_calls=len(attempts),
+                 recovery_policy="unknown_only_one_ipm_retry_v1" if self.retry_unknown else "disabled",
+                 highs_options_passed_through_scipy=["small_matrix_value"]))
 
 
 def build_lp_problem(data, capacities, wrench, *, scaling=None):

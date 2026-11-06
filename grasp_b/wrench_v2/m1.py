@@ -254,4 +254,5 @@ def score_prepared(prepared, task_set):
     return M1Result(spec.candidate_id, spec.candidate_hash, task_set.task_name, spec.family.value,
         spec.status.value, status, worst, None if worst is None else 1-worst, worst_ids, tuple(results), provenance,
         dict(**prepared.timings_s, scenario_solver=sum(r.runtime_s for _, r in results),
-             evaluation=perf_counter()-start, lp_calls=sum(bool(r.diagnostics.get("lp_called")) for _, r in results)), reason)
+             evaluation=perf_counter()-start, scenario_evaluations=len(results),
+             lp_calls=sum(int(r.diagnostics.get("linprog_calls", bool(r.diagnostics.get("lp_called")))) for _, r in results)), reason)
