@@ -1,0 +1,85 @@
+{
+  "success": false,
+  "status": "completed",
+  "failure_reason": "stage_outcomes",
+  "stages": [
+    [
+      "pregrasp",
+      "completed"
+    ],
+    [
+      "approach",
+      "completed"
+    ],
+    [
+      "close",
+      "completed"
+    ],
+    [
+      "lift",
+      "completed"
+    ],
+    [
+      "transport",
+      "completed"
+    ],
+    [
+      "lower",
+      "completed"
+    ],
+    [
+      "release",
+      "completed"
+    ],
+    [
+      "retreat",
+      "completed"
+    ],
+    [
+      "settle",
+      "completed"
+    ],
+    [
+      "terminal",
+      "completed"
+    ]
+  ],
+  "success_checks": {
+    "sequence_complete": true,
+    "lift_achieved": true,
+    "no_drop": true,
+    "no_unintended_collision": true,
+    "stage_outcomes": false,
+    "full_terminal_window": true,
+    "terminal_outcome": true,
+    "fluid_density_valid": true
+  },
+  "final_evidence": {
+    "source_position": [
+      0.5541192037376986,
+      0.16155497916202774,
+      0.6459904085664212
+    ],
+    "source_quaternion": [
+      3.692796598441459e-05,
+      -5.022184612194833e-06,
+      0.0011930781860871702,
+      0.9999992875875187
+    ],
+    "source_z_m": 0.6459904085664212,
+    "source_upright_deg": 0.004270587727574153,
+    "source_xy_error_m": 0.004402930799707222,
+    "source_goal_error_m": 0.15407251556706955,
+    "source_linear_speed_m_s": 2.2608549504108247e-07,
+    "source_angular_speed_deg_s": 0.0003700118606541503,
+    "donor_contact": false,
+    "receiver_contact": false,
+    "receiver_contact_links": [],
+    "table_contact": true,
+    "donor_clearance_m": 0.2329422732167805
+  },
+  "task_id": "transport_place",
+  "seed": 7,
+  "candidate_id": "B3_ff0a6731323bba4c",
+  "wall_seconds": 7.77561157900027
+}
