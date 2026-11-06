@@ -1,0 +1,83 @@
+{
+  "success": true,
+  "status": "completed",
+  "failure_reason": null,
+  "stages": [
+    [
+      "pregrasp",
+      "completed"
+    ],
+    [
+      "approach",
+      "completed"
+    ],
+    [
+      "close",
+      "completed"
+    ],
+    [
+      "lift",
+      "completed"
+    ],
+    [
+      "transport",
+      "completed"
+    ],
+    [
+      "tilt",
+      "completed"
+    ],
+    [
+      "pour_dwell",
+      "completed"
+    ],
+    [
+      "return_upright",
+      "completed"
+    ],
+    [
+      "settle",
+      "completed"
+    ],
+    [
+      "terminal",
+      "completed"
+    ]
+  ],
+  "success_checks": {
+    "sequence_complete": true,
+    "lift_achieved": true,
+    "no_drop": true,
+    "no_unintended_collision": true,
+    "stage_outcomes": true,
+    "full_terminal_window": true,
+    "terminal_outcome": true,
+    "fluid_density_valid": true
+  },
+  "final_evidence": {
+    "source_position": [
+      0.5497588217623558,
+      0.11857737681635563,
+      0.7993676005915449
+    ],
+    "source_upright_deg": 0.856237277693265,
+    "water": null
+  },
+  "pour_proxy": {
+    "dwell_samples": 480,
+    "over_target": 480,
+    "path_clear": 480,
+    "min_tilt_deg": 109.34828041853326,
+    "max_spout_radial_m": 0.01645022374883335,
+    "min_source_target_gap_m": 0.0035822256023236463,
+    "min_palm_source_gap_m": 0.008270526351407025,
+    "margins_enforced": true,
+    "over_target_fraction": 1.0,
+    "path_clear_fraction": 1.0
+  },
+  "liquid": "proxy_margin",
+  "task_id": "pour_water",
+  "seed": 21,
+  "candidate_id": "B3_a9d9804ec06713ec",
+  "wall_seconds": 8.334178727999642
+}

@@ -1,0 +1,71 @@
+{
+  "success": true,
+  "status": "completed",
+  "failure_reason": null,
+  "stages": [
+    [
+      "pregrasp",
+      "completed"
+    ],
+    [
+      "approach",
+      "completed"
+    ],
+    [
+      "close",
+      "completed"
+    ],
+    [
+      "lift",
+      "completed"
+    ],
+    [
+      "transport",
+      "completed"
+    ],
+    [
+      "lower",
+      "completed"
+    ],
+    [
+      "release",
+      "completed"
+    ],
+    [
+      "retreat",
+      "completed"
+    ],
+    [
+      "settle",
+      "completed"
+    ],
+    [
+      "terminal",
+      "completed"
+    ]
+  ],
+  "success_checks": {
+    "sequence_complete": true,
+    "lift_achieved": true,
+    "no_drop": true,
+    "no_unintended_collision": true,
+    "stage_outcomes": true,
+    "full_terminal_window": true,
+    "terminal_outcome": true,
+    "fluid_density_valid": true
+  },
+  "final_evidence": {
+    "source_position": [
+      0.5447027678129277,
+      0.15782273684580314,
+      0.6459898950942152
+    ],
+    "source_upright_deg": 0.007168505977964827
+  },
+  "pour_proxy": null,
+  "liquid": null,
+  "task_id": "transport_place",
+  "seed": 23,
+  "candidate_id": "B3_e3bff51813b48659",
+  "wall_seconds": 4.974008795999907
+}

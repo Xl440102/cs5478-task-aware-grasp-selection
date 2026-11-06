@@ -108,6 +108,10 @@ class MugScene:
                                     physicsClientId=self.client)
             joints = [p.getJointInfo(self.robot, j, physicsClientId=self.client)
                       for j in range(p.getNumJoints(self.robot, physicsClientId=self.client))]
+            if self.scene_config.disable_wrist_hand_collision:
+                links = {info[12].decode(): j for j, info in enumerate(joints)}
+                p.setCollisionFilterPair(self.robot, self.robot, links["panda_link7"],
+                                         links["panda_hand"], 0, physicsClientId=self.client)
             self.rigid_group = fixed_link_groups(
                 [info[16] for info in joints],
                 {j for j,info in enumerate(joints) if info[2] == p.JOINT_FIXED})

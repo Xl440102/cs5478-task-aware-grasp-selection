@@ -211,3 +211,30 @@ class CSceneConfigTests(unittest.TestCase):
         prep.pop("sequence_config")
         with self.assertRaisesRegex(ValueError, "scene_randomization requires"):
             validate_config(prep)
+
+
+class WristHandCollisionTests(unittest.TestCase):
+    def test_preset_and_validation(self):
+        self.assertTrue(SCENE_PRESETS["wide_strict_v3"].disable_wrist_hand_collision)
+        self.assertFalse(SCENE_PRESETS["wide_strict_v2"].disable_wrist_hand_collision)
+        with self.assertRaises(ValueError):
+            SceneRandomization(disable_wrist_hand_collision=1)
+
+    @unittest.skipIf(PANDA is None, "pybullet_data unavailable")
+    def test_only_link7_hand_pair_is_filtered(self):
+        import pybullet as p
+        from grasp_a.simulation import MugScene
+
+        def contacts(scene_config):
+            with MugScene(0, scene_config=scene_config) as scene:
+                for _ in range(5):
+                    p.stepSimulation(physicsClientId=scene.client)
+                return {(c[3], c[4]) for c in p.getContactPoints(scene.robot, scene.robot,
+                                                                 physicsClientId=scene.client)}
+        names = {}
+        with MugScene(0) as scene:
+            for j in range(p.getNumJoints(scene.robot, physicsClientId=scene.client)):
+                names[p.getJointInfo(scene.robot, j, physicsClientId=scene.client)[12].decode()] = j
+        pair = {(names["panda_link7"], names["panda_hand"]), (names["panda_hand"], names["panda_link7"])}
+        self.assertTrue(contacts("wide_strict_v2") & pair)
+        self.assertFalse(contacts("wide_strict_v3") & pair)

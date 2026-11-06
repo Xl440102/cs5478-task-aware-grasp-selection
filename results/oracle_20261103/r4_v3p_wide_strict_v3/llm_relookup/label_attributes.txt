@@ -1,0 +1,114 @@
+## r3_v3p_wide_strict_v2
+== transport_place
+  closing  across handle axis                        531/641  0.83
+  closing  along handle axis                         441/633  0.70
+  from     above                                     571/660  0.87
+  from     side, 30 deg down                         206/240  0.86
+  from     side, 60 deg down                         131/282  0.46
+  from     side, horizontal                           64/92   0.70
+  handle   left free                                 362/518  0.70
+  handle   occupied by this grasp                    610/756  0.81
+  mouth    clear                                     401/614  0.65
+  mouth    hand over the opening                     571/660  0.87
+  region   body                                      451/697  0.65
+  region   handle                                    339/382  0.89
+  region   rim                                       182/195  0.93
+  score0   False                                     451/697  0.65
+  score0   True                                      521/577  0.90
+  side     beside the handle                          21/39   0.54
+  side     from above                                571/660  0.87
+  side     from handle side                          310/392  0.79
+  side     opposite the handle                        70/183  0.38
+== handover_transfer
+  closing  across handle axis                        205/380  0.54
+  closing  along handle axis                         317/621  0.51
+  from     above                                     438/654  0.67
+  from     side, 60 deg down                          60/241  0.25
+  from     side, horizontal                           24/106  0.23
+  handle   left free                                 296/537  0.55
+  handle   occupied by this grasp                    226/464  0.49
+  mouth    clear                                      84/347  0.24
+  mouth    hand over the opening                     438/654  0.67
+  region   body                                      303/694  0.44
+  region   handle                                     56/118  0.47
+  region   rim                                       163/189  0.86
+  score0   False                                     303/694  0.44
+  score0   True                                      219/307  0.71
+  side     beside the handle                           7/53   0.13
+  side     from above                                438/654  0.67
+  side     from handle side                           17/100  0.17
+  side     opposite the handle                        60/194  0.31
+== pour_water
+  closing  across handle axis                        125/212  0.59
+  closing  along handle axis                          96/246  0.39
+  from     above                                     184/273  0.67
+  from     side, 60 deg down                           0/118  0.00
+  from     side, horizontal                           37/67   0.55
+  handle   left free                                 162/346  0.47
+  handle   occupied by this grasp                     59/112  0.53
+  mouth    clear                                      37/185  0.20
+  mouth    hand over the opening                     184/273  0.67
+  region   body                                      176/396  0.44
+  region   rim                                        45/62   0.73
+  score0   False                                     176/396  0.44
+  score0   True                                       45/62   0.73
+  side     beside the handle                          37/53   0.70
+  side     from above                                184/273  0.67
+  side     opposite the handle                         0/132  0.00
+## r4_v3p_wide_strict_v3
+== transport_place
+  closing  across handle axis                        559/641  0.87
+  closing  along handle axis                         465/633  0.73
+  from     above                                     569/660  0.86
+  from     side, 30 deg down                         211/240  0.88
+  from     side, 60 deg down                         170/282  0.60
+  from     side, horizontal                           74/92   0.80
+  handle   left free                                 386/518  0.75
+  handle   occupied by this grasp                    638/756  0.84
+  mouth    clear                                     455/614  0.74
+  mouth    hand over the opening                     569/660  0.86
+  region   body                                      502/697  0.72
+  region   handle                                    343/382  0.90
+  region   rim                                       179/195  0.92
+  score0   False                                     502/697  0.72
+  score0   True                                      522/577  0.90
+  side     beside the handle                          21/39   0.54
+  side     from above                                569/660  0.86
+  side     from handle side                          335/392  0.85
+  side     opposite the handle                        99/183  0.54
+== handover_transfer
+  closing  across handle axis                        213/380  0.56
+  closing  along handle axis                         334/621  0.54
+  from     above                                     440/654  0.67
+  from     side, 60 deg down                          75/241  0.31
+  from     side, horizontal                           32/106  0.30
+  handle   left free                                 312/537  0.58
+  handle   occupied by this grasp                    235/464  0.51
+  mouth    clear                                     107/347  0.31
+  mouth    hand over the opening                     440/654  0.67
+  region   body                                      335/694  0.48
+  region   handle                                     56/118  0.47
+  region   rim                                       156/189  0.83
+  score0   False                                     335/694  0.48
+  score0   True                                      212/307  0.69
+  side     beside the handle                           4/53   0.08
+  side     from above                                440/654  0.67
+  side     from handle side                           16/100  0.16
+  side     opposite the handle                        87/194  0.45
+== pour_water
+  closing  across handle axis                        126/212  0.59
+  closing  along handle axis                          96/246  0.39
+  from     above                                     181/273  0.66
+  from     side, 60 deg down                           0/118  0.00
+  from     side, horizontal                           41/67   0.61
+  handle   left free                                 164/346  0.47
+  handle   occupied by this grasp                     58/112  0.52
+  mouth    clear                                      41/185  0.22
+  mouth    hand over the opening                     181/273  0.66
+  region   body                                      177/396  0.45
+  region   rim                                        45/62   0.73
+  score0   False                                     177/396  0.45
+  score0   True                                       45/62   0.73
+  side     beside the handle                          37/53   0.70
+  side     from above                                181/273  0.66
+  side     opposite the handle                         4/132  0.03
