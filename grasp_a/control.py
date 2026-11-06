@@ -57,6 +57,12 @@ class SceneRandomization:
     # execution filter only: when open fingers may touch the cup during the
     # approach. "any" = round-2 behaviour; "final_only" = only at the grasp.
     approach_finger_contact: str = "any"
+    # Panda model fix. panda_link7 and panda_hand overlap by ~25 mm in every
+    # configuration; URDF_USE_SELF_COLLISION_EXCLUDE_PARENT does not exclude
+    # them (fixed-joint grandchild), so a constant ~30 kN contact brakes wrist
+    # rotation and large wrist moves time out at pregrasp. True disables that
+    # one collision pair. False = archived behaviour.
+    disable_wrist_hand_collision: bool = False
 
     def __post_init__(self):
         for key in ("x_range_m", "y_range_m", "yaw_range_rad"):
@@ -76,6 +82,8 @@ class SceneRandomization:
             raise ValueError("approach_finger_contact applies to the execution filter only")
         if type(self.ik_restarts) is not bool:
             raise ValueError("ik_restarts must be a bool")
+        if type(self.disable_wrist_hand_collision) is not bool:
+            raise ValueError("disable_wrist_hand_collision must be a bool")
         if self.observation not in ("prior", "noisy_truth"):
             raise ValueError("observation must be prior or noisy_truth")
         if not all(math.isfinite(v) and v >= 0 for v in
@@ -116,6 +124,13 @@ SCENE_PRESETS = {
         yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
         estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True,
         filter_mode="execution", approach_finger_contact="final_only"),
+    # wide_strict_v2 + no permanent link7/hand self-contact (Panda model fix).
+    "wide_strict_v3": SceneRandomization(
+        name="wide_strict_v3", x_range_m=(-0.04, 0.04), y_range_m=(-0.05, 0.0),
+        yaw_range_rad=(-math.pi/3, math.pi/3), observation="noisy_truth",
+        estimate_position_noise_m=0.003, estimate_yaw_noise_deg=2.0, ik_restarts=True,
+        filter_mode="execution", approach_finger_contact="final_only",
+        disable_wrist_hand_collision=True),
     # Legacy scene with only the IK fix, to separate the two effects.
     "legacy_ik": SceneRandomization(name="legacy_ik", ik_restarts=True),
 }
