@@ -1,9 +1,9 @@
 # 候选扩充与场景随机化实验（2026-11-03）
 
 讨论版（可评论）：https://claude.ai/artifact/3zibqGueK9QR9A1K6LGP7B 。本文件是仓库内的存档副本。
-原始数据：`results/oracle_20261103/{v3_wide,v2_legacy,v3_wide_strict,v3_wide_strict_v2,r3_v3p_wide_strict_v2}/`（各含 `report.md`、`report.json`、`filters/`、`episodes/`、`selections.json`）。
+原始数据：`results/oracle_20261103/{v3_wide,v2_legacy,v3_wide_strict,v3_wide_strict_v2,r3_v3p_wide_strict_v2,r3_pbf_v3p_wide_strict_v2}/`（各含 `report.md`、`report.json`、`filters/`、`episodes/`、`selections.json`）。
 
-可行候选从每个 seed 6 个、10 个 seed 完全相同，变为每个 seed 15–43 个、30 个 seed 几乎各不相同。第一轮 M1/M2 不如随机，原因是 A 的筛选比执行宽松；第二轮（筛选与执行一致）把 IK 类假可行降到 0；第三轮（手指只在最后碰杯、30 个 seed、新增 M4 查表与 M5 论文式基线）显示：最合适的抓取类型确实随任务变化，但在 20 个留出 seed 上没有一个方法在三个任务上都显著好于随机；倒水按真实流体复核后，各方法都不比随机好。
+可行候选从每个 seed 6 个、10 个 seed 完全相同，变为每个 seed 15–43 个、30 个 seed 几乎各不相同。第一轮 M1/M2 不如随机，原因是 A 的筛选比执行宽松；第二轮（筛选与执行一致）把 IK 类假可行降到 0；第三轮（手指只在最后碰杯、30 个 seed、新增 M4 查表与 M5 论文式基线）显示：最合适的抓取类型确实随任务变化，但在 20 个留出 seed 上没有一个方法在三个任务上都显著好于随机；倒水改用真实流体全量评估后，各方法都不比随机好；代理模式对侧抓严重偏悲观，不适合用来比较方法。
 
 ## 第三轮：手指只在最后碰杯 + 30 个 seed（2026-11-06）
 
@@ -65,7 +65,8 @@
 - [x] 筛选与执行一致；接近阶段只在最后允许手指碰杯；公开字段语义描述。
 - [x] M4 查表（训练/测试分开）、M5 论文式基线、30 个 seed 与置信区间、倒水选中候选真实流体复核、精简生成器、C 正式 runner 接入场景配置。
 - [ ] 接入真实 LLM 跑 M3/A1：`--llm-config configs/c.api.json` 已走到读取凭据一步，缺 `OPENAI_API_KEY`（或安装 `google-genai`）。
-- [ ] 倒水：方法对比改用真实流体（约 160 s/次），或给代理加动力学稳定性检查。
+- [x] 倒水：方法对比改用真实流体（见“倒水：真实流体全量对比”）。
+- [ ] 修与抓取选择无关的失败：真实流体下 66/182 次失败是预抓取未到位。
 - [ ] 交接：M1/M2/M5 偏向侧抓/顶抓（0.25），杯沿抓 0.86；M2 加“给接收方留出把手和空间”项，或给杯沿/把手建模型。
 - [ ] M2 补把手干涉与位姿误差鲁棒性（夹爪每侧余量 3.5 mm 对观测噪声 3 mm）。
 - [ ] M5 的部件表换成真实 LLM 输出；留出 seed 扩到 60+。
@@ -83,6 +84,44 @@ python -m grasp_c.oracle --out results/local/oracle_r3 --generator multifamily_v
 ```bash
 python results/oracle_20261103/r3_v3p_wide_strict_v2/pbf_picks.py
 ```
+
+## 倒水：真实流体全量对比（2026-11-06）
+
+30 个 seed 上全部可行的倒水候选（458 个）都用默认流体执行一次，场景、候选、筛选与第三轮相同。M4 改用 seed 0–9 的真实流体结果建表，在 seed 10–29 上留出测试；Oracle 和均匀随机期望也按真实流体计算。458 次执行没有报错；上次复核过的 65 个候选重跑后结果 65/65 一致。数据：`results/oracle_20261103/r3_pbf_v3p_wide_strict_v2/`。
+
+| 方法 | 留出 seed 10–29（真实流体） | 留出（代理，对照） | 30 个 seed（真实流体）与 95% 区间 |
+| --- | --- | --- | --- |
+| M0 随机 | **16** | 13 | 0.73（0.56–0.86） |
+| M2 任务风险 | 15 | 13 | 0.70（0.52–0.83） |
+| M1 静态几何 | 13 | 12 | 0.63（0.46–0.78） |
+| M5 论文式 | 13 | 12 | 0.63（0.46–0.78） |
+| M4 查表（真实流体训练） | 12 | 14 | 0.70（0.52–0.83），含训练 seed |
+| 均匀随机期望 | 12.2 | 9.6 | 0.60 |
+| Oracle | 20 | 20 | 1.00 |
+
+与 M0 相比没有一个差异显著（符号检验 p 均 ≥ 0.22）。M3/A1 mock 为 16/20，不计入结论。
+
+| 抓取类型（30 个 seed） | 真实流体 | 代理 |
+| --- | --- | --- |
+| 杯沿抓 | 45/62 = 0.73 | 0.73 |
+| 顶部下抓杯身 | 142/211 = 0.67 | 0.66 |
+| 侧抓杯身 | 89/185 = 0.48 | 0.20 |
+
+- 代理对侧抓严重偏悲观：458 个候选里代理与真实流体一致 76%；不一致的 111 例中 83 例是代理判失败、真实流体成功，其中 53 例是侧抓（代理判为动作阶段未达标）。代理不适合比较方法，也不适合建查表。
+- M4 在倒水上过拟合：训练 seed 上杯沿抓 16/19 = 0.84，于是全选杯沿；留出 seed 上只有 29/43 = 0.67，不如顶部下抓（0.70）。每个 seed 只有约 2 个可行杯沿候选。
+- 失败大多不是水的问题：182 次失败中意外碰撞 72、预抓取未到位 66（与流体无关）、动作阶段未达标 32、接近未到位 12。
+
+下一步变化：倒水的方法对比和查表一律用真实流体，代理只用于调试；新增“修预抓取未到位等与抓取选择无关的失败”。
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r3_pbf --generator multifamily_v3p --scene wide_strict_v2 --tasks pour_water --liquid pbf --workers 4 --seeds 0 1 2 3 4 5 6 7 8 9
+```
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r3_pbf --generator multifamily_v3p --scene wide_strict_v2 --tasks pour_water --liquid pbf --workers 4 --seeds $(seq 0 29) --prior-from results/local/oracle_r3_pbf --prior-seeds $(seq 0 9) --report-seeds $(seq 10 29)
+```
+
+（复用第三轮的 `b_inputs/` 和 `filters/pour_water/`；4 核约 4 小时，可中断后续跑。）
 
 ## 第二轮：筛选与执行一致之后（2026-11-05）
 
