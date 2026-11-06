@@ -1,0 +1,2541 @@
+{
+  "schema_version": "sequence_filter_v1",
+  "task_id": "transport_place",
+  "seed": 8,
+  "status": "ok",
+  "controller_version": "staged_sequences_v1",
+  "candidate_sha256": "48599e92ae5359815c79d510837b8fa1c5711a6e38299cee7caf42ad903320d7",
+  "evaluation_version": "physical_outcomes_v1",
+  "scene_version": "hollow_cup_sequences_v1",
+  "task_spec_sha256": "f6c15262b178bbe98a0edd5975ff7b5cd4f616827b15bdd3cf3d810f036ce3a6",
+  "task_spec": {
+    "task_id": "transport_place",
+    "schema_version": "task_spec_v1",
+    "controller_version": "staged_sequences_v1",
+    "evaluation_version": "physical_outcomes_v1",
+    "config": {
+      "target_xy": [
+        0.55,
+        0.16
+      ],
+      "carry_height_m": 0.8,
+      "episode_timeout_s": 25.0,
+      "arrival_position_m": 0.02,
+      "arrival_angle_deg": 10.0,
+      "arrival_continuous_s": 0.1,
+      "arrival_timeout_s": 2.0,
+      "terminal_window_s": 1.0,
+      "settle_s": 1.0,
+      "placement_tolerance_m": 0.02,
+      "upright_tolerance_deg": 5.0,
+      "linear_speed_m_s": 0.02,
+      "angular_speed_deg_s": 5.0,
+      "drop_contact_gap_s": 0.1,
+      "receiver_lift_m": 0.05,
+      "donor_clearance_m": 0.08,
+      "transfer_min_ratio": 0.9,
+      "spill_max_ratio": 0.05,
+      "water_mass_kg": 0.1,
+      "fluid_particles": 256,
+      "fluid_iterations": 8,
+      "fluid_substeps": 2,
+      "pour_angle_deg": -110.0,
+      "pour_dwell_s": 2.0
+    },
+    "point_A": [
+      0.55,
+      0,
+      0.645
+    ],
+    "point_B": [
+      0.55,
+      0.16,
+      0.645
+    ],
+    "handoff_pose": null,
+    "pouring_pose": null,
+    "material_model": "empty_cup",
+    "stages": [
+      {
+        "id": "pregrasp",
+        "actor": "donor",
+        "action": "Move to estimated pregrasp; jaws open",
+        "entry": "Fresh scene and selected candidate feasible",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "No unintended collision",
+        "timeout_s": 3,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "approach",
+        "actor": "donor",
+        "action": "Move to estimated candidate grasp pose",
+        "entry": "pregrasp control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "No nonfinger source collision",
+        "timeout_s": 3,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "close",
+        "actor": "donor",
+        "action": "Close jaws under force-limited motor control",
+        "entry": "approach control completed",
+        "control_exit": "Fixed 0.75 s close; encoder feedback only",
+        "evaluation": "Physical source/finger contact formed",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "lift",
+        "actor": "donor",
+        "action": "Raise nominal source by 0.14 m",
+        "entry": "close action completed, not an oracle grasp gate",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Source lifted >=0.09 m with donor contact",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "transport",
+        "actor": "donor",
+        "action": "Move upright source from A to the B work region",
+        "entry": "lift control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Source near prescribed B pose; no drop/collision",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "lower",
+        "actor": "donor",
+        "action": "Lower nominal center to z=0.642 m (3 mm compliant overtravel)",
+        "entry": "transport control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Actual source/table contact at B",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "release",
+        "actor": "donor",
+        "action": "Open jaws; do not attach or reposition source",
+        "entry": "lower control completed",
+        "control_exit": "Fixed 0.5 s open",
+        "evaluation": "Table supports source",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "retreat",
+        "actor": "donor",
+        "action": "Withdraw 0.10 m along approach axis and raise 0.16 m",
+        "entry": "release completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Donor no longer supports source; clearance >= configured value",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "settle",
+        "actor": "all_actuators",
+        "action": "Keep final motor targets for a fixed settling interval",
+        "entry": "last physical action control completed",
+        "control_exit": "Fixed settle_s; no oracle stability gate",
+        "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+        "timeout_s": 1.0,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "terminal",
+        "actor": "evaluator",
+        "action": "Observe released source for the final window",
+        "entry": "settle control completed",
+        "control_exit": "Fixed terminal window",
+        "evaluation": "Every step: B position, upright, speed limits, table support, donor detached",
+        "timeout_s": 1.0,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      }
+    ],
+    "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+    "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels."
+  },
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.5281364687504839,
+        -0.001885248208280857,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        -0.3813954374510949,
+        0.924411986233134
+      ]
+    },
+    "source": "external_estimate",
+    "position_noise_m": 0.003,
+    "yaw_noise_deg": 2.0,
+    "noise_seed": 8000041
+  },
+  "initial_object_pose_estimate": {
+    "position": [
+      0.5273531770910155,
+      0.0007498435274072958,
+      0.6471991068395703
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      -0.3658299148082733,
+      0.9306817650794983
+    ]
+  },
+  "scene_randomization": {
+    "name": "wide_strict_v2",
+    "x_range_m": [
+      -0.04,
+      0.04
+    ],
+    "y_range_m": [
+      -0.05,
+      0.0
+    ],
+    "yaw_range_rad": [
+      -1.0471975511965976,
+      1.0471975511965976
+    ],
+    "observation": "noisy_truth",
+    "estimate_position_noise_m": 0.003,
+    "estimate_yaw_noise_deg": 2.0,
+    "ik_restarts": true,
+    "filter_mode": "execution",
+    "approach_finger_contact": "final_only"
+  },
+  "feasible_candidates": [
+    {
+      "id": "B3_6fe272389e801ae2",
+      "region": "body",
+      "approach": "side_yaw_0_pitch_0_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_2d90f2a44d16be5c",
+      "region": "body",
+      "approach": "side_yaw_45_pitch_0_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_8bbe77fd36dc7598",
+      "region": "body",
+      "approach": "side_yaw_45_pitch_60_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_a4d27322f9e24d6c",
+      "region": "body",
+      "approach": "side_yaw_45_pitch_60_roll_180_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_1628311da54eab7d",
+      "region": "body",
+      "approach": "side_yaw_90_pitch_60_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_7ff381f16d56a546",
+      "region": "body",
+      "approach": "side_yaw_90_pitch_60_roll_180_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_39f34778296448dd",
+      "region": "body",
+      "approach": "side_yaw_135_pitch_0_roll_180_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_da9103d76e51550b",
+      "region": "body",
+      "approach": "side_yaw_135_pitch_60_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_70da83ab576cb9ca",
+      "region": "body",
+      "approach": "side_yaw_135_pitch_60_roll_180_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_08a7097394fcd1da",
+      "region": "body",
+      "approach": "side_yaw_225_pitch_60_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_65945d8423ac5f19",
+      "region": "body",
+      "approach": "side_yaw_270_pitch_60_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_b6f24e79a5c609ff",
+      "region": "body",
+      "approach": "side_yaw_270_pitch_60_roll_180_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_1d236f6551a7ac00",
+      "region": "body",
+      "approach": "side_yaw_315_pitch_60_roll_0_h_0.75",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_938f155b5d840cb3",
+      "region": "body",
+      "approach": "top_down_closing_yaw_0_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_bd4ef202a5f07118",
+      "region": "body",
+      "approach": "top_down_closing_yaw_45_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_b2028ab4ca3f7706",
+      "region": "body",
+      "approach": "top_down_closing_yaw_135_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_84b9936381c647d3",
+      "region": "body",
+      "approach": "top_down_closing_yaw_180_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_a0e9a19516a0968e",
+      "region": "body",
+      "approach": "top_down_closing_yaw_225_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_9910b02da1871f5b",
+      "region": "body",
+      "approach": "top_down_closing_yaw_270_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_6e254b46f7992db7",
+      "region": "body",
+      "approach": "top_down_closing_yaw_315_depth_15mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_599e9b16f5782406",
+      "region": "body",
+      "approach": "top_down_closing_yaw_0_depth_30mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_2880fbb6c6702788",
+      "region": "body",
+      "approach": "top_down_closing_yaw_45_depth_30mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_2bf8d5b68bea164f",
+      "region": "body",
+      "approach": "top_down_closing_yaw_135_depth_30mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_640399fab83e671a",
+      "region": "body",
+      "approach": "top_down_closing_yaw_180_depth_30mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_a9d9804ec06713ec",
+      "region": "body",
+      "approach": "top_down_closing_yaw_225_depth_30mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_fa973f00daa0de87",
+      "region": "body",
+      "approach": "top_down_closing_yaw_315_depth_30mm",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_ee93643e3d354d36",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_0",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_0c89592bda4c78bb",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_45",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_88b12fa9fb6b3f92",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_135",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_960a70b9f31cb1ac",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_180",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_ac60eb63dbb6dfdd",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_225",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_6a332079558fd28a",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_270",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_1cd02c73b1f59234",
+      "region": "rim",
+      "approach": "rim_top_down_azimuth_315",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_c4dc0f977815f043",
+      "region": "handle",
+      "approach": "handle_side_yaw_300_pitch_30_roll_0_z_-12mm",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_1b7a7ef7b6951490",
+      "region": "handle",
+      "approach": "handle_side_yaw_300_pitch_30_roll_180_z_-12mm",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_6d11150c6f511233",
+      "region": "handle",
+      "approach": "handle_side_yaw_300_pitch_30_roll_0_z_0mm",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_c289cb569d727841",
+      "region": "handle",
+      "approach": "handle_side_yaw_300_pitch_30_roll_180_z_0mm",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_2dd135a83976a239",
+      "region": "handle",
+      "approach": "handle_side_yaw_300_pitch_30_roll_0_z_12mm",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_01d31ecafeb58600",
+      "region": "handle",
+      "approach": "handle_side_yaw_300_pitch_30_roll_180_z_12mm",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_ff0a6731323bba4c",
+      "region": "handle",
+      "approach": "handle_top_down_y_0.35_roll_0",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_3d1855c7ce86e7ed",
+      "region": "handle",
+      "approach": "handle_top_down_y_0.35_roll_180",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_178b0b42e93bcffb",
+      "region": "handle",
+      "approach": "handle_top_down_y_0.65_roll_0",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_e3bff51813b48659",
+      "region": "handle",
+      "approach": "handle_top_down_y_0.65_roll_180",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "B3_b4cd844bdfc1039b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_1e9063abd37354ee",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_b4c13c955b0cfe4e",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.278016291402025e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.0795759430543046
+    },
+    {
+      "candidate_id": "B3_bb8363e36bb87f24",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.424310562159898e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07959162142439757
+    },
+    {
+      "candidate_id": "B3_abe64d5ea59c44d0",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.822623189621138e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b82c871c22a7887d",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 1.013087200153435e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_49551de81eb5de47",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_7dc8300643289331",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_34a0788cf80242dc",
+      "feasible": false,
+      "reasons": [
+        "approach_ik_failed"
+      ],
+      "pregrasp_position_error_m": 0.004027584665547627,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07861074431022724
+    },
+    {
+      "candidate_id": "B3_071764b259b65ff5",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_5432b46bebe3534b",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.912085544113848e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_8da7f0617efbb609",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.715064508732011e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_815189961a30c1b6",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_233385680e3dd93b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_953e1ced0b9bb451",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 6.852821111423076e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07958212035998335
+    },
+    {
+      "candidate_id": "B3_5edeb99e6c49abcf",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_table"
+      ],
+      "pregrasp_position_error_m": 7.350672736124793e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.04114668412851723
+    },
+    {
+      "candidate_id": "B3_454ccc49b2174df6",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_18fbf150cf2bfe14",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.362484631487123e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_e09b390b49b6897f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_081288d7734478bb",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_17db176d29c0268e",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.165183702548902e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07958079218525313
+    },
+    {
+      "candidate_id": "B3_4d0cc79a166b8a2b",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.05546630480794e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07958240679089448
+    },
+    {
+      "candidate_id": "B3_9b529dbd9ca5def5",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_795e1a484eeaab59",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.693445136428545e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_7e614550a413be53",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_24d64441222065d1",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_bd353e1cc41344a9",
+      "feasible": false,
+      "reasons": [
+        "approach_ik_failed"
+      ],
+      "pregrasp_position_error_m": 9.261479267118786e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07959173251563602
+    },
+    {
+      "candidate_id": "B3_0b3245f23bec1da9",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_acbf3082a7e22452",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_6243cdd1437cc3a3",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_7d034725aef9acf0",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_89fe8280824faafa",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_06220d8fb96ba801",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_17c1f54e65d77972",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_57d90bddd7c26d6b",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.369672498209737e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ae1e6a36792ae031",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_0d9686ae6bc002d0",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_5ec2f67580b82872",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_42ece2074c692ec0",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.885390353905434e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.0795851616678275
+    },
+    {
+      "candidate_id": "B3_32105d7310c9615e",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.914013102271274e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07958518733863296
+    },
+    {
+      "candidate_id": "B3_97ed7c812c0a461a",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.143056259384279e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_7c18f17ebeb2fc38",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.065936150877147e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ed420040463eecb5",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_69f064da3d7bb021",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_1c26dd5d2298db14",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.689514122408553e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07958666685988813
+    },
+    {
+      "candidate_id": "B3_491fc5a3f3d7dfa2",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.266210157187497e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07660623709260928
+    },
+    {
+      "candidate_id": "B3_0e772c3c76c0d52a",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 3.6083604893887464e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b7f6e1032c214fe6",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "feasible": false,
+      "reasons": [
+        "lower:robot_table"
+      ],
+      "pregrasp_position_error_m": 7.742587290357867e-06,
+      "grasp_position_error_m": 8.046242084257599e-06,
+      "min_table_clearance_m": 0.001895451592997312
+    },
+    {
+      "candidate_id": "B3_f29e04b500bca0be",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_49e775b49f9db276",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.55141185501407e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09807570649060529
+    },
+    {
+      "candidate_id": "B3_7669992406318102",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.032959488782113e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09809037787992719
+    },
+    {
+      "candidate_id": "B3_df30d1b74705f5a0",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.65269465477156e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_0dcc70cac48d91d0",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_235da732cc7a75db",
+      "feasible": false,
+      "reasons": [
+        "lower:robot_table"
+      ],
+      "pregrasp_position_error_m": 9.219847064149611e-06,
+      "grasp_position_error_m": 8.792459343928513e-06,
+      "min_table_clearance_m": 0.002192852372466807
+    },
+    {
+      "candidate_id": "B3_dfa20dd9e57c4399",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_894f875e69bbf32f",
+      "feasible": false,
+      "reasons": [
+        "approach_ik_failed"
+      ],
+      "pregrasp_position_error_m": 0.0030819772971866608,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09944449225042298
+    },
+    {
+      "candidate_id": "B3_8a41e7012c66fc30",
+      "feasible": false,
+      "reasons": [
+        "approach_ik_failed"
+      ],
+      "pregrasp_position_error_m": 0.0031312474653778185,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.06785295274387586
+    },
+    {
+      "candidate_id": "B3_d85feb9974153985",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 4.339933244392132e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a8c857de7b466c58",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.571593182019973e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_74fa2e2222b836b2",
+      "feasible": false,
+      "reasons": [
+        "transport:robot_self"
+      ],
+      "pregrasp_position_error_m": 7.352722776545225e-06,
+      "grasp_position_error_m": 7.579922558411027e-06,
+      "min_table_clearance_m": 0.0013803024137138981
+    },
+    {
+      "candidate_id": "B3_034c4eac3fb53111",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e9c9e8f212fd936f",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 6.260562876255757e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09808183999894016
+    },
+    {
+      "candidate_id": "B3_287152e7d5762968",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": 6.959783507781383e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.060223132109769324
+    },
+    {
+      "candidate_id": "B3_f6634ccc5d01021a",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 4.227651402874951e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2cb236341fc0966a",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.275972843170166e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_8c8857908eb67c47",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c5fcb8ef335c6b29",
+      "feasible": false,
+      "reasons": [
+        "lower:robot_table"
+      ],
+      "pregrasp_position_error_m": 9.397805127224776e-06,
+      "grasp_position_error_m": 9.094848996617678e-06,
+      "min_table_clearance_m": 0.0019183807747526916
+    },
+    {
+      "candidate_id": "B3_729726af5f650720",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.25886938501513e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09808285462064817
+    },
+    {
+      "candidate_id": "B3_a1dfcfdaeb23fc56",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.239254121925795e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09808254216642791
+    },
+    {
+      "candidate_id": "B3_be078cd1fb945beb",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_65df8f74dfe1ed37",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 5.632249634840497e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_4eef2b9d5d062ffe",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_a39d5cd90237932e",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_b0fd8107ee7f53bd",
+      "feasible": false,
+      "reasons": [
+        "approach_ik_failed"
+      ],
+      "pregrasp_position_error_m": 3.118234879033065e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09808528600860666
+    },
+    {
+      "candidate_id": "B3_164cdb5e6759befe",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_b2a5304d6c39e233",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_982e25dadc7d673f",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.706341359134037e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2c6fde133bd957f7",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_cb04162c1e4df6b7",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_913abc2714215a34",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_d5d03655a70bbd23",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_10389093f17c8b19",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.5475760055768e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a7c9596020070376",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_3ece783ea250f7f4",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_39daa8c6e5d7c7c8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_8a8be9aaa927ecbf",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.865705364841525e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09808488301672419
+    },
+    {
+      "candidate_id": "B3_e0edf3a77125259b",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.902853092190208e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.0980849313583611
+    },
+    {
+      "candidate_id": "B3_2fab18572b3c4fc5",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.426996338872648e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_450a3d421e5362a5",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.251672017391316e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b11091eb868c8680",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.428950392262547e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.0016870686623831083
+    },
+    {
+      "candidate_id": "B3_23ef7dbed26e713d",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_9e6e01d493aa3fe4",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.424524714934892e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09808644205310435
+    },
+    {
+      "candidate_id": "B3_5a5762f4b04526e3",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.658395332728443e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.09401732375613026
+    },
+    {
+      "candidate_id": "B3_33c602bb9c938a9c",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 3.2681562228961894e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b0469ad388e8a1c8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_6fe272389e801ae2",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.016551206533487e-06,
+      "grasp_position_error_m": 7.927241626615094e-06,
+      "min_table_clearance_m": 0.020413620134280108
+    },
+    {
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_533b4759958a019b",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.723829777262016e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a0524d3336b6b337",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 7.969492212524428e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_43aaf2b25549c10a",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.758080640398472e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_3597bfe78b48873d",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.758702802876755e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2d90f2a44d16be5c",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.489285519424157e-06,
+      "grasp_position_error_m": 8.591784181185522e-06,
+      "min_table_clearance_m": 0.02064486808403207
+    },
+    {
+      "candidate_id": "B3_d743a2f71e5f0387",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_d2eb02d284a422d1",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 0.0010583778483444352,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.0838206644234517
+    },
+    {
+      "candidate_id": "B3_7394e3df8289f874",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 0.0010339187645917564,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.08386826674475799
+    },
+    {
+      "candidate_id": "B3_8bbe77fd36dc7598",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 7.0571178064702e-05,
+      "grasp_position_error_m": 9.740954096161063e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a4d27322f9e24d6c",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.794735634740265e-06,
+      "grasp_position_error_m": 8.912238599466999e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ce3db25546816f3f",
+      "feasible": false,
+      "reasons": [
+        "transport:robot_self"
+      ],
+      "pregrasp_position_error_m": 7.617339659732965e-06,
+      "grasp_position_error_m": 7.0370039957137836e-06,
+      "min_table_clearance_m": 0.019878910799453614
+    },
+    {
+      "candidate_id": "B3_e8ac427b77b0c9cf",
+      "feasible": false,
+      "reasons": [
+        "transport:robot_self"
+      ],
+      "pregrasp_position_error_m": 9.962384701030767e-06,
+      "grasp_position_error_m": 6.992469072644511e-06,
+      "min_table_clearance_m": 0.020650803490623842
+    },
+    {
+      "candidate_id": "B3_9b0fd7b28c28724c",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 6.510699137466588e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_24ac48a886591ad5",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.621765513349692e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.07941404641830493
+    },
+    {
+      "candidate_id": "B3_1628311da54eab7d",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.6687149861938724e-06,
+      "grasp_position_error_m": 9.535902185621516e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_7ff381f16d56a546",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.09646096220478e-06,
+      "grasp_position_error_m": 7.842332664218126e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ec6e2b9e1390c98a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_39f34778296448dd",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.265865666017054e-06,
+      "grasp_position_error_m": 9.380280013812515e-06,
+      "min_table_clearance_m": 0.02071934108714299
+    },
+    {
+      "candidate_id": "B3_b0c432a3ebced031",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 4.439952199787236e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_6d776b0610308389",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.43353396757952e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_da9103d76e51550b",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.475950797746299e-06,
+      "grasp_position_error_m": 7.87888251783001e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_70da83ab576cb9ca",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.818523844372942e-06,
+      "grasp_position_error_m": 6.737188152503577e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_90e022514e5e1207",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_45e8aa38282ce336",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_2ee8141897255ae1",
+      "feasible": false,
+      "reasons": [
+        "approach_ik_failed"
+      ],
+      "pregrasp_position_error_m": 7.703439165622656e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_dbbe29031043440b",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 3.128713395367216e-05,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_85df4465f6064709",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 7.497950743646664e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b5291887c2a30ad1",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.363767879757441e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_183a8d7db99981a8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_0f305a75d87931b6",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_75b5badbf86f07d5",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_346e7a652ccdab1e",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_08a7097394fcd1da",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.552350101122698e-06,
+      "grasp_position_error_m": 8.1901749379249e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_c088f0e8401526dc",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_d00bb2f9473e9fde",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_a929ecf1005e4d05",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_75496cb87b616353",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.03619979074675e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_11677df22f8f5079",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.892645691371918e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_65945d8423ac5f19",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.23338282151213e-06,
+      "grasp_position_error_m": 8.057740503727816e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b6f24e79a5c609ff",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.197959015216424e-06,
+      "grasp_position_error_m": 7.953658715237448e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_391e42fe0b29a420",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.200184965391834e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.02023811836726161
+    },
+    {
+      "candidate_id": "B3_d889f68ea4a05747",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_f2eab4352835761e",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.550527284363253e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_65bfb3e51b357649",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 6.586515522780836e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_1d236f6551a7ac00",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.01357335092972e-06,
+      "grasp_position_error_m": 7.391333012106195e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_c66934b86ca998af",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_938f155b5d840cb3",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.2761397048946825e-06,
+      "grasp_position_error_m": 7.88665874573232e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_bd4ef202a5f07118",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.200018497009165e-06,
+      "grasp_position_error_m": 8.01371144908341e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_7b21f3780e5faf1f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_b2028ab4ca3f7706",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.3061764933976108e-06,
+      "grasp_position_error_m": 7.997024068036673e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_84b9936381c647d3",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.563703724301649e-06,
+      "grasp_position_error_m": 9.101090062782681e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a0e9a19516a0968e",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 5.243072170741964e-06,
+      "grasp_position_error_m": 8.661522663795088e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_9910b02da1871f5b",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.7906205634375024e-06,
+      "grasp_position_error_m": 7.935047167054099e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_6e254b46f7992db7",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.378590942187215e-06,
+      "grasp_position_error_m": 8.816285105747726e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_599e9b16f5782406",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.2287550994924376e-06,
+      "grasp_position_error_m": 8.328774500129638e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2880fbb6c6702788",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.14989840165773e-06,
+      "grasp_position_error_m": 7.990882886186541e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_0a8e774c4c896d8e",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_2bf8d5b68bea164f",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 4.286702397590526e-06,
+      "grasp_position_error_m": 8.02534452233426e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_640399fab83e671a",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.8578084522385414e-07,
+      "grasp_position_error_m": 8.352548213030346e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.7067661330910727e-06,
+      "grasp_position_error_m": 8.693228666184777e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_bd2ceb346c0aa375",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 2.6043231446133563e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_fa973f00daa0de87",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.338498542788728e-06,
+      "grasp_position_error_m": 8.586346996029218e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ee93643e3d354d36",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.142933376251524e-06,
+      "grasp_position_error_m": 8.372785324422946e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_0c89592bda4c78bb",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 4.206333441819971e-06,
+      "grasp_position_error_m": 8.238999810756414e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_1c7e74f3cf294e73",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_88b12fa9fb6b3f92",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 4.236780370369044e-06,
+      "grasp_position_error_m": 8.637296643476316e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.91117124475981e-06,
+      "grasp_position_error_m": 9.192549921680853e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ac60eb63dbb6dfdd",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 5.361525948928973e-06,
+      "grasp_position_error_m": 8.919655197291165e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_6a332079558fd28a",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.2702282496509213e-06,
+      "grasp_position_error_m": 7.780687950242676e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.498687463618998e-06,
+      "grasp_position_error_m": 8.413602571343602e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_c86c57b45017c076",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c517dff319e4533b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_90e75e135781da99",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_61cfe0196ee54ee4",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_80889ba412620bec",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_1320e26ee772f083",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_2c61a5499b931465",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_39068fc863047d9b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_09cf23ddb2898734",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_8766eaed0f4180a1",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_b7d02dc775e85e30",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_7fcf28aefcfdf3e5",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c0dab10fb2cca048",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_6f505b0ea1b2bd0a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_3f31379d0e077888",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e92161933aa51610",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_5b149ecfe22eef89",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_9be9657fcccfca5a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e15b6a2212aa6bae",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_541ab7209f8ade0c",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c41a18294550acc2",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_fa952f69aad6c792",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_0a6016ef8f68fb6e",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_116de631968169d2",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_d6d62a823445bd4b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e0a98b21e2f69488",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_3e70b8df335a8e32",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_a2ca6edfd6f5a99f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_24ae633eb8a13262",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_dc5cbea3e7a6fa10",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c4dc0f977815f043",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.7130198883039564e-05,
+      "grasp_position_error_m": 8.953056137404513e-06,
+      "min_table_clearance_m": 0.08608661703629877
+    },
+    {
+      "candidate_id": "B3_1b7a7ef7b6951490",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 5.383012255486382e-07,
+      "grasp_position_error_m": 9.27768123264555e-06,
+      "min_table_clearance_m": 0.08608389193467905
+    },
+    {
+      "candidate_id": "B3_6d11150c6f511233",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.416162333020858e-05,
+      "grasp_position_error_m": 8.39020066703994e-06,
+      "min_table_clearance_m": 0.09808590741904039
+    },
+    {
+      "candidate_id": "B3_c289cb569d727841",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.0324902654480938e-06,
+      "grasp_position_error_m": 8.683184213924552e-06,
+      "min_table_clearance_m": 0.09808374281071414
+    },
+    {
+      "candidate_id": "B3_2dd135a83976a239",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.2048692308426922e-05,
+      "grasp_position_error_m": 8.4333727023005e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_01d31ecafeb58600",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.5262583393452264e-07,
+      "grasp_position_error_m": 8.83964526104465e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ff0a6731323bba4c",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.940790440370515e-06,
+      "grasp_position_error_m": 8.016561593378247e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_3d1855c7ce86e7ed",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.1756817875846847e-07,
+      "grasp_position_error_m": 8.67253022180939e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_178b0b42e93bcffb",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.262404713621585e-06,
+      "grasp_position_error_m": 8.149944199195808e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_e3bff51813b48659",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.3333208984265686e-07,
+      "grasp_position_error_m": 8.242928554322457e-06,
+      "min_table_clearance_m": 0.1
+    }
+  ],
+  "scope": "initial width/IK/sampled approach only; not full-task feasibility or outcome",
+  "filter_seconds": 47.71526100300002
+}

@@ -1,0 +1,2396 @@
+{
+  "tasks": {
+    "handover_transfer": {
+      "summary": {
+        "M0_RANDOM": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 7,
+          "success_rate": 0.7,
+          "distinct_selected_ids": 9,
+          "selected_families": {
+            "side": 3,
+            "rim": 1,
+            "top": 4,
+            "handle": 2
+          },
+          "ci95": [
+            0.39677321997956516,
+            0.892210712513788
+          ],
+          "regret_vs_oracle": 0.30000000000000004
+        },
+        "M1_STATIC_V2": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 4,
+          "success_rate": 0.4,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 6,
+            "top": 4
+          },
+          "ci95": [
+            0.16817758120350967,
+            0.6873304525498135
+          ],
+          "regret_vs_oracle": 0.6,
+          "vs_M0": {
+            "wins": 1,
+            "losses": 4,
+            "p": 0.375
+          }
+        },
+        "M2_TASK_RISK": {
+          "seeds": 10,
+          "scored": 0,
+          "successes": 0,
+          "success_rate": null,
+          "distinct_selected_ids": 0,
+          "selected_families": {},
+          "ci95": null,
+          "regret_vs_oracle": null,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 0,
+            "p": 1.0
+          }
+        },
+        "M5_PAPER_STYLE": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 4,
+          "success_rate": 0.4,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 6,
+            "top": 4
+          },
+          "ci95": [
+            0.16817758120350967,
+            0.6873304525498135
+          ],
+          "regret_vs_oracle": 0.6,
+          "vs_M0": {
+            "wins": 1,
+            "losses": 4,
+            "p": 0.375
+          }
+        },
+        "M3_MOCK": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 0,
+          "success_rate": 0.0,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 10
+          },
+          "ci95": [
+            0.0,
+            0.2775401687666165
+          ],
+          "regret_vs_oracle": 1.0,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 7,
+            "p": 0.015625
+          }
+        },
+        "A1_MOCK": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 0,
+          "success_rate": 0.0,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 10
+          },
+          "ci95": [
+            0.0,
+            0.2775401687666165
+          ],
+          "regret_vs_oracle": 1.0,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 7,
+            "p": 0.015625
+          }
+        },
+        "ORACLE": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 10,
+          "success_rate": 1.0,
+          "distinct_selected_ids": null,
+          "selected_families": null,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "UNIFORM_FEASIBLE_EXPECTATION": {
+          "success_rate": 0.5216713007106745
+        }
+      },
+      "seeds": [
+        {
+          "seed": 0,
+          "feasible": 35,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 6,
+            "side": 12,
+            "top": 13
+          },
+          "executed": 35,
+          "succeeded": 23,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5776856515802788,
+              -0.010262135190272803,
+              0.6477629686459433
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.09039714187383652,
+              0.9959058165550232
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_1628311da54eab7d",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 1,
+          "feasible": 32,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 6,
+            "side": 11,
+            "top": 11
+          },
+          "executed": 32,
+          "succeeded": 14,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5234296102479999,
+              -0.00593465167940622,
+              0.6447231119118448
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.2845137417316437,
+              0.9586719274520874
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_6a332079558fd28a",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 2,
+          "feasible": 34,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 7,
+            "side": 9,
+            "top": 14
+          },
+          "executed": 34,
+          "succeeded": 17,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5884974495589473,
+              -0.004945294029177442,
+              0.6425023674211919
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.43248146772384644,
+              0.9016427993774414
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_6e254b46f7992db7",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 3,
+          "feasible": 35,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 7,
+            "side": 12,
+            "top": 12
+          },
+          "executed": 35,
+          "succeeded": 17,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5280363084920319,
+              -0.022141542412266544,
+              0.6447825716722645
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.12046854197978973,
+              0.9927171468734741
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_b2028ab4ca3f7706",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 4,
+          "feasible": 34,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 7,
+            "side": 11,
+            "top": 12
+          },
+          "executed": 34,
+          "succeeded": 23,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5298158948686202,
+              -0.04414230365909881,
+              0.6456236387952804
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.12470252811908722,
+              0.9921941757202148
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_a9d9804ec06713ec",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 5,
+          "feasible": 32,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 6,
+            "side": 10,
+            "top": 12
+          },
+          "executed": 32,
+          "succeeded": 16,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5609749823646553,
+              -0.014463265578034224,
+              0.6428280948904833
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.3124023675918579,
+              0.9499498605728149
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 6,
+          "feasible": 39,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 6,
+            "side": 16,
+            "top": 13
+          },
+          "executed": 39,
+          "succeeded": 22,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.574039516742281,
+              -0.007983195851562108,
+              0.6476334211070348
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.027091635391116142,
+              0.9996329545974731
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_drop"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 7,
+          "feasible": 31,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 6,
+            "side": 10,
+            "top": 11
+          },
+          "executed": 31,
+          "succeeded": 16,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5384181366003936,
+              -0.043570226142928506,
+              0.6420095704556972
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.1448688507080078,
+              0.9894508123397827
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_3d1855c7ce86e7ed",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "receiver_approach_arrival_timeout_encoder_0.0170m"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "receiver_approach_arrival_timeout_encoder_0.0170m"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 8,
+          "feasible": 35,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 7,
+            "side": 11,
+            "top": 13
+          },
+          "executed": 35,
+          "succeeded": 17,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5273531770910155,
+              0.0007498435274072958,
+              0.6471991068395703
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3658299148082733,
+              0.9306817650794983
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_938f155b5d840cb3",
+              "family": "top",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_235da732cc7a75db",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 9,
+          "feasible": 33,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 7,
+            "side": 8,
+            "top": 14
+          },
+          "executed": 33,
+          "succeeded": 13,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5481920721900798,
+              -0.033867625492360776,
+              0.6429621006112104
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3724762201309204,
+              0.9280417561531067
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_3d1855c7ce86e7ed",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        }
+      ],
+      "seed_variation": {
+        "feasible_mean": 34.0,
+        "feasible_min": 31,
+        "distinct_feasible_sets": 10,
+        "mean_pairwise_jaccard": 0.6933326048828043,
+        "union_feasible": 47,
+        "distinct_successful_sets": 10
+      }
+    },
+    "pour_water": {
+      "summary": {
+        "M0_RANDOM": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 6,
+          "success_rate": 0.6,
+          "distinct_selected_ids": 9,
+          "selected_families": {
+            "top": 4,
+            "rim": 1,
+            "side": 5
+          },
+          "ci95": [
+            0.3126695474501864,
+            0.8318224187964902
+          ],
+          "regret_vs_oracle": 0.4
+        },
+        "M1_STATIC_V2": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 7,
+          "success_rate": 0.7,
+          "distinct_selected_ids": 5,
+          "selected_families": {
+            "side": 6,
+            "top": 4
+          },
+          "ci95": [
+            0.39677321997956516,
+            0.892210712513788
+          ],
+          "regret_vs_oracle": 0.30000000000000004,
+          "vs_M0": {
+            "wins": 4,
+            "losses": 3,
+            "p": 1.0
+          }
+        },
+        "M2_TASK_RISK": {
+          "seeds": 10,
+          "scored": 0,
+          "successes": 0,
+          "success_rate": null,
+          "distinct_selected_ids": 0,
+          "selected_families": {},
+          "ci95": null,
+          "regret_vs_oracle": null,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 0,
+            "p": 1.0
+          }
+        },
+        "M5_PAPER_STYLE": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 7,
+          "success_rate": 0.7,
+          "distinct_selected_ids": 5,
+          "selected_families": {
+            "side": 6,
+            "top": 4
+          },
+          "ci95": [
+            0.39677321997956516,
+            0.892210712513788
+          ],
+          "regret_vs_oracle": 0.30000000000000004,
+          "vs_M0": {
+            "wins": 4,
+            "losses": 3,
+            "p": 1.0
+          }
+        },
+        "M3_MOCK": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 7,
+          "success_rate": 0.7,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 10
+          },
+          "ci95": [
+            0.39677321997956516,
+            0.892210712513788
+          ],
+          "regret_vs_oracle": 0.30000000000000004,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 2,
+            "p": 1.0
+          }
+        },
+        "A1_MOCK": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 7,
+          "success_rate": 0.7,
+          "distinct_selected_ids": 4,
+          "selected_families": {
+            "side": 10
+          },
+          "ci95": [
+            0.39677321997956516,
+            0.892210712513788
+          ],
+          "regret_vs_oracle": 0.30000000000000004,
+          "vs_M0": {
+            "wins": 3,
+            "losses": 2,
+            "p": 1.0
+          }
+        },
+        "ORACLE": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 10,
+          "success_rate": 1.0,
+          "distinct_selected_ids": null,
+          "selected_families": null,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "UNIFORM_FEASIBLE_EXPECTATION": {
+          "success_rate": 0.6704133448251096
+        }
+      },
+      "seeds": [
+        {
+          "seed": 0,
+          "feasible": 16,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 6,
+            "top": 8
+          },
+          "executed": 16,
+          "succeeded": 12,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5776856515802788,
+              -0.010262135190272803,
+              0.6477629686459433
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.09039714187383652,
+              0.9959058165550232
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 1,
+          "feasible": 14,
+          "feasible_by_family": {
+            "rim": 1,
+            "side": 6,
+            "top": 7
+          },
+          "executed": 14,
+          "succeeded": 10,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5234296102479999,
+              -0.00593465167940622,
+              0.6447231119118448
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.2845137417316437,
+              0.9586719274520874
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 2,
+          "feasible": 15,
+          "feasible_by_family": {
+            "rim": 3,
+            "side": 4,
+            "top": 8
+          },
+          "executed": 15,
+          "succeeded": 7,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5884974495589473,
+              -0.004945294029177442,
+              0.6425023674211919
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.43248146772384644,
+              0.9016427993774414
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 3,
+          "feasible": 18,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 8,
+            "top": 8
+          },
+          "executed": 18,
+          "succeeded": 12,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5280363084920319,
+              -0.022141542412266544,
+              0.6447825716722645
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.12046854197978973,
+              0.9927171468734741
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_938f155b5d840cb3",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_034c4eac3fb53111",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 4,
+          "feasible": 17,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 8
+          },
+          "executed": 17,
+          "succeeded": 13,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5298158948686202,
+              -0.04414230365909881,
+              0.6456236387952804
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.12470252811908722,
+              0.9921941757202148
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_da9103d76e51550b",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 5,
+          "feasible": 13,
+          "feasible_by_family": {
+            "rim": 1,
+            "side": 5,
+            "top": 7
+          },
+          "executed": 13,
+          "succeeded": 8,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5609749823646553,
+              -0.014463265578034224,
+              0.6428280948904833
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.3124023675918579,
+              0.9499498605728149
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 6,
+          "feasible": 18,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 8,
+            "top": 8
+          },
+          "executed": 18,
+          "succeeded": 13,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.574039516742281,
+              -0.007983195851562108,
+              0.6476334211070348
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.027091635391116142,
+              0.9996329545974731
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 7,
+          "feasible": 14,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 5,
+            "top": 7
+          },
+          "executed": 14,
+          "succeeded": 10,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5384181366003936,
+              -0.043570226142928506,
+              0.6420095704556972
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.1448688507080078,
+              0.9894508123397827
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_7ff381f16d56a546",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 8,
+          "feasible": 17,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 7,
+            "top": 8
+          },
+          "executed": 17,
+          "succeeded": 11,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5273531770910155,
+              0.0007498435274072958,
+              0.6471991068395703
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3658299148082733,
+              0.9306817650794983
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_da9103d76e51550b",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_c5fcb8ef335c6b29",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_c5fcb8ef335c6b29",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_c5fcb8ef335c6b29",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_c5fcb8ef335c6b29",
+              "family": "side",
+              "success": false,
+              "failure_reason": "pregrasp_arrival_timeout"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 9,
+          "feasible": 14,
+          "feasible_by_family": {
+            "rim": 2,
+            "side": 4,
+            "top": 8
+          },
+          "executed": 14,
+          "succeeded": 9,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5481920721900798,
+              -0.033867625492360776,
+              0.6429621006112104
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3724762201309204,
+              0.9280417561531067
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_a0e9a19516a0968e",
+              "family": "top",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_a4d27322f9e24d6c",
+              "family": "side",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            }
+          },
+          "oracle": true
+        }
+      ],
+      "seed_variation": {
+        "feasible_mean": 15.6,
+        "feasible_min": 13,
+        "distinct_feasible_sets": 10,
+        "mean_pairwise_jaccard": 0.7041579575299909,
+        "union_feasible": 23,
+        "distinct_successful_sets": 10
+      }
+    },
+    "transport_place": {
+      "summary": {
+        "M0_RANDOM": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 10,
+          "success_rate": 1.0,
+          "distinct_selected_ids": 9,
+          "selected_families": {
+            "handle": 4,
+            "rim": 5,
+            "top": 1
+          },
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ],
+          "regret_vs_oracle": 0.0
+        },
+        "M1_STATIC_V2": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 8,
+          "success_rate": 0.8,
+          "distinct_selected_ids": 2,
+          "selected_families": {
+            "top": 10
+          },
+          "ci95": [
+            0.49015684672072335,
+            0.9433190520193067
+          ],
+          "regret_vs_oracle": 0.19999999999999996,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 2,
+            "p": 0.5
+          }
+        },
+        "M2_TASK_RISK": {
+          "seeds": 10,
+          "scored": 0,
+          "successes": 0,
+          "success_rate": null,
+          "distinct_selected_ids": 0,
+          "selected_families": {},
+          "ci95": null,
+          "regret_vs_oracle": null,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 0,
+            "p": 1.0
+          }
+        },
+        "M5_PAPER_STYLE": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 10,
+          "success_rate": 1.0,
+          "distinct_selected_ids": 2,
+          "selected_families": {
+            "handle": 10
+          },
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ],
+          "regret_vs_oracle": 0.0,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 0,
+            "p": 1.0
+          }
+        },
+        "M3_MOCK": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 6,
+          "success_rate": 0.6,
+          "distinct_selected_ids": 1,
+          "selected_families": {
+            "side": 10
+          },
+          "ci95": [
+            0.3126695474501864,
+            0.8318224187964902
+          ],
+          "regret_vs_oracle": 0.4,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 4,
+            "p": 0.125
+          }
+        },
+        "A1_MOCK": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 6,
+          "success_rate": 0.6,
+          "distinct_selected_ids": 1,
+          "selected_families": {
+            "side": 10
+          },
+          "ci95": [
+            0.3126695474501864,
+            0.8318224187964902
+          ],
+          "regret_vs_oracle": 0.4,
+          "vs_M0": {
+            "wins": 0,
+            "losses": 4,
+            "p": 0.125
+          }
+        },
+        "ORACLE": {
+          "seeds": 10,
+          "scored": 10,
+          "successes": 10,
+          "success_rate": 1.0,
+          "distinct_selected_ids": null,
+          "selected_families": null,
+          "ci95": [
+            0.7224598312333834,
+            1.0
+          ]
+        },
+        "UNIFORM_FEASIBLE_EXPECTATION": {
+          "success_rate": 0.706890679178548
+        }
+      },
+      "seeds": [
+        {
+          "seed": 0,
+          "feasible": 50,
+          "feasible_by_family": {
+            "handle": 17,
+            "rim": 7,
+            "side": 13,
+            "top": 13
+          },
+          "executed": 50,
+          "succeeded": 36,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5776856515802788,
+              -0.010262135190272803,
+              0.6477629686459433
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.09039714187383652,
+              0.9959058165550232
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_c289cb569d727841",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2bf8d5b68bea164f",
+              "family": "top",
+              "success": false,
+              "failure_reason": "lift_achieved"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 1,
+          "feasible": 40,
+          "feasible_by_family": {
+            "handle": 14,
+            "rim": 6,
+            "side": 9,
+            "top": 11
+          },
+          "executed": 40,
+          "succeeded": 32,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5234296102479999,
+              -0.00593465167940622,
+              0.6447231119118448
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.2845137417316437,
+              0.9586719274520874
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_ac60eb63dbb6dfdd",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 2,
+          "feasible": 37,
+          "feasible_by_family": {
+            "handle": 4,
+            "rim": 7,
+            "side": 12,
+            "top": 14
+          },
+          "executed": 37,
+          "succeeded": 24,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5884974495589473,
+              -0.004945294029177442,
+              0.6425023674211919
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.43248146772384644,
+              0.9016427993774414
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_e3bff51813b48659",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_178b0b42e93bcffb",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 3,
+          "feasible": 50,
+          "feasible_by_family": {
+            "handle": 17,
+            "rim": 8,
+            "side": 13,
+            "top": 12
+          },
+          "executed": 50,
+          "succeeded": 37,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5280363084920319,
+              -0.022141542412266544,
+              0.6447825716722645
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.12046854197978973,
+              0.9927171468734741
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_ee93643e3d354d36",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2bf8d5b68bea164f",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 4,
+          "feasible": 49,
+          "feasible_by_family": {
+            "handle": 17,
+            "rim": 8,
+            "side": 12,
+            "top": 12
+          },
+          "executed": 49,
+          "succeeded": 40,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5298158948686202,
+              -0.04414230365909881,
+              0.6456236387952804
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.12470252811908722,
+              0.9921941757202148
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_24ae633eb8a13262",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2bf8d5b68bea164f",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 5,
+          "feasible": 39,
+          "feasible_by_family": {
+            "handle": 11,
+            "rim": 6,
+            "side": 10,
+            "top": 12
+          },
+          "executed": 39,
+          "succeeded": 28,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5609749823646553,
+              -0.014463265578034224,
+              0.6428280948904833
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.3124023675918579,
+              0.9499498605728149
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_88b12fa9fb6b3f92",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 6,
+          "feasible": 51,
+          "feasible_by_family": {
+            "handle": 17,
+            "rim": 7,
+            "side": 14,
+            "top": 13
+          },
+          "executed": 51,
+          "succeeded": 38,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.574039516742281,
+              -0.007983195851562108,
+              0.6476334211070348
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.027091635391116142,
+              0.9996329545974731
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_3d1855c7ce86e7ed",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2bf8d5b68bea164f",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 7,
+          "feasible": 41,
+          "feasible_by_family": {
+            "handle": 14,
+            "rim": 6,
+            "side": 10,
+            "top": 11
+          },
+          "executed": 41,
+          "succeeded": 18,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5384181366003936,
+              -0.043570226142928506,
+              0.6420095704556972
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              0.1448688507080078,
+              0.9894508123397827
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_a0e9a19516a0968e",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 8,
+          "feasible": 43,
+          "feasible_by_family": {
+            "handle": 10,
+            "rim": 7,
+            "side": 13,
+            "top": 13
+          },
+          "executed": 43,
+          "succeeded": 34,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5273531770910155,
+              0.0007498435274072958,
+              0.6471991068395703
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3658299148082733,
+              0.9306817650794983
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_ee93643e3d354d36",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": true,
+              "failure_reason": null
+            }
+          },
+          "oracle": true
+        },
+        {
+          "seed": 9,
+          "feasible": 43,
+          "feasible_by_family": {
+            "handle": 10,
+            "rim": 7,
+            "side": 12,
+            "top": 14
+          },
+          "executed": 43,
+          "succeeded": 28,
+          "complete": true,
+          "estimate": {
+            "position": [
+              0.5481920721900798,
+              -0.033867625492360776,
+              0.6429621006112104
+            ],
+            "quaternion": [
+              0.0,
+              0.0,
+              -0.3724762201309204,
+              0.9280417561531067
+            ]
+          },
+          "methods": {
+            "M0_RANDOM": {
+              "selected_id": "B3_6a332079558fd28a",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
+            "M1_STATIC_V2": {
+              "selected_id": "B3_2880fbb6c6702788",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M2_TASK_RISK": {
+              "selected_id": null,
+              "success": null,
+              "reason": "RuntimeError: A source changed: review command mirror before generating estimates"
+            },
+            "M5_PAPER_STYLE": {
+              "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M3_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            },
+            "A1_MOCK": {
+              "selected_id": "B3_6fe272389e801ae2",
+              "family": "side",
+              "success": false,
+              "failure_reason": "stage_outcomes"
+            }
+          },
+          "oracle": true
+        }
+      ],
+      "seed_variation": {
+        "feasible_mean": 44.3,
+        "feasible_min": 37,
+        "distinct_feasible_sets": 10,
+        "mean_pairwise_jaccard": 0.712814959393246,
+        "union_feasible": 57,
+        "distinct_successful_sets": 10
+      }
+    }
+  },
+  "methods": [
+    "M0_RANDOM",
+    "M1_STATIC_V2",
+    "M2_TASK_RISK",
+    "M5_PAPER_STYLE",
+    "M3_MOCK",
+    "A1_MOCK",
+    "ORACLE"
+  ],
+  "meta": {
+    "generator": "multifamily_v3",
+    "profile": "hollow",
+    "candidate_count": 208,
+    "scene": {
+      "name": "wide_strict_v2",
+      "x_range_m": [
+        -0.04,
+        0.04
+      ],
+      "y_range_m": [
+        -0.05,
+        0.0
+      ],
+      "yaw_range_rad": [
+        -1.0471975511965976,
+        1.0471975511965976
+      ],
+      "observation": "noisy_truth",
+      "estimate_position_noise_m": 0.003,
+      "estimate_yaw_noise_deg": 2.0,
+      "ik_restarts": true,
+      "filter_mode": "execution",
+      "approach_finger_contact": "final_only"
+    },
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "tasks": [
+      "handover_transfer",
+      "pour_water",
+      "transport_place"
+    ],
+    "execute": "all",
+    "liquid": "proxy"
+  }
+}

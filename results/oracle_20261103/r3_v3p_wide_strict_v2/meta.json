@@ -1,0 +1,99 @@
+{
+  "generator": "multifamily_v3p",
+  "profile": "hollow",
+  "candidate_count": 116,
+  "scene": {
+    "name": "wide_strict_v2",
+    "x_range_m": [
+      -0.04,
+      0.04
+    ],
+    "y_range_m": [
+      -0.05,
+      0.0
+    ],
+    "yaw_range_rad": [
+      -1.0471975511965976,
+      1.0471975511965976
+    ],
+    "observation": "noisy_truth",
+    "estimate_position_noise_m": 0.003,
+    "estimate_yaw_noise_deg": 2.0,
+    "ik_restarts": true,
+    "filter_mode": "execution",
+    "approach_finger_contact": "final_only"
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "tasks": [
+    "handover_transfer",
+    "pour_water",
+    "transport_place"
+  ],
+  "execute": "all",
+  "liquid": "proxy_margin",
+  "m4_prior": {
+    "source": "results/local/oracle_r3",
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "table": {
+      "transport_place": {
+        "side": 0.45,
+        "top": 0.7795275590551181,
+        "rim": 0.8309859154929577,
+        "handle": 0.8045112781954887
+      },
+      "handover_transfer": {
+        "side": 0.30357142857142855,
+        "top": 0.5826771653543307,
+        "rim": 0.8059701492537313,
+        "handle": 0.47619047619047616
+      },
+      "pour_water": {
+        "side": 0.16129032258064516,
+        "top": 0.6708860759493671,
+        "rim": 0.7619047619047619
+      }
+    }
+  }
+}

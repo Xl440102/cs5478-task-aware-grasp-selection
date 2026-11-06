@@ -28,6 +28,9 @@ def main(argv=None) -> int:
                          help="multifamily_v3: B's side/top/rim/handle candidates for the sequence track")
     prepare.add_argument("--profile", choices=("solid", "hollow"), default="hollow",
                          help="cup profile for multifamily_v3 (sequence tasks use hollow)")
+    prepare.add_argument("--pruned", action="store_true", help="multifamily_v3: drop never-feasible dimensions")
+    prepare.add_argument("--semantic", action="store_true",
+                         help="multifamily_v3: put semantic_v1 relational descriptions in the public approach field")
     summarize = commands.add_parser("summarize", help="rebuild metrics from saved records without model calls")
     summarize.add_argument("run_dir")
     args = parser.parse_args(argv)
@@ -35,7 +38,8 @@ def main(argv=None) -> int:
         if args.command == "prepare-b":
             if args.generator == "multifamily_v3":
                 from .prepare_b import prepare_b_v3_inputs
-                output = prepare_b_v3_inputs(args.out, profile=args.profile)
+                output = prepare_b_v3_inputs(args.out, profile=args.profile, pruned=args.pruned,
+                                             semantic=args.semantic)
             else:
                 from .prepare_b import prepare_b_inputs
                 output = prepare_b_inputs(args.out, generation_config=args.generation_config,

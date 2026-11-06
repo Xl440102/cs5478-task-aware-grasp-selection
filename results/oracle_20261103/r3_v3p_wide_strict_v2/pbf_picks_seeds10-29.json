@@ -1,0 +1,975 @@
+{
+  "rows": [
+    {
+      "seed": 11,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.98828125,
+      "spill": 0.011718750000000002,
+      "seconds": 153.65792798995972,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 10,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 154.6859667301178,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM",
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 11,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 154.84312891960144,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 10,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 155.9207408428192,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 12,
+      "candidate_id": "B3_599e9b16f5782406",
+      "success": false,
+      "failure_reason": "approach_arrival_timeout",
+      "transfer": 0.0,
+      "spill": 0.0,
+      "seconds": 56.61253309249878,
+      "proxy_success": false,
+      "proxy_failure": "approach_arrival_timeout",
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 12,
+      "candidate_id": "B3_6fe272389e801ae2",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.95703125,
+      "spill": 0.04296875,
+      "seconds": 150.66839504241943,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 12,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 152.64006662368774,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM",
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 11,
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.203125,
+      "spill": 0.796875,
+      "seconds": 154.6244969367981,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 13,
+      "candidate_id": "B3_84b9936381c647d3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 150.37449526786804,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 13,
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.98046875,
+      "spill": 0.01953125,
+      "seconds": 150.326078414917,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 13,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 151.8144338130951,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 13,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.98828125,
+      "spill": 0.011718750000000002,
+      "seconds": 150.4306139945984,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 14,
+      "candidate_id": "B3_938f155b5d840cb3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 155.24607229232788,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 14,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 150.0824761390686,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 14,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 151.5173261165619,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 15,
+      "candidate_id": "B3_da9103d76e51550b",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 172.10788941383362,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 15,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 149.48376154899597,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 15,
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 0.96875,
+      "spill": 0.03125,
+      "seconds": 154.07450532913208,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 15,
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.25,
+      "spill": 0.7500000000000001,
+      "seconds": 152.50467729568481,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 16,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 153.52650022506714,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM",
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 16,
+      "candidate_id": "B3_599e9b16f5782406",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 155.9467203617096,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 16,
+      "candidate_id": "B3_6fe272389e801ae2",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9609375,
+      "spill": 0.0390625,
+      "seconds": 146.72033166885376,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 17,
+      "candidate_id": "B3_fa973f00daa0de87",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 157.57635807991028,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 17,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.98046875,
+      "spill": 0.01953125,
+      "seconds": 148.67208552360535,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 18,
+      "candidate_id": "B3_034c4eac3fb53111",
+      "success": false,
+      "failure_reason": "pregrasp_arrival_timeout",
+      "transfer": 0.0,
+      "spill": 0.0,
+      "seconds": 37.809487104415894,
+      "proxy_success": false,
+      "proxy_failure": "pregrasp_arrival_timeout",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 17,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 150.03638553619385,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 18,
+      "candidate_id": "B3_1628311da54eab7d",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 159.29863333702087,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 18,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 154.71476221084595,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 19,
+      "candidate_id": "B3_ee93643e3d354d36",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 169.68567276000977,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 19,
+      "candidate_id": "B3_599e9b16f5782406",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.98828125,
+      "spill": 0.011718750000000002,
+      "seconds": 170.210857629776,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 19,
+      "candidate_id": "B3_6fe272389e801ae2",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9648437500000001,
+      "spill": 0.03515625,
+      "seconds": 162.70416951179504,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 19,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 162.46000170707703,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 20,
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.21875,
+      "spill": 0.78125,
+      "seconds": 161.84730911254883,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M0_RANDOM",
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 20,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 160.5563817024231,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 21,
+      "candidate_id": "B3_84b9936381c647d3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 153.2298879623413,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 21,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 155.97354292869568,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 21,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 149.41823410987854,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 22,
+      "candidate_id": "B3_84b9936381c647d3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 153.43271255493164,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 22,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 154.3927230834961,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 22,
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 155.47032642364502,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 22,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 158.25996589660645,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 23,
+      "candidate_id": "B3_84b9936381c647d3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 158.03342366218567,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 24,
+      "candidate_id": "B3_70da83ab576cb9ca",
+      "success": false,
+      "failure_reason": "pregrasp_arrival_timeout",
+      "transfer": 0.0,
+      "spill": 0.0,
+      "seconds": 42.60627269744873,
+      "proxy_success": false,
+      "proxy_failure": "pregrasp_arrival_timeout",
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 23,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 159.09583139419556,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 23,
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9843750000000001,
+      "spill": 0.015625,
+      "seconds": 159.1831555366516,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 23,
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.28515625,
+      "spill": 0.71484375,
+      "seconds": 164.710613489151,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 24,
+      "candidate_id": "B3_599e9b16f5782406",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9843750000000001,
+      "spill": 0.015625,
+      "seconds": 166.37690806388855,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 24,
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.98828125,
+      "spill": 0.011718750000000002,
+      "seconds": 161.1638102531433,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 24,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 160.29762291908264,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 25,
+      "candidate_id": "B3_f29e04b500bca0be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.97265625,
+      "spill": 0.02734375,
+      "seconds": 160.61217665672302,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 25,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 157.40443015098572,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 25,
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.18750000000000003,
+      "spill": 0.8125,
+      "seconds": 161.52926325798035,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 26,
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.99609375,
+      "spill": 0.00390625,
+      "seconds": 158.2758915424347,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 26,
+      "candidate_id": "B3_034c4eac3fb53111",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.9765625,
+      "spill": 0.023437500000000003,
+      "seconds": 170.51758360862732,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 26,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 158.57324886322021,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 28,
+      "candidate_id": "B3_7ff381f16d56a546",
+      "success": false,
+      "failure_reason": "pregrasp_arrival_timeout",
+      "transfer": 0.0,
+      "spill": 0.0,
+      "seconds": 40.51905274391174,
+      "proxy_success": false,
+      "proxy_failure": "pregrasp_arrival_timeout",
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 27,
+      "candidate_id": "B3_938f155b5d840cb3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 167.0564832687378,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 27,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9765625,
+      "spill": 0.023437500000000003,
+      "seconds": 157.15664625167847,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 27,
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "success": false,
+      "failure_reason": "no_unintended_collision",
+      "transfer": 0.14453125,
+      "spill": 0.85546875,
+      "seconds": 163.90080761909485,
+      "proxy_success": false,
+      "proxy_failure": "no_unintended_collision",
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 28,
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.97265625,
+      "spill": 0.02734375,
+      "seconds": 158.1085741519928,
+      "proxy_success": false,
+      "proxy_failure": "stage_outcomes",
+      "methods": [
+        "M1_STATIC_V2",
+        "M2_TASK_RISK",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 28,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": false,
+      "failure_reason": "stage_outcomes",
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 159.04762816429138,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    },
+    {
+      "seed": 29,
+      "candidate_id": "B3_84b9936381c647d3",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 1.0,
+      "spill": 0.0,
+      "seconds": 157.20918989181519,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M0_RANDOM"
+      ]
+    },
+    {
+      "seed": 29,
+      "candidate_id": "B3_640399fab83e671a",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 153.56510734558105,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M1_STATIC_V2",
+        "M5_PAPER_STYLE"
+      ]
+    },
+    {
+      "seed": 29,
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9843750000000001,
+      "spill": 0.015625,
+      "seconds": 151.78637433052063,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M2_TASK_RISK"
+      ]
+    },
+    {
+      "seed": 29,
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "success": true,
+      "failure_reason": null,
+      "transfer": 0.9921875,
+      "spill": 0.0078125,
+      "seconds": 154.2695415019989,
+      "proxy_success": true,
+      "proxy_failure": null,
+      "methods": [
+        "M4_FAMILY_PRIOR"
+      ]
+    }
+  ],
+  "agreement": [
+    51,
+    65
+  ],
+  "per_method_pbf": {
+    "M0_RANDOM": [
+      16,
+      20
+    ],
+    "M1_STATIC_V2": [
+      13,
+      20
+    ],
+    "M2_TASK_RISK": [
+      15,
+      20
+    ],
+    "M4_FAMILY_PRIOR": [
+      12,
+      20
+    ],
+    "M5_PAPER_STYLE": [
+      13,
+      20
+    ]
+  }
+}

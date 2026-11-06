@@ -28,7 +28,9 @@ PROTOCOL_FIELDS = ("track", "scene_version", "controller_version", "evaluation_v
 
 
 def _protocol(record: dict) -> dict:
-    return {key: record[key] for key in PROTOCOL_FIELDS}
+    # scene_randomization is optional (absent = legacy scene) but must agree.
+    return {**{key: record[key] for key in PROTOCOL_FIELDS},
+            "scene_randomization": record.get("scene_randomization")}
 
 
 def _numerical_validity(record: dict) -> bool | None:
@@ -80,8 +82,14 @@ def _validate_record(record: dict) -> None:
         raise ValueError("sequence episode.success must be a boolean")
     if status != "completed" and episode["success"]:
         raise ValueError("only a completed sequence episode may report success")
+    scene = record.get("scene_randomization")
+    derived_estimate = scene is not None and scene.get("observation") == "noisy_truth"
+    if canonical_json(episode.get("scene_randomization")) != canonical_json(scene) and scene is not None:
+        raise ValueError("sequence episode scene_randomization disagrees with its trial")
     for key in ("task_id", "seed", "selected_id", "scene_version", "controller_version",
                 "evaluation_version", "candidate_sha256", "task_spec_sha256", "observation_config"):
+        if key == "observation_config" and derived_estimate:
+            continue  # A derives the per-seed estimate in noisy_truth scenes
         if canonical_json(episode.get(key)) != canonical_json(record.get(key)):
             raise ValueError(f"sequence episode {key} disagrees with its trial")
     if episode["success"] and _numerical_validity(record) is not True:

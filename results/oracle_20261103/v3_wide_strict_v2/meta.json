@@ -1,0 +1,45 @@
+{
+  "generator": "multifamily_v3",
+  "profile": "hollow",
+  "candidate_count": 208,
+  "scene": {
+    "name": "wide_strict_v2",
+    "x_range_m": [
+      -0.04,
+      0.04
+    ],
+    "y_range_m": [
+      -0.05,
+      0.0
+    ],
+    "yaw_range_rad": [
+      -1.0471975511965976,
+      1.0471975511965976
+    ],
+    "observation": "noisy_truth",
+    "estimate_position_noise_m": 0.003,
+    "estimate_yaw_noise_deg": 2.0,
+    "ik_restarts": true,
+    "filter_mode": "execution",
+    "approach_finger_contact": "final_only"
+  },
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "tasks": [
+    "handover_transfer",
+    "pour_water",
+    "transport_place"
+  ],
+  "execute": "all",
+  "liquid": "proxy"
+}

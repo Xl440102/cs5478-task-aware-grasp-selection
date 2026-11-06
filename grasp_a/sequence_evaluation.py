@@ -41,6 +41,10 @@ def terminal_checks(task_id, config, evidence):
             checks.update(spout_over_target=proxy["over_target_fraction"] >= c.transfer_min_ratio,
                           pour_path_clear=proxy["path_clear_fraction"] >= c.transfer_min_ratio,
                           poured_at_tilt=proxy["dwell_samples"] > 0 and proxy["min_tilt_deg"] >= 80)
+            if proxy.get("margins_enforced"):
+                checks.update(
+                    receiver_margin=proxy["min_source_target_gap_m"] >= PROXY_TARGET_MARGIN_M,
+                    palm_margin=proxy["min_palm_source_gap_m"] >= PROXY_PALM_MARGIN_M)
         else:
             checks.update(
                 received=water is not None and water["transfer_ratio"] >= c.transfer_min_ratio,
@@ -48,6 +52,27 @@ def terminal_checks(task_id, config, evidence):
                 fluid_valid=water is not None and water["finite_state"] and
                             water["accounting_error_kg"] < 1e-9 and water["max_compression"] <= .10)
     return checks
+
+
+# proxy_margin thresholds, calibrated on 15 particle-fluid reruns (see
+# docs/EXPERIMENT_20261103_CANDIDATES_SEEDS.md). Water impulses sway the cup
+# inside the grip; tight clearances that are safe dry become contacts wet.
+PROXY_TARGET_MARGIN_M = 0.003
+PROXY_PALM_MARGIN_M = 0.004
+
+
+def proxy_gaps(scene, stage):
+    """Smallest source/receiver and palm/source gaps (m, capped at 0.05)."""
+    s = scene
+    out = {}
+    if stage in ("tilt", "pour_dwell", "return_upright") and s.target_cup is not None:
+        pts = p.getClosestPoints(s.mug, s.target_cup, distance=.05, physicsClientId=s.client)
+        out["source_target"] = min((cp[8] for cp in pts), default=.05)
+    if stage in ("lift", "transport", "tilt", "pour_dwell", "return_upright", "settle", "terminal"):
+        pts = [cp for cp in p.getClosestPoints(s.robot, s.mug, distance=.05, physicsClientId=s.client)
+               if cp[3] not in s.fingers]
+        out["palm_source"] = min((cp[8] for cp in pts), default=.05)
+    return out
 
 
 def pour_proxy_sample(scene):
@@ -98,7 +123,9 @@ class SequenceEvaluator:
         self.dropped = False
         self.max_fluid_compression = 0
         self.pour_proxy = dict(dwell_samples=0, over_target=0, path_clear=0,
-                               min_tilt_deg=180., max_spout_radial_m=0.)
+                               min_tilt_deg=180., max_spout_radial_m=0.,
+                               min_source_target_gap_m=.05, min_palm_source_gap_m=.05,
+                               margins_enforced=getattr(scene, "liquid", "pbf") == "proxy_margin")
 
     def pour_proxy_summary(self):
         pr = self.pour_proxy
@@ -215,8 +242,15 @@ class SequenceEvaluator:
                         for cp in p.getContactPoints(s.robot,s.target_cup,physicsClientId=s.client)]
                 self.collision_events.append(event)
         self.collision_types.update(collisions)
-        if (getattr(s, "liquid", "pbf") == "proxy" and s.task_id == "pour_water"
-                and stage == "pour_dwell"):
+        proxy_mode = getattr(s, "liquid", "pbf") != "pbf" and s.task_id == "pour_water"
+        if proxy_mode and s.physics_steps % 24 == 0:
+            gaps = proxy_gaps(s, stage)
+            pr = self.pour_proxy
+            if "source_target" in gaps:
+                pr["min_source_target_gap_m"] = min(pr["min_source_target_gap_m"], gaps["source_target"])
+            if "palm_source" in gaps:
+                pr["min_palm_source_gap_m"] = min(pr["min_palm_source_gap_m"], gaps["palm_source"])
+        if proxy_mode and stage == "pour_dwell":
             sample = pour_proxy_sample(s)
             pr = self.pour_proxy
             pr["dwell_samples"] += 1
@@ -224,7 +258,7 @@ class SequenceEvaluator:
             pr["path_clear"] += sample["path_clear"]
             pr["min_tilt_deg"] = min(pr["min_tilt_deg"], sample["tilt_deg"])
             pr["max_spout_radial_m"] = max(pr["max_spout_radial_m"], sample["spout_radial_m"])
-        if stage == "terminal" and getattr(s, "liquid", "pbf") == "proxy" and s.task_id == "pour_water":
+        if stage == "terminal" and proxy_mode:
             e["pour_proxy"] = self.pour_proxy_summary()
         if e.get("water"):
             self.max_fluid_compression = max(self.max_fluid_compression,e["water"]["max_compression"])
@@ -279,5 +313,5 @@ class SequenceEvaluator:
             collision_events=self.collision_events,dropped=self.dropped,
             maximum_unsupported_s=self.max_gap_steps*STEP,terminal_samples=self.terminal_samples,
             max_fluid_compression=self.max_fluid_compression,
-            pour_proxy=self.pour_proxy_summary() if getattr(s, "liquid", "pbf") == "proxy" and s.task_id == "pour_water" else None,
+            pour_proxy=self.pour_proxy_summary() if getattr(s, "liquid", "pbf") != "pbf" and s.task_id == "pour_water" else None,
             final_evidence=self.evidence(),trajectory=self.trajectory)

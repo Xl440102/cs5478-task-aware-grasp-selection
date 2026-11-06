@@ -82,6 +82,18 @@ class MultiFamilyConfig:
             raise ValueError('positive integer candidate budget required')
 
 
+# Data-driven pruning (round-2 execution filter, 3 tasks x 10 seeds): these
+# values were never feasible for any candidate, so dropping them keeps every
+# candidate that was ever feasible. IDs depend on poses only, so retained
+# candidates keep their IDs and cached outcomes.
+PRUNED = dict(side_pitches_deg=(0, 60), side_height_fractions=(.5, .75),
+              handle_yaws_deg=(270, 300))
+
+
+def pruned_config(**overrides):
+    return MultiFamilyConfig(**{**PRUNED, **overrides})
+
+
 def orientation(approach, closing):
     """Quaternion xyzw of the tool frame with Z=approach and Y=closing."""
     z = np.asarray(approach, float)

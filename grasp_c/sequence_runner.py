@@ -28,10 +28,21 @@ RETRYABLE = ERROR_STATUSES
 
 
 def _condition(manifest, task, seed):
-    return {"track": "sequence", "task_id": task, "seed": seed,
-            **{key: manifest[key] for key in ("scene_version", "controller_version",
-               "evaluation_version", "candidate_sha256", "observation_config")},
-            "task_spec_sha256": manifest["task_specs"][task]["sha256"]}
+    condition = {"track": "sequence", "task_id": task, "seed": seed,
+                 **{key: manifest[key] for key in ("scene_version", "controller_version",
+                    "evaluation_version", "candidate_sha256", "observation_config")},
+                 "task_spec_sha256": manifest["task_specs"][task]["sha256"]}
+    if manifest.get("scene_randomization") is not None:
+        condition["scene_randomization"] = manifest["scene_randomization"]
+    return condition
+
+
+def _a_fields(condition):
+    """What A's filter/episode echo (noisy_truth: A's own derived estimate config)."""
+    scene = condition.get("scene_randomization")
+    if scene is not None and scene["observation"] == "noisy_truth":
+        return {k: v for k, v in condition.items() if k != "observation_config"}
+    return condition
 
 
 def _require_fields(value, expected, label):
@@ -55,7 +66,7 @@ def _check_filter(saved, manifest, task, seed):
     filtered = saved.get("filter")
     if not isinstance(filtered, dict) or saved.get("error") is not None:
         raise ValueError("invalid sequence filter payload")
-    payload_expected = {key: value for key, value in expected.items() if key != "track"}
+    payload_expected = {key: value for key, value in _a_fields(expected).items() if key != "track"}
     payload_expected.update(schema_version=SEQUENCE_FILTER,
                             task_spec=manifest["task_specs"][task]["spec"])
     _require_fields(filtered, payload_expected, "sequence filter payload")
@@ -109,8 +120,8 @@ def _check_record(record, manifest, item, saved_filter):
         episode = record.get("episode")
         if not isinstance(episode, dict) or selected is None or type(episode.get("success")) is not bool:
             raise ValueError("sequence status requires a boolean-scored episode and selected ID")
-        expected = {key: value for key, value in _condition(
-            manifest, item["task_id"], item["seed"]).items() if key != "track"}
+        expected = {key: value for key, value in _a_fields(_condition(
+            manifest, item["task_id"], item["seed"])).items() if key != "track"}
         expected.update(schema_version=SEQUENCE_EPISODE, status=record["status"],
                         selected_id=selected, task_spec=manifest["task_specs"][item["task_id"]]["spec"])
         _require_fields(episode, expected, "saved sequence episode")
@@ -216,6 +227,12 @@ def run_sequence_evaluation(config, out, *, resume=False, retry_errors=False, me
     sequence_config = load_sequence_config(config["sequence_config"])
     candidates = load_candidates(config["candidates"])
     specs = sequence_specs(config["tasks"], sequence_config)
+    scene = None
+    if config.get("scene_randomization") is not None:
+        from grasp_a.control import scene_randomization
+        scene = scene_randomization(config["scene_randomization"])
+    a_observation = None if scene is not None and scene.observation == "noisy_truth" else observation
+    scene_kwargs = {} if scene is None else {"scene_config": scene}
     providers = {m["id"]: build_provider(m["provider"]) for m in config["methods"] if m["kind"] == "llm"}
     out = Path(out).resolve()
     with _run_lock(out):
@@ -240,6 +257,7 @@ def run_sequence_evaluation(config, out, *, resume=False, retry_errors=False, me
             sequence_config=asdict(sequence_config), task_specs=specs,
             candidate_snapshot=[asdict(c) for c in candidates],
             run_options={"media": media, "show_landmarks": show_landmarks},
+            **({"scene_randomization": json.loads(json.dumps(asdict(scene)))} if scene is not None else {}),
             limitations=["B geometry uses known-mug analytic proxies, not hollow-vessel force closure.",
                          "This pilot compares ID-only selection with fixed A task sequences."])
         fingerprint = _sha(provenance)
@@ -270,7 +288,7 @@ def run_sequence_evaluation(config, out, *, resume=False, retry_errors=False, me
                 if saved is None or (retry_errors and saved["status"] == "filter_error"):
                     try:
                         filtered = get_sequence_candidates(task, seed, candidates,
-                            config=sequence_config, observation_config=observation)
+                            config=sequence_config, observation_config=a_observation, **scene_kwargs)
                         saved = {"status": filtered["status"], "filter": filtered, "error": None}
                         saved.update(_condition(manifest, task, seed), schema_version=FILTER_SCHEMA,
                                      manifest_sha256=fingerprint)
@@ -311,7 +329,7 @@ def run_sequence_evaluation(config, out, *, resume=False, retry_errors=False, me
                                 selectors[key] = lambda task, public, seed: public[0]["id"]
                         record = evaluate_sequence_trial(task, seed, method["id"], candidates, selectors[key],
                             sequence_config=sequence_config, observation_config=observation,
-                            filtered=saved["filter"], show_landmarks=show_landmarks,
+                            filtered=saved["filter"], show_landmarks=show_landmarks, **scene_kwargs,
                             media_dir=out / "media" / f"repeat{item['repeat']}" if media else None)
                     record.update(repeat=item["repeat"], sample_id=item["sample_id"],
                         run_id=manifest["run_id"], manifest_sha256=fingerprint, method_definition=method)

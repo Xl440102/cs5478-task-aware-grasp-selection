@@ -1,9 +1,88 @@
 # 候选扩充与场景随机化实验（2026-11-03）
 
 讨论版（可评论）：https://claude.ai/artifact/3zibqGueK9QR9A1K6LGP7B 。本文件是仓库内的存档副本。
-原始数据：`results/oracle_20261103/{v3_wide,v2_legacy,v3_wide_strict}/`（各含 `report.md`、`report.json`、`filters/`、`episodes/`、`selections.json`）。
+原始数据：`results/oracle_20261103/{v3_wide,v2_legacy,v3_wide_strict,v3_wide_strict_v2,r3_v3p_wide_strict_v2}/`（各含 `report.md`、`report.json`、`filters/`、`episodes/`、`selections.json`）。
 
-可行候选从每个 seed 6 个、10 个 seed 完全相同，变为平均 49 个、10 个 seed 各不相同；但 M1/M2 在新设置下不如随机，主要因为 A 的筛选比执行宽松。三个任务各 10 个 seed，每个可行候选执行一次并缓存（共 1662 次仿真）。
+可行候选从每个 seed 6 个、10 个 seed 完全相同，变为每个 seed 15–43 个、30 个 seed 几乎各不相同。第一轮 M1/M2 不如随机，原因是 A 的筛选比执行宽松；第二轮（筛选与执行一致）把 IK 类假可行降到 0；第三轮（手指只在最后碰杯、30 个 seed、新增 M4 查表与 M5 论文式基线）显示：最合适的抓取类型确实随任务变化，但在 20 个留出 seed 上没有一个方法在三个任务上都显著好于随机；倒水按真实流体复核后，各方法都不比随机好。
+
+## 第三轮：手指只在最后碰杯 + 30 个 seed（2026-11-06）
+
+设置：场景预设 `wide_strict_v2` = 第二轮 + 接近阶段只在最后一个路径点允许手指碰杯；候选为剪枝后的 v3（116 个，删去从未可行的俯仰 30° 侧抓等，保留所有曾经可行的），公开字段 `approach` 带语义与相对关系描述（`semantic_v1`）；倒水用 `proxy_margin`（代理 + 源杯与接水杯 ≥3 mm、手掌与源杯 ≥4 mm 间隙）。M4 只用 seed 0–9 的执行结果建“抓取类型 × 任务”成功率表，在 seed 10–29 上留出测试。数据：`results/oracle_20261103/r3_v3p_wide_strict_v2/`（`report.md` 为 30 个 seed，`report_seeds10-29.md` 为留出，`pbf_picks_seeds10-29.json` 为真实流体复核）。
+
+留出测试（seed 10–29，20 个 seed 中成功数）：
+
+| 方法 | 搬运 | 交接 | 倒水（代理） | 倒水（真实流体） |
+| --- | --- | --- | --- | --- |
+| M0 随机 | 15 | 11 | 13 | 16 |
+| M1 静态几何 | 17 | 5 | 12 | 13 |
+| M2 任务风险 | 19 | 11 | 13 | 15 |
+| M5 论文式（部件表 + C(g,T)） | **20**（全选把手） | 5 | 12 | 13 |
+| M4 族×任务查表 | 18 | **17**（全选杯沿） | **14** | 12 |
+| 均匀随机期望 | 15.8 | 10.4 | 9.6 | — |
+| Oracle | 20 | 20 | 20 | — |
+
+30 个 seed 的成功率与 95% Wilson 区间（M4 含训练 seed，仅供参考；p 为相对 M0 的精确符号检验，只列 p ≤ 0.1）：
+
+| 方法 | 搬运 | 交接 | 倒水（代理） |
+| --- | --- | --- | --- |
+| M0 随机 | 0.83（0.66–0.93） | 0.60（0.42–0.75） | 0.57（0.39–0.73） |
+| M1 静态几何 | 0.83（0.66–0.93） | 0.30（0.17–0.48），p=0.05 | 0.50（0.33–0.67） |
+| M2 任务风险 | 0.93（0.79–0.98） | 0.53（0.36–0.70） | 0.50（0.33–0.67） |
+| M5 论文式 | 1.00（0.89–1.00），p=0.06 | 0.30（0.17–0.48），p=0.05 | 0.50（0.33–0.67） |
+| M4 查表* | 0.83（0.66–0.93） | 0.83（0.66–0.93） | 0.77（0.59–0.88） |
+
+- 手指规则有效：seed 0–9 上拦掉 25 个到位超时中的 14 个，没有丢掉成功候选；M2 搬运从第二轮 0/10 变为 28/30。
+- 任务信号真实存在：搬运最好的是把手抓，交接最好的是杯沿抓；M1/M2/M5 在交接上选侧抓或顶抓，低于随机（M1、M5 显著差于随机）。M5 的部件表写的是“交接抓杯身”，说明部件之外还需要按任务给具体抓法打分。
+- 统计上仍不够：20 个留出 seed 时区间宽约 ±0.2，最好的结果 p 也只有 0.06–0.11。
+- seed 变化充分：30 个 seed 中不同的可行集为搬运 29、交接 30、倒水 28。M3/A1 仍是 mock。
+
+倒水真实流体复核：seed 10–29 上 M0/M1/M2/M4/M5 选中的倒水候选去重后 65 个，用默认流体重跑。
+
+- 代理与流体一致 51/65（78%）。不一致的 14 例两个方向都有（代理偏乐观 6、偏悲观 8），全部是某个动作阶段未达标（`stage_outcomes`），水的接收率都 ≥97%：差异来自流体负载下的动力学，不是倒水判定。
+- 按真实流体：M0 16、M2 15、M1 13、M5 13、M4 12。M4 在代理下最好、流体下最差；差 1–4 次成功在噪声范围内。方法间的倒水对比应以真实流体为准。
+
+| 抓取类型（30 个 seed） | 搬运 | 交接 | 倒水（代理） |
+| --- | --- | --- | --- |
+| 杯沿抓 | 182/195 = 0.93 | 163/189 = 0.86 | 45/62 = 0.73 |
+| 把手抓 | 339/382 = 0.89 | 56/118 = 0.47 | 无可行 |
+| 顶部下抓杯身 | 280/347 = 0.81 | 219/347 = 0.63 | 139/211 = 0.66 |
+| 侧抓杯身 | 171/350 = 0.49 | 84/347 = 0.24 | 37/185 = 0.20 |
+
+本轮改动（默认关闭，执行器行为不变）：
+
+| 部分 | 文件 | 改动 |
+| --- | --- | --- |
+| A | `grasp_a/control.py` | `approach_finger_contact`（any / final_only）与预设 `wide_strict_v2` |
+| A | `grasp_a/sequence.py` | 预演中非最后接近点手指碰杯 → 拒绝（`finger_contact_before_grasp`）；`liquid="proxy_margin"` |
+| A | `grasp_a/sequence_evaluation.py` | 代理间隙检查：3 mm / 4 mm（15 例标定，与流体 14/15 一致） |
+| B | `grasp_b/multifamily.py` | `PRUNED` 剪枝配置（116 个） |
+| B | `grasp_b/semantics.py`（新） | `semantic_v1` 语义描述，只用杯子几何 |
+| C | `grasp_c/prepare_b.py`、`__main__.py` | `prepare-b --generator multifamily_v3 --pruned --semantic` |
+| C | `grasp_c/oracle.py` | M4（`--prior-from`、`--prior-seeds`）、M5、Wilson 区间与符号检验、`--report-seeds` |
+| C | `grasp_c/config.py`、`sequence_*.py` | 正式 runner 支持 `scene_randomization`（sequence track） |
+
+下一步（更新）：
+- [x] 筛选与执行一致；接近阶段只在最后允许手指碰杯；公开字段语义描述。
+- [x] M4 查表（训练/测试分开）、M5 论文式基线、30 个 seed 与置信区间、倒水选中候选真实流体复核、精简生成器、C 正式 runner 接入场景配置。
+- [ ] 接入真实 LLM 跑 M3/A1：`--llm-config configs/c.api.json` 已走到读取凭据一步，缺 `OPENAI_API_KEY`（或安装 `google-genai`）。
+- [ ] 倒水：方法对比改用真实流体（约 160 s/次），或给代理加动力学稳定性检查。
+- [ ] 交接：M1/M2/M5 偏向侧抓/顶抓（0.25），杯沿抓 0.86；M2 加“给接收方留出把手和空间”项，或给杯沿/把手建模型。
+- [ ] M2 补把手干涉与位姿误差鲁棒性（夹爪每侧余量 3.5 mm 对观测噪声 3 mm）。
+- [ ] M5 的部件表换成真实 LLM 输出；留出 seed 扩到 60+。
+
+复现（先跑 seed 0–9 建 M4 表，再跑 30 个 seed；最后一条为真实流体复核）：
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r3 --generator multifamily_v3p --scene wide_strict_v2 --tasks transport_place handover_transfer pour_water --liquid proxy_margin --workers 4 --seeds 0 1 2 3 4 5 6 7 8 9
+```
+
+```bash
+python -m grasp_c.oracle --out results/local/oracle_r3 --generator multifamily_v3p --scene wide_strict_v2 --tasks transport_place handover_transfer pour_water --liquid proxy_margin --workers 4 --seeds $(seq 0 29) --prior-from results/local/oracle_r3 --prior-seeds $(seq 0 9) --report-seeds $(seq 10 29)
+```
+
+```bash
+python results/oracle_20261103/r3_v3p_wide_strict_v2/pbf_picks.py
+```
 
 ## 第二轮：筛选与执行一致之后（2026-11-05）
 
@@ -33,11 +112,7 @@
 | 顶部下抓杯身 | 98/139 = 0.71 | 73/139 = 0.53 | 61/77 = 0.79 |
 | 侧抓杯身 | 54/146 = 0.37 | 33/123 = 0.27 | 31/60 = 0.52 |
 
-下一步（更新）：
-- [x] 筛选与执行一致。
-- [ ] 接近阶段只在最后一个路径点允许手指碰杯，拦住“手指压到把手”类到位超时。
-- [ ] M2 补把手干涉与位姿误差鲁棒性（夹爪每侧余量 3.5 mm 对观测噪声 3 mm）。
-- [ ] 接入真实 LLM 跑 M3/A1；公开字段加语义与相对关系描述。
+（下一步见第三轮。）
 
 复现：
 

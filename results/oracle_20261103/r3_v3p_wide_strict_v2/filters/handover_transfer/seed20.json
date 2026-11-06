@@ -1,0 +1,1609 @@
+{
+  "schema_version": "sequence_filter_v1",
+  "task_id": "handover_transfer",
+  "seed": 20,
+  "status": "ok",
+  "controller_version": "staged_sequences_v1",
+  "candidate_sha256": "e3a187bd72c60d4a6e5dcbcb6ff66ec2ced48f1e0a9fa702a4782c7397655329",
+  "evaluation_version": "physical_outcomes_v1",
+  "scene_version": "hollow_cup_sequences_v1",
+  "task_spec_sha256": "b37c9f727dea28c931f4dd0fe6cbc9ccda290d8c5263d10341e651b1db819457",
+  "task_spec": {
+    "task_id": "handover_transfer",
+    "schema_version": "task_spec_v1",
+    "controller_version": "staged_sequences_v1",
+    "evaluation_version": "physical_outcomes_v1",
+    "config": {
+      "target_xy": [
+        0.55,
+        0.16
+      ],
+      "carry_height_m": 0.8,
+      "episode_timeout_s": 25.0,
+      "arrival_position_m": 0.02,
+      "arrival_angle_deg": 10.0,
+      "arrival_continuous_s": 0.1,
+      "arrival_timeout_s": 2.0,
+      "terminal_window_s": 1.0,
+      "settle_s": 1.0,
+      "placement_tolerance_m": 0.02,
+      "upright_tolerance_deg": 5.0,
+      "linear_speed_m_s": 0.02,
+      "angular_speed_deg_s": 5.0,
+      "drop_contact_gap_s": 0.1,
+      "receiver_lift_m": 0.05,
+      "donor_clearance_m": 0.08,
+      "transfer_min_ratio": 0.9,
+      "spill_max_ratio": 0.05,
+      "water_mass_kg": 0.1,
+      "fluid_particles": 256,
+      "fluid_iterations": 8,
+      "fluid_substeps": 2,
+      "pour_angle_deg": -110.0,
+      "pour_dwell_s": 2.0
+    },
+    "point_A": [
+      0.55,
+      0,
+      0.645
+    ],
+    "point_B": [
+      0.55,
+      0.16,
+      0.645
+    ],
+    "handoff_pose": [
+      0.55,
+      0.16,
+      0.8
+    ],
+    "pouring_pose": null,
+    "material_model": "empty_cup",
+    "stages": [
+      {
+        "id": "pregrasp",
+        "actor": "donor",
+        "action": "Move to estimated pregrasp; jaws open",
+        "entry": "Fresh scene and selected candidate feasible",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "No unintended collision",
+        "timeout_s": 3,
+        "allowed_contacts": [
+          "source_table"
+        ]
+      },
+      {
+        "id": "approach",
+        "actor": "donor",
+        "action": "Move to estimated candidate grasp pose",
+        "entry": "pregrasp control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "No nonfinger source collision",
+        "timeout_s": 3,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "close",
+        "actor": "donor",
+        "action": "Close jaws under force-limited motor control",
+        "entry": "approach control completed",
+        "control_exit": "Fixed 0.75 s close; encoder feedback only",
+        "evaluation": "Physical source/finger contact formed",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "source_table"
+        ]
+      },
+      {
+        "id": "lift",
+        "actor": "donor",
+        "action": "Raise nominal source by 0.14 m",
+        "entry": "close action completed, not an oracle grasp gate",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Source lifted >=0.09 m with donor contact",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "transport",
+        "actor": "donor",
+        "action": "Move upright source from A to the B work region",
+        "entry": "lift control completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Source near prescribed B pose; no drop/collision",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "receiver_approach",
+        "actor": "receiver",
+        "action": "Motorized Y rail approaches known B handle region; jaws open",
+        "entry": "donor transport control completed",
+        "control_exit": "Receiver rail encoder reaches target",
+        "evaluation": "No donor/receiver collision or nonfinger source contact",
+        "timeout_s": 2,
+        "allowed_contacts": [
+          "donor_fingers_source"
+        ]
+      },
+      {
+        "id": "receiver_close",
+        "actor": "receiver",
+        "action": "Close synchronized upper/lower fingers on handle",
+        "entry": "receiver approach control completed",
+        "control_exit": "Fixed 0.75 s force-limited close",
+        "evaluation": "At least one receiver finger contacts handle; both required after donor release",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "receiver_fingers_handle"
+        ]
+      },
+      {
+        "id": "donor_release",
+        "actor": "donor",
+        "action": "Open donor jaws",
+        "entry": "receiver close action completed, no truth-based gate",
+        "control_exit": "Fixed 0.5 s open",
+        "evaluation": "Receiver support maintained; donor release is intentional",
+        "timeout_s": 1,
+        "allowed_contacts": [
+          "donor_fingers_source",
+          "receiver_fingers_handle"
+        ]
+      },
+      {
+        "id": "retreat",
+        "actor": "donor",
+        "action": "Withdraw 0.10 m along approach axis and raise 0.16 m",
+        "entry": "donor release completed",
+        "control_exit": "TCP arrival sustained",
+        "evaluation": "Donor detached and clear",
+        "timeout_s": 4,
+        "allowed_contacts": [
+          "receiver_fingers_handle"
+        ]
+      },
+      {
+        "id": "receiver_lift",
+        "actor": "receiver",
+        "action": "Raise Z rail by configured distance",
+        "entry": "donor retreat control completed",
+        "control_exit": "Receiver rail encoder reaches target",
+        "evaluation": "Source actually rises with receiver",
+        "timeout_s": 2,
+        "allowed_contacts": [
+          "receiver_fingers_handle"
+        ]
+      },
+      {
+        "id": "settle",
+        "actor": "all_actuators",
+        "action": "Keep final motor targets for a fixed settling interval",
+        "entry": "last physical action control completed",
+        "control_exit": "Fixed settle_s; no oracle stability gate",
+        "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+        "timeout_s": 1.0,
+        "allowed_contacts": [
+          "receiver_fingers_handle"
+        ]
+      },
+      {
+        "id": "terminal",
+        "actor": "evaluator",
+        "action": "Observe recipient-only support",
+        "entry": "settle control completed",
+        "control_exit": "Fixed terminal window",
+        "evaluation": "Every step: recipient contact, donor detached, height, B pose, upright and speed limits",
+        "timeout_s": 1.0,
+        "allowed_contacts": [
+          "receiver_fingers_handle"
+        ]
+      }
+    ],
+    "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+    "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels."
+  },
+  "observation_config": {
+    "object_pose": {
+      "position": [
+        0.5824511740939617,
+        -0.01568729214866487,
+        0.645
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.2754788979978207,
+        0.9613071188532343
+      ]
+    },
+    "source": "external_estimate",
+    "position_noise_m": 0.003,
+    "yaw_noise_deg": 2.0,
+    "noise_seed": 20000077
+  },
+  "initial_object_pose_estimate": {
+    "position": [
+      0.5809821731109845,
+      -0.012850256883319049,
+      0.6456661598911808
+    ],
+    "quaternion": [
+      0.0,
+      0.0,
+      0.27280840277671814,
+      0.9620683789253235
+    ]
+  },
+  "scene_randomization": {
+    "name": "wide_strict_v2",
+    "x_range_m": [
+      -0.04,
+      0.04
+    ],
+    "y_range_m": [
+      -0.05,
+      0.0
+    ],
+    "yaw_range_rad": [
+      -1.0471975511965976,
+      1.0471975511965976
+    ],
+    "observation": "noisy_truth",
+    "estimate_position_noise_m": 0.003,
+    "estimate_yaw_noise_deg": 2.0,
+    "ik_restarts": true,
+    "filter_mode": "execution",
+    "approach_finger_contact": "final_only"
+  },
+  "feasible_candidates": [
+    {
+      "id": "B3_db2df20cfd3cb7be",
+      "region": "body",
+      "approach": "part=body mid; from=side, horizontal; side=beside the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7516661933953597
+    },
+    {
+      "id": "B3_f29e04b500bca0be",
+      "region": "body",
+      "approach": "part=body mid; from=side, horizontal; side=beside the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7516661933953597
+    },
+    {
+      "id": "B3_6fe272389e801ae2",
+      "region": "body",
+      "approach": "part=body high; from=side, horizontal; side=beside the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_2c4cdd6500b2d0e0",
+      "region": "body",
+      "approach": "part=body high; from=side, horizontal; side=beside the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_d743a2f71e5f0387",
+      "region": "body",
+      "approach": "part=body high; from=side, horizontal; side=opposite the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_8bbe77fd36dc7598",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=opposite the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_a4d27322f9e24d6c",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=opposite the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_7ff381f16d56a546",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=opposite the handle; closing=across handle axis; mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_da9103d76e51550b",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=opposite the handle; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_08a7097394fcd1da",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=from handle side; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_65945d8423ac5f19",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=from handle side; closing=across handle axis; mouth=clear; handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_b6f24e79a5c609ff",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=from handle side; closing=across handle axis; mouth=clear; handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_c66934b86ca998af",
+      "region": "body",
+      "approach": "part=body high; from=side, 60 deg down; side=from handle side; closing=along handle axis (a finger may land on the handle); mouth=clear; handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.6875277281229975
+    },
+    {
+      "id": "B3_938f155b5d840cb3",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_bd4ef202a5f07118",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_b2028ab4ca3f7706",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_84b9936381c647d3",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_a0e9a19516a0968e",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_9910b02da1871f5b",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_6e254b46f7992db7",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.5931432638696666
+    },
+    {
+      "id": "B3_2880fbb6c6702788",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_2bf8d5b68bea164f",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_640399fab83e671a",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_a9d9804ec06713ec",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_fa973f00daa0de87",
+      "region": "body",
+      "approach": "part=body top; from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.07757515919859821,
+      "geometry_score": 0.7045892244821269
+    },
+    {
+      "id": "B3_0c89592bda4c78bb",
+      "region": "rim",
+      "approach": "part=rim (one finger inside the cup); from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_88b12fa9fb6b3f92",
+      "region": "rim",
+      "approach": "part=rim (one finger inside the cup); from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_960a70b9f31cb1ac",
+      "region": "rim",
+      "approach": "part=rim (one finger inside the cup); from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_ac60eb63dbb6dfdd",
+      "region": "rim",
+      "approach": "part=rim (one finger inside the cup); from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_6a332079558fd28a",
+      "region": "rim",
+      "approach": "part=rim (one finger inside the cup); from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_1cd02c73b1f59234",
+      "region": "rim",
+      "approach": "part=rim (one finger inside the cup); from=above; side=from above; closing=along handle axis (a finger may land on the handle); mouth=hand over the opening (blocks pouring); handle=left free",
+      "gripper_width": 0.03,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_ff0a6731323bba4c",
+      "region": "handle",
+      "approach": "part=handle top bar; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_3d1855c7ce86e7ed",
+      "region": "handle",
+      "approach": "part=handle top bar; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_178b0b42e93bcffb",
+      "region": "handle",
+      "approach": "part=handle top bar; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    },
+    {
+      "id": "B3_e3bff51813b48659",
+      "region": "handle",
+      "approach": "part=handle top bar; from=above; side=from above; closing=across handle axis; mouth=hand over the opening (blocks pouring); handle=occupied by this grasp",
+      "gripper_width": 0.035,
+      "geometry_score": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "candidate_id": "B3_db2df20cfd3cb7be",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 5.384414543462593e-06,
+      "grasp_position_error_m": 7.5921708748453464e-06,
+      "min_table_clearance_m": 9.648360772002325e-05
+    },
+    {
+      "candidate_id": "B3_f29e04b500bca0be",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.093871970855662e-06,
+      "grasp_position_error_m": 7.863303866340282e-06,
+      "min_table_clearance_m": 0.0004248869743840051
+    },
+    {
+      "candidate_id": "B3_df30d1b74705f5a0",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.572422473674202e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_0dcc70cac48d91d0",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.627961426473176e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_235da732cc7a75db",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_dfa20dd9e57c4399",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_d85feb9974153985",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 3.1214642891943035e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a8c857de7b466c58",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.4024770991716215e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_74fa2e2222b836b2",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_034c4eac3fb53111",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_f6634ccc5d01021a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_2cb236341fc0966a",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.497401938403831e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_8c8857908eb67c47",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c5fcb8ef335c6b29",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_be078cd1fb945beb",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.702127200843836e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_65df8f74dfe1ed37",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_4eef2b9d5d062ffe",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_a39d5cd90237932e",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_b2a5304d6c39e233",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.583461344252271e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_982e25dadc7d673f",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.600425817077682e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2c6fde133bd957f7",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:donor_receiver"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_cb04162c1e4df6b7",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_10389093f17c8b19",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.374749844178776e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a7c9596020070376",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 6.006448104342571e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_3ece783ea250f7f4",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.147760907271775e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.0006887945696716097
+    },
+    {
+      "candidate_id": "B3_39daa8c6e5d7c7c8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:donor_receiver"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_2fab18572b3c4fc5",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 3.755212729975054e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_450a3d421e5362a5",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.587934275843653e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b11091eb868c8680",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.354543033018266e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.000487991307006554
+    },
+    {
+      "candidate_id": "B3_23ef7dbed26e713d",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_33c602bb9c938a9c",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 9.731694197620924e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b0469ad388e8a1c8",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 7.910100237082756e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_6fe272389e801ae2",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 6.583181405005409e-06,
+      "grasp_position_error_m": 8.48965543155439e-06,
+      "min_table_clearance_m": 0.018463067386649976
+    },
+    {
+      "candidate_id": "B3_2c4cdd6500b2d0e0",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.165241489750388e-06,
+      "grasp_position_error_m": 8.020450737226834e-06,
+      "min_table_clearance_m": 0.016948367144994453
+    },
+    {
+      "candidate_id": "B3_43aaf2b25549c10a",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.58760038059658e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_3597bfe78b48873d",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.701102275072935e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2d90f2a44d16be5c",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_d743a2f71e5f0387",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.020329198500834e-05,
+      "grasp_position_error_m": 8.265762099984932e-06,
+      "min_table_clearance_m": 0.019137221686438124
+    },
+    {
+      "candidate_id": "B3_8bbe77fd36dc7598",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.780969619744993e-06,
+      "grasp_position_error_m": 7.822568775750454e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a4d27322f9e24d6c",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 7.497731411463144e-06,
+      "grasp_position_error_m": 8.057241917357553e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ce3db25546816f3f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e8ac427b77b0c9cf",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_1628311da54eab7d",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_7ff381f16d56a546",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.690341366811005e-06,
+      "grasp_position_error_m": 8.279025224889973e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ec6e2b9e1390c98a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_39f34778296448dd",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_da9103d76e51550b",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.720111405335625e-06,
+      "grasp_position_error_m": 8.316345823999518e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_70da83ab576cb9ca",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_90e022514e5e1207",
+      "feasible": false,
+      "reasons": [
+        "pregrasp_ik_failed"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_45e8aa38282ce336",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_85df4465f6064709",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.71229567210384e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b5291887c2a30ad1",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.618962856660476e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_183a8d7db99981a8",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:donor_receiver"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_0f305a75d87931b6",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger,robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_08a7097394fcd1da",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.446409605102972e-06,
+      "grasp_position_error_m": 8.211235797702188e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_c088f0e8401526dc",
+      "feasible": false,
+      "reasons": [
+        "retreat:robot_self"
+      ],
+      "pregrasp_position_error_m": 8.71049031357496e-06,
+      "grasp_position_error_m": 6.979854120592565e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_d00bb2f9473e9fde",
+      "feasible": false,
+      "reasons": [
+        "approach:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": 8.271288819440573e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.01925684916392384
+    },
+    {
+      "candidate_id": "B3_a929ecf1005e4d05",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_self"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_65945d8423ac5f19",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.499381077476217e-06,
+      "grasp_position_error_m": 8.682548292022366e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b6f24e79a5c609ff",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 8.7013371953797e-06,
+      "grasp_position_error_m": 8.885465212663528e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_391e42fe0b29a420",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 8.289399585295976e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.01902168190599246
+    },
+    {
+      "candidate_id": "B3_d889f68ea4a05747",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_1d236f6551a7ac00",
+      "feasible": false,
+      "reasons": [
+        "transport_ik_failed"
+      ],
+      "pregrasp_position_error_m": 9.779875363459663e-06,
+      "grasp_position_error_m": 8.04238517512978e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_c66934b86ca998af",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.7643874073094244e-06,
+      "grasp_position_error_m": 0.00020407383558783906,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_938f155b5d840cb3",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 4.34186859318979e-06,
+      "grasp_position_error_m": 8.39525742624233e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_bd4ef202a5f07118",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 7.111221326282242e-06,
+      "grasp_position_error_m": 8.63091497257807e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_7b21f3780e5faf1f",
+      "feasible": false,
+      "reasons": [
+        "transport_ik_failed"
+      ],
+      "pregrasp_position_error_m": 7.440148301209063e-06,
+      "grasp_position_error_m": 8.596239997945696e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_b2028ab4ca3f7706",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.3074200612609926e-06,
+      "grasp_position_error_m": 8.273722148890008e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_84b9936381c647d3",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.537129360494074e-06,
+      "grasp_position_error_m": 8.162154613217646e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a0e9a19516a0968e",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.234267701985387e-06,
+      "grasp_position_error_m": 8.112555507437189e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_9910b02da1871f5b",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.214033620225519e-06,
+      "grasp_position_error_m": 8.97868305416762e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_6e254b46f7992db7",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.889233401904647e-06,
+      "grasp_position_error_m": 8.282050947482244e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_599e9b16f5782406",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_2880fbb6c6702788",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 6.306772965821205e-06,
+      "grasp_position_error_m": 9.069099874630644e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_0a8e774c4c896d8e",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 7.502262568824929e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_2bf8d5b68bea164f",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.394883359541148e-06,
+      "grasp_position_error_m": 8.787274866542913e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_640399fab83e671a",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.1515263755367054e-06,
+      "grasp_position_error_m": 8.726712232005689e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_a9d9804ec06713ec",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.2455011967958087e-06,
+      "grasp_position_error_m": 8.617273887336912e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_bd2ceb346c0aa375",
+      "feasible": false,
+      "reasons": [
+        "approach:finger_contact_before_grasp"
+      ],
+      "pregrasp_position_error_m": 9.351309752668692e-06,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_fa973f00daa0de87",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.2084214085753257e-06,
+      "grasp_position_error_m": 8.74291590700995e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ee93643e3d354d36",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_mug_nonfinger"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_0c89592bda4c78bb",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 6.2370972507727515e-06,
+      "grasp_position_error_m": 8.841639655625467e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_1c7e74f3cf294e73",
+      "feasible": false,
+      "reasons": [
+        "transport_ik_failed"
+      ],
+      "pregrasp_position_error_m": 7.78635222510101e-06,
+      "grasp_position_error_m": 8.783210917716645e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_88b12fa9fb6b3f92",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 5.18168806799203e-06,
+      "grasp_position_error_m": 8.69769890982521e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_960a70b9f31cb1ac",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.490770992964464e-06,
+      "grasp_position_error_m": 8.511557915504084e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ac60eb63dbb6dfdd",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 1.8653403095216895e-06,
+      "grasp_position_error_m": 8.623293904010597e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_6a332079558fd28a",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 9.466461099928344e-06,
+      "grasp_position_error_m": 8.759247598119569e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_1cd02c73b1f59234",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.913947137336959e-06,
+      "grasp_position_error_m": 8.43970251791354e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_c0dab10fb2cca048",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_6f505b0ea1b2bd0a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_3f31379d0e077888",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 7.905933210542379e-06,
+      "grasp_position_error_m": 7.304420366032562e-06,
+      "min_table_clearance_m": 0.0008091187344954082
+    },
+    {
+      "candidate_id": "B3_e92161933aa51610",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_5b149ecfe22eef89",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.162028580446628e-06,
+      "grasp_position_error_m": 8.065453093549955e-06,
+      "min_table_clearance_m": 0.012809264736018403
+    },
+    {
+      "candidate_id": "B3_9be9657fcccfca5a",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e15b6a2212aa6bae",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.458243525013061e-06,
+      "grasp_position_error_m": 8.545530128604985e-06,
+      "min_table_clearance_m": 0.08455523553727184
+    },
+    {
+      "candidate_id": "B3_541ab7209f8ade0c",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 7.864086937701014e-06,
+      "grasp_position_error_m": 8.44424051394577e-06,
+      "min_table_clearance_m": 0.07261788583912415
+    },
+    {
+      "candidate_id": "B3_c41a18294550acc2",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.178783011298207e-06,
+      "grasp_position_error_m": 8.75191845845908e-06,
+      "min_table_clearance_m": 0.09655517313696697
+    },
+    {
+      "candidate_id": "B3_fa952f69aad6c792",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.552072272182136e-06,
+      "grasp_position_error_m": 8.552332717949695e-06,
+      "min_table_clearance_m": 0.08405249036202034
+    },
+    {
+      "candidate_id": "B3_0a6016ef8f68fb6e",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.20052748865583e-06,
+      "grasp_position_error_m": 8.423500850733246e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_116de631968169d2",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.416676578167134e-06,
+      "grasp_position_error_m": 8.007430690525481e-06,
+      "min_table_clearance_m": 0.09551368149689207
+    },
+    {
+      "candidate_id": "B3_d6d62a823445bd4b",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_e0a98b21e2f69488",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_3e70b8df335a8e32",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.185892921293368e-06,
+      "grasp_position_error_m": 8.444930739746873e-06,
+      "min_table_clearance_m": 0.00016037153570006187
+    },
+    {
+      "candidate_id": "B3_a2ca6edfd6f5a99f",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_24ae633eb8a13262",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 8.170488223077138e-06,
+      "grasp_position_error_m": 8.300909820311304e-06,
+      "min_table_clearance_m": 0.012190223913114197
+    },
+    {
+      "candidate_id": "B3_dc5cbea3e7a6fa10",
+      "feasible": false,
+      "reasons": [
+        "pregrasp:robot_table"
+      ],
+      "pregrasp_position_error_m": null,
+      "grasp_position_error_m": null,
+      "min_table_clearance_m": null
+    },
+    {
+      "candidate_id": "B3_c4dc0f977815f043",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 9.657286107422294e-06,
+      "grasp_position_error_m": 8.248113251062236e-06,
+      "min_table_clearance_m": 0.08454279177960372
+    },
+    {
+      "candidate_id": "B3_1b7a7ef7b6951490",
+      "feasible": false,
+      "reasons": [
+        "transport_ik_failed"
+      ],
+      "pregrasp_position_error_m": 7.016409976497224e-06,
+      "grasp_position_error_m": 8.516754248188851e-06,
+      "min_table_clearance_m": 0.08455680790124454
+    },
+    {
+      "candidate_id": "B3_6d11150c6f511233",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 9.616529345847082e-06,
+      "grasp_position_error_m": 8.732347455841383e-06,
+      "min_table_clearance_m": 0.09654272778619438
+    },
+    {
+      "candidate_id": "B3_c289cb569d727841",
+      "feasible": false,
+      "reasons": [
+        "transport_ik_failed"
+      ],
+      "pregrasp_position_error_m": 8.593255610785014e-06,
+      "grasp_position_error_m": 8.692631049753543e-06,
+      "min_table_clearance_m": 0.09655735541775892
+    },
+    {
+      "candidate_id": "B3_2dd135a83976a239",
+      "feasible": false,
+      "reasons": [
+        "transport:donor_receiver"
+      ],
+      "pregrasp_position_error_m": 1.4738176888999317e-05,
+      "grasp_position_error_m": 8.645230237012108e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_01d31ecafeb58600",
+      "feasible": false,
+      "reasons": [
+        "transport_ik_failed"
+      ],
+      "pregrasp_position_error_m": 8.515971252297623e-06,
+      "grasp_position_error_m": 8.754455187189078e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_ff0a6731323bba4c",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 4.8724351252708e-06,
+      "grasp_position_error_m": 8.5315955571836e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_3d1855c7ce86e7ed",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 3.0797585709157248e-06,
+      "grasp_position_error_m": 8.603325664997284e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_178b0b42e93bcffb",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 4.036112646570988e-06,
+      "grasp_position_error_m": 8.194514219135458e-06,
+      "min_table_clearance_m": 0.1
+    },
+    {
+      "candidate_id": "B3_e3bff51813b48659",
+      "feasible": true,
+      "reasons": [],
+      "pregrasp_position_error_m": 2.7298423005530878e-06,
+      "grasp_position_error_m": 8.38851419643892e-06,
+      "min_table_clearance_m": 0.1
+    }
+  ],
+  "scope": "initial width/IK/sampled approach only; not full-task feasibility or outcome",
+  "filter_seconds": 20.22465761600006
+}
