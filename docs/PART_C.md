@@ -12,6 +12,11 @@ C 在 A 的可行候选中选择抓取 ID，并让同一套物理控制器执行
 C 给 A 的即时输出是 `selected_id/ranking` 和审计 metadata，物理成功由 A 判定。
 最终交付是第 7–8 节的 manifest、逐条 trial 和多方法统计 summary。
 
+2026-11-06 的第三轮冻结表评估使用 116 个多族候选、`wide_strict_v2` 场景和
+seed 10–29，真实 M3/A1、M0/M1/M2/M4/M5 对比及默认流体复核见
+[第 12 节](#12-第三轮冻结表上的真实-m3a1-评估)和
+[本次评估报告](PART_C_EVALUATION_20261106.md)。以下旧 pilot 记录保留其当时口径。
+
 ## 1. 安装与离线验证
 
 推荐 Python 3.11 或 3.12，在仓库根目录运行：
@@ -453,7 +458,8 @@ B 的模型仍使用已知杯身、理想圆柱接触及 URDF COM 等几何近�
 `prepare-b` 的评分模型为 `assets/mug.urdf`，序列执行使用 `assets/mug_hollow.urdf`；
 当前评分不包含液体的质心变化。来源校验还会逐项比对报告与候选分数、权重和配置
 指纹，防止只替换出处权重或报告文件造成评分来源错配。
-M2 的任务规则仍不存在，C 不会替小组补造一个 M2 实验结果。
+上述旧 `prepare-b` 示例没有接入 M2。第三轮已实现的任务风险 M2 由 oracle 流程运行，
+与这些旧实验几何示例分开；当前评估入口见第 12 节。
 
 ### 完整序列的输出和统计分母
 
@@ -504,3 +510,47 @@ C 的空候选、筛选异常、选择异常、非法输出和执行调用异常
 可追踪摘要见 [`validation.json`](../results/c_ab_integration_20261024/validation.json)，
 其中包含原始回答、候选和任务指纹、完整 trial 的哈希及恢复验证。这里只证明集成
 可用，单 seed 不能支持方法优劣结论；正式比较仍需冻结评分、任务标签和未见 seed。
+
+## 12. 第三轮冻结表上的真实 M3/A1 评估
+
+`grasp_c.table_evaluation` 只读第三轮已有的可行列表与物理结果，向模型提供同一份
+公开五字段和任务描述，保存完整原始回答、调用/修复/回退、token 与耗时，然后按
+选中 ID 查表评分。M3 保留任务信息，A1 移除任务信息；默认模型沿用现有配置
+`gpt-5.6-luna / low`，通过已有 ChatGPT 登录调用。模型名称是请求 ID。
+
+```bash
+python -m grasp_c validate --config configs/c.r3.codex.json
+python -m grasp_c.table_evaluation run --config configs/c.r3.codex.json --source results/oracle_20261103/r3_v3p_wide_strict_v2 --out results/local/c_r3 --workers 4
+python -m grasp_c.table_evaluation run --config configs/c.r3.codex.json --source results/oracle_20261103/r3_v3p_wide_strict_v2 --out results/local/c_r3 --workers 4 --resume
+python -m grasp_c.table_evaluation pbf --out results/local/c_r3 --workers 6
+python -m grasp_c.table_evaluation summarize --out results/local/c_r3
+```
+
+每个方法、任务、seed 采样一次，共 120 条模型选择。每条只允许一次格式修复，仍
+失败才按既有几何回退规则选择；回退参与系统成功率，同时另报排除回退后的成功率。
+默认关闭响应缓存，已保存 trial 的 `--resume` 不重调用模型，也不自动重试错误。
+改变模型、参数、源码、资产、环境或输入时拒绝恢复；新实验应使用新目录。
+
+`pbf` 对五种基线和两种 LLM 的倒水选择按 `(seed, candidate_id)` 去重，在本次
+冻结代码与本机环境下使用默认 256 粒子、8 次迭代、2 个子步重新执行。完整 episode
+保存在 `pbf/seedN/ID.json`，包含数值有效性、动作阶段与物理判据；不将历史精简
+PBF 记录中缺失的数值状态补成有效。已保存的物理失败同样保留，续跑只补缺失项。
+`pbf_manifest.json` 独立记录这一阶段的执行代码指纹，并关联选择阶段 manifest。
+因此可在保留模型回答的前提下修复 C 的结果校验，但 A/B、资产、输入与环境必须
+保持一致；已有 PBF 结果的继续执行还要求该阶段自身代码指纹不变。
+
+输出的 `manifest.json` 冻结配置、provider 身份、代码/资产、包版本、历史源文件
+逐文件 SHA-256；`trials/` 保存提示词与响应审计；`summary.json` 和 `report.md`
+给出各任务/方法的计划数、有效物理分母、缺失/排除数、成功率、Wilson 95% 区间，
+以及按同一 seed 配对的精确检验与整组比较的 Holm 校正。倒水代理与 PBF 单独列出，
+没有全量真实流体表就不报告 PBF Oracle。数值异常与执行调用异常不算物理失败。
+
+兼容旧数据时先校验候选和族文件的原始字节哈希，再校验候选规范化哈希。Python
+3.12 改变浮点 `sum`，历史四元数归一化与本机可能相差约 1e-16；程序仅接受能按
+历史顺序求和精确复现的哈希，并在 manifest 中同时保存历史和本机指纹，不做
+任意舍入匹配，也不改变 A 的在线协议。
+
+这仍是回顾性仿真 pilot：seed 0–9 用于 M4 建表，10–29 虽与训练分离，但其结果
+已在上游第三轮报告中分析，不能称完全盲测。`noisy_truth` 场景由模拟真值加噪声生成
+位姿估计，不是真实视觉感知。静态分数只支持杯身类，杯沿/把手的零分不能解释成
+物理上不可抓。一次采样无法估计模型重复调用的稳定性，且本轮只评估一个真实模型。
