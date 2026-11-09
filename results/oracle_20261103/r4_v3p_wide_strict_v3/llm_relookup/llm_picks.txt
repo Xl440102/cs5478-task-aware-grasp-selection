@@ -1,0 +1,36 @@
+## r3_v3p_wide_strict_v2
+M3_CODEX succ 15 =M1pick 9 pick has max score 18 {'transport_ik_failed': 1, 'approach_arrival_timeout': 2, 'pregrasp_arrival_timeout': 1, 'no_unintended_collision': 1}
+A1_CODEX succ 17 =M1pick 13 pick has max score 20 {'transport_ik_failed': 1, 'approach_arrival_timeout': 2}
+== handover_transfer
+M3_CODEX succ 4 =M1pick 10 pick has max score 15 {'no_unintended_collision': 6, 'stage_outcomes': 3, 'no_drop': 4, 'pregrasp_arrival_timeout': 3}
+A1_CODEX succ 5 =M1pick 16 pick has max score 20 {'no_unintended_collision': 5, 'stage_outcomes': 5, 'approach_arrival_timeout': 2, 'no_drop': 3}
+== pour_water
+M3_CODEX succ 7 =M1pick 11 pick has max score 11 {'pregrasp_arrival_timeout': 2, 'no_unintended_collision': 4, 'stage_outcomes': 7}
+A1_CODEX succ 12 =M1pick 19 pick has max score 19 {'approach_arrival_timeout': 1, 'no_unintended_collision': 2, 'pregrasp_arrival_timeout': 1, 'stage_outcomes': 4}
+## r4_v3p_wide_strict_v3
+M3_CODEX succ 17 =M1pick 9 pick has max score 18 {'transport_ik_failed': 1, 'lift_achieved': 1, 'no_unintended_collision': 1}
+A1_CODEX succ 17 =M1pick 13 pick has max score 20 {'transport_ik_failed': 1, 'lift_achieved': 1, 'approach_arrival_timeout': 1}
+== handover_transfer
+M3_CODEX succ 5 =M1pick 10 pick has max score 15 {'stage_outcomes': 8, 'approach_arrival_timeout': 2, 'no_drop': 4, 'no_unintended_collision': 1}
+A1_CODEX succ 5 =M1pick 16 pick has max score 20 {'no_unintended_collision': 3, 'stage_outcomes': 9, 'approach_arrival_timeout': 1, 'no_drop': 2}
+== pour_water
+M3_CODEX succ 10 =M1pick 11 pick has max score 11 {'no_unintended_collision': 2, 'stage_outcomes': 7, 'lift_achieved': 1}
+A1_CODEX succ 13 =M1pick 19 pick has max score 19 {'approach_arrival_timeout': 1, 'no_unintended_collision': 1, 'stage_outcomes': 5}
+## r4_pbf_v3p_wide_strict_v3
+M3_CODEX succ 0 =M1pick 9 pick has max score 18 {'missing': 20}
+A1_CODEX succ 0 =M1pick 13 pick has max score 20 {'missing': 20}
+== handover_transfer
+M3_CODEX succ 0 =M1pick 10 pick has max score 15 {'missing': 20}
+A1_CODEX succ 0 =M1pick 16 pick has max score 20 {'missing': 20}
+== pour_water
+M3_CODEX succ 15 =M1pick 11 pick has max score 11 {'stage_outcomes': 2, 'no_unintended_collision': 2, 'lift_achieved': 1}
+A1_CODEX succ 17 =M1pick 19 pick has max score 19 {'approach_arrival_timeout': 1, 'no_unintended_collision': 1, 'stage_outcomes': 1}
+## r3_pbf_v3p_wide_strict_v2
+M3_CODEX succ 0 =M1pick 9 pick has max score 18 {'missing': 20}
+A1_CODEX succ 0 =M1pick 13 pick has max score 20 {'missing': 20}
+== handover_transfer
+M3_CODEX succ 0 =M1pick 10 pick has max score 15 {'missing': 20}
+A1_CODEX succ 0 =M1pick 16 pick has max score 20 {'missing': 20}
+== pour_water
+M3_CODEX succ 13 =M1pick 11 pick has max score 11 {'pregrasp_arrival_timeout': 2, 'no_unintended_collision': 3, 'stage_outcomes': 2}
+A1_CODEX succ 13 =M1pick 19 pick has max score 19 {'approach_arrival_timeout': 1, 'stage_outcomes': 3, 'no_unintended_collision': 2, 'pregrasp_arrival_timeout': 1}

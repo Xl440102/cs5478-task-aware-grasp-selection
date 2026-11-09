@@ -1,0 +1,84 @@
+{
+  "success": true,
+  "status": "completed",
+  "failure_reason": null,
+  "stages": [
+    [
+      "pregrasp",
+      "completed"
+    ],
+    [
+      "approach",
+      "completed"
+    ],
+    [
+      "close",
+      "completed"
+    ],
+    [
+      "lift",
+      "completed"
+    ],
+    [
+      "transport",
+      "completed"
+    ],
+    [
+      "tilt",
+      "completed"
+    ],
+    [
+      "pour_dwell",
+      "completed"
+    ],
+    [
+      "return_upright",
+      "completed"
+    ],
+    [
+      "settle",
+      "completed"
+    ],
+    [
+      "terminal",
+      "completed"
+    ]
+  ],
+  "success_checks": {
+    "sequence_complete": true,
+    "lift_achieved": true,
+    "no_drop": true,
+    "no_unintended_collision": true,
+    "stage_outcomes": true,
+    "full_terminal_window": true,
+    "terminal_outcome": true,
+    "fluid_density_valid": true
+  },
+  "final_evidence": {
+    "source_position": [
+      0.554053081281692,
+      0.11289959640126776,
+      0.8015689264509166
+    ],
+    "source_upright_deg": 0.027795935848288118,
+    "water": {
+      "initial_mass_kg": 0.1,
+      "source_mass_kg": 0.0,
+      "target_mass_kg": 0.098828125,
+      "outside_mass_kg": 0.0011718750000000002,
+      "transfer_ratio": 0.98828125,
+      "spill_ratio": 0.011718750000000002,
+      "accounting_error_kg": 2.6020852139652106e-18,
+      "fluid_sample_count": 256,
+      "max_compression": 0.0150506935582424,
+      "maximum_sample_speed_m_s": 1.1518155020318805,
+      "finite_state": true
+    }
+  },
+  "pour_proxy": null,
+  "liquid": "pbf",
+  "task_id": "pour_water",
+  "seed": 23,
+  "candidate_id": "B3_84b9936381c647d3",
+  "wall_seconds": 134.81384630400134
+}

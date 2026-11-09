@@ -1,0 +1,4320 @@
+{
+  "pour_water": {
+    "0": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_ee93643e3d354d36",
+          "B3_70da83ab576cb9ca",
+          "B3_6fe272389e801ae2",
+          "B3_6e254b46f7992db7",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_7ff381f16d56a546",
+          "B3_db2df20cfd3cb7be",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac",
+          "B3_a9d9804ec06713ec"
+        ],
+        "seconds": 0.0001322329999311478
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.00468644500051596
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.28825131299981877
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003657641999780026
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00046749400007684017
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0003006529996127938
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0036627310000767466
+      }
+    },
+    "1": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_640399fab83e671a",
+          "B3_db2df20cfd3cb7be",
+          "B3_fa973f00daa0de87",
+          "B3_938f155b5d840cb3",
+          "B3_da9103d76e51550b",
+          "B3_1628311da54eab7d",
+          "B3_a0e9a19516a0968e",
+          "B3_84b9936381c647d3",
+          "B3_a9d9804ec06713ec",
+          "B3_7ff381f16d56a546",
+          "B3_6fe272389e801ae2",
+          "B3_6e254b46f7992db7",
+          "B3_a4d27322f9e24d6c"
+        ],
+        "seconds": 0.00019667499964270974
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0034076529991580173
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.23764121899966995
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0027218760005780496
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00048326700016332325
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0002526620000935509
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.003133885998977348
+      }
+    },
+    "2": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_70da83ab576cb9ca",
+          "B3_a0e9a19516a0968e",
+          "B3_ee93643e3d354d36",
+          "B3_a9d9804ec06713ec",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_938f155b5d840cb3",
+          "B3_da9103d76e51550b",
+          "B3_84b9936381c647d3",
+          "B3_fa973f00daa0de87",
+          "B3_39f34778296448dd",
+          "B3_a4d27322f9e24d6c",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00012084500031050993
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_39f34778296448dd",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0026240999995934544
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_39f34778296448dd",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2102175919999354
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_39f34778296448dd",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.002692339000532229
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_39f34778296448dd",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0004479389999687555
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_39f34778296448dd",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0002698050002436503
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36",
+          "B3_39f34778296448dd",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.003647215000455617
+      }
+    },
+    "3": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_938f155b5d840cb3",
+          "B3_e8ac427b77b0c9cf",
+          "B3_da9103d76e51550b",
+          "B3_7ff381f16d56a546",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_6fe272389e801ae2",
+          "B3_599e9b16f5782406",
+          "B3_db2df20cfd3cb7be",
+          "B3_034c4eac3fb53111",
+          "B3_640399fab83e671a",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_84b9936381c647d3",
+          "B3_a9d9804ec06713ec",
+          "B3_6e254b46f7992db7",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca"
+        ],
+        "seconds": 0.00013283999942359515
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003327217999867571
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2844435640008669
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003321379000226443
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_034c4eac3fb53111",
+          "B3_6fe272389e801ae2",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004504690004978329
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_034c4eac3fb53111",
+          "B3_6fe272389e801ae2",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00032778200056782225
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0036883089996990748
+      }
+    },
+    "4": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_da9103d76e51550b",
+          "B3_84b9936381c647d3",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_6e254b46f7992db7",
+          "B3_7ff381f16d56a546",
+          "B3_1628311da54eab7d",
+          "B3_db2df20cfd3cb7be",
+          "B3_ee93643e3d354d36",
+          "B3_fa973f00daa0de87",
+          "B3_a4d27322f9e24d6c",
+          "B3_960a70b9f31cb1ac",
+          "B3_70da83ab576cb9ca",
+          "B3_599e9b16f5782406",
+          "B3_6fe272389e801ae2",
+          "B3_a0e9a19516a0968e",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.00013322900031198515
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0031750609996379353
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.28874659200027963
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.00351202399997419
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00045100300030753715
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.000292512000669376
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.003535402000125032
+      }
+    },
+    "5": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_fa973f00daa0de87",
+          "B3_a9d9804ec06713ec",
+          "B3_960a70b9f31cb1ac",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6fe272389e801ae2",
+          "B3_6e254b46f7992db7",
+          "B3_938f155b5d840cb3",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a"
+        ],
+        "seconds": 0.00014459699923463631
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002910472999246849
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.24336824400052137
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002758606000497821
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004379980000521755
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00023221900028147502
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.00279787799991027
+      }
+    },
+    "6": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_e8ac427b77b0c9cf",
+          "B3_6fe272389e801ae2",
+          "B3_6e254b46f7992db7",
+          "B3_a4d27322f9e24d6c",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_7ff381f16d56a546",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_a9d9804ec06713ec",
+          "B3_db2df20cfd3cb7be",
+          "B3_938f155b5d840cb3",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0"
+        ],
+        "seconds": 0.0001343180001640576
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0034968690006280667
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.3373560449999786
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003697742000440485
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0005430029996205121
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0003167770000800374
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0038440150001406437
+      }
+    },
+    "7": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_7ff381f16d56a546",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_a0e9a19516a0968e",
+          "B3_640399fab83e671a",
+          "B3_da9103d76e51550b",
+          "B3_ee93643e3d354d36",
+          "B3_6e254b46f7992db7",
+          "B3_a4d27322f9e24d6c",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_84b9936381c647d3",
+          "B3_1628311da54eab7d",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.00013580800077761523
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002960266999252781
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.24146367100001953
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0028856110002379864
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004149249998590676
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0002936179998869193
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0027005980009562336
+      }
+    },
+    "8": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_960a70b9f31cb1ac",
+          "B3_a0e9a19516a0968e",
+          "B3_39f34778296448dd",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_a4d27322f9e24d6c",
+          "B3_c5fcb8ef335c6b29",
+          "B3_ee93643e3d354d36",
+          "B3_7ff381f16d56a546",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_599e9b16f5782406",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.00012709000020549865
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_c5fcb8ef335c6b29",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_39f34778296448dd",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0035119060003125924
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_c5fcb8ef335c6b29",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_39f34778296448dd",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.30333260000043083
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_c5fcb8ef335c6b29",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_39f34778296448dd",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003588100999877497
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_c5fcb8ef335c6b29",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_39f34778296448dd",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00046192200079531176
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_c5fcb8ef335c6b29",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_39f34778296448dd",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00032634500075801043
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_c5fcb8ef335c6b29",
+          "B3_1628311da54eab7d",
+          "B3_39f34778296448dd",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.00348501599910378
+      }
+    },
+    "9": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_a0e9a19516a0968e",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_960a70b9f31cb1ac",
+          "B3_70da83ab576cb9ca",
+          "B3_a9d9804ec06713ec",
+          "B3_599e9b16f5782406",
+          "B3_a4d27322f9e24d6c",
+          "B3_ee93643e3d354d36",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_640399fab83e671a",
+          "B3_6e254b46f7992db7"
+        ],
+        "seconds": 0.00015546800023003016
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002424304999294691
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.1910485480002535
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002430923999781953
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004107040003873408
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00022606199945585104
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002862449000531342
+      }
+    },
+    "10": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_ee93643e3d354d36",
+          "B3_599e9b16f5782406",
+          "B3_84b9936381c647d3",
+          "B3_640399fab83e671a",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_6e254b46f7992db7",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_db2df20cfd3cb7be",
+          "B3_a0e9a19516a0968e",
+          "B3_938f155b5d840cb3",
+          "B3_a9d9804ec06713ec",
+          "B3_6fe272389e801ae2"
+        ],
+        "seconds": 0.0001555599992570933
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0035682560010172892
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2989977090001048
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0036684490005427506
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0033772760016290704
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0005531500009965384
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00028891699912492186
+      }
+    },
+    "11": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_1628311da54eab7d",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6e254b46f7992db7",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_960a70b9f31cb1ac",
+          "B3_fa973f00daa0de87",
+          "B3_1cd02c73b1f59234",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.0001294190005864948
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002751292999164434
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.22846015399954922
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0028591890004463494
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.002678736000234494
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0004599450003297534
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0003110899997409433
+      }
+    },
+    "12": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_a4d27322f9e24d6c",
+          "B3_ee93643e3d354d36",
+          "B3_599e9b16f5782406",
+          "B3_7ff381f16d56a546",
+          "B3_a9d9804ec06713ec",
+          "B3_6fe272389e801ae2",
+          "B3_84b9936381c647d3",
+          "B3_1628311da54eab7d",
+          "B3_938f155b5d840cb3",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_da9103d76e51550b",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.00012090899872418959
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002855126000213204
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.24601443599931372
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0027970039991487283
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0026740839984995546
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004565900017041713
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0002584450012363959
+      }
+    },
+    "13": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6fe272389e801ae2",
+          "B3_ee93643e3d354d36",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_938f155b5d840cb3",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_a9d9804ec06713ec",
+          "B3_1628311da54eab7d",
+          "B3_a4d27322f9e24d6c",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_960a70b9f31cb1ac",
+          "B3_7ff381f16d56a546"
+        ],
+        "seconds": 0.00014102899876888841
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0030496279996441444
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.25803562399960356
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0029716220014961436
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002737191000051098
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.000521099000252434
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00031751400092616677
+      }
+    },
+    "14": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_938f155b5d840cb3",
+          "B3_da9103d76e51550b",
+          "B3_6fe272389e801ae2",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_960a70b9f31cb1ac",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_a9d9804ec06713ec",
+          "B3_640399fab83e671a",
+          "B3_a0e9a19516a0968e",
+          "B3_e8ac427b77b0c9cf"
+        ],
+        "seconds": 0.0001444039990019519
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.00334238299910794
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2765084249986103
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.009646464999605087
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002566405000834493
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004078860001754947
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00023888699979579542
+      }
+    },
+    "15": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a0e9a19516a0968e",
+          "B3_a9d9804ec06713ec",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_938f155b5d840cb3",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_6fe272389e801ae2",
+          "B3_84b9936381c647d3"
+        ],
+        "seconds": 0.00013723100164497737
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0028047720006725285
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.25289455500023905
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1cd02c73b1f59234",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0028638430012506433
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002537330999984988
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00045352800043474417
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00035410500095167663
+      }
+    },
+    "16": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_84b9936381c647d3",
+          "B3_da9103d76e51550b",
+          "B3_a4d27322f9e24d6c",
+          "B3_a9d9804ec06713ec",
+          "B3_640399fab83e671a",
+          "B3_6fe272389e801ae2",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_ee93643e3d354d36",
+          "B3_599e9b16f5782406"
+        ],
+        "seconds": 0.00013563799984694924
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0035162450003554113
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.30430726099984895
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003472488999250345
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0033431540014134953
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004741789998661261
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.000317927999276435
+      }
+    },
+    "17": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_fa973f00daa0de87",
+          "B3_a4d27322f9e24d6c",
+          "B3_db2df20cfd3cb7be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_84b9936381c647d3",
+          "B3_960a70b9f31cb1ac",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_7ff381f16d56a546",
+          "B3_1628311da54eab7d",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7"
+        ],
+        "seconds": 0.00013055199997324962
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002619430999402539
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.2194196460004605
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002916831001130049
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.002417241001239745
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00043073400047433097
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0002520140005799476
+      }
+    },
+    "18": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_1628311da54eab7d",
+          "B3_db2df20cfd3cb7be",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_6fe272389e801ae2",
+          "B3_a0e9a19516a0968e",
+          "B3_ee93643e3d354d36",
+          "B3_938f155b5d840cb3",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_960a70b9f31cb1ac",
+          "B3_70da83ab576cb9ca",
+          "B3_6e254b46f7992db7",
+          "B3_034c4eac3fb53111",
+          "B3_7ff381f16d56a546"
+        ],
+        "seconds": 0.00012667900045926217
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003286438999566599
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2775889090007695
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003036471000086749
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_034c4eac3fb53111",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0029094149995216867
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_034c4eac3fb53111",
+          "B3_6fe272389e801ae2",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00043562700011534616
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_034c4eac3fb53111",
+          "B3_6fe272389e801ae2",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00030766899908485357
+      }
+    },
+    "19": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_ee93643e3d354d36",
+          "B3_599e9b16f5782406",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac",
+          "B3_a0e9a19516a0968e",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_84b9936381c647d3",
+          "B3_da9103d76e51550b",
+          "B3_a9d9804ec06713ec",
+          "B3_1628311da54eab7d",
+          "B3_6e254b46f7992db7",
+          "B3_fa973f00daa0de87",
+          "B3_6fe272389e801ae2",
+          "B3_640399fab83e671a"
+        ],
+        "seconds": 0.00016031199993449263
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002877793000152451
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2598372289994586
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002964342000268516
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.00283651599966106
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004802530002052663
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00027682700056175236
+      }
+    },
+    "20": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_fa973f00daa0de87",
+          "B3_938f155b5d840cb3",
+          "B3_a9d9804ec06713ec",
+          "B3_640399fab83e671a",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_da9103d76e51550b",
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a0e9a19516a0968e",
+          "B3_7ff381f16d56a546",
+          "B3_f29e04b500bca0be",
+          "B3_960a70b9f31cb1ac",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_a4d27322f9e24d6c"
+        ],
+        "seconds": 0.00014179199934005737
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0035948429995187325
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.2829543520001607
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.003208152998922742
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0030033570001251064
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0004702700007328531
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0003282649995526299
+      }
+    },
+    "21": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_84b9936381c647d3",
+          "B3_a4d27322f9e24d6c",
+          "B3_db2df20cfd3cb7be",
+          "B3_960a70b9f31cb1ac",
+          "B3_6fe272389e801ae2",
+          "B3_fa973f00daa0de87",
+          "B3_a9d9804ec06713ec",
+          "B3_a0e9a19516a0968e",
+          "B3_e8ac427b77b0c9cf",
+          "B3_938f155b5d840cb3",
+          "B3_1628311da54eab7d",
+          "B3_6e254b46f7992db7",
+          "B3_ee93643e3d354d36",
+          "B3_640399fab83e671a",
+          "B3_da9103d76e51550b",
+          "B3_7ff381f16d56a546"
+        ],
+        "seconds": 0.0001260209992324235
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0033598130012251204
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2929247800002486
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003298346000519814
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002986901999975089
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0004567140003928216
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0003136040013487218
+      }
+    },
+    "22": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_84b9936381c647d3",
+          "B3_7ff381f16d56a546",
+          "B3_960a70b9f31cb1ac",
+          "B3_6e254b46f7992db7",
+          "B3_a9d9804ec06713ec",
+          "B3_ee93643e3d354d36",
+          "B3_a0e9a19516a0968e",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_a4d27322f9e24d6c",
+          "B3_70da83ab576cb9ca",
+          "B3_da9103d76e51550b"
+        ],
+        "seconds": 0.00012196799980301876
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002386409001701395
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2012117340000259
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0024158439991879277
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002133519999915734
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0004601170003297739
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.00031243800003721844
+      }
+    },
+    "23": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_84b9936381c647d3",
+          "B3_640399fab83e671a",
+          "B3_70da83ab576cb9ca",
+          "B3_fa973f00daa0de87",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_da9103d76e51550b",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00011985400124103762
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0027098490008938825
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.21014633099912317
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0029785249989799922
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.002535382000132813
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0006020860000717221
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00027660799969453365
+      }
+    },
+    "24": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_70da83ab576cb9ca",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_a4d27322f9e24d6c",
+          "B3_8bbe77fd36dc7598",
+          "B3_960a70b9f31cb1ac",
+          "B3_938f155b5d840cb3",
+          "B3_ee93643e3d354d36",
+          "B3_a9d9804ec06713ec",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_da9103d76e51550b",
+          "B3_1628311da54eab7d",
+          "B3_599e9b16f5782406",
+          "B3_84b9936381c647d3",
+          "B3_fa973f00daa0de87"
+        ],
+        "seconds": 0.0001296740010729991
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_8bbe77fd36dc7598",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003096214000834152
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_599e9b16f5782406",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_8bbe77fd36dc7598",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.23911437400056457
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_8bbe77fd36dc7598",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0027474079997773515
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd",
+          "B3_ee93643e3d354d36",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_8bbe77fd36dc7598",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0025499610001133988
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_8bbe77fd36dc7598",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.00045051300003251527
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_8bbe77fd36dc7598",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac",
+          "B3_ac60eb63dbb6dfdd"
+        ],
+        "seconds": 0.0002707389994611731
+      }
+    },
+    "25": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_f29e04b500bca0be",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_6e254b46f7992db7",
+          "B3_fa973f00daa0de87",
+          "B3_938f155b5d840cb3",
+          "B3_6fe272389e801ae2",
+          "B3_84b9936381c647d3",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_da9103d76e51550b",
+          "B3_a0e9a19516a0968e",
+          "B3_a4d27322f9e24d6c",
+          "B3_a9d9804ec06713ec",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a"
+        ],
+        "seconds": 0.00013091500113660004
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.003026006999789388
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.2458892479990027
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0027767819992732257
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.0026452309994056122
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00041646800127637107
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0002765219996945234
+      }
+    },
+    "26": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_a4d27322f9e24d6c",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_599e9b16f5782406",
+          "B3_938f155b5d840cb3",
+          "B3_e8ac427b77b0c9cf",
+          "B3_034c4eac3fb53111",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_1628311da54eab7d",
+          "B3_6e254b46f7992db7",
+          "B3_70da83ab576cb9ca"
+        ],
+        "seconds": 0.0001292789984290721
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002785456999845337
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_70da83ab576cb9ca",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2244579899997916
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.002769620999970357
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_034c4eac3fb53111",
+          "B3_1628311da54eab7d",
+          "B3_70da83ab576cb9ca",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_e8ac427b77b0c9cf",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002612809999845922
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00044350399912218563
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_034c4eac3fb53111",
+          "B3_a4d27322f9e24d6c",
+          "B3_e8ac427b77b0c9cf",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_70da83ab576cb9ca",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_599e9b16f5782406",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0005829300007462734
+      }
+    },
+    "27": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_960a70b9f31cb1ac",
+          "B3_7ff381f16d56a546",
+          "B3_640399fab83e671a",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_a4d27322f9e24d6c",
+          "B3_1cd02c73b1f59234",
+          "B3_1628311da54eab7d",
+          "B3_84b9936381c647d3",
+          "B3_fa973f00daa0de87"
+        ],
+        "seconds": 0.00012703299944405444
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002845749000698561
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.21886901300058526
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.0025099829999817302
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_1cd02c73b1f59234",
+          "B3_960a70b9f31cb1ac",
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3"
+        ],
+        "seconds": 0.0023497390011470998
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00046196800030884333
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_f29e04b500bca0be",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac",
+          "B3_1cd02c73b1f59234"
+        ],
+        "seconds": 0.00026037099996756297
+      }
+    },
+    "28": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_7ff381f16d56a546",
+          "B3_84b9936381c647d3",
+          "B3_db2df20cfd3cb7be",
+          "B3_960a70b9f31cb1ac",
+          "B3_938f155b5d840cb3",
+          "B3_ee93643e3d354d36",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_1628311da54eab7d",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_a4d27322f9e24d6c",
+          "B3_a9d9804ec06713ec",
+          "B3_6fe272389e801ae2"
+        ],
+        "seconds": 0.000122911000289605
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.003042725998966489
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.2489789480005129
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36"
+        ],
+        "seconds": 0.0028023840004607337
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_ee93643e3d354d36",
+          "B3_db2df20cfd3cb7be",
+          "B3_1628311da54eab7d",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002810436999425292
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00042643800043151714
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_db2df20cfd3cb7be",
+          "B3_6fe272389e801ae2",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_ee93643e3d354d36",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0002877970000554342
+      }
+    },
+    "29": {
+      "M0_RANDOM": {
+        "ranking": [
+          "B3_84b9936381c647d3",
+          "B3_a9d9804ec06713ec",
+          "B3_6fe272389e801ae2",
+          "B3_938f155b5d840cb3",
+          "B3_1628311da54eab7d",
+          "B3_a4d27322f9e24d6c",
+          "B3_960a70b9f31cb1ac",
+          "B3_fa973f00daa0de87",
+          "B3_7ff381f16d56a546",
+          "B3_640399fab83e671a",
+          "B3_6e254b46f7992db7",
+          "B3_da9103d76e51550b",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.00010691700117604341
+      },
+      "M1_STATIC_V2": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0028541039991978323
+      },
+      "M2_TASK_RISK": {
+        "ranking": [
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_640399fab83e671a",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_6e254b46f7992db7",
+          "B3_a0e9a19516a0968e",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.24880497099911736
+      },
+      "M5_PAPER_STYLE": {
+        "ranking": [
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.002732699998887256
+      },
+      "M4_FAMILY_PRIOR": {
+        "ranking": [
+          "B3_960a70b9f31cb1ac",
+          "B3_1628311da54eab7d",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_6fe272389e801ae2",
+          "B3_7ff381f16d56a546",
+          "B3_a4d27322f9e24d6c",
+          "B3_da9103d76e51550b",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_6e254b46f7992db7",
+          "B3_84b9936381c647d3",
+          "B3_938f155b5d840cb3",
+          "B3_a0e9a19516a0968e"
+        ],
+        "seconds": 0.002570409000327345
+      },
+      "M3_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.00041123600021819584
+      },
+      "A1_MOCK": {
+        "ranking": [
+          "B3_6fe272389e801ae2",
+          "B3_2c4cdd6500b2d0e0",
+          "B3_a4d27322f9e24d6c",
+          "B3_1628311da54eab7d",
+          "B3_7ff381f16d56a546",
+          "B3_da9103d76e51550b",
+          "B3_938f155b5d840cb3",
+          "B3_84b9936381c647d3",
+          "B3_a0e9a19516a0968e",
+          "B3_6e254b46f7992db7",
+          "B3_640399fab83e671a",
+          "B3_a9d9804ec06713ec",
+          "B3_fa973f00daa0de87",
+          "B3_960a70b9f31cb1ac"
+        ],
+        "seconds": 0.0003161169988743495
+      }
+    }
+  }
+}
