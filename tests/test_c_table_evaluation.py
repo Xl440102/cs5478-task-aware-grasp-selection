@@ -11,12 +11,13 @@ from grasp_c.providers import MockProvider, ModelResponse
 from grasp_a.contracts import candidate_sha256, load_candidates
 from grasp_c.tasks import sequence_specs, load_sequence_config
 from grasp_c.table_evaluation import (
-    BASELINES, candidate_fingerprints, checked, holm, load_table, paired,
-    physical_success, rate_summary, run, seal, select_one, summarize, verify_pbf,
+    BASELINES, candidate_fingerprints, checked, holm, load_pbf_table, load_table,
+    paired, physical_success, rate_summary, run, seal, select_one, summarize, verify_pbf,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "results/oracle_20261103/r3_v3p_wide_strict_v2"
+PBF_SOURCE = ROOT / "results/oracle_20261103/r3_pbf_v3p_wide_strict_v2"
 
 
 class TableStatisticsTests(unittest.TestCase):
@@ -90,6 +91,39 @@ class TableRunTests(unittest.TestCase):
         config["scene_randomization"]["filter_mode"] = "initial"
         with self.assertRaisesRegex(ValueError, "scenes"):
             load_table(SOURCE, config)
+
+    def test_pbf_table_integration_and_validation(self):
+        table = load_table(SOURCE, self.config)
+        pbf_table = load_pbf_table(PBF_SOURCE, self.config, table)
+        self.assertEqual(pbf_table["meta"]["liquid"], "pbf")
+        with self.assertRaisesRegex(ValueError, "liquid='pbf'"):
+            load_pbf_table(SOURCE, self.config, table)
+        out = self.base/"run_pbf_table"
+        run(self.config_path, SOURCE, out, workers=2)
+        summary = summarize(out, pbf_table=PBF_SOURCE,
+                            summary_path=out/"summary_pbf.json",
+                            report_path=out/"report_pbf.md")
+        self.assertIn("pour_water_pbf_table", summary["tasks"])
+        pbf_task = summary["tasks"]["pour_water_pbf_table"]
+        self.assertEqual(pbf_task["liquid"], "pbf")
+        self.assertEqual(pbf_task["oracle"]["successes"], 1)
+        self.assertIsNotNone(pbf_task["uniform_expectation"])
+
+    def test_prompt_v2_config_and_messages(self):
+        v2_config = load_config(ROOT / "configs/c.r3.codex.v2.json")
+        self.assertEqual([m["prompt_version"] for m in v2_config["methods"]], ["v2", "v2"])
+        table = load_table(SOURCE, self.config)
+        public = table["filters"]["handover_transfer", 10]["feasible_candidates"]
+        manifest = {"manifest_sha256": "test", "identity": {"source_sha256": "test", "config": self.config}}
+        method_m3 = {**self.config["methods"][0], "prompt_version": "v2"}
+        method_a1 = {**self.config["methods"][1], "prompt_version": "v2"}
+        item = dict(method_id="M3_CODEX_V2", task_id="handover_transfer", seed=10, repeat=0, sample_id=0)
+        rec_m3 = select_one(item, method_m3, public, manifest)
+        rec_a1 = select_one({**item, "method_id": "A1_CODEX_V2"}, method_a1, public, manifest)
+        self.assertIn("unscored (N/A)", rec_m3["messages"][0]["content"])
+        self.assertIn("unscored (N/A)", rec_a1["messages"][0]["content"])
+        self.assertIn("top-down rim grasps", rec_m3["messages"][1]["content"])
+        self.assertNotIn("task_intent", rec_a1["messages"][1]["content"])
 
     def test_run_resume_audit_missingness_and_config_rejection(self):
         out = self.base/"run"

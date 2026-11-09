@@ -520,13 +520,19 @@ C 的空候选、筛选异常、选择异常、非法输出和执行调用异常
 
 ```bash
 python -m grasp_c validate --config configs/c.r3.codex.json
+python -m grasp_c validate --config configs/c.r3.codex.v2.json
+python -m grasp_c validate --config configs/c.r3.gemini.json
+python -m grasp_c validate --config configs/c.r3.gemini.v2.json
+python -m grasp_c validate --config configs/c.r3.multimodel.json
 python -m grasp_c.table_evaluation run --config configs/c.r3.codex.json --source results/oracle_20261103/r3_v3p_wide_strict_v2 --out results/local/c_r3 --workers 4
 python -m grasp_c.table_evaluation run --config configs/c.r3.codex.json --source results/oracle_20261103/r3_v3p_wide_strict_v2 --out results/local/c_r3 --workers 4 --resume
 python -m grasp_c.table_evaluation pbf --out results/local/c_r3 --workers 6
 python -m grasp_c.table_evaluation summarize --out results/local/c_r3
+python -m grasp_c.table_evaluation summarize --out results/c_evaluation_20261106 --pbf-table results/oracle_20261103/r3_pbf_v3p_wide_strict_v2 --summary-out results/c_evaluation_20261106/summary_with_pbf_table.json --report-out results/c_evaluation_20261106/report_with_pbf_table.md
+python -m grasp_c.table_evaluation summarize --out results/c_evaluation_multimodel_20261109 --pbf-table results/oracle_20261103/r3_pbf_v3p_wide_strict_v2
 ```
 
-每个方法、任务、seed 采样一次，共 120 条模型选择。每条只允许一次格式修复，仍
+每个方法、任务、seed 采样一次（单模型 120 条选择；多模型含 `M3_CODEX`、`A1_CODEX`、`M3_GEMINI`、`A1_GEMINI`、`M3_GEMINI_V2`、`A1_GEMINI_V2` 共 360 条选择，见 `results/c_evaluation_multimodel_20261109/`）。每条只允许一次格式修复，仍
 失败才按既有几何回退规则选择；回退参与系统成功率，同时另报排除回退后的成功率。
 默认关闭响应缓存，已保存 trial 的 `--resume` 不重调用模型，也不自动重试错误。
 改变模型、参数、源码、资产、环境或输入时拒绝恢复；新实验应使用新目录。
@@ -538,6 +544,17 @@ PBF 记录中缺失的数值状态补成有效。已保存的物理失败同样�
 `pbf_manifest.json` 独立记录这一阶段的执行代码指纹，并关联选择阶段 manifest。
 因此可在保留模型回答的前提下修复 C 的结果校验，但 A/B、资产、输入与环境必须
 保持一致；已有 PBF 结果的继续执行还要求该阶段自身代码指纹不变。
+
+`summarize --pbf-table` 额外接入上游第三轮全量真实流体表
+`results/oracle_20261103/r3_pbf_v3p_wide_strict_v2/`（30 个 seed 全部 458 条可行
+倒水候选的默认 PBF 执行结果），自动校验候选/族/场景/筛选与训练 seed 隔离，并输出
+`pour_water_pbf_table` 汇总与真实流体 Oracle 上界（20/20）和均匀随机期望（12.3/20）。
+
+针对 `prompt_version="v1"` 中 `geometry_score=0.0`（杯沿/把手在静态杯身模型下未评分）
+被模型当作零质量候选、以及交接水平走廊干涉和倒水 `mouth=hand over the opening`
+标签误导的问题，已新增 `prompt_version="v2"`（见 `grasp_c/prompts.py`、
+`grasp_c/tasks.py` 和 `configs/c.r3.codex.v2.json`、`configs/c.r3.gemini.v2.json`），同时完整保留 `v1` 默认行为与
+已有运行指纹。在 `gemini-3.8-flash` 上的 `v1` 与 `v2` 对照表明：消除零分未评分歧义并显式编码任务几何/运动学约束后，`M3_GEMINI_V2` 在搬运（19/20）、交接（20/20）和倒水（代理 18/20、全量 PBF 16/20）上全面提升，并在交接（$p=3.05\times 10^{-5}$）与倒水代理（$p=1.22\times 10^{-4}$）上显著优于无任务消融 `A1_GEMINI_V2`。
 
 输出的 `manifest.json` 冻结配置、provider 身份、代码/资产、包版本、历史源文件
 逐文件 SHA-256；`trials/` 保存提示词与响应审计；`summary.json` 和 `report.md`
@@ -553,4 +570,4 @@ PBF 记录中缺失的数值状态补成有效。已保存的物理失败同样�
 这仍是回顾性仿真 pilot：seed 0–9 用于 M4 建表，10–29 虽与训练分离，但其结果
 已在上游第三轮报告中分析，不能称完全盲测。`noisy_truth` 场景由模拟真值加噪声生成
 位姿估计，不是真实视觉感知。静态分数只支持杯身类，杯沿/把手的零分不能解释成
-物理上不可抓。一次采样无法估计模型重复调用的稳定性，且本轮只评估一个真实模型。
+物理上不可抓。一次采样无法估计模型重复调用的稳定性。

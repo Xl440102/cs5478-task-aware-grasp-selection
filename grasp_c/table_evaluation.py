@@ -319,19 +319,44 @@ def picks_for(task, seed, methods, table, trials):
     return picks
 
 
-def summarize(out):
+def load_pbf_table(pbf_source, config, base_table):
+    """Validate an archived full-PBF pour_water oracle table against base_table."""
+    pbf_source = Path(pbf_source).resolve()
+    pbf_config = {**config, "tasks": ["pour_water"]}
+    pbf_table = load_table(pbf_source, pbf_config)
+    if pbf_table["meta"].get("liquid") != "pbf":
+        raise ValueError("pbf_table must use liquid='pbf'")
+    if (pbf_table["candidate_fingerprints"] != base_table["candidate_fingerprints"]
+            or pbf_table["families"] != base_table["families"]):
+        raise ValueError("pbf_table candidate or family definitions differ from base_table")
+    for seed in config["seeds"]:
+        if (pbf_table["filters"]["pour_water", seed]["feasible_candidates"] !=
+                base_table["filters"]["pour_water", seed]["feasible_candidates"]):
+            raise ValueError(f"pbf_table pour_water filter differs at seed {seed}")
+    return pbf_table
+
+
+def summarize(out, *, pbf_table=None, summary_path=None, report_path=None):
     manifest, table, trials = load_run(out)
     pbf_manifest = checked(out / "pbf_manifest.json") if (out / "pbf_manifest.json").exists() else None
     if pbf_manifest and pbf_manifest["identity"]["selection_manifest_sha256"] != manifest["manifest_sha256"]:
         raise ValueError("PBF manifest belongs to different selections")
     config = manifest["identity"]["config"]
+    loaded_pbf_table = (load_pbf_table(pbf_table, config, table)
+                        if pbf_table is not None and "pour_water" in config["tasks"] else None)
     methods = [*BASELINES, *(m["id"] for m in config["methods"])]
+    notes = ["One response per method/task/seed; no repeated-model stability claim.",
+             "M4 training seeds excluded; seeds 10-29 already appeared in upstream analysis, not a blind test.",
+             "Proxy pouring is separate from PBF; no particle-fluid Oracle is available."
+             if loaded_pbf_table is None else
+             "Proxy pouring is separate from PBF; pour_water_pbf_table reports full PBF table lookup and Oracle.",
+             "Historical table lacks environment fingerprints; table lookup is retrospective."]
     result = dict(schema_version="grasp_c_table_summary_v1", manifest_sha256=manifest["manifest_sha256"],
                   seeds=config["seeds"], methods=methods, tasks={}, selection_audit={}, comparisons=[],
-                  notes=["One response per method/task/seed; no repeated-model stability claim.",
-                         "M4 training seeds excluded; seeds 10-29 already appeared in upstream analysis, not a blind test.",
-                         "Proxy pouring is separate from PBF; no particle-fluid Oracle is available.",
-                         "Historical table lacks environment fingerprints; table lookup is retrospective."])
+                  notes=notes)
+    if loaded_pbf_table is not None:
+        result["pbf_table_source"] = str(Path(pbf_table).resolve())
+        result["pbf_table_sha256"] = _sha(loaded_pbf_table["files"])
     for method in config["methods"]:
         records = [r for (t, s, m), r in trials.items() if m == method["id"]]
         metadata = [(r.get("selection") or {}).get("metadata", {}) for r in records]
@@ -352,14 +377,17 @@ def summarize(out):
     views = [(task, "table") for task in config["tasks"]]
     if "pour_water" in config["tasks"]:
         views.append(("pour_water", "pbf"))
+        if loaded_pbf_table is not None:
+            views.append(("pour_water", "pbf_table"))
     for task, mode in views:
+        active_table = loaded_pbf_table if mode == "pbf_table" else table
         rows, scores = [], {m: [] for m in methods}
         oracles, uniform = [], []
         for seed in config["seeds"]:
-            picks = picks_for(task, seed, methods, table, trials)
+            picks = picks_for(task, seed, methods, active_table, trials)
             row = dict(seed=seed, methods={})
             for method, cid in picks.items():
-                episode = table["episodes"].get((task, seed, cid)) if mode == "table" else None
+                episode = active_table["episodes"].get((task, seed, cid)) if mode in ("table", "pbf_table") else None
                 if cid and mode == "pbf":
                     path = out / "pbf" / f"seed{seed}" / f"{cid}.json"
                     if path.exists():
@@ -372,18 +400,19 @@ def summarize(out):
                 scores[method].append(value)
                 md = (trials.get((task, seed, method), {}).get("selection") or {}).get("metadata", {})
                 row["methods"][method] = dict(selected_id=cid, success=value,
-                    family=table["families"][cid]["family"] if cid else None,
+                    family=active_table["families"][cid]["family"] if cid else None,
                     failure_reason=episode.get("failure_reason") if episode else None,
                     episode_status=episode.get("status") if episode else None,
                     fallback=md.get("fallback_to_geometry", False))
-            feasible = table["filters"][task, seed]["feasible_candidates"]
-            values = [physical_success(table["episodes"].get((task, seed, r["id"]))) for r in feasible]
+            feasible = active_table["filters"][task, seed]["feasible_candidates"]
+            values = [physical_success(active_table["episodes"].get((task, seed, r["id"]))) for r in feasible]
             # No oracle assertion without a complete, numerically valid table.
             complete = bool(values) and all(type(v) is bool for v in values)
-            oracles.append(any(values) if complete and mode == "table" else None)
-            uniform.append(sum(values)/len(values) if complete and mode == "table" else None)
+            has_table_oracle = mode in ("table", "pbf_table")
+            oracles.append(any(values) if complete and has_table_oracle else None)
+            uniform.append(sum(values)/len(values) if complete and has_table_oracle else None)
             rows.append(row)
-        key = task if mode == "table" else "pour_water_pbf"
+        key = task if mode == "table" else ("pour_water_pbf" if mode == "pbf" else "pour_water_pbf_table")
         groups = {}
         for method, values in scores.items():
             group = rate_summary(values, len(config["seeds"]))
@@ -395,20 +424,29 @@ def summarize(out):
                 [r["methods"][method]["success"] for r in rows if not r["methods"][method]["fallback"]],
                 sum(not r["methods"][method]["fallback"] for r in rows))
             groups[method] = group
-        result["tasks"][key] = dict(liquid=table["meta"]["liquid"] if task == "pour_water" and mode == "table"
-                                   else ("pbf" if mode == "pbf" else None), summary=groups, rows=rows,
-                                   oracle=rate_summary(oracles, len(rows)) if mode == "table" else None,
-                                   uniform_expectation=sum(uniform)/len(uniform)
-                                   if uniform and all(v is not None for v in uniform) else None)
+        result["tasks"][key] = dict(
+            liquid=active_table["meta"]["liquid"] if task == "pour_water" and mode in ("table", "pbf_table")
+            else ("pbf" if mode == "pbf" else None),
+            summary=groups, rows=rows,
+            oracle=rate_summary(oracles, len(rows)) if mode in ("table", "pbf_table") else None,
+            uniform_expectation=sum(uniform)/len(uniform)
+            if uniform and all(v is not None for v in uniform) else None)
         pairs = [(m, "M0_RANDOM") for m in methods if m != "M0_RANDOM"]
         pairs += [(a["id"], b["id"]) for a in config["methods"] for b in config["methods"]
                   if a["variant"] == "M3" and b["variant"] == "A1"
-                  and (a["provider"], a["model"]) == (b["provider"], b["model"])]
+                  and (a["provider"], a["model"], a.get("prompt_version")) == (
+                      b["provider"], b["model"], b.get("prompt_version"))]
+        pairs += [(a["id"], b["id"]) for a in config["methods"] for b in config["methods"]
+                  if a["variant"] == b["variant"]
+                  and (a["provider"], a["model"]) == (b["provider"], b["model"])
+                  and a.get("prompt_version") == "v2" and b.get("prompt_version") == "v1"]
         for a, b in pairs:
             result["comparisons"].append(dict(task=key, method=a, reference=b, **paired(scores[a], scores[b])))
     holm(result["comparisons"])
-    atomic_json(out / "summary.json", result)
-    (out / "report.md").write_text(render_report(result), encoding="utf-8")
+    target_summary = Path(summary_path) if summary_path is not None else (out / "summary.json")
+    target_report = Path(report_path) if report_path is not None else (out / "report.md")
+    atomic_json(target_summary, result)
+    target_report.write_text(render_report(result), encoding="utf-8")
     return result
 
 
@@ -423,6 +461,15 @@ def render_report(result):
             ci = s["ci95"]
             lines.append(f"| {method} | {s['successes']}/{s['scored_n']} | {s['planned_n']} | "
                          f"{f'{ci[0]:.3f}–{ci[1]:.3f}' if ci else '—'} | {s['selected_families']} |")
+        if task == "pour_water_pbf_table" and data.get("oracle") and data["oracle"].get("scored_n"):
+            o = data["oracle"]
+            oci = o["ci95"]
+            lines.append(f"| ORACLE | {o['successes']}/{o['scored_n']} | {o['planned_n']} | "
+                         f"{f'{oci[0]:.3f}–{oci[1]:.3f}' if oci else '—'} | — |")
+            if data.get("uniform_expectation") is not None:
+                u = data["uniform_expectation"]
+                lines.append(f"| UNIFORM_FEASIBLE_EXPECTATION | {u*len(result['seeds']):.1f}/{len(result['seeds'])} "
+                             f"({u:.3f}) | {len(result['seeds'])} | — | — |")
         lines += ["", "| Comparison | Paired n | Wins/losses | Exact p | Holm p |", "|---|---:|---:|---:|---:|"]
         for c in result["comparisons"]:
             if c["task"] == task:
@@ -529,6 +576,10 @@ def main(argv=None):
     p.add_argument("--workers", type=int, default=2)
     p = sub.add_parser("summarize")
     p.add_argument("--out", type=Path, required=True)
+    p.add_argument("--pbf-table", type=Path,
+                   help="Optional full-PBF pour_water oracle table directory (e.g. r3_pbf_v3p_wide_strict_v2)")
+    p.add_argument("--summary-out", type=Path, help="Optional custom output path for summary JSON")
+    p.add_argument("--report-out", type=Path, help="Optional custom output path for markdown report")
     p = sub.add_parser("pbf")
     p.add_argument("--out", type=Path, required=True)
     p.add_argument("--workers", type=int, default=4)
@@ -540,7 +591,12 @@ def main(argv=None):
     elif args.command == "pbf":
         result = run_pbf(args.out.resolve(), args.workers)
     else:
-        result = summarize(args.out.resolve())
+        result = summarize(
+            args.out.resolve(),
+            pbf_table=args.pbf_table.resolve() if args.pbf_table else None,
+            summary_path=args.summary_out.resolve() if args.summary_out else None,
+            report_path=args.report_out.resolve() if args.report_out else None,
+        )
     print(json.dumps(result["selection_audit"], indent=2))
     return int(any(a["errors"] or a["saved_n"] != a["planned_n"] for a in result["selection_audit"].values()))
 

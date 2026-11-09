@@ -1,0 +1,102 @@
+{
+  "candidates": "../results/oracle_20261103/r3_v3p_wide_strict_v2/b_inputs/candidates.scored.json",
+  "track": "sequence",
+  "tasks": [
+    "transport_place",
+    "handover_transfer",
+    "pour_water"
+  ],
+  "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "repeats": 1,
+  "evaluation_scope": "pilot",
+  "scene_randomization": "wide_strict_v2",
+  "seed_split": {
+    "pilot_controller": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "evaluation": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ]
+  },
+  "methods": [
+    {
+      "id": "M3_CODEX_V2",
+      "kind": "llm",
+      "variant": "M3",
+      "prompt_version": "v2",
+      "provider": {
+        "type": "codex",
+        "timeout_s": 120
+      },
+      "model": "gpt-5.6-luna",
+      "parameters": {
+        "reasoning_effort": "low"
+      },
+      "cache_mode": "off"
+    },
+    {
+      "id": "A1_CODEX_V2",
+      "kind": "llm",
+      "variant": "A1",
+      "prompt_version": "v2",
+      "provider": {
+        "type": "codex",
+        "timeout_s": 120
+      },
+      "model": "gpt-5.6-luna",
+      "parameters": {
+        "reasoning_effort": "low"
+      },
+      "cache_mode": "off"
+    }
+  ]
+}

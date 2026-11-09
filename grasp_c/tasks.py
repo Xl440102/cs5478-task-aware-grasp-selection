@@ -55,3 +55,42 @@ SEQUENCE_INTENT = {
     "handover_transfer": "Pick up the mug and present its handle to a cooperative receiving gripper. Release and retreat so the receiver can independently lift and support the mug. Choose a grasp that leaves the handle accessible.",
     "pour_water": "Pick up the water-filled mug, carry it upright to the receiving cup, pour through its opening and return upright. Choose a grasp that supports controlled pouring and leaves the opening unobstructed.",
 }
+
+SEQUENCE_INTENT_V2 = {
+    "transport_place": (
+        "Pick up the upright mug, transport it horizontally to the target table region, "
+        "lower it onto the table, open the gripper, and retreat upward/backward so the mug "
+        "stands independently. Prefer grasps that avoid table or handle interference during "
+        "lowering and retreat: (1) handle grasps on the outer bar closing across the handle "
+        "axis (region='handle', part=handle outer bar, closing=across handle axis), or "
+        "(2) rim grasps from above closing across the handle axis (region='rim', from=above, "
+        "closing=across handle axis, handle=left free), or (3) high-scoring top-down body "
+        "grasps (part=body top, geometry_score >= 0.70). Avoid low/mid-body or pitched side "
+        "grasps that risk finger/wrist collision or slip."
+    ),
+    "handover_transfer": (
+        "Pick up the mug, carry it to the handover pose, and hold it while a cooperative "
+        "receiving gripper sweeps horizontally into the +Y handle region to grasp the handle; "
+        "then release, retreat along the donor approach axis, and let the receiver lift the mug. "
+        "Crucially, horizontal or pitched side grasps on the body (part=body mid or body high, "
+        "from=side) occupy the horizontal corridor around the mug and risk colliding with the "
+        "receiving gripper or failing arrival. Strongly prefer top-down rim grasps that leave "
+        "the handle free (region='rim', part=rim, from=above, closing=across handle axis, "
+        "handle=left free), which keep both the handle and the horizontal receiver corridor "
+        "completely clear and retreat straight up (+Z). If no rim grasp is available, prefer "
+        "top-down body grasps with handle=left free (part=body top, from=above, closing=across "
+        "handle axis, handle=left free)."
+    ),
+    "pour_water": (
+        "Pick up the water-filled mug, carry it near the receiving cup, tilt it 110 degrees "
+        "around the horizontal axis to pour, hold the tilt, and return upright. Success requires "
+        "high kinematic reachability and grip stability across the large 110-degree wrist rotation. "
+        "Note that in this setup, top-down and rim grasps do not physically obstruct water flow "
+        "despite the generic 'mouth=hand over the opening' tag, whereas steep 60-degree-down side "
+        "grasps opposite the handle and mid-body side grasps often fail pregrasp or tilt IK/arrival. "
+        "Prefer: (1) high-scoring top-down body grasps (part=body top, geometry_score >= 0.70), "
+        "(2) horizontal upper-body side grasps beside the handle (part=body high, from=side, "
+        "horizontal, side=beside the handle), or (3) rim grasps closing across the handle axis "
+        "(region='rim', closing=across handle axis)."
+    ),
+}

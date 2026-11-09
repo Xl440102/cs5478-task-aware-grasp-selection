@@ -249,9 +249,10 @@ def validate_config(raw: dict, *, base_dir: str | Path = ".") -> dict:
             method.setdefault("cache_mode", "read_write")
             if method["cache_mode"] not in CACHE_MODES:
                 raise ValueError(f"{method_id}: unsupported cache_mode")
+            from .prompts import PROMPT_VERSIONS
             method.setdefault("prompt_version", "v1")
-            if method["prompt_version"] != "v1":
-                raise ValueError(f"{method_id}: only prompt_version='v1' is implemented")
+            if method["prompt_version"] not in PROMPT_VERSIONS:
+                raise ValueError(f"{method_id}: prompt_version must be one of {PROMPT_VERSIONS}")
     config["cache_dir"] = _resolve_path(config.get("cache_dir", ".cache/grasp_c"),
                                         base, "cache_dir")
     config.setdefault("evaluation_scope", "pilot")
