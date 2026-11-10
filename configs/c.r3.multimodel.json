@@ -99,6 +99,36 @@
       "cache_mode": "off"
     },
     {
+      "id": "M3_CODEX_V2",
+      "kind": "llm",
+      "variant": "M3",
+      "prompt_version": "v2",
+      "provider": {
+        "type": "codex",
+        "timeout_s": 120
+      },
+      "model": "gpt-5.6-luna",
+      "parameters": {
+        "reasoning_effort": "low"
+      },
+      "cache_mode": "off"
+    },
+    {
+      "id": "A1_CODEX_V2",
+      "kind": "llm",
+      "variant": "A1",
+      "prompt_version": "v2",
+      "provider": {
+        "type": "codex",
+        "timeout_s": 120
+      },
+      "model": "gpt-5.6-luna",
+      "parameters": {
+        "reasoning_effort": "low"
+      },
+      "cache_mode": "off"
+    },
+    {
       "id": "M3_GEMINI",
       "kind": "llm",
       "variant": "M3",
