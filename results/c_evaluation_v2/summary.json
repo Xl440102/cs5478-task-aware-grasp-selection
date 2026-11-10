@@ -138,7 +138,7 @@
       "losses": 0,
       "method": "M3_CODEX_V2",
       "p_exact": 0.00390625,
-      "p_holm": 0.09765625,
+      "p_holm": 0.125,
       "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "handover_transfer",
@@ -162,7 +162,7 @@
       "losses": 0,
       "method": "M3_CODEX_V2",
       "p_exact": 0.0001220703125,
-      "p_holm": 0.0032958984375,
+      "p_holm": 0.004150390625,
       "paired_n": 20,
       "reference": "A1_CODEX_V2",
       "task": "handover_transfer",
@@ -234,7 +234,7 @@
       "losses": 10,
       "method": "A1_CODEX_V2",
       "p_exact": 0.001953125,
-      "p_holm": 0.05078125,
+      "p_holm": 0.064453125,
       "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water",
@@ -246,88 +246,95 @@
       "losses": 0,
       "method": "M3_CODEX_V2",
       "p_exact": 6.103515625e-05,
-      "p_holm": 0.001708984375,
+      "p_holm": 0.00213623046875,
       "paired_n": 20,
       "reference": "A1_CODEX_V2",
       "task": "pour_water",
       "wins": 15
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": -0.05,
+      "excluded_n": 0,
+      "losses": 4,
       "method": "M1_STATIC_V2",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 3
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": -0.05,
+      "excluded_n": 0,
+      "losses": 4,
       "method": "M2_TASK_RISK",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 3
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": -0.15,
+      "excluded_n": 0,
+      "losses": 5,
       "method": "M4_FAMILY_PRIOR",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 0.453125,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 2
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": -0.05,
+      "excluded_n": 0,
+      "losses": 4,
       "method": "M5_PAPER_STYLE",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 3
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": 0.05,
+      "excluded_n": 0,
+      "losses": 3,
       "method": "M3_CODEX_V2",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 4
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": -0.25,
+      "excluded_n": 0,
+      "losses": 7,
       "method": "A1_CODEX_V2",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 0.1796875,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 2
     },
     {
-      "difference": null,
-      "excluded_n": 20,
-      "losses": 0,
+      "difference": 0.3,
+      "excluded_n": 0,
+      "losses": 3,
       "method": "M3_CODEX_V2",
-      "p_exact": null,
-      "paired_n": 0,
+      "p_exact": 0.14599609375,
+      "p_holm": 1.0,
+      "paired_n": 20,
       "reference": "A1_CODEX_V2",
       "task": "pour_water_pbf",
-      "wins": 0
+      "wins": 9
     },
     {
       "difference": -0.15,
@@ -3442,60 +3449,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 10
@@ -3503,60 +3510,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 11
@@ -3564,60 +3571,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": false
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_6fe272389e801ae2",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": false
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": false
             }
           },
           "seed": 12
@@ -3625,60 +3632,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_84b9936381c647d3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_2c4cdd6500b2d0e0",
-              "success": null
+              "success": false
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             }
           },
           "seed": 13
@@ -3686,60 +3693,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_e8ac427b77b0c9cf",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_938f155b5d840cb3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 14
@@ -3747,60 +3754,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_7ff381f16d56a546",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_da9103d76e51550b",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_2c4cdd6500b2d0e0",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             }
           },
           "seed": 15
@@ -3808,60 +3815,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_e8ac427b77b0c9cf",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_6fe272389e801ae2",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             }
           },
           "seed": 16
@@ -3869,60 +3876,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_fa973f00daa0de87",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": false
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": false
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": false
             }
           },
           "seed": 17
@@ -3930,60 +3937,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             }
           },
           "seed": 18
@@ -3991,60 +3998,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_ee93643e3d354d36",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": false
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_6fe272389e801ae2",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": false
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": false
             }
           },
           "seed": 19
@@ -4052,60 +4059,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 20
@@ -4113,60 +4120,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_84b9936381c647d3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": false
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 21
@@ -4174,60 +4181,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_7ff381f16d56a546",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_84b9936381c647d3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_a9d9804ec06713ec",
-              "success": null
+              "success": false
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             }
           },
           "seed": 22
@@ -4235,60 +4242,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_7ff381f16d56a546",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_84b9936381c647d3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_2c4cdd6500b2d0e0",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             }
           },
           "seed": 23
@@ -4296,60 +4303,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_8bbe77fd36dc7598",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_70da83ab576cb9ca",
-              "success": null
+              "success": false
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_a9d9804ec06713ec",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             }
           },
           "seed": 24
@@ -4357,60 +4364,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_f29e04b500bca0be",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 25
@@ -4418,60 +4425,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             },
             "M0_RANDOM": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
               "fallback": false,
               "family": "top",
               "selected_id": "B3_a9d9804ec06713ec",
-              "success": null
+              "success": false
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_034c4eac3fb53111",
-              "success": null
+              "success": false
             }
           },
           "seed": 26
@@ -4479,60 +4486,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_938f155b5d840cb3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_1cd02c73b1f59234",
-              "success": null
+              "success": false
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 27
@@ -4540,60 +4547,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
-              "failure_reason": null,
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
               "family": "side",
               "selected_id": "B3_7ff381f16d56a546",
-              "success": null
+              "success": false
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
-              "success": null
+              "success": true
             }
           },
           "seed": 28
@@ -4601,60 +4608,60 @@
         {
           "methods": {
             "A1_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
-              "success": null
+              "success": true
             },
             "M0_RANDOM": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_84b9936381c647d3",
-              "success": null
+              "success": true
             },
             "M1_STATIC_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M2_TASK_RISK": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "side",
               "selected_id": "B3_2c4cdd6500b2d0e0",
-              "success": null
+              "success": true
             },
             "M3_CODEX_V2": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             },
             "M4_FAMILY_PRIOR": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "rim",
               "selected_id": "B3_960a70b9f31cb1ac",
-              "success": null
+              "success": true
             },
             "M5_PAPER_STYLE": {
-              "episode_status": null,
+              "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
-              "success": null
+              "success": true
             }
           },
           "seed": 29
@@ -4662,162 +4669,231 @@
       ],
       "summary": {
         "A1_CODEX_V2": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.3420820083075997,
+            0.7418049791429071
+          ],
+          "end_to_end_success_coverage": 0.55,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 5,
+            "pregrasp_arrival_timeout": 4
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "side": 20
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.55,
+          "successes": 11,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.3420820083075997,
+              0.7418049791429071
+            ],
+            "end_to_end_success_coverage": 0.55,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.55,
+            "successes": 11
           }
         },
         "M0_RANDOM": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.5839782779742401,
+            0.9193436467288
+          ],
+          "end_to_end_success_coverage": 0.8,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 1,
+            "pregrasp_arrival_timeout": 2,
+            "stage_outcomes": 1
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "rim": 5,
             "side": 5,
             "top": 10
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.8,
+          "successes": 16,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.5839782779742401,
+              0.9193436467288
+            ],
+            "end_to_end_success_coverage": 0.8,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.8,
+            "successes": 16
           }
         },
         "M1_STATIC_V2": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.5312949900419365,
+            0.888139947210597
+          ],
+          "end_to_end_success_coverage": 0.75,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 1,
+            "no_unintended_collision": 2,
+            "pregrasp_arrival_timeout": 1,
+            "stage_outcomes": 1
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "side": 11,
             "top": 9
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.75,
+          "successes": 15,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.5312949900419365,
+              0.888139947210597
+            ],
+            "end_to_end_success_coverage": 0.75,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.75,
+            "successes": 15
           }
         },
         "M2_TASK_RISK": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.5312949900419365,
+            0.888139947210597
+          ],
+          "end_to_end_success_coverage": 0.75,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 2,
+            "pregrasp_arrival_timeout": 1,
+            "stage_outcomes": 2
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "side": 18,
             "top": 2
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.75,
+          "successes": 15,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.5312949900419365,
+              0.888139947210597
+            ],
+            "end_to_end_success_coverage": 0.75,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.75,
+            "successes": 15
           }
         },
         "M3_CODEX_V2": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.6395767041130426,
+            0.9476322080405041
+          ],
+          "end_to_end_success_coverage": 0.85,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 2,
+            "stage_outcomes": 1
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "top": 20
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.85,
+          "successes": 17,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.6395767041130426,
+              0.9476322080405041
+            ],
+            "end_to_end_success_coverage": 0.85,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.85,
+            "successes": 17
           }
         },
         "M4_FAMILY_PRIOR": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.43285051021946463,
+            0.8188104521320554
+          ],
+          "end_to_end_success_coverage": 0.65,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 6,
+            "stage_outcomes": 1
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "rim": 20
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.65,
+          "successes": 13,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.43285051021946463,
+              0.8188104521320554
+            ],
+            "end_to_end_success_coverage": 0.65,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.65,
+            "successes": 13
           }
         },
         "M5_PAPER_STYLE": {
-          "ci95": null,
-          "end_to_end_success_coverage": 0.0,
-          "excluded_n": 20,
-          "failure_reasons": {},
+          "ci95": [
+            0.5312949900419365,
+            0.888139947210597
+          ],
+          "end_to_end_success_coverage": 0.75,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 1,
+            "no_unintended_collision": 2,
+            "pregrasp_arrival_timeout": 1,
+            "stage_outcomes": 1
+          },
           "planned_n": 20,
-          "scored_n": 0,
+          "scored_n": 20,
           "selected_families": {
             "side": 11,
             "top": 9
           },
-          "success_rate": null,
-          "successes": 0,
+          "success_rate": 0.75,
+          "successes": 15,
           "without_fallback": {
-            "ci95": null,
-            "end_to_end_success_coverage": 0.0,
-            "excluded_n": 20,
+            "ci95": [
+              0.5312949900419365,
+              0.888139947210597
+            ],
+            "end_to_end_success_coverage": 0.75,
+            "excluded_n": 0,
             "planned_n": 20,
-            "scored_n": 0,
-            "success_rate": null,
-            "successes": 0
+            "scored_n": 20,
+            "success_rate": 0.75,
+            "successes": 15
           }
         }
       },

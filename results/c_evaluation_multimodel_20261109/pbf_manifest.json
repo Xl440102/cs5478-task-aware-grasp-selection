@@ -1,5 +1,5 @@
 {
-  "created_at": "2026-11-06T07:08:53.718556+00:00",
+  "created_at": "2026-11-10T02:15:29.418193+00:00",
   "identity": {
     "execution": {
       "candidate_fingerprints": {
@@ -15,24 +15,27 @@
         "grasp_a/annotations.py": "58411488785ef29727a67ab2b9cad1ae535762114aa1297ec5ef25a13a1a4786",
         "grasp_a/collision_rules.py": "b907887f519c47bda249d291b337ea6f9f1aa0062c3f62bdd5aa55b6a7ff8af6",
         "grasp_a/contracts.py": "1c514b8d83eb0cd2e89704e87212397a8b716296fb6a8d9a7d5fd92cac37a0b8",
-        "grasp_a/control.py": "041b30e75f15f76048f934b66da1b81e4b02c73f093c2c1c31901ca8fad33c9b",
+        "grasp_a/control.py": "66448b4bd2259e8dc011422c49c384e04fee0cf7ebc3b91728ab1c927e128ae5",
         "grasp_a/evaluation.py": "5336f648c22cd78175a423895dada6aad754425e830cc56d0bbbd38044ce909b",
         "grasp_a/fluid.py": "024f9ff13622031c93ae447ebb440e07b5d9f40abc7e87999154a0ddfba6e46d",
         "grasp_a/sequence.py": "7b9c14b6ef05016599fb23155b9e7814c67cd305ead061aa7246738a2ce65b29",
         "grasp_a/sequence_contracts.py": "e1dd49fa119f2e9e16933145e42699ddb4f034d1411dc83124e0ed7296a128e0",
         "grasp_a/sequence_evaluation.py": "610e13260e218bc3b62c8fc4fdaee81e4e6bdd6b7c0aeeeaf146811be9c78b56",
-        "grasp_a/simulation.py": "17b64935c0efb1d0c19b4521bb6e1a2c76f6d3b028179cf1fe2cb890e25cd861",
+        "grasp_a/simulation.py": "eb1aa3dbcebc48e300f33e416375b31f0cd2a20e80f7aa3aced465cdaf75545c",
         "grasp_a/visualization.py": "380cfc0cacae17eeeff8c43d9fa0f910b83a7dbf37830ee06330c881ccddfe5a",
         "grasp_b/__init__.py": "7295af46c1e7bf6c14ed57ec6039ff62cdcd63c58678d711df3ae781b4e6bada",
         "grasp_b/adaptive.py": "5a6abcb8f424a4e16f343be6b0937e981dc83575d226f2b849761330320234d0",
+        "grasp_b/batch_adapter.py": "bb56bd998206e2b7a5d3e3307b4a25135f87e1025b5f2edb0989287a567550ef",
         "grasp_b/benchmark.py": "2c9ef302dd8bf1657e5c6ba37ca25cf12f5efccc04421a662961e1f9b7ab39e8",
+        "grasp_b/canary_adapter.py": "17eae4160a9b2215cc3d3a8a4e3d2729563042d4ef273dfd9797fc18fe2a009f",
+        "grasp_b/continuation_adapter.py": "e1641898f9643110d33b7095dab05a4237e196e426eb1161d142b296a398af1d",
         "grasp_b/coverage.py": "58bfb79eb8f5375dbf7b596cf20fa25628ebb1771e73d2acb003d8b44e452793",
         "grasp_b/diagnostics.py": "623fa0f0821c0833024148578ba9208838750550253ecc17db3732b8584bdfe1",
         "grasp_b/features.py": "185fa519f63654f549fd464ed9f501fbcd9833b6fa478856d6a75f9b1ee1b303",
         "grasp_b/generation.py": "255e1713bb03ed8770cffb6d6bd33e1d0ce820a57ec3bf32de53f576b76dac32",
         "grasp_b/geometry.py": "8de5c0037cbb5f47ddff962b9b61bfb83d90d9bf2a94583dc29e402a2d280a0b",
         "grasp_b/models.py": "b0daf79c5e749dc4d842c0c4f27f65421b6487e5f923bcc8fbca9c9d2909effb",
-        "grasp_b/motion.py": "06113272423c0f34afe21c91785885b8bf4aba414115231aa9b46f3cbfc8639a",
+        "grasp_b/motion.py": "51e8944a15512f53050298c53fa5433901bee03308c3d01a05d61246e4b05804",
         "grasp_b/multifamily.py": "b5e42b8ff80f6ba2148cda5ec1ebf3c036d0b751362d4b9e97c5afe4d463a10f",
         "grasp_b/prototype.py": "6baf0ddb43c8be063b562f9b5da8ed3a56340de5ef2effaf45a19fd605d62fff",
         "grasp_b/risk.py": "45f6f668d8f22cd1deff2c7f1fcf7dd4bdcadac43ca63b4a3cf96a0a4f83acc1",
@@ -41,6 +44,32 @@
         "grasp_b/selectors.py": "f3cd27dbc34ac8e6ee292b06889e2bf4d83f6dba2c70962b2145c9def11821e6",
         "grasp_b/semantics.py": "9c04bf032e289e493052adefb928842ef8f119f60a4d147dbaaf98ae0bc6d9d5",
         "grasp_b/sensitivity.py": "c853f824a856c19c17ae59c084921243c0a65edde4515b882b14a4b08d3059e9",
+        "grasp_b/wrench_v2/__init__.py": "18bcccb8e796b3d133e735005f706c4588d319a492215ee617252582d9e201cd",
+        "grasp_b/wrench_v2/adapter.py": "a9b6298b5c42076ed7e1e99f4fc013eb5fdc9db9763dd15774cdedbc516739c1",
+        "grasp_b/wrench_v2/constraints.py": "c28f6b617a6ee821430bf913d0e1be6d8d2329e6ecdd65501e5bc7948faa5385",
+        "grasp_b/wrench_v2/contacts.py": "ae959924f471ff7077b12e03dce00e327409e436f5167393499bc7d45ed1f694",
+        "grasp_b/wrench_v2/diagnostics.py": "38b6f9a510a675203af22dceb455b6933d4c69bf110a09f1083c82ecb00ba00e",
+        "grasp_b/wrench_v2/dynamics.py": "8b0d6eb414198ea547d8f0d8b9b3d9c3f1fce1bed4925c60531e46182e9dc73e",
+        "grasp_b/wrench_v2/episode_store.py": "715121af14168afefd1d83b31f7cb054d9ab74b5656bee6199cdc07d80307f73",
+        "grasp_b/wrench_v2/evaluation.py": "385a45b0c4894431691661eab19e0647dd961e7fe4fe2a3ef61e7be4cadc89da",
+        "grasp_b/wrench_v2/evaluation_cli.py": "4bb1818115da2745856abbb3e168820b3fb17b7099121e25a430dfed4a54c247",
+        "grasp_b/wrench_v2/geometry.py": "a8be1ea0da816695072d18a474805ad543d990c36d301c97b78a2b9db8f6566f",
+        "grasp_b/wrench_v2/gws.py": "ca400b9f2a3a22dbdad81d79cee8b6af7c7351c8103ab2e46699ad5c47c0460d",
+        "grasp_b/wrench_v2/m1.py": "e0702f972ede9ef7bd9cbb1e2b257d58cfa267ac89fe52d0954423cdb48f4aee",
+        "grasp_b/wrench_v2/m1_smoke.py": "5d6198f39f2b8dbde776fe914908c96e2ee9318a0320910ecbd092c5a29fcaa2",
+        "grasp_b/wrench_v2/m1_validation.py": "246757d7a731605893e81d8f8051bc3f489e5a99b20ff0a241492b08c697bee6",
+        "grasp_b/wrench_v2/m2.py": "69e60d47bcf127b9a64ce09fa75612d04a12e45dc40ba08661d9acb7711c337d",
+        "grasp_b/wrench_v2/m2_smoke.py": "14a5055a806cd2d55a2117604fc61fea26304c856432f42995c61e17e4e3cf1f",
+        "grasp_b/wrench_v2/motion_diagnostics.py": "f0e5ed2a16dc9260c0468ab102e45da8b1c3fe25b1856fe9e63835f771f123f7",
+        "grasp_b/wrench_v2/motion_prediction.py": "fe3b8f7936bb37893de5488dea38f7eb2f90f2cd74ebe4738570fffe43fd6fcf",
+        "grasp_b/wrench_v2/physics_snapshot.py": "a30f2921a660d4977e86bec6a053dbaffa5f6c8d725e642140bf2e4213556cf2",
+        "grasp_b/wrench_v2/pilot.py": "d5744d19f2d1f0021b533f07fc0fa0a4f1b856248b2c85e2eb81d364b91fb236",
+        "grasp_b/wrench_v2/pilot_cli.py": "8604e9e754827b2dbc6bbf2223747282610c3f4bd5412833edbc950ae84dd8ac",
+        "grasp_b/wrench_v2/profiling.py": "8fc8b2b338ee35eabe147a12e2a9e19db75cb81d56d8a4a08b358d23bbfd204f",
+        "grasp_b/wrench_v2/ranking.py": "75d78e695d92cd09b7d6866d62fbe1aba5d14527dac03df8ce33b5d5ef008b06",
+        "grasp_b/wrench_v2/solver.py": "7c70e2f87e9c52e3da7aefa636cb3ea0d093ab917cb89fdc204d3663be8f1af5",
+        "grasp_b/wrench_v2/tasks.py": "919e4815292e332d6681fdafa2f7bc0c62e5c8df54b873506d3df2dd952bcf87",
+        "grasp_b/wrench_v2/wet_payload.py": "e4d52b16da7d055eef49b1bb2b5e0c75d53ba9865c15dc92034a8ab3c4823d86",
         "grasp_c/__init__.py": "cb98293e05467eec06480a41cc94f2604384cd086afb5fa4a801cbe186872d3e",
         "grasp_c/__main__.py": "eaef1b13630c802cf7cc5c67fc5efc1939ef8177021d00021568ddf7306f31d7",
         "grasp_c/baselines.py": "3ea027083ad47243310f5cc8132d9dffdb16a0a2eafe9ae1bc19c73bc78af2c1",
@@ -58,7 +87,7 @@
         "grasp_c/sequence_metrics.py": "a68c8efefbc0484fb9151ddec5160be57330554887c9910b135e8320fc47fb49",
         "grasp_c/sequence_runner.py": "7eebeeef0502cc365fb10cf583166120350e35ee46ee211639478abff2ffe3aa",
         "grasp_c/sequence_trial.py": "417d27d5bbd7c8b490d85d5d37c6a4822a202be1772302c1d0434d9f088dfe18",
-        "grasp_c/table_evaluation.py": "76a6a18c1a99696163f2b7cec13d31990cabe0d7c1f41e2ff8f6080e18e3e448",
+        "grasp_c/table_evaluation.py": "386a752dc771f1b9f5fc87515961c26cbb27a85a8e789cea00c5d09542dedb13",
         "grasp_c/tasks.py": "38172080fe104ea0c4c4a2daf53aa109a2ff3aeb2c8871fe0d6c1b4404593341"
       },
       "config": {
@@ -90,6 +119,36 @@
               "reasoning_effort": "low"
             },
             "prompt_version": "v1",
+            "provider": {
+              "timeout_s": 120,
+              "type": "codex"
+            },
+            "variant": "A1"
+          },
+          {
+            "cache_mode": "off",
+            "id": "M3_CODEX_V2",
+            "kind": "llm",
+            "model": "gpt-5.6-luna",
+            "parameters": {
+              "reasoning_effort": "low"
+            },
+            "prompt_version": "v2",
+            "provider": {
+              "timeout_s": 120,
+              "type": "codex"
+            },
+            "variant": "M3"
+          },
+          {
+            "cache_mode": "off",
+            "id": "A1_CODEX_V2",
+            "kind": "llm",
+            "model": "gpt-5.6-luna",
+            "parameters": {
+              "reasoning_effort": "low"
+            },
+            "prompt_version": "v2",
             "provider": {
               "timeout_s": 120,
               "type": "codex"
@@ -184,6 +243,7 @@
         "repeats": 1,
         "scene_randomization": {
           "approach_finger_contact": "final_only",
+          "disable_wrist_hand_collision": false,
           "estimate_position_noise_m": 0.003,
           "estimate_yaw_noise_deg": 2.0,
           "filter_mode": "execution",
@@ -422,6 +482,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 10,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 10,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -464,6 +538,20 @@
           "task_id": "handover_transfer"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 10,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 10,
+          "task_id": "handover_transfer"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -506,6 +594,20 @@
           "task_id": "pour_water"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 10,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 10,
+          "task_id": "pour_water"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -548,6 +650,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 11,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 11,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -590,6 +706,20 @@
           "task_id": "handover_transfer"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 11,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 11,
+          "task_id": "handover_transfer"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -632,6 +762,20 @@
           "task_id": "pour_water"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 11,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 11,
+          "task_id": "pour_water"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -674,6 +818,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 12,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 12,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -716,6 +874,20 @@
           "task_id": "handover_transfer"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 12,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 12,
+          "task_id": "handover_transfer"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -758,6 +930,20 @@
           "task_id": "pour_water"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 12,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 12,
+          "task_id": "pour_water"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -800,6 +986,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 13,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 13,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -836,6 +1036,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 13,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 13,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 13,
@@ -878,6 +1092,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 13,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 13,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 13,
@@ -926,6 +1154,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 14,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 14,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -962,6 +1204,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 14,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 14,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 14,
@@ -1004,6 +1260,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 14,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 14,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 14,
@@ -1052,6 +1322,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 15,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 15,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1088,6 +1372,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 15,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 15,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 15,
@@ -1130,6 +1428,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 15,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 15,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 15,
@@ -1178,6 +1490,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 16,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 16,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1214,6 +1540,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 16,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 16,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 16,
@@ -1256,6 +1596,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 16,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 16,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 16,
@@ -1304,6 +1658,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 17,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 17,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1340,6 +1708,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 17,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 17,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 17,
@@ -1382,6 +1764,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 17,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 17,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 17,
@@ -1430,6 +1826,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 18,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 18,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1466,6 +1876,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 18,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 18,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 18,
@@ -1508,6 +1932,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 18,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 18,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 18,
@@ -1556,6 +1994,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 19,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 19,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1592,6 +2044,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 19,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 19,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 19,
@@ -1634,6 +2100,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 19,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 19,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 19,
@@ -1682,6 +2162,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 20,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 20,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1718,6 +2212,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 20,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 20,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 20,
@@ -1760,6 +2268,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 20,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 20,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 20,
@@ -1808,6 +2330,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 21,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 21,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1844,6 +2380,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 21,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 21,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 21,
@@ -1886,6 +2436,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 21,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 21,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 21,
@@ -1934,6 +2498,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 22,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 22,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -1970,6 +2548,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 22,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 22,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 22,
@@ -2012,6 +2604,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 22,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 22,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 22,
@@ -2060,6 +2666,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 23,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 23,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2096,6 +2716,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 23,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 23,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 23,
@@ -2138,6 +2772,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 23,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 23,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 23,
@@ -2186,6 +2834,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 24,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 24,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2222,6 +2884,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 24,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 24,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 24,
@@ -2264,6 +2940,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 24,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 24,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 24,
@@ -2312,6 +3002,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 25,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 25,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2348,6 +3052,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 25,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 25,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 25,
@@ -2390,6 +3108,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 25,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 25,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 25,
@@ -2438,6 +3170,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 26,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 26,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2474,6 +3220,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 26,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 26,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 26,
@@ -2516,6 +3276,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 26,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 26,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 26,
@@ -2564,6 +3338,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 27,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 27,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2600,6 +3388,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 27,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 27,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 27,
@@ -2642,6 +3444,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 27,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 27,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 27,
@@ -2690,6 +3506,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 28,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 28,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2726,6 +3556,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 28,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 28,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 28,
@@ -2768,6 +3612,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 28,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 28,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 28,
@@ -2816,6 +3674,20 @@
           "task_id": "transport_place"
         },
         {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 29,
+          "task_id": "transport_place"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 29,
+          "task_id": "transport_place"
+        },
+        {
           "method_id": "M3_GEMINI",
           "repeat": 0,
           "sample_id": 0,
@@ -2852,6 +3724,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 29,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 29,
+          "task_id": "handover_transfer"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 29,
@@ -2894,6 +3780,20 @@
         },
         {
           "method_id": "A1_CODEX",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 29,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "M3_CODEX_V2",
+          "repeat": 0,
+          "sample_id": 0,
+          "seed": 29,
+          "task_id": "pour_water"
+        },
+        {
+          "method_id": "A1_CODEX_V2",
           "repeat": 0,
           "sample_id": 0,
           "seed": 29,
@@ -2937,6 +3837,14 @@
           "timeout_s": 120,
           "type": "codex"
         },
+        "A1_CODEX_V2": {
+          "auth": "existing_chatgpt_cli_login",
+          "cli_version": "codex-cli 0.152.0",
+          "executable": "codex",
+          "isolation": "empty_cwd_no_tools_v1",
+          "timeout_s": 120,
+          "type": "codex"
+        },
         "A1_GEMINI": {
           "adapter_version": "google_genai_v1",
           "api": "generate_content",
@@ -2960,6 +3868,14 @@
           "type": "gemini"
         },
         "M3_CODEX": {
+          "auth": "existing_chatgpt_cli_login",
+          "cli_version": "codex-cli 0.152.0",
+          "executable": "codex",
+          "isolation": "empty_cwd_no_tools_v1",
+          "timeout_s": 120,
+          "type": "codex"
+        },
+        "M3_CODEX_V2": {
           "auth": "existing_chatgpt_cli_login",
           "cli_version": "codex-cli 0.152.0",
           "executable": "codex",
@@ -4855,7 +5771,7 @@
       },
       "source_sha256": "ae1eae02e5010b38b1aa3e1792b9937ade784fc981d282d531cc4f7afa94960b"
     },
-    "selection_manifest_sha256": "ec53b4315818869e5f7d4fcb668e1f636b74615107b063a7fb5139e47c57a1a6"
+    "selection_manifest_sha256": "89cfa8bdd3ac5449f468cda2d7ab978a32ec95913bf60503a04c368114978b06"
   },
-  "record_sha256": "0eccbd3439f1f3d2b7a6db7105c7687342a1cb8376056468f68070c762953209"
+  "record_sha256": "127f45c6034c71d1a8d24c44d2bfe886509a1c36772766042aab407344b9c0c0"
 }

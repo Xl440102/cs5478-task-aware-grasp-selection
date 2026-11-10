@@ -45,9 +45,9 @@ Wilson intervals use scene seeds as units. Holm correction covers all reported c
 | M2_TASK_RISK vs M0_RANDOM | 20 | 6/6 | 1.0 | 1.0 |
 | M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 8/2 | 0.109375 | 1.0 |
 | M5_PAPER_STYLE vs M0_RANDOM | 20 | 3/9 | 0.14599609375 | 1.0 |
-| M3_CODEX_V2 vs M0_RANDOM | 20 | 9/0 | 0.00390625 | 0.09765625 |
+| M3_CODEX_V2 vs M0_RANDOM | 20 | 9/0 | 0.00390625 | 0.125 |
 | A1_CODEX_V2 vs M0_RANDOM | 20 | 4/9 | 0.266845703125 | 1.0 |
-| M3_CODEX_V2 vs A1_CODEX_V2 | 20 | 14/0 | 0.0001220703125 | 0.0032958984375 |
+| M3_CODEX_V2 vs A1_CODEX_V2 | 20 | 14/0 | 0.0001220703125 | 0.004150390625 |
 
 ## pour_water (proxy_margin)
 
@@ -68,30 +68,30 @@ Wilson intervals use scene seeds as units. Holm correction covers all reported c
 | M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 5/4 | 1.0 | 1.0 |
 | M5_PAPER_STYLE vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
 | M3_CODEX_V2 vs M0_RANDOM | 20 | 6/1 | 0.125 | 1.0 |
-| A1_CODEX_V2 vs M0_RANDOM | 20 | 0/10 | 0.001953125 | 0.05078125 |
-| M3_CODEX_V2 vs A1_CODEX_V2 | 20 | 15/0 | 6.103515625e-05 | 0.001708984375 |
+| A1_CODEX_V2 vs M0_RANDOM | 20 | 0/10 | 0.001953125 | 0.064453125 |
+| M3_CODEX_V2 vs A1_CODEX_V2 | 20 | 15/0 | 6.103515625e-05 | 0.00213623046875 |
 
 ## pour_water_pbf (pbf)
 
 | Method | Success/scored | Planned | 95% Wilson CI | Families |
 |---|---:|---:|---|---|
-| M0_RANDOM | 0/0 | 20 | — | {'rim': 5, 'top': 10, 'side': 5} |
-| M1_STATIC_V2 | 0/0 | 20 | — | {'side': 11, 'top': 9} |
-| M2_TASK_RISK | 0/0 | 20 | — | {'side': 18, 'top': 2} |
-| M4_FAMILY_PRIOR | 0/0 | 20 | — | {'rim': 20} |
-| M5_PAPER_STYLE | 0/0 | 20 | — | {'side': 11, 'top': 9} |
-| M3_CODEX_V2 | 0/0 | 20 | — | {'top': 20} |
-| A1_CODEX_V2 | 0/0 | 20 | — | {'side': 20} |
+| M0_RANDOM | 16/20 | 20 | 0.584–0.919 | {'rim': 5, 'top': 10, 'side': 5} |
+| M1_STATIC_V2 | 15/20 | 20 | 0.531–0.888 | {'side': 11, 'top': 9} |
+| M2_TASK_RISK | 15/20 | 20 | 0.531–0.888 | {'side': 18, 'top': 2} |
+| M4_FAMILY_PRIOR | 13/20 | 20 | 0.433–0.819 | {'rim': 20} |
+| M5_PAPER_STYLE | 15/20 | 20 | 0.531–0.888 | {'side': 11, 'top': 9} |
+| M3_CODEX_V2 | 17/20 | 20 | 0.640–0.948 | {'top': 20} |
+| A1_CODEX_V2 | 11/20 | 20 | 0.342–0.742 | {'side': 20} |
 
 | Comparison | Paired n | Wins/losses | Exact p | Holm p |
 |---|---:|---:|---:|---:|
-| M1_STATIC_V2 vs M0_RANDOM | 0 | 0/0 | None | None |
-| M2_TASK_RISK vs M0_RANDOM | 0 | 0/0 | None | None |
-| M4_FAMILY_PRIOR vs M0_RANDOM | 0 | 0/0 | None | None |
-| M5_PAPER_STYLE vs M0_RANDOM | 0 | 0/0 | None | None |
-| M3_CODEX_V2 vs M0_RANDOM | 0 | 0/0 | None | None |
-| A1_CODEX_V2 vs M0_RANDOM | 0 | 0/0 | None | None |
-| M3_CODEX_V2 vs A1_CODEX_V2 | 0 | 0/0 | None | None |
+| M1_STATIC_V2 vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M2_TASK_RISK vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 2/5 | 0.453125 | 1.0 |
+| M5_PAPER_STYLE vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M3_CODEX_V2 vs M0_RANDOM | 20 | 4/3 | 1.0 | 1.0 |
+| A1_CODEX_V2 vs M0_RANDOM | 20 | 2/7 | 0.1796875 | 1.0 |
+| M3_CODEX_V2 vs A1_CODEX_V2 | 20 | 9/3 | 0.14599609375 | 1.0 |
 
 ## pour_water_pbf_table (pbf)
 

@@ -1,8 +1,26 @@
 {
-  "created_at": "2026-11-09T15:53:38.725915+00:00",
-  "base_commit": "4829fe9",
-  "planned_selections": 360,
-  "saved_selections": 360,
+  "artifacts_sha256": {
+    "method_results.csv": "252dccbe579525d1022a9a094f423811cdb0373abdbeea506173b93642990199",
+    "report.md": "0aab4c3040df552a7d5a754ff3283f8a24135a82df86868a4bcafbac5245e18e",
+    "success_rates.png": "cdd6448c45cbb4e8c8076884e8a35e7b7784b7f64d6746358d8623651efb671f"
+  },
+  "base_commit": "ded86f0",
+  "created_at": "2026-11-10T02:15:36.169670+00:00",
+  "fingerprints": {
+    "manifest.json": "de584764fedb2a6710852a52b19f227af971cb40fb79056294f25f5b42ddf8fc",
+    "pbf_manifest.json": "4de4c54ff44d77090f29395e62457537c50962ae3f4f9e572ee3923507e4e20f",
+    "summary.json": "dd0d1a094e10a68e2e135c6b9826805867086734484472551e0dffa2714c3640"
+  },
+  "llm_methods": [
+    "M3_CODEX",
+    "A1_CODEX",
+    "M3_CODEX_V2",
+    "A1_CODEX_V2",
+    "M3_GEMINI",
+    "A1_GEMINI",
+    "M3_GEMINI_V2",
+    "A1_GEMINI_V2"
+  ],
   "methods": [
     "M0_RANDOM",
     "M1_STATIC_V2",
@@ -11,39 +29,27 @@
     "M5_PAPER_STYLE",
     "M3_CODEX",
     "A1_CODEX",
+    "M3_CODEX_V2",
+    "A1_CODEX_V2",
     "M3_GEMINI",
     "A1_GEMINI",
     "M3_GEMINI_V2",
     "A1_GEMINI_V2"
   ],
-  "llm_methods": [
-    "M3_CODEX",
-    "A1_CODEX",
-    "M3_GEMINI",
-    "A1_GEMINI",
-    "M3_GEMINI_V2",
-    "A1_GEMINI_V2"
-  ],
-  "prompt_versions": {
-    "M3_CODEX": "v1",
-    "A1_CODEX": "v1",
-    "M3_GEMINI": "v1",
-    "A1_GEMINI": "v1",
-    "M3_GEMINI_V2": "v2",
-    "A1_GEMINI_V2": "v2"
-  },
-  "pbf_table_source": "/Users/bytedance/PycharmProjects/cs5478-task-aware-grasp-selection/results/oracle_20261103/r3_pbf_v3p_wide_strict_v2",
   "pbf_table_sha256": "df6cd48360d0654633a5d4545882346ce094cebebf1098478e9ade1bc1011989",
-  "fingerprints": {
-    "manifest.json": "919de8fd2e0490ea969fdd25d061dae11579ddbb734d1a3ded94692d6478393e",
-    "pbf_manifest.json": "0f581b52f9bb31f3198eb27f575e00bc964b5237a4d97e50b9c3c7487a5bb3de",
-    "summary.json": "0f281f50c509aac6fc15de78e6f14753670076353b32cdd174d0ccab3e727a7d"
+  "pbf_table_source": "/Users/bytedance/PycharmProjects/cs5478-task-aware-grasp-selection/results/oracle_20261103/r3_pbf_v3p_wide_strict_v2",
+  "planned_selections": 480,
+  "prompt_versions": {
+    "A1_CODEX": "v1",
+    "A1_CODEX_V2": "v2",
+    "A1_GEMINI": "v1",
+    "A1_GEMINI_V2": "v2",
+    "M3_CODEX": "v1",
+    "M3_CODEX_V2": "v2",
+    "M3_GEMINI": "v1",
+    "M3_GEMINI_V2": "v2"
   },
-  "record_files_count": 449,
-  "record_files_sha256": "a3d9831ca78bd4bed81895b1e365ad1928ecef677e2431f9dbf972ee8ad15d75",
-  "artifacts_sha256": {
-    "success_rates.png": "39fde5449726dc6116b2373a84c11332a00ea92b6bdce24cec7c581ff24d99d6",
-    "method_results.csv": "68c2a7dc428d86f4aade9ddeaf36156b168584eb09780243597ec453df7eb5d5",
-    "report.md": "fdcb11ab0af597c635f0b851791f1e6e4b1fb56bea4a352b1207aeae4c4262b0"
-  }
+  "record_files_count": 570,
+  "record_files_sha256": "2e1d3ca7a676e6744c18686bbb985cf75b781b2dd1100fb37660c532505d0667",
+  "saved_selections": 480
 }

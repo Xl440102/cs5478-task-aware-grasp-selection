@@ -1,0 +1,118 @@
+{
+  "candidate_id": "B3_e8ac427b77b0c9cf",
+  "episode": {
+    "candidate_id": "B3_e8ac427b77b0c9cf",
+    "candidate_sha256": "2886f69d5b98504b04cb08b1a295b4281617d2037292039d4dfbd29e00b8df28",
+    "failure_reason": "no_unintended_collision",
+    "final_evidence": {
+      "source_position": [
+        0.5516089708048663,
+        0.1190561537719041,
+        0.8079419841426418
+      ],
+      "source_upright_deg": 16.864160289572354,
+      "water": {
+        "accounting_error_kg": 5.5294310796760726e-18,
+        "finite_state": true,
+        "fluid_sample_count": 256,
+        "initial_mass_kg": 0.1,
+        "max_compression": 0.01571347130827938,
+        "maximum_sample_speed_m_s": 0.35948259032706065,
+        "outside_mass_kg": 0.000390625,
+        "source_mass_kg": 0.0,
+        "spill_ratio": 0.00390625,
+        "target_mass_kg": 0.099609375,
+        "transfer_ratio": 0.99609375
+      }
+    },
+    "liquid": "pbf",
+    "pour_proxy": null,
+    "scene_randomization": {
+      "approach_finger_contact": "final_only",
+      "disable_wrist_hand_collision": false,
+      "estimate_position_noise_m": 0.003,
+      "estimate_yaw_noise_deg": 2.0,
+      "filter_mode": "execution",
+      "ik_restarts": true,
+      "name": "wide_strict_v2",
+      "observation": "noisy_truth",
+      "x_range_m": [
+        -0.04,
+        0.04
+      ],
+      "y_range_m": [
+        -0.05,
+        0.0
+      ],
+      "yaw_range_rad": [
+        -1.0471975511965976,
+        1.0471975511965976
+      ]
+    },
+    "seed": 14,
+    "selected_id": "B3_e8ac427b77b0c9cf",
+    "stages": [
+      [
+        "pregrasp",
+        "completed"
+      ],
+      [
+        "approach",
+        "completed"
+      ],
+      [
+        "close",
+        "completed"
+      ],
+      [
+        "lift",
+        "completed"
+      ],
+      [
+        "transport",
+        "completed"
+      ],
+      [
+        "tilt",
+        "completed"
+      ],
+      [
+        "pour_dwell",
+        "completed"
+      ],
+      [
+        "return_upright",
+        "completed"
+      ],
+      [
+        "settle",
+        "completed"
+      ],
+      [
+        "terminal",
+        "completed"
+      ]
+    ],
+    "status": "completed",
+    "success": false,
+    "success_checks": {
+      "fluid_density_valid": true,
+      "full_terminal_window": true,
+      "lift_achieved": true,
+      "no_drop": true,
+      "no_unintended_collision": false,
+      "sequence_complete": true,
+      "stage_outcomes": false,
+      "terminal_outcome": false
+    },
+    "task_id": "pour_water",
+    "task_spec_sha256": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+    "wall_seconds": 144.02653209500022
+  },
+  "error": null,
+  "execution_sha256": "127f45c6034c71d1a8d24c44d2bfe886509a1c36772766042aab407344b9c0c0",
+  "manifest_sha256": "89cfa8bdd3ac5449f468cda2d7ab978a32ec95913bf60503a04c368114978b06",
+  "record_sha256": "491bf255cb337528f1da605a9b0be40f29e440df022c5f73313b49f21be16a5a",
+  "seconds": 144.02653209500022,
+  "seed": 14
+}

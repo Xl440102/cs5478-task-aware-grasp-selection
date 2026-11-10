@@ -532,7 +532,7 @@ python -m grasp_c.table_evaluation summarize --out results/c_evaluation_20261106
 python -m grasp_c.table_evaluation summarize --out results/c_evaluation_multimodel_20261109 --pbf-table results/oracle_20261103/r3_pbf_v3p_wide_strict_v2
 ```
 
-每个方法、任务、seed 采样一次（单模型 120 条选择；多模型含 `M3_CODEX`、`A1_CODEX`、`M3_GEMINI`、`A1_GEMINI`、`M3_GEMINI_V2`、`A1_GEMINI_V2` 共 360 条选择，见 `results/c_evaluation_multimodel_20261109/`）。每条只允许一次格式修复，仍
+每个方法、任务、seed 采样一次（单模型 120 条选择，见 `results/c_evaluation_20261106/` 与 `results/c_evaluation_v2/`；多模型含 `M3_CODEX`、`A1_CODEX`、`M3_CODEX_V2`、`A1_CODEX_V2`、`M3_GEMINI`、`A1_GEMINI`、`M3_GEMINI_V2`、`A1_GEMINI_V2` 共 8 组方法、480 条选择，见 `results/c_evaluation_multimodel_20261109/`）。每条只允许一次格式修复，仍
 失败才按既有几何回退规则选择；回退参与系统成功率，同时另报排除回退后的成功率。
 默认关闭响应缓存，已保存 trial 的 `--resume` 不重调用模型，也不自动重试错误。
 改变模型、参数、源码、资产、环境或输入时拒绝恢复；新实验应使用新目录。
@@ -554,7 +554,7 @@ PBF 记录中缺失的数值状态补成有效。已保存的物理失败同样�
 被模型当作零质量候选、以及交接水平走廊干涉和倒水 `mouth=hand over the opening`
 标签误导的问题，已新增 `prompt_version="v2"`（见 `grasp_c/prompts.py`、
 `grasp_c/tasks.py` 和 `configs/c.r3.codex.v2.json`、`configs/c.r3.gemini.v2.json`），同时完整保留 `v1` 默认行为与
-已有运行指纹。在 `gemini-3.8-flash` 上的 `v1` 与 `v2` 对照表明：消除零分未评分歧义并显式编码任务几何/运动学约束后，`M3_GEMINI_V2` 在搬运（19/20）、交接（20/20）和倒水（代理 18/20、全量 PBF 16/20）上全面提升，并在交接（$p=3.05\times 10^{-5}$）与倒水代理（$p=1.22\times 10^{-4}$）上显著优于无任务消融 `A1_GEMINI_V2`。
+已有运行指纹。在 `gpt-5.6-luna` 与 `gemini-3.8-flash` 上的 `v1` 与 `v2` 对照表明：消除零分未评分歧义并显式编码任务几何/运动学约束后，`M3_CODEX_V2`（搬运 18/20、交接 20/20、倒水代理 18/20、全量 PBF 16/20）与 `M3_GEMINI_V2`（搬运 19/20、交接 20/20、倒水代理 18/20、全量 PBF 16/20）跨模型同步实现大幅提升，并在交接与倒水代理上显著优于各自的无任务消融 `A1_CODEX_V2` 与 `A1_GEMINI_V2`。
 
 输出的 `manifest.json` 冻结配置、provider 身份、代码/资产、包版本、历史源文件
 逐文件 SHA-256；`trials/` 保存提示词与响应审计；`summary.json` 和 `report.md`

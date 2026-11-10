@@ -73,6 +73,30 @@
       "wins": 5
     },
     {
+      "difference": 0.15,
+      "excluded_n": 0,
+      "losses": 1,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.375,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "transport_place",
+      "wins": 4
+    },
+    {
+      "difference": 0.05,
+      "excluded_n": 0,
+      "losses": 2,
+      "method": "A1_CODEX_V2",
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "transport_place",
+      "wins": 3
+    },
+    {
       "difference": 0.2,
       "excluded_n": 0,
       "losses": 1,
@@ -133,12 +157,24 @@
       "wins": 0
     },
     {
+      "difference": 0.1,
+      "excluded_n": 0,
+      "losses": 1,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.625,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX_V2",
+      "task": "transport_place",
+      "wins": 3
+    },
+    {
       "difference": 0.5,
       "excluded_n": 0,
       "losses": 0,
       "method": "M3_GEMINI",
       "p_exact": 0.001953125,
-      "p_holm": 0.140625,
+      "p_holm": 0.18359375,
       "paired_n": 20,
       "reference": "A1_GEMINI",
       "task": "transport_place",
@@ -155,6 +191,30 @@
       "reference": "A1_GEMINI_V2",
       "task": "transport_place",
       "wins": 1
+    },
+    {
+      "difference": 0.15,
+      "excluded_n": 0,
+      "losses": 0,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.25,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M3_CODEX",
+      "task": "transport_place",
+      "wins": 3
+    },
+    {
+      "difference": -0.05,
+      "excluded_n": 0,
+      "losses": 4,
+      "method": "A1_CODEX_V2",
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX",
+      "task": "transport_place",
+      "wins": 3
     },
     {
       "difference": 0.0,
@@ -253,6 +313,30 @@
       "wins": 3
     },
     {
+      "difference": 0.45,
+      "excluded_n": 0,
+      "losses": 0,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.00390625,
+      "p_holm": 0.35546875,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "handover_transfer",
+      "wins": 9
+    },
+    {
+      "difference": -0.25,
+      "excluded_n": 0,
+      "losses": 9,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.266845703125,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "handover_transfer",
+      "wins": 4
+    },
+    {
       "difference": -0.3,
       "excluded_n": 0,
       "losses": 9,
@@ -270,7 +354,7 @@
       "losses": 11,
       "method": "A1_GEMINI",
       "p_exact": 0.00634765625,
-      "p_holm": 0.43798828125,
+      "p_holm": 0.55224609375,
       "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "handover_transfer",
@@ -282,7 +366,7 @@
       "losses": 0,
       "method": "M3_GEMINI_V2",
       "p_exact": 0.00390625,
-      "p_holm": 0.27734375,
+      "p_holm": 0.35546875,
       "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "handover_transfer",
@@ -313,6 +397,18 @@
       "wins": 2
     },
     {
+      "difference": 0.7,
+      "excluded_n": 0,
+      "losses": 0,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.0001220703125,
+      "p_holm": 0.01171875,
+      "paired_n": 20,
+      "reference": "A1_CODEX_V2",
+      "task": "handover_transfer",
+      "wins": 14
+    },
+    {
       "difference": 0.2,
       "excluded_n": 0,
       "losses": 0,
@@ -330,11 +426,35 @@
       "losses": 0,
       "method": "M3_GEMINI_V2",
       "p_exact": 3.0517578125e-05,
-      "p_holm": 0.002288818359375,
+      "p_holm": 0.0030517578125,
       "paired_n": 20,
       "reference": "A1_GEMINI_V2",
       "task": "handover_transfer",
       "wins": 16
+    },
+    {
+      "difference": 0.8,
+      "excluded_n": 0,
+      "losses": 0,
+      "method": "M3_CODEX_V2",
+      "p_exact": 3.0517578125e-05,
+      "p_holm": 0.0030517578125,
+      "paired_n": 20,
+      "reference": "M3_CODEX",
+      "task": "handover_transfer",
+      "wins": 16
+    },
+    {
+      "difference": 0.05,
+      "excluded_n": 0,
+      "losses": 2,
+      "method": "A1_CODEX_V2",
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX",
+      "task": "handover_transfer",
+      "wins": 3
     },
     {
       "difference": 0.75,
@@ -342,7 +462,7 @@
       "losses": 0,
       "method": "M3_GEMINI_V2",
       "p_exact": 6.103515625e-05,
-      "p_holm": 0.0045166015625,
+      "p_holm": 0.0059814453125,
       "paired_n": 20,
       "reference": "M3_GEMINI",
       "task": "handover_transfer",
@@ -433,6 +553,30 @@
       "wins": 3
     },
     {
+      "difference": 0.25,
+      "excluded_n": 0,
+      "losses": 1,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.125,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "pour_water",
+      "wins": 6
+    },
+    {
+      "difference": -0.5,
+      "excluded_n": 0,
+      "losses": 10,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.001953125,
+      "p_holm": 0.18359375,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "pour_water",
+      "wins": 0
+    },
+    {
       "difference": -0.2,
       "excluded_n": 0,
       "losses": 6,
@@ -474,7 +618,7 @@
       "losses": 9,
       "method": "A1_GEMINI_V2",
       "p_exact": 0.00390625,
-      "p_holm": 0.27734375,
+      "p_holm": 0.35546875,
       "paired_n": 20,
       "reference": "M0_RANDOM",
       "task": "pour_water",
@@ -491,6 +635,18 @@
       "reference": "A1_CODEX",
       "task": "pour_water",
       "wins": 1
+    },
+    {
+      "difference": 0.75,
+      "excluded_n": 0,
+      "losses": 0,
+      "method": "M3_CODEX_V2",
+      "p_exact": 6.103515625e-05,
+      "p_holm": 0.0059814453125,
+      "paired_n": 20,
+      "reference": "A1_CODEX_V2",
+      "task": "pour_water",
+      "wins": 15
     },
     {
       "difference": 0.0,
@@ -510,11 +666,35 @@
       "losses": 0,
       "method": "M3_GEMINI_V2",
       "p_exact": 0.0001220703125,
-      "p_holm": 0.0089111328125,
+      "p_holm": 0.01171875,
       "paired_n": 20,
       "reference": "A1_GEMINI_V2",
       "task": "pour_water",
       "wins": 14
+    },
+    {
+      "difference": 0.55,
+      "excluded_n": 0,
+      "losses": 1,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.00341796875,
+      "p_holm": 0.314453125,
+      "paired_n": 20,
+      "reference": "M3_CODEX",
+      "task": "pour_water",
+      "wins": 12
+    },
+    {
+      "difference": -0.45,
+      "excluded_n": 0,
+      "losses": 9,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.00390625,
+      "p_holm": 0.35546875,
+      "paired_n": 20,
+      "reference": "A1_CODEX",
+      "task": "pour_water",
+      "wins": 0
     },
     {
       "difference": 0.45,
@@ -522,7 +702,7 @@
       "losses": 1,
       "method": "M3_GEMINI_V2",
       "p_exact": 0.01171875,
-      "p_holm": 0.796875,
+      "p_holm": 1.0,
       "paired_n": 20,
       "reference": "M3_GEMINI",
       "task": "pour_water",
@@ -613,6 +793,30 @@
       "wins": 3
     },
     {
+      "difference": 0.05,
+      "excluded_n": 0,
+      "losses": 3,
+      "method": "M3_CODEX_V2",
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "pour_water_pbf",
+      "wins": 4
+    },
+    {
+      "difference": -0.25,
+      "excluded_n": 0,
+      "losses": 7,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.1796875,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "pour_water_pbf",
+      "wins": 2
+    },
+    {
       "difference": -0.05,
       "excluded_n": 0,
       "losses": 4,
@@ -673,6 +877,18 @@
       "wins": 2
     },
     {
+      "difference": 0.3,
+      "excluded_n": 0,
+      "losses": 3,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.14599609375,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX_V2",
+      "task": "pour_water_pbf",
+      "wins": 9
+    },
+    {
       "difference": 0.0,
       "excluded_n": 0,
       "losses": 0,
@@ -695,6 +911,30 @@
       "reference": "A1_GEMINI_V2",
       "task": "pour_water_pbf",
       "wins": 7
+    },
+    {
+      "difference": 0.15,
+      "excluded_n": 0,
+      "losses": 3,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.5078125,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M3_CODEX",
+      "task": "pour_water_pbf",
+      "wins": 6
+    },
+    {
+      "difference": -0.2,
+      "excluded_n": 0,
+      "losses": 6,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.2890625,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX",
+      "task": "pour_water_pbf",
+      "wins": 2
     },
     {
       "difference": 0.1,
@@ -793,6 +1033,30 @@
       "wins": 4
     },
     {
+      "difference": 0.0,
+      "excluded_n": 0,
+      "losses": 4,
+      "method": "M3_CODEX_V2",
+      "p_exact": 1.0,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "pour_water_pbf_table",
+      "wins": 4
+    },
+    {
+      "difference": -0.35,
+      "excluded_n": 0,
+      "losses": 10,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.09228515625,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M0_RANDOM",
+      "task": "pour_water_pbf_table",
+      "wins": 3
+    },
+    {
       "difference": -0.1,
       "excluded_n": 0,
       "losses": 6,
@@ -853,6 +1117,18 @@
       "wins": 2
     },
     {
+      "difference": 0.35,
+      "excluded_n": 0,
+      "losses": 2,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.0654296875,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX_V2",
+      "task": "pour_water_pbf_table",
+      "wins": 9
+    },
+    {
       "difference": 0.0,
       "excluded_n": 0,
       "losses": 0,
@@ -875,6 +1151,30 @@
       "reference": "A1_GEMINI_V2",
       "task": "pour_water_pbf_table",
       "wins": 7
+    },
+    {
+      "difference": 0.15,
+      "excluded_n": 0,
+      "losses": 3,
+      "method": "M3_CODEX_V2",
+      "p_exact": 0.5078125,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "M3_CODEX",
+      "task": "pour_water_pbf_table",
+      "wins": 6
+    },
+    {
+      "difference": -0.2,
+      "excluded_n": 0,
+      "losses": 5,
+      "method": "A1_CODEX_V2",
+      "p_exact": 0.21875,
+      "p_holm": 1.0,
+      "paired_n": 20,
+      "reference": "A1_CODEX",
+      "task": "pour_water_pbf_table",
+      "wins": 1
     },
     {
       "difference": 0.1,
@@ -901,7 +1201,7 @@
       "wins": 0
     }
   ],
-  "manifest_sha256": "ec53b4315818869e5f7d4fcb668e1f636b74615107b063a7fb5139e47c57a1a6",
+  "manifest_sha256": "89cfa8bdd3ac5449f468cda2d7ab978a32ec95913bf60503a04c368114978b06",
   "methods": [
     "M0_RANDOM",
     "M1_STATIC_V2",
@@ -910,6 +1210,8 @@
     "M5_PAPER_STYLE",
     "M3_CODEX",
     "A1_CODEX",
+    "M3_CODEX_V2",
+    "A1_CODEX_V2",
     "M3_GEMINI",
     "A1_GEMINI",
     "M3_GEMINI_V2",
@@ -960,6 +1262,25 @@
         "reasoning_output_tokens": 5320
       },
       "mean_selection_seconds": 14.21048732146543,
+      "planned_n": 60,
+      "repairs": 0,
+      "saved_n": 60,
+      "selected_n": 60,
+      "synthetic": false
+    },
+    "A1_CODEX_V2": {
+      "cache_hits": 0,
+      "errors": 0,
+      "fallbacks": 0,
+      "initial_valid_n": 60,
+      "live_requests": 60,
+      "live_token_usage": {
+        "cached_input_tokens": 29440,
+        "input_tokens": 726022,
+        "output_tokens": 37453,
+        "reasoning_output_tokens": 12078
+      },
+      "mean_selection_seconds": 17.33056086805033,
       "planned_n": 60,
       "repairs": 0,
       "saved_n": 60,
@@ -1017,6 +1338,24 @@
       "mean_selection_seconds": 16.43205480412386,
       "planned_n": 60,
       "repairs": 1,
+      "saved_n": 60,
+      "selected_n": 60,
+      "synthetic": false
+    },
+    "M3_CODEX_V2": {
+      "cache_hits": 0,
+      "errors": 0,
+      "fallbacks": 1,
+      "initial_valid_n": 58,
+      "live_requests": 62,
+      "live_token_usage": {
+        "input_tokens": 767352,
+        "output_tokens": 39796,
+        "reasoning_output_tokens": 13359
+      },
+      "mean_selection_seconds": 18.328768221500045,
+      "planned_n": 60,
+      "repairs": 2,
       "saved_n": 60,
       "selected_n": 60,
       "synthetic": false
@@ -1084,6 +1423,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_dfa20dd9e57c4399",
+              "success": false
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -1132,6 +1479,14 @@
               "selected_id": "B3_dfa20dd9e57c4399",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -1170,6 +1525,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -1225,6 +1588,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -1269,6 +1640,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "execution_failed",
@@ -1316,6 +1695,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
               "success": true
             },
             "M3_GEMINI": {
@@ -1363,6 +1750,14 @@
               "selected_id": "B3_2880fbb6c6702788",
               "success": false
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -1411,6 +1806,14 @@
               "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -1449,6 +1852,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_drop",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_drop",
               "fallback": false,
@@ -1504,6 +1915,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_drop",
@@ -1548,6 +1967,14 @@
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -1597,6 +2024,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -1640,6 +2075,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_2d90f2a44d16be5c",
               "success": true
             },
             "A1_GEMINI": {
@@ -1690,6 +2133,14 @@
               "selected_id": "B3_e8ac427b77b0c9cf",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -1728,6 +2179,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -1783,6 +2242,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -1826,6 +2293,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
             "A1_GEMINI": {
@@ -1876,6 +2351,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -1919,6 +2402,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_2d90f2a44d16be5c",
               "success": true
             },
             "A1_GEMINI": {
@@ -1969,6 +2460,14 @@
               "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -2007,6 +2506,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -2062,6 +2569,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -2105,6 +2620,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_dfa20dd9e57c4399",
               "success": false
             },
             "A1_GEMINI": {
@@ -2155,6 +2678,14 @@
               "selected_id": "B3_dfa20dd9e57c4399",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -2193,6 +2724,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_drop",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_235da732cc7a75db",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_drop",
               "fallback": false,
@@ -2248,6 +2787,14 @@
               "selected_id": "B3_235da732cc7a75db",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_drop",
@@ -2292,6 +2839,14 @@
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -2341,6 +2896,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -2379,6 +2942,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_235da732cc7a75db",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -2434,6 +3005,14 @@
               "selected_id": "B3_235da732cc7a75db",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -2477,6 +3056,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_dfa20dd9e57c4399",
               "success": false
             },
             "A1_GEMINI": {
@@ -2527,6 +3114,14 @@
               "selected_id": "B3_dfa20dd9e57c4399",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -2565,6 +3160,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -2620,6 +3223,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -2658,6 +3269,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -2713,6 +3332,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -2757,6 +3384,14 @@
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -2806,6 +3441,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_ee93643e3d354d36",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_drop",
@@ -2849,6 +3492,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -2897,6 +3548,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "rim",
+              "selected_id": "B3_960a70b9f31cb1ac",
               "success": true
             },
             "M3_GEMINI": {
@@ -2968,6 +3627,39 @@
             "scored_n": 20,
             "success_rate": 0.25,
             "successes": 5
+          }
+        },
+        "A1_CODEX_V2": {
+          "ci95": [
+            0.14547527396899385,
+            0.5189767762289793
+          ],
+          "end_to_end_success_coverage": 0.3,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_drop": 2,
+            "no_unintended_collision": 5,
+            "pregrasp_arrival_timeout": 4,
+            "stage_outcomes": 3
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "side": 20
+          },
+          "success_rate": 0.3,
+          "successes": 6,
+          "without_fallback": {
+            "ci95": [
+              0.14547527396899385,
+              0.5189767762289793
+            ],
+            "end_to_end_success_coverage": 0.3,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.3,
+            "successes": 6
           }
         },
         "A1_GEMINI": {
@@ -3178,6 +3870,34 @@
             "successes": 4
           }
         },
+        "M3_CODEX_V2": {
+          "ci95": [
+            0.8388698745050668,
+            0.9999999999999999
+          ],
+          "end_to_end_success_coverage": 1.0,
+          "excluded_n": 0,
+          "failure_reasons": {},
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "rim": 20
+          },
+          "success_rate": 1.0,
+          "successes": 20,
+          "without_fallback": {
+            "ci95": [
+              0.8388698745050668,
+              0.9999999999999999
+            ],
+            "end_to_end_success_coverage": 1.0,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 1.0,
+            "successes": 20
+          }
+        },
         "M3_GEMINI": {
           "ci95": [
             0.11186005278940309,
@@ -3334,6 +4054,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3380,6 +4108,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
             "M3_GEMINI": {
@@ -3427,6 +4163,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3475,6 +4219,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3518,6 +4270,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": false
             },
             "A1_GEMINI": {
@@ -3568,6 +4328,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3612,6 +4380,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -3661,6 +4437,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3705,6 +4489,14 @@
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -3754,6 +4546,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3798,6 +4598,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -3847,6 +4655,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -3891,6 +4707,14 @@
               "family": "side",
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "execution_failed",
@@ -3940,6 +4764,14 @@
               "selected_id": "B3_e8ac427b77b0c9cf",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -3978,6 +4810,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -4033,6 +4873,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -4071,6 +4919,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
@@ -4126,6 +4982,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -4170,6 +5034,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -4219,6 +5091,14 @@
               "selected_id": "B3_1628311da54eab7d",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -4257,6 +5137,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -4312,6 +5200,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -4350,6 +5246,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -4405,6 +5309,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -4449,6 +5361,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -4498,6 +5418,14 @@
               "selected_id": "B3_7ff381f16d56a546",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -4542,6 +5470,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -4591,6 +5527,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -4635,6 +5579,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -4684,6 +5636,14 @@
               "selected_id": "B3_8bbe77fd36dc7598",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -4722,6 +5682,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -4777,6 +5745,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -4815,6 +5791,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -4870,6 +5854,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -4908,6 +5900,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -4963,6 +5963,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -5001,6 +6009,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -5056,6 +6072,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -5100,6 +6124,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -5148,6 +6180,14 @@
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
               "success": false
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
             },
             "M3_GEMINI": {
               "episode_status": "completed",
@@ -5218,6 +6258,38 @@
             "scored_n": 20,
             "success_rate": 0.6,
             "successes": 12
+          }
+        },
+        "A1_CODEX_V2": {
+          "ci95": [
+            0.05236779195949584,
+            0.36042329588695743
+          ],
+          "end_to_end_success_coverage": 0.15,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 7,
+            "pregrasp_arrival_timeout": 4,
+            "stage_outcomes": 6
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "side": 20
+          },
+          "success_rate": 0.15,
+          "successes": 3,
+          "without_fallback": {
+            "ci95": [
+              0.05236779195949584,
+              0.36042329588695743
+            ],
+            "end_to_end_success_coverage": 0.15,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.15,
+            "successes": 3
           }
         },
         "A1_GEMINI": {
@@ -5417,6 +6489,36 @@
             "successes": 7
           }
         },
+        "M3_CODEX_V2": {
+          "ci95": [
+            0.6989617935882066,
+            0.9721341060158468
+          ],
+          "end_to_end_success_coverage": 0.9,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 2
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "top": 20
+          },
+          "success_rate": 0.9,
+          "successes": 18,
+          "without_fallback": {
+            "ci95": [
+              0.6989617935882066,
+              0.9721341060158468
+            ],
+            "end_to_end_success_coverage": 0.9,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.9,
+            "successes": 18
+          }
+        },
         "M3_GEMINI": {
           "ci95": [
             0.25819502085709295,
@@ -5560,6 +6662,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -5606,6 +6716,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
             "M3_GEMINI": {
@@ -5653,6 +6771,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -5701,6 +6827,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -5745,6 +6879,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -5794,6 +6936,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -5838,6 +6988,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -5887,6 +7045,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -5931,6 +7097,14 @@
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -5980,6 +7154,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6024,6 +7206,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -6073,6 +7263,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -6117,6 +7315,14 @@
               "family": "side",
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "execution_failed",
@@ -6166,6 +7372,14 @@
               "selected_id": "B3_e8ac427b77b0c9cf",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -6204,6 +7418,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -6259,6 +7481,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -6297,6 +7527,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
@@ -6352,6 +7590,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -6396,6 +7642,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -6445,6 +7699,14 @@
               "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6483,6 +7745,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -6538,6 +7808,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6576,6 +7854,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -6631,6 +7917,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6674,6 +7968,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
               "success": true
             },
             "A1_GEMINI": {
@@ -6724,6 +8026,14 @@
               "selected_id": "B3_7ff381f16d56a546",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6768,6 +8078,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -6817,6 +8135,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6861,6 +8187,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -6910,6 +8244,14 @@
               "selected_id": "B3_8bbe77fd36dc7598",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -6948,6 +8290,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -7003,6 +8353,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -7041,6 +8399,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -7096,6 +8462,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -7134,6 +8508,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -7189,6 +8571,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -7227,6 +8617,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -7282,6 +8680,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -7325,6 +8731,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -7373,6 +8787,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
               "success": true
             },
             "M3_GEMINI": {
@@ -7444,6 +8866,37 @@
             "scored_n": 20,
             "success_rate": 0.75,
             "successes": 15
+          }
+        },
+        "A1_CODEX_V2": {
+          "ci95": [
+            0.3420820083075997,
+            0.7418049791429071
+          ],
+          "end_to_end_success_coverage": 0.55,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 5,
+            "pregrasp_arrival_timeout": 4
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "side": 20
+          },
+          "success_rate": 0.55,
+          "successes": 11,
+          "without_fallback": {
+            "ci95": [
+              0.3420820083075997,
+              0.7418049791429071
+            ],
+            "end_to_end_success_coverage": 0.55,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.55,
+            "successes": 11
           }
         },
         "A1_GEMINI": {
@@ -7642,6 +9095,37 @@
             "successes": 14
           }
         },
+        "M3_CODEX_V2": {
+          "ci95": [
+            0.6395767041130426,
+            0.9476322080405041
+          ],
+          "end_to_end_success_coverage": 0.85,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 2,
+            "stage_outcomes": 1
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "top": 20
+          },
+          "success_rate": 0.85,
+          "successes": 17,
+          "without_fallback": {
+            "ci95": [
+              0.6395767041130426,
+              0.9476322080405041
+            ],
+            "end_to_end_success_coverage": 0.85,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.85,
+            "successes": 17
+          }
+        },
         "M3_GEMINI": {
           "ci95": [
             0.5312949900419365,
@@ -7798,6 +9282,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -7844,6 +9336,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
             "M3_GEMINI": {
@@ -7891,6 +9391,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -7939,6 +9447,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -7983,6 +9499,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -8032,6 +9556,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8076,6 +9608,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -8125,6 +9665,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8169,6 +9717,14 @@
               "family": "side",
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -8218,6 +9774,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8261,6 +9825,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
               "success": false
             },
             "A1_GEMINI": {
@@ -8311,6 +9883,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8355,6 +9935,14 @@
               "family": "side",
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "execution_failed",
@@ -8404,6 +9992,14 @@
               "selected_id": "B3_e8ac427b77b0c9cf",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -8442,6 +10038,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -8497,6 +10101,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -8535,6 +10147,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
               "fallback": false,
@@ -8590,6 +10210,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "pregrasp_arrival_timeout",
@@ -8633,6 +10261,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -8683,6 +10319,14 @@
               "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8721,6 +10365,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -8776,6 +10428,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8814,6 +10474,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -8869,6 +10537,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -8912,6 +10588,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
               "success": false
             },
             "A1_GEMINI": {
@@ -8962,6 +10646,14 @@
               "selected_id": "B3_7ff381f16d56a546",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -9006,6 +10698,14 @@
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -9055,6 +10755,14 @@
               "selected_id": "B3_6fe272389e801ae2",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -9099,6 +10807,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -9148,6 +10864,14 @@
               "selected_id": "B3_8bbe77fd36dc7598",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -9186,6 +10910,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
               "fallback": false,
@@ -9241,6 +10973,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "stage_outcomes",
@@ -9279,6 +11019,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_034c4eac3fb53111",
+              "success": false
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
               "fallback": false,
@@ -9334,6 +11082,14 @@
               "selected_id": "B3_034c4eac3fb53111",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": "no_unintended_collision",
@@ -9372,6 +11128,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -9427,6 +11191,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -9465,6 +11237,14 @@
         {
           "methods": {
             "A1_CODEX": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_db2df20cfd3cb7be",
+              "success": true
+            },
+            "A1_CODEX_V2": {
               "episode_status": "completed",
               "failure_reason": null,
               "fallback": false,
@@ -9520,6 +11300,14 @@
               "selected_id": "B3_db2df20cfd3cb7be",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -9563,6 +11351,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -9611,6 +11407,14 @@
               "fallback": false,
               "family": "side",
               "selected_id": "B3_1628311da54eab7d",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "top",
+              "selected_id": "B3_640399fab83e671a",
               "success": true
             },
             "M3_GEMINI": {
@@ -9682,6 +11486,38 @@
             "scored_n": 20,
             "success_rate": 0.65,
             "successes": 13
+          }
+        },
+        "A1_CODEX_V2": {
+          "ci95": [
+            0.25819502085709295,
+            0.6579179916924003
+          ],
+          "end_to_end_success_coverage": 0.45,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 5,
+            "pregrasp_arrival_timeout": 4,
+            "stage_outcomes": 2
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "side": 20
+          },
+          "success_rate": 0.45,
+          "successes": 9,
+          "without_fallback": {
+            "ci95": [
+              0.25819502085709295,
+              0.6579179916924003
+            ],
+            "end_to_end_success_coverage": 0.45,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.45,
+            "successes": 9
           }
         },
         "A1_GEMINI": {
@@ -9881,6 +11717,37 @@
             "successes": 13
           }
         },
+        "M3_CODEX_V2": {
+          "ci95": [
+            0.5839782779742401,
+            0.9193436467288
+          ],
+          "end_to_end_success_coverage": 0.8,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 2,
+            "stage_outcomes": 2
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "top": 20
+          },
+          "success_rate": 0.8,
+          "successes": 16,
+          "without_fallback": {
+            "ci95": [
+              0.5839782779742401,
+              0.9193436467288
+            ],
+            "end_to_end_success_coverage": 0.8,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.8,
+            "successes": 16
+          }
+        },
         "M3_GEMINI": {
           "ci95": [
             0.4810232237710206,
@@ -10037,6 +11904,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "A1_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10085,6 +11960,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10129,6 +12012,14 @@
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -10178,6 +12069,14 @@
               "selected_id": "B3_2880fbb6c6702788",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10222,6 +12121,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -10271,6 +12178,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "execution_failed",
               "failure_reason": "approach_arrival_timeout",
@@ -10315,6 +12230,14 @@
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
               "success": false
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -10364,6 +12287,14 @@
               "selected_id": "B3_2880fbb6c6702788",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "approach_arrival_timeout",
+              "fallback": true,
+              "family": "top",
+              "selected_id": "B3_2880fbb6c6702788",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10407,6 +12338,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -10457,6 +12396,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10501,6 +12448,14 @@
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_7ff381f16d56a546",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -10550,6 +12505,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10594,6 +12557,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "execution_failed",
+              "failure_reason": "pregrasp_arrival_timeout",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_e8ac427b77b0c9cf",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "execution_failed",
@@ -10643,6 +12614,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10686,6 +12665,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -10736,6 +12723,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10779,6 +12774,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -10829,6 +12832,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10872,6 +12883,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -10922,6 +12941,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_24ae633eb8a13262",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -10965,6 +12992,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -11015,6 +13050,14 @@
               "selected_id": "B3_2880fbb6c6702788",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11058,6 +13101,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -11108,6 +13159,14 @@
               "selected_id": "B3_e8ac427b77b0c9cf",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11152,6 +13211,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_8bbe77fd36dc7598",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -11201,6 +13268,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_ff0a6731323bba4c",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11244,6 +13319,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -11294,6 +13377,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11338,6 +13429,14 @@
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
               "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "no_unintended_collision",
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
+              "success": false
             },
             "A1_GEMINI": {
               "episode_status": "completed",
@@ -11387,6 +13486,14 @@
               "selected_id": "B3_1628311da54eab7d",
               "success": false
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": "stage_outcomes",
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_c4dc0f977815f043",
+              "success": false
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11430,6 +13537,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -11480,6 +13595,14 @@
               "selected_id": "B3_2880fbb6c6702788",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11523,6 +13646,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_599e9b16f5782406",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_c4dc0f977815f043",
               "success": true
             },
             "A1_GEMINI": {
@@ -11573,6 +13704,14 @@
               "selected_id": "B3_599e9b16f5782406",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_c4dc0f977815f043",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11616,6 +13755,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -11666,6 +13813,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11709,6 +13864,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "A1_GEMINI": {
@@ -11759,6 +13922,14 @@
               "selected_id": "B3_640399fab83e671a",
               "success": true
             },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
+              "success": true
+            },
             "M3_GEMINI": {
               "episode_status": "completed",
               "failure_reason": null,
@@ -11802,6 +13973,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_2880fbb6c6702788",
+              "success": true
+            },
+            "A1_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "side",
+              "selected_id": "B3_1628311da54eab7d",
               "success": true
             },
             "A1_GEMINI": {
@@ -11850,6 +14029,14 @@
               "fallback": false,
               "family": "top",
               "selected_id": "B3_640399fab83e671a",
+              "success": true
+            },
+            "M3_CODEX_V2": {
+              "episode_status": "completed",
+              "failure_reason": null,
+              "fallback": false,
+              "family": "handle",
+              "selected_id": "B3_e15b6a2212aa6bae",
               "success": true
             },
             "M3_GEMINI": {
@@ -11918,6 +14105,38 @@
             "scored_n": 20,
             "success_rate": 0.85,
             "successes": 17
+          }
+        },
+        "A1_CODEX_V2": {
+          "ci95": [
+            0.5839782779742401,
+            0.9193436467288
+          ],
+          "end_to_end_success_coverage": 0.8,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "no_unintended_collision": 2,
+            "pregrasp_arrival_timeout": 2
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "handle": 12,
+            "side": 8
+          },
+          "success_rate": 0.8,
+          "successes": 16,
+          "without_fallback": {
+            "ci95": [
+              0.5839782779742401,
+              0.9193436467288
+            ],
+            "end_to_end_success_coverage": 0.8,
+            "excluded_n": 0,
+            "planned_n": 20,
+            "scored_n": 20,
+            "success_rate": 0.8,
+            "successes": 16
           }
         },
         "A1_GEMINI": {
@@ -12112,6 +14331,38 @@
             "scored_n": 20,
             "success_rate": 0.75,
             "successes": 15
+          }
+        },
+        "M3_CODEX_V2": {
+          "ci95": [
+            0.6989617935882066,
+            0.9721341060158468
+          ],
+          "end_to_end_success_coverage": 0.9,
+          "excluded_n": 0,
+          "failure_reasons": {
+            "approach_arrival_timeout": 1,
+            "stage_outcomes": 1
+          },
+          "planned_n": 20,
+          "scored_n": 20,
+          "selected_families": {
+            "handle": 19,
+            "top": 1
+          },
+          "success_rate": 0.9,
+          "successes": 18,
+          "without_fallback": {
+            "ci95": [
+              0.7536078466345479,
+              0.99064824750947
+            ],
+            "end_to_end_success_coverage": 0.9473684210526315,
+            "excluded_n": 0,
+            "planned_n": 19,
+            "scored_n": 19,
+            "success_rate": 0.9473684210526315,
+            "successes": 18
           }
         },
         "M3_GEMINI": {

@@ -29,6 +29,7 @@
     "pour_proxy": null,
     "scene_randomization": {
       "approach_finger_contact": "final_only",
+      "disable_wrist_hand_collision": false,
       "estimate_position_noise_m": 0.003,
       "estimate_yaw_noise_deg": 2.0,
       "filter_mode": "execution",
@@ -109,9 +110,9 @@
     "wall_seconds": 44.050764759999765
   },
   "error": null,
-  "execution_sha256": "0eccbd3439f1f3d2b7a6db7105c7687342a1cb8376056468f68070c762953209",
-  "manifest_sha256": "ec53b4315818869e5f7d4fcb668e1f636b74615107b063a7fb5139e47c57a1a6",
-  "record_sha256": "160cb8ddd9f92754f9ded098e127fa13e60841c9de5029f9048cc6f319a7330b",
+  "execution_sha256": "127f45c6034c71d1a8d24c44d2bfe886509a1c36772766042aab407344b9c0c0",
+  "manifest_sha256": "89cfa8bdd3ac5449f468cda2d7ab978a32ec95913bf60503a04c368114978b06",
+  "record_sha256": "821d103d177a295a69557f500b51e628fc7ffb7e309e6304220d7d3b896b3521",
   "seconds": 44.050764759999765,
   "seed": 21
 }
