@@ -2,7 +2,7 @@
 
 The reviewed PowerPoint contains the full English speaker notes, an embedded 15-second demonstration, 10 main slides, and two hidden Q&A backups.
 
-- Presentation: [CS5478_Task_Aware_Grasp_Selection_Presentation.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation.pptx)
+- Presentation: [CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx) (adds the rule-only M6 baseline; the previous version is kept as [CS5478_Task_Aware_Grasp_Selection_Presentation.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation.pptx))
 - Planned duration: 9:30 including the video, with 0:30 reserve.
 - Slide 3: click the video once. The three full task recordings are each accelerated to five seconds. The G02 seed-0 demo is separate from the benchmark.
 
@@ -26,7 +26,8 @@ The project roles remain A/B/C. B covers shared material to allow a longer speak
 - Seeds 10–29 are excluded from M4 training but are not a blind test set. A1 omits task text but retains the task-filtered feasible pool.
 - v2 supplies explicit grasp preferences. The prompt versions change multiple instructions together and do not independently establish 3D reasoning.
 - Reported Holm p-values follow the current 170-comparison summary. PBF improvements over random are not significant after correction.
-- M2 includes access proxies. M5 is a fixed part surrogate, not a full paper reproduction. Wrench-space work is exploratory and separate from the 17-method benchmark.
+- M2 includes access proxies. M5 is a fixed part surrogate, not a full paper reproduction. Wrench-space work is exploratory and separate from the 18-method benchmark.
+- M6 (`grasp_c/rules.py`) applies the v2 grasp preferences without a language model. It scores 54/60, equal to GPT v2, picks the same grasp family as both v2 models in 60/60 trials and the identical candidate in 27/60 (all 20 pours). Its rules were written after seeds 10–29 were examined.
 
 ## Speaker notes
 
@@ -144,13 +145,14 @@ For Part C, we test two recorded model configurations, three prompt versions, an
 **Speaker:** C · Yao Xiaolu
 **Window:** 6:25–7:25
 
-The original prompt treats geometry score as higher-is-better, without explaining the unsupported zero values. Across the 240 original-prompt selections, neither model chooses a rim or handle grasp. This is consistent with a representation problem, although we did not isolate its cause with a score-only ablation. The mechanics prompt clarifies the score and opening tags and describes the motion constraints without an explicit preferred family. Gemini then selects rim grasps and succeeds in all 20 handovers. The explicit-preference prompt goes further: it recommends handle or rim grasps for placement, top-down rim grasps for handover, and high-scoring top grasps for pouring. These versions change several instructions together. Their results show sensitivity to task descriptions and supplied preferences, rather than proving independent three-dimensional reasoning.
+The original prompt treats geometry score as higher-is-better, without explaining the unsupported zero values. Across the 240 original-prompt selections, neither model chooses a rim or handle grasp. This is consistent with a representation problem, although we did not isolate its cause with a score-only ablation. The mechanics prompt clarifies the score and opening tags and describes the motion constraints without an explicit preferred family. Gemini then selects rim grasps and succeeds in all 20 handovers. The explicit-preference prompt goes further: it recommends handle or rim grasps for placement, top-down rim grasps for handover, and high-scoring top grasps for pouring. These versions change several instructions together. As a check, our rule-only baseline M6 applies the v2 preferences without any language model and also gets all 20 handovers, so the v2 gain reflects the supplied preferences rather than independent three-dimensional reasoning.
 
 **Sources:**
 
 - `grasp_c/prompts.py: SYSTEM_PROMPT_V1, SYSTEM_PROMPT_V2_PHYSICS, SYSTEM_PROMPT_V2`
 - `grasp_c/tasks.py: SEQUENCE_INTENT_V2, SEQUENCE_INTENT_V2_PHYSICS`
 - `results/c_evaluation_multimodel_20261109/report.md`
+- `grasp_c/rules.py`
 - `results/c_evaluation_multimodel_20261109/summary.json`
 
 ### Slide 9
@@ -158,22 +160,23 @@ The original prompt treats geometry score as higher-is-better, without explainin
 **Speaker:** C · Yao Xiaolu
 **Window:** 7:25–8:40
 
-Our main result combines archived transport, handover, and particle-pouring outcomes for the same 20 evaluation seeds. With explicit preferences, GPT succeeds in 54 of 60 cases and Gemini in 55, numerically above the five baselines. This summary uses 16 of 20 pouring successes for each model from the archived table. Separate local particle reruns give 17 of 20, and should not be mixed into that total. In handover, the task-text variant beats the text-omitted variant for both models after Holm correction. However, the mechanics-prompt comparison of Gemini against its text-omitted variant does not remain significant after that correction. Nor do the particle-pouring comparisons show a significant improvement over random. With only 20 seeds, even 20 successes gives a Wilson interval from about 84 to 100 percent. We therefore report promising task-specific behavior within this benchmark, without a general superiority claim.
+Our main result combines archived transport, handover, and particle-pouring outcomes for the same 20 evaluation seeds. With explicit preferences, GPT succeeds in 54 of 60 cases and Gemini in 55, numerically above the five original baselines. Our rule-only baseline M6 applies the same preferences without a language model and also reaches 54. Separate local particle reruns give 17 of 20 pouring successes, and should not be mixed into these totals. In handover, the task-text variant beats the text-omitted variant for both models after Holm correction. However, the mechanics-prompt comparison of Gemini against its text-omitted variant does not remain significant after that correction. Nor do the particle-pouring comparisons show a significant improvement over random. With only 20 seeds, even 20 successes gives a Wilson interval from about 84 to 100 percent. We therefore report promising task-specific behavior within this benchmark, without a general superiority claim.
 
-**Q&A detail:** Main metric: transport_place + handover_transfer + pour_water_pbf_table, 60 binary outcomes across 20 shared seeds. It is a descriptive sum, not 60 independent scene draws. The local pour_water_pbf series is a distinct evaluation. Holm correction covers all 170 reported comparisons. Handover M3_CODEX_V2 vs A1_CODEX_V2: 14 wins/0 losses, exact p=0.0001220703125, Holm p=0.02001953125. Gemini equivalent: 16/0, exact p=0.000030517578125, Holm p=0.00518798828125. Mechanics Gemini vs text-omitted mechanics Gemini: 11/0, exact p=0.0009765625, Holm p=0.15625. Archived and local PBF v2 versus M0: Holm p=1.0.
+**Q&A detail:** Main metric: transport_place + handover_transfer + pour_water_pbf_table, 60 binary outcomes across 20 shared seeds. It is a descriptive sum, not 60 independent scene draws. The local pour_water_pbf series is a distinct evaluation. Holm correction covers all 170 reported comparisons. Handover M3_CODEX_V2 vs A1_CODEX_V2: 14 wins/0 losses, exact p=0.0001220703125, Holm p=0.02001953125. Gemini equivalent: 16/0, exact p=0.000030517578125, Holm p=0.00518798828125. Mechanics Gemini vs text-omitted mechanics Gemini: 11/0, exact p=0.0009765625, Holm p=0.15625. Archived and local PBF v2 versus M0: Holm p=1.0. M6_PROMPT_RULES (grasp_c/rules.py) picks the same grasp family as both v2 models in 60/60 trials and the identical candidate in 27/60 (all 20 pours). Its rules were written after these seeds were examined.
 
 **Sources:**
 
 - `results/c_evaluation_multimodel_20261109/method_results.csv`
 - `results/c_evaluation_multimodel_20261109/summary.json: comparisons`
 - `results/c_evaluation_multimodel_20261109/report.md`
+- `results/oracle_20261103/m6_prompt_rules.md`
 
 ### Slide 10
 
 **Speaker:** C · Yao Xiaolu
 **Window:** 8:40–9:30
 
-We built an integrated benchmark linking grasp generation, task execution, and validated LLM selection. The central finding is that downstream constraints and the way we describe candidate scores both affect the chosen grasp. The fluid audit also matters: proxy and particle outcomes agree in only 347 of 458 cases, so a geometric proxy cannot replace fluid evaluation. The limitations are one simulated mug, synthetic pose observations, previously examined seeds, and one model sample per setting. Explicit preferences supply substantial domain knowledge, while historical tables lack complete environment fingerprints. Next, we would expose measured kinematic clearance features, freeze the prompts, and evaluate new objects and unseen seeds before a real-robot study. Thank you.
+We built an integrated benchmark linking grasp generation, task execution, and validated LLM selection. The central finding is that downstream constraints and the way we describe candidate scores both affect the chosen grasp. The fluid audit also matters: proxy and particle outcomes agree in only 347 of 458 cases, so a geometric proxy cannot replace fluid evaluation. The limitations are one simulated mug, synthetic pose observations, previously examined seeds, and one model sample per setting. Explicit preferences supply substantial domain knowledge: a rule-only baseline using the same preferences matches GPT at 54 of 60. Historical tables also lack complete environment fingerprints. Next, we would expose measured kinematic clearance features, freeze the prompts, and evaluate new objects and unseen seeds before a real-robot study. Thank you.
 
 **Cue:** End by 9:30. Keep the remaining 30 seconds for slide changes, pauses, and handovers. Backup slides are hidden from the regular slide show.
 
@@ -189,7 +192,7 @@ We built an integrated benchmark linking grasp generation, task execution, and v
 **Speaker:** Q&A backup
 **Window:** Outside timed presentation
 
-Complete 17-method count table for questions. T and H are archived rigid-body outcomes. P-table is historical PBF lookup and defines the primary total. P-local is a separate particle rerun of each selected grasp. Each task has denominator 20. All physical failures remain failures. Primary totals must use P-table consistently.
+Complete 18-method count table for questions. M6 is the rule-only baseline; its P-local equals the v2 models' 17 because its pour picks are identical. T and H are archived rigid-body outcomes. P-table is historical PBF lookup and defines the primary total. P-local is a separate particle rerun of each selected grasp. Each task has denominator 20. All physical failures remain failures. Primary totals must use P-table consistently.
 
 **Sources:**
 
@@ -201,7 +204,7 @@ Complete 17-method count table for questions. T and H are archived rigid-body ou
 **Speaker:** Q&A backup · Zhang Yijie
 **Window:** Outside timed presentation
 
-The wrench_v2 extension solves a linear program over predicted contact forces and compares their achievable six-dimensional wrenches against declared load sets. It is separate from M1_STATIC_V2 and from the 17-method benchmark. Two-point frictional models cannot support some axial moments that four-point body models can represent under their assumptions. Model infeasibility is not physical failure. Contact geometry, friction, and force capacity are not calibrated. The 202 recovered HiGHS Unknown statuses were diagnostic numerical cases, not successful grasp episodes. A further fixture retains a numerical error under the default settings. A bounded scaling-and-tolerance diagnostic resolved that fixture, but is not a global solver policy or validated quality measure.
+The wrench_v2 extension solves a linear program over predicted contact forces and compares their achievable six-dimensional wrenches against declared load sets. It is separate from M1_STATIC_V2 and from the 18-method benchmark. Two-point frictional models cannot support some axial moments that four-point body models can represent under their assumptions. Model infeasibility is not physical failure. Contact geometry, friction, and force capacity are not calibrated. The 202 recovered HiGHS Unknown statuses were diagnostic numerical cases, not successful grasp episodes. A further fixture retains a numerical error under the default settings. A bounded scaling-and-tolerance diagnostic resolved that fixture, but is not a global solver policy or validated quality measure.
 
 **Q&A detail:** The original presentation's statement that HiGHS v1.2 was used is misleading: v1.2 names the project's shared_capacity_utilization solver version, not necessarily the installed HiGHS release. The original 222→2 timeout comparison belongs to a later wide_strict_v3 controller experiment and must not be blended with the frozen wide_strict_v2 benchmark.
 
