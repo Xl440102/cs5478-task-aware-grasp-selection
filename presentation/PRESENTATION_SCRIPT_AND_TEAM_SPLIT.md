@@ -2,7 +2,7 @@
 
 The reviewed PowerPoint contains the full English speaker notes, an embedded 15-second demonstration, 10 main slides, and two hidden Q&A backups.
 
-- Presentation: [CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx) (adds the rule-only M6 baseline; the previous version is kept as [CS5478_Task_Aware_Grasp_Selection_Presentation.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation.pptx))
+- Presentation: [CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx) (adds the rule-only M6 baseline and report-style slide text with the key numbers and caveats on each slide; the spoken scripts below are unchanged in length; the previous version is kept as [CS5478_Task_Aware_Grasp_Selection_Presentation.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation.pptx))
 - Planned duration: 9:30 including the video, with 0:30 reserve.
 - Slide 3: click the video once. The three full task recordings are each accelerated to five seconds. The G02 seed-0 demo is separate from the benchmark.
 
