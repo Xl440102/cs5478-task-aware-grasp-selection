@@ -62,7 +62,7 @@
   "execute": "all",
   "liquid": "pbf",
   "m4_prior": {
-    "source": "results/local/oracle_r4_pbf",
+    "source": "results/oracle_20261103/r4_pbf_v3p_wide_strict_v3",
     "seeds": [
       0,
       1,
