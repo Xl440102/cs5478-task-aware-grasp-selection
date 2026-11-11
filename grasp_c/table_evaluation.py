@@ -22,7 +22,7 @@ import time
 
 from grasp_a.contracts import candidate_sha256, load_candidates
 from .config import load_config
-from .oracle import sign_test, wilson
+from .oracle import canonical_scene, sign_test, wilson
 from .prompts import build_messages, public_snapshot
 from .providers import build_provider
 from .runner import ROOT, _file_hashes, _git, _sha, atomic_json, _run_lock, trial_plan
@@ -34,12 +34,7 @@ SCHEMA = "grasp_c_table_run_v1"
 
 
 def _scene_dict(value) -> dict:
-    """Canonical scene dict: fields added later with archived-behaviour defaults
-    (e.g. disable_wrist_hand_collision=False) compare equal to their absence."""
-    from grasp_a.control import scene_randomization
-    if isinstance(value, dict):
-        value = {k: tuple(v) if isinstance(v, list) else v for k, v in value.items()}
-    return json.loads(json.dumps(asdict(scene_randomization(value))))
+    return canonical_scene(value)
 
 
 def read(path):

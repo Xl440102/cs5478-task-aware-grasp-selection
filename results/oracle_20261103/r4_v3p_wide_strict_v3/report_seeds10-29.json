@@ -82,6 +82,26 @@
             "p": 0.0390625
           }
         },
+        "M6_PROMPT_RULES": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 20,
+          "success_rate": 1.0,
+          "distinct_selected_ids": 1,
+          "selected_families": {
+            "rim": 20
+          },
+          "ci95": [
+            0.8388698745050668,
+            0.9999999999999999
+          ],
+          "regret_vs_oracle": 0.0,
+          "vs_M0": {
+            "wins": 6,
+            "losses": 0,
+            "p": 0.03125
+          }
+        },
         "M4_FAMILY_PRIOR": {
           "seeds": 20,
           "scored": 20,
@@ -209,6 +229,12 @@
               "success": false,
               "failure_reason": "no_unintended_collision"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -280,6 +306,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
               "family": "rim",
@@ -348,6 +380,12 @@
             "M5_PAPER_STYLE": {
               "selected_id": "B3_2880fbb6c6702788",
               "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
               "success": true,
               "failure_reason": null
             },
@@ -422,6 +460,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -493,6 +537,12 @@
               "success": false,
               "failure_reason": "no_drop"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -561,6 +611,12 @@
             "M5_PAPER_STYLE": {
               "selected_id": "B3_2880fbb6c6702788",
               "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
               "success": true,
               "failure_reason": null
             },
@@ -635,6 +691,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -705,6 +767,12 @@
               "family": "side",
               "success": false,
               "failure_reason": "no_unintended_collision"
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
             },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
@@ -777,6 +845,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
               "family": "rim",
@@ -845,6 +919,12 @@
             "M5_PAPER_STYLE": {
               "selected_id": "B3_2bf8d5b68bea164f",
               "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
               "success": true,
               "failure_reason": null
             },
@@ -919,6 +999,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
               "family": "rim",
@@ -989,6 +1075,12 @@
               "family": "side",
               "success": false,
               "failure_reason": "stage_outcomes"
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
             },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
@@ -1061,6 +1153,12 @@
               "success": false,
               "failure_reason": "no_drop"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
               "family": "rim",
@@ -1129,6 +1227,12 @@
             "M5_PAPER_STYLE": {
               "selected_id": "B3_2880fbb6c6702788",
               "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
               "success": true,
               "failure_reason": null
             },
@@ -1203,6 +1307,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
               "family": "rim",
@@ -1273,6 +1383,12 @@
               "family": "side",
               "success": false,
               "failure_reason": "stage_outcomes"
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
             },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
@@ -1345,6 +1461,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
               "family": "rim",
@@ -1415,6 +1537,12 @@
               "family": "side",
               "success": false,
               "failure_reason": "stage_outcomes"
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
             },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0c89592bda4c78bb",
@@ -1487,6 +1615,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -1555,6 +1689,12 @@
             "M5_PAPER_STYLE": {
               "selected_id": "B3_2880fbb6c6702788",
               "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
               "success": true,
               "failure_reason": null
             },
@@ -1669,6 +1809,26 @@
             "wins": 4,
             "losses": 2,
             "p": 0.6875
+          }
+        },
+        "M6_PROMPT_RULES": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 18,
+          "success_rate": 0.9,
+          "distinct_selected_ids": 2,
+          "selected_families": {
+            "top": 20
+          },
+          "ci95": [
+            0.6989617935882066,
+            0.9721341060158468
+          ],
+          "regret_vs_oracle": 0.09999999999999998,
+          "vs_M0": {
+            "wins": 9,
+            "losses": 2,
+            "p": 0.0654296875
           }
         },
         "M4_FAMILY_PRIOR": {
@@ -1797,6 +1957,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -1867,6 +2033,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -1932,6 +2104,12 @@
               "failure_reason": null
             },
             "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
+            "M6_PROMPT_RULES": {
               "selected_id": "B3_599e9b16f5782406",
               "family": "top",
               "success": false,
@@ -2007,6 +2185,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -2077,6 +2261,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -2142,6 +2332,12 @@
               "failure_reason": null
             },
             "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
               "selected_id": "B3_640399fab83e671a",
               "family": "top",
               "success": true,
@@ -2217,6 +2413,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -2286,6 +2488,12 @@
               "family": "side",
               "success": false,
               "failure_reason": "no_unintended_collision"
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
             },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
@@ -2357,6 +2565,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -2422,6 +2636,12 @@
               "failure_reason": null
             },
             "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
               "selected_id": "B3_599e9b16f5782406",
               "family": "top",
               "success": true,
@@ -2497,6 +2717,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -2567,6 +2793,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": false,
+              "failure_reason": "approach_arrival_timeout"
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -2632,6 +2864,12 @@
               "failure_reason": null
             },
             "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
               "selected_id": "B3_640399fab83e671a",
               "family": "top",
               "success": true,
@@ -2707,6 +2945,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -2772,6 +3016,12 @@
               "failure_reason": null
             },
             "M5_PAPER_STYLE": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
               "selected_id": "B3_599e9b16f5782406",
               "family": "top",
               "success": true,
@@ -2847,6 +3097,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -2914,6 +3170,12 @@
             "M5_PAPER_STYLE": {
               "selected_id": "B3_034c4eac3fb53111",
               "family": "side",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_599e9b16f5782406",
+              "family": "top",
               "success": true,
               "failure_reason": null
             },
@@ -2987,6 +3249,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_1cd02c73b1f59234",
               "family": "rim",
@@ -3057,6 +3325,12 @@
               "success": false,
               "failure_reason": "stage_outcomes"
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_960a70b9f31cb1ac",
               "family": "rim",
@@ -3122,6 +3396,12 @@
               "failure_reason": null
             },
             "M5_PAPER_STYLE": {
+              "selected_id": "B3_640399fab83e671a",
+              "family": "top",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
               "selected_id": "B3_640399fab83e671a",
               "family": "top",
               "success": true,
@@ -3235,6 +3515,27 @@
           "vs_M0": {
             "wins": 1,
             "losses": 0,
+            "p": 1.0
+          }
+        },
+        "M6_PROMPT_RULES": {
+          "seeds": 20,
+          "scored": 20,
+          "successes": 19,
+          "success_rate": 0.95,
+          "distinct_selected_ids": 3,
+          "selected_families": {
+            "handle": 19,
+            "rim": 1
+          },
+          "ci95": [
+            0.7638641064874331,
+            0.9911187805671268
+          ],
+          "regret_vs_oracle": 0.050000000000000044,
+          "vs_M0": {
+            "wins": 1,
+            "losses": 1,
             "p": 1.0
           }
         },
@@ -3365,6 +3666,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
@@ -3432,6 +3739,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -3507,6 +3820,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
@@ -3574,6 +3893,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -3649,6 +3974,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
@@ -3716,6 +4047,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -3791,6 +4128,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_01d31ecafeb58600",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_01d31ecafeb58600",
               "family": "handle",
@@ -3858,6 +4201,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -3933,6 +4282,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_01d31ecafeb58600",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_01d31ecafeb58600",
               "family": "handle",
@@ -4000,6 +4355,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_01d31ecafeb58600",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -4075,6 +4436,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
@@ -4142,6 +4509,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -4217,6 +4590,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_960a70b9f31cb1ac",
+              "family": "rim",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_178b0b42e93bcffb",
               "family": "handle",
@@ -4284,6 +4663,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -4359,6 +4744,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_01d31ecafeb58600",
+              "family": "handle",
+              "success": false,
+              "failure_reason": "no_unintended_collision"
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_01d31ecafeb58600",
               "family": "handle",
@@ -4426,6 +4817,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -4501,6 +4898,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_01d31ecafeb58600",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_01d31ecafeb58600",
               "family": "handle",
@@ -4568,6 +4971,12 @@
             },
             "M5_PAPER_STYLE": {
               "selected_id": "B3_6d11150c6f511233",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
               "success": true,
               "failure_reason": null
@@ -4643,6 +5052,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
@@ -4714,6 +5129,12 @@
               "success": true,
               "failure_reason": null
             },
+            "M6_PROMPT_RULES": {
+              "selected_id": "B3_0a6016ef8f68fb6e",
+              "family": "handle",
+              "success": true,
+              "failure_reason": null
+            },
             "M4_FAMILY_PRIOR": {
               "selected_id": "B3_0a6016ef8f68fb6e",
               "family": "handle",
@@ -4751,6 +5172,7 @@
     "M1_STATIC_V2",
     "M2_TASK_RISK",
     "M5_PAPER_STYLE",
+    "M6_PROMPT_RULES",
     "M4_FAMILY_PRIOR",
     "M3_MOCK",
     "A1_MOCK",
@@ -4812,7 +5234,7 @@
     "execute": "all",
     "liquid": "proxy_margin",
     "m4_prior": {
-      "source": "results/local/oracle_r4",
+      "source": "results/oracle_20261103/r4_v3p_wide_strict_v3",
       "seeds": [
         0,
         1,

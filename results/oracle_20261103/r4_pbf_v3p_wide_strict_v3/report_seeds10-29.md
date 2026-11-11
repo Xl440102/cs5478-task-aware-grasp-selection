@@ -14,31 +14,32 @@ Feasible per seed: mean 15.1, min 12; distinct feasible sets 19/20; mean Jaccard
 | M1_STATIC_V2 | 17/20 | 0.85 | 0.64-0.95 | 3/2, p=1.00 | 0.15 | 4 | {'side': 11, 'top': 9} |
 | M2_TASK_RISK | 18/20 | 0.90 | 0.70-0.97 | 3/1, p=0.62 | 0.10 | 5 | {'side': 18, 'top': 2} |
 | M5_PAPER_STYLE | 17/20 | 0.85 | 0.64-0.95 | 3/2, p=1.00 | 0.15 | 4 | {'side': 11, 'top': 9} |
+| M6_PROMPT_RULES | 18/20 | 0.90 | 0.70-0.97 | 4/2, p=0.69 | 0.10 | 2 | {'top': 20} |
 | M4_FAMILY_PRIOR | 12/20 | 0.60 | 0.39-0.78 | 1/5, p=0.22 | 0.40 | 2 | {'rim': 20} |
 | M3_MOCK | 15/20 | 0.75 | 0.53-0.89 | 3/4, p=1.00 | 0.25 | 5 | {'side': 20} |
 | A1_MOCK | 15/20 | 0.75 | 0.53-0.89 | 3/4, p=1.00 | 0.25 | 5 | {'side': 20} |
 | ORACLE | 20/20 | 1.00 | 0.84-1.00 | - | - | - | - |
 | uniform over feasible (expectation) | | 0.68 | | | | | |
 
-| seed | feasible (by family) | succeeded/executed | M0_RANDOM | M1_STATIC_V2 | M2_TASK_RISK | M5_PAPER_STYLE | M4_FAMILY_PRIOR | M3_MOCK | A1_MOCK |
-|---|---|---|---|---|---|---|---|---|---|
-| 10 | 17 {'rim': 2, 'side': 7, 'top': 8} | 14/17 | ✓ rim | ✓ side | ✓ side | ✓ side | ✓ rim | ✓ side | ✓ side |
-| 11 | 14 {'rim': 2, 'side': 7, 'top': 5} | 8/14 | ✓ top | ✓ side | ✓ side | ✓ side | ✗ rim | ✓ side | ✓ side |
-| 12 | 15 {'rim': 2, 'side': 5, 'top': 8} | 9/15 | ✓ rim | ✗ top | ✓ side | ✗ top | ✓ rim | ✓ side | ✓ side |
-| 13 | 15 {'rim': 2, 'side': 6, 'top': 7} | 10/15 | ✓ top | ✓ top | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
-| 14 | 16 {'rim': 2, 'side': 7, 'top': 7} | 8/16 | ✗ top | ✓ side | ✓ side | ✓ side | ✗ rim | ✓ side | ✓ side |
-| 15 | 16 {'rim': 4, 'side': 5, 'top': 7} | 9/16 | ✓ side | ✓ top | ✓ side | ✓ top | ✗ rim | ✗ side | ✗ side |
-| 16 | 17 {'rim': 2, 'side': 7, 'top': 8} | 12/17 | ✓ rim | ✓ top | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
-| 17 | 12 {'rim': 1, 'side': 6, 'top': 5} | 7/12 | ✗ top | ✗ side | ✗ side | ✗ side | ✓ rim | ✗ side | ✗ side |
-| 18 | 16 {'rim': 2, 'side': 8, 'top': 6} | 13/16 | ✓ side | ✓ side | ✓ side | ✓ side | ✓ rim | ✓ side | ✓ side |
-| 19 | 15 {'rim': 2, 'side': 5, 'top': 8} | 13/15 | ✓ rim | ✓ top | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
-| 20 | 17 {'rim': 3, 'side': 7, 'top': 7} | 13/17 | ✗ rim | ✓ side | ✓ side | ✓ side | ✗ rim | ✓ side | ✓ side |
-| 21 | 16 {'rim': 2, 'side': 7, 'top': 7} | 12/16 | ✓ top | ✓ side | ✓ side | ✓ side | ✓ rim | ✓ side | ✓ side |
-| 22 | 13 {'rim': 3, 'side': 4, 'top': 6} | 10/13 | ✓ top | ✓ top | ✓ top | ✓ top | ✓ rim | ✗ side | ✗ side |
-| 23 | 13 {'rim': 2, 'side': 6, 'top': 5} | 11/13 | ✓ top | ✓ top | ✓ side | ✓ top | ✗ rim | ✓ side | ✓ side |
-| 24 | 15 {'rim': 3, 'side': 5, 'top': 7} | 9/15 | ✓ side | ✓ top | ✓ top | ✓ top | ✓ rim | ✗ side | ✗ side |
-| 25 | 17 {'rim': 2, 'side': 8, 'top': 7} | 8/17 | ✓ side | ✗ side | ✗ side | ✗ side | ✗ rim | ✗ side | ✗ side |
-| 26 | 16 {'rim': 2, 'side': 7, 'top': 7} | 12/16 | ✓ top | ✓ side | ✓ side | ✓ side | ✓ rim | ✓ side | ✓ side |
-| 27 | 13 {'rim': 2, 'side': 6, 'top': 5} | 8/13 | ✗ top | ✓ side | ✓ side | ✓ side | ✗ rim | ✓ side | ✓ side |
-| 28 | 15 {'rim': 2, 'side': 6, 'top': 7} | 9/15 | ✓ side | ✓ side | ✓ side | ✓ side | ✗ rim | ✓ side | ✓ side |
-| 29 | 14 {'rim': 1, 'side': 6, 'top': 7} | 11/14 | ✓ top | ✓ top | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
+| seed | feasible (by family) | succeeded/executed | M0_RANDOM | M1_STATIC_V2 | M2_TASK_RISK | M5_PAPER_STYLE | M6_PROMPT_RULES | M4_FAMILY_PRIOR | M3_MOCK | A1_MOCK |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 10 | 17 {'rim': 2, 'side': 7, 'top': 8} | 14/17 | ✓ rim | ✓ side | ✓ side | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
+| 11 | 14 {'rim': 2, 'side': 7, 'top': 5} | 8/14 | ✓ top | ✓ side | ✓ side | ✓ side | ✓ top | ✗ rim | ✓ side | ✓ side |
+| 12 | 15 {'rim': 2, 'side': 5, 'top': 8} | 9/15 | ✓ rim | ✗ top | ✓ side | ✗ top | ✗ top | ✓ rim | ✓ side | ✓ side |
+| 13 | 15 {'rim': 2, 'side': 6, 'top': 7} | 10/15 | ✓ top | ✓ top | ✓ side | ✓ top | ✓ top | ✓ rim | ✓ side | ✓ side |
+| 14 | 16 {'rim': 2, 'side': 7, 'top': 7} | 8/16 | ✗ top | ✓ side | ✓ side | ✓ side | ✓ top | ✗ rim | ✓ side | ✓ side |
+| 15 | 16 {'rim': 4, 'side': 5, 'top': 7} | 9/16 | ✓ side | ✓ top | ✓ side | ✓ top | ✓ top | ✗ rim | ✗ side | ✗ side |
+| 16 | 17 {'rim': 2, 'side': 7, 'top': 8} | 12/17 | ✓ rim | ✓ top | ✓ side | ✓ top | ✓ top | ✓ rim | ✓ side | ✓ side |
+| 17 | 12 {'rim': 1, 'side': 6, 'top': 5} | 7/12 | ✗ top | ✗ side | ✗ side | ✗ side | ✓ top | ✓ rim | ✗ side | ✗ side |
+| 18 | 16 {'rim': 2, 'side': 8, 'top': 6} | 13/16 | ✓ side | ✓ side | ✓ side | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
+| 19 | 15 {'rim': 2, 'side': 5, 'top': 8} | 13/15 | ✓ rim | ✓ top | ✓ side | ✓ top | ✓ top | ✓ rim | ✓ side | ✓ side |
+| 20 | 17 {'rim': 3, 'side': 7, 'top': 7} | 13/17 | ✗ rim | ✓ side | ✓ side | ✓ side | ✓ top | ✗ rim | ✓ side | ✓ side |
+| 21 | 16 {'rim': 2, 'side': 7, 'top': 7} | 12/16 | ✓ top | ✓ side | ✓ side | ✓ side | ✗ top | ✓ rim | ✓ side | ✓ side |
+| 22 | 13 {'rim': 3, 'side': 4, 'top': 6} | 10/13 | ✓ top | ✓ top | ✓ top | ✓ top | ✓ top | ✓ rim | ✗ side | ✗ side |
+| 23 | 13 {'rim': 2, 'side': 6, 'top': 5} | 11/13 | ✓ top | ✓ top | ✓ side | ✓ top | ✓ top | ✗ rim | ✓ side | ✓ side |
+| 24 | 15 {'rim': 3, 'side': 5, 'top': 7} | 9/15 | ✓ side | ✓ top | ✓ top | ✓ top | ✓ top | ✓ rim | ✗ side | ✗ side |
+| 25 | 17 {'rim': 2, 'side': 8, 'top': 7} | 8/17 | ✓ side | ✗ side | ✗ side | ✗ side | ✓ top | ✗ rim | ✗ side | ✗ side |
+| 26 | 16 {'rim': 2, 'side': 7, 'top': 7} | 12/16 | ✓ top | ✓ side | ✓ side | ✓ side | ✓ top | ✓ rim | ✓ side | ✓ side |
+| 27 | 13 {'rim': 2, 'side': 6, 'top': 5} | 8/13 | ✗ top | ✓ side | ✓ side | ✓ side | ✓ top | ✗ rim | ✓ side | ✓ side |
+| 28 | 15 {'rim': 2, 'side': 6, 'top': 7} | 9/15 | ✓ side | ✓ side | ✓ side | ✓ side | ✓ top | ✗ rim | ✓ side | ✓ side |
+| 29 | 14 {'rim': 1, 'side': 6, 'top': 7} | 11/14 | ✓ top | ✓ top | ✓ side | ✓ top | ✓ top | ✓ rim | ✓ side | ✓ side |

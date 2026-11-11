@@ -164,6 +164,8 @@ def build_selectors(llm_methods, cache_dir, *, prior=None):
                  "M1_STATIC_V2": b_rank(lambda task: None),
                  "M2_TASK_RISK": b_rank(lambda task: command_context(task)),
                  "M5_PAPER_STYLE": m5_paper}
+    from .rules import METHOD_ID as M6_ID, rank as m6_rank
+    selectors[M6_ID] = lambda task, public, seed, candidates, model, families: m6_rank(task, public)
     if prior is not None:
         def m4(task, public, seed, candidates, model, families):
             by_id = {c.id: c for c in candidates}
@@ -187,6 +189,16 @@ def build_selectors(llm_methods, cache_dir, *, prior=None):
                 return result.get("ranking") or [result["selected_id"]]
             selectors[method["id"]] = llm
     return selectors
+
+
+def canonical_scene(value) -> dict:
+    """Scene dict with every current field: a field added later with its
+    archived-behaviour default (e.g. disable_wrist_hand_collision=False)
+    compares equal to its absence."""
+    from grasp_a.control import scene_randomization
+    if isinstance(value, dict):
+        value = {k: tuple(v) if isinstance(v, list) else v for k, v in value.items()}
+    return json.loads(json.dumps(asdict(scene_randomization(value))))
 
 
 # ------------------------------------------------------------------ report
@@ -373,8 +385,14 @@ def main(argv=None):
                 liquid=args.liquid)
     if (out / "meta.json").exists():
         old = _read(out / "meta.json")
-        if (old["generator"], old["scene"]) != (meta["generator"], json.loads(json.dumps(meta["scene"]))):
+        try:
+            same_scene = canonical_scene(old["scene"]) == canonical_scene(meta["scene"])
+        except (TypeError, ValueError):
+            same_scene = False
+        if old["generator"] != meta["generator"] or not same_scene:
             raise SystemExit("existing run uses another generator/scene; choose a new --out")
+        # Keep the stored spelling: cached filters carry it as their identity.
+        meta["scene"] = old["scene"]
         if "pour_water" in args.tasks and old.get("liquid", args.liquid) != args.liquid and \
                 (out / "episodes" / "pour_water").exists():
             raise SystemExit("existing pour_water episodes use another --liquid; choose a new --out")
