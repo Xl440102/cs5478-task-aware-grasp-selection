@@ -4,7 +4,7 @@ The reviewed PowerPoint contains the full English speaker notes, an embedded 15-
 
 - Presentation: [CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation_v2.pptx) (adds the rule-only M6 baseline and report-style slide text with the key numbers and caveats on each slide; the spoken scripts below are unchanged in length; the previous version is kept as [CS5478_Task_Aware_Grasp_Selection_Presentation.pptx](CS5478_Task_Aware_Grasp_Selection_Presentation.pptx))
 - Planned duration: 9:30 including the video, with 0:30 reserve.
-- Slide 3: click the video once. The three full task recordings are each accelerated to five seconds. The G02 seed-0 demo is separate from the benchmark.
+- Slide 3: the video starts automatically when the slide opens (click it to pause or resume). The three full task recordings are each accelerated to five seconds. The G02 seed-0 demo is separate from the benchmark.
 
 ## Speaker allocation
 
@@ -64,7 +64,7 @@ A secure pickup is only the beginning. To place a mug, the fingers must open and
 
 Part A implements a seven-joint Panda arm, a hollow mug, a receiver gripper, and a receiving cup in PyBullet. The filter rehearses the execution waypoints with bounded, multiple-start inverse kinematics. We also restrict finger contact during approach to the final waypoint. This reduces the mismatch between planning and execution, but passing the filter still does not guarantee dynamic success. The benchmark uses noisy pose estimates generated from the simulated object pose, rather than a perception system. For pouring, we use 256 simulated fluid particles and require at least 90 percent transfer with at most five percent spill, together with stability checks. Here is a 15-second recording of the three task sequences. These seed-zero demonstrations use an earlier candidate set and illustrate the controllers, separately from the benchmark results. Zhang Yijie will now explain how the modules fit together.
 
-**Cue:** Play the embedded 15-second montage once after ‘three task sequences’. The montage accelerates each full source clip to five seconds. If playback fails, use the three stills as the demonstration and continue. Total slide budget includes 15 seconds of playback.
+**Cue:** The embedded 15-second montage starts automatically when this slide opens and plays once while you introduce Part A; click the video to pause or resume, and use its play bar to replay it after ‘three task sequences’ if needed. The montage accelerates each full source clip to five seconds. If playback fails, use the three stills as the demonstration and continue. Total slide budget includes 15 seconds of playback.
 
 **Sources:**
 
