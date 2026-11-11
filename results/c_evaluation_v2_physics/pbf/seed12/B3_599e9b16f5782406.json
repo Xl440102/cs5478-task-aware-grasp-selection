@@ -1,0 +1,3169 @@
+{
+  "candidate_id": "B3_599e9b16f5782406",
+  "episode": {
+    "candidate_sha256": "2886f69d5b98504b04cb08b1a295b4281617d2037292039d4dfbd29e00b8df28",
+    "collision": false,
+    "collision_events": [],
+    "collision_types": [],
+    "controller_version": "staged_sequences_v1",
+    "dropped": false,
+    "elapsed_s": 4.554166666666666,
+    "evaluation_version": "physical_outcomes_v1",
+    "failure_reason": "approach_arrival_timeout",
+    "feasibility": {
+      "candidate_id": "B3_599e9b16f5782406",
+      "collision_details": [],
+      "feasible": true,
+      "grasp_position_error_m": 8.568182466133992e-06,
+      "min_table_clearance_m": 0.1,
+      "pregrasp_position_error_m": 4.943532162659818e-06,
+      "reasons": []
+    },
+    "final_evidence": {
+      "donor_clearance_m": -0.0015579537743429963,
+      "donor_contact": true,
+      "receiver_contact": false,
+      "receiver_contact_links": [],
+      "source_angular_speed_deg_s": 0.2229148919782716,
+      "source_goal_error_m": 0.20137751764975637,
+      "source_linear_speed_m_s": 0.00023122126086750486,
+      "source_position": [
+        0.5739794222035447,
+        -0.019611219816074603,
+        0.6521564630252965
+      ],
+      "source_quaternion": [
+        0.016502166719423846,
+        0.10055575223760634,
+        0.020714323133006952,
+        0.9945788736961161
+      ],
+      "source_upright_deg": 11.697279451638764,
+      "source_xy_error_m": 0.18120486465057753,
+      "source_z_m": 0.6521564630252965,
+      "table_contact": true,
+      "target_angular_speed_deg_s": 4.948812630367119e-12,
+      "target_displacement_m": 0.0009900001947454977,
+      "target_linear_speed_m_s": 9.844078728964282e-15,
+      "target_upright_deg": 0.0,
+      "water": {
+        "accounting_error_kg": 0.0,
+        "finite_state": true,
+        "fluid_sample_count": 256,
+        "initial_mass_kg": 0.1,
+        "max_compression": 0.0036480583281508494,
+        "maximum_sample_speed_m_s": 0.015570568636010564,
+        "outside_mass_kg": 0.0,
+        "source_mass_kg": 0.1,
+        "spill_ratio": 0.0,
+        "target_mass_kg": 0.0,
+        "transfer_ratio": 0.0
+      }
+    },
+    "ik_diagnostics": [
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 0.00026340916216374693,
+            "raw_joint_limit_violations": [
+              "panda_joint6"
+            ],
+            "reason": "joint_limit"
+          },
+          {
+            "method": "bounded",
+            "orientation_error_deg": 12.615024199103507,
+            "position_error_m": 0.017491622384442577,
+            "raw_joint_limit_violations": [
+              "panda_joint5",
+              "panda_joint6"
+            ],
+            "reason": "accepted"
+          },
+          {
+            "method": "restart_0",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 6.123675036246398e-06,
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          0.004002562355169675,
+          0.2019196851884073,
+          -0.03468049205605585,
+          -2.2153858666246298,
+          0.010482426403923408,
+          2.4171636789335422,
+          -1.1596163357853262
+        ],
+        "movable_dofs": 9,
+        "solver": "restart_0",
+        "stage": "pregrasp",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.548167884349823,
+            -0.016706433147192,
+            0.7811498045921326
+          ],
+          "quaternion": [
+            0.5787525939141289,
+            0.8155031790481673,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 9.006741218956628e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.1785892208695384,
+          0.20405575529039083,
+          0.14901810315794708,
+          -2.21521730191132,
+          -0.045382027053700834,
+          2.416564054509427,
+          -1.1204390547147403
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "pregrasp_endpoint",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.548167884349823,
+            -0.016706433147192,
+            0.7811498045921326
+          ],
+          "quaternion": [
+            0.5787526369094849,
+            0.8155031800270081,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.492876856475874e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.17710991639540186,
+          0.2301232373935153,
+          0.14673454020171514,
+          -2.2208685945609608,
+          -0.06702946900655257,
+          2.447874971457679,
+          -1.1154400504198394
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481794873873392,
+            -0.01777268076936404,
+            0.7674600150850084
+          ],
+          "quaternion": [
+            0.5742501020431519,
+            0.8186662793159485,
+            -0.0038712183013558388,
+            0.0027470793575048447
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.940552764917874e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.17540212759273033,
+          0.2572771349963488,
+          0.1440803003541012,
+          -2.2250922468578027,
+          -0.07292038971202726,
+          2.478867955796593,
+          -1.1099205523672933
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481780370076497,
+            -0.017639399816592537,
+            0.7537443571620517
+          ],
+          "quaternion": [
+            0.5748146176338196,
+            0.8182732462882996,
+            -0.0033873228821903467,
+            0.0024036995600908995
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.787777964962359e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.17336876523988579,
+          0.2854470317780054,
+          0.14096743955275579,
+          -2.2278058939204644,
+          -0.07905828808033828,
+          2.5093819239566812,
+          -1.1042752838651615
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481765866279602,
+            -0.01750611886382103,
+            0.7400286992390952
+          ],
+          "quaternion": [
+            0.5753785967826843,
+            0.8178795576095581,
+            -0.002903424669057131,
+            0.0020603174343705177
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.963071341481703e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.17098672799224132,
+          0.31457353172987723,
+          0.13738443786517351,
+          -2.229019049846502,
+          -0.08536028154712656,
+          2.5393773258070373,
+          -1.098555012326728
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481751362482707,
+            -0.017372837911049523,
+            0.7263130413161383
+          ],
+          "quaternion": [
+            0.5759422183036804,
+            0.8174852728843689,
+            -0.0024195245932787657,
+            0.001716934028081596
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.447616699200022e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.16824301262609073,
+          0.3446038975234451,
+          0.13333551863650042,
+          -2.228728997066004,
+          -0.09173110823013712,
+          2.5688079184268022,
+          -1.0928188127805682
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481736858685811,
+            -0.017239556958278023,
+            0.7125973833931818
+          ],
+          "quaternion": [
+            0.5765052437782288,
+            0.8170901536941528,
+            -0.0019356218399479985,
+            0.0013735487591475248
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 9.069327195589071e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.1651411174906842,
+          0.37547668463496603,
+          0.1288447330414868,
+          -2.2269438613853327,
+          -0.0980636192222254,
+          2.597629423619625,
+          -1.0871355715470077
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481722354888916,
+            -0.017106276005506516,
+            0.6988817254702251
+          ],
+          "quaternion": [
+            0.5770677328109741,
+            0.816694438457489,
+            -0.0014517178060486913,
+            0.0010301625588908792
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.573993485586086e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.1616985098098772,
+          0.40714139394958043,
+          0.12395516714456675,
+          -2.223659355277564,
+          -0.10424885983698524,
+          2.625793712133329,
+          -1.081574141693669
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.548170785109202,
+            -0.016972995052735012,
+            0.6851660675472684
+          ],
+          "quaternion": [
+            0.5776298642158508,
+            0.8162980079650879,
+            -0.0009678124915808439,
+            0.0006867754855193198
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.704780207405172e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.15795218268531358,
+          0.43953852251195835,
+          0.11873049929919541,
+          -2.218886406450661,
+          -0.11017886404505481,
+          2.653257534197256,
+          -1.0762056233877921
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.5481693347295126,
+            -0.016839714099963505,
+            0.6714504096243116
+          ],
+          "quaternion": [
+            0.5781915187835693,
+            0.8159009218215942,
+            -0.00048390644951723516,
+            0.00034338788827881217
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.77945575237937e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.15395333010079115,
+          0.4726166897486425,
+          0.11325014180512119,
+          -2.212628885408214,
+          -0.11575671087251085,
+          2.679975435010223,
+          -1.0710940185034745
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.548167884349823,
+            -0.016706433147192,
+            0.657734751701355
+          ],
+          "quaternion": [
+            0.5787526369094849,
+            0.8155031800270081,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      {
+        "attempts": [
+          {
+            "method": "local",
+            "orientation_error_deg": 0.0,
+            "position_error_m": 8.74868940765206e-06,
+            "raw_joint_limit_violations": [],
+            "reason": "accepted"
+          }
+        ],
+        "joint_positions": [
+          -0.15288068268003946,
+          0.47255727167721406,
+          0.11226545804846655,
+          -2.2126508596209256,
+          -0.11474973012165528,
+          2.6800298798620275,
+          -1.0717985279941327
+        ],
+        "movable_dofs": 9,
+        "solver": "local",
+        "stage": "approach_endpoint",
+        "success": true,
+        "target_pose": {
+          "position": [
+            0.548167884349823,
+            -0.016706433147192,
+            0.657734751701355
+          ],
+          "quaternion": [
+            0.5787526369094849,
+            0.8155031800270081,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    ],
+    "initial_object_pose_estimate": {
+      "position": [
+        0.548167863836902,
+        -0.016706433766848976,
+        0.642734750482971
+      ],
+      "quaternion": [
+        0.0,
+        0.0,
+        0.16740794479846954,
+        0.9858877062797546
+      ]
+    },
+    "liquid_initial_check": {
+      "accounting_error_kg": 0.0,
+      "finite_state": true,
+      "fluid_sample_count": 256,
+      "initial_mass_kg": 0.1,
+      "max_compression": 0.001530116006659421,
+      "maximum_sample_speed_m_s": 0.09818774710199517,
+      "outside_mass_kg": 0.0,
+      "source_mass_kg": 0.1,
+      "spill_ratio": 0.0,
+      "target_mass_kg": 0.0,
+      "transfer_ratio": 0.0
+    },
+    "liquid_mode": "pbf",
+    "liquid_model": {
+      "constraint_iterations": 8,
+      "limitations": [
+        "low-resolution numerical liquid; not calibrated CFD",
+        "compression-only density constraints; no vorticity confinement",
+        "analytic vessel boundaries; no calibrated surface tension/wetting"
+      ],
+      "model": "position_based_fluid",
+      "reference": "https://mmacklin.com/pbf_sig_preprint.pdf",
+      "rest_density_kg_m3": 1000.0,
+      "rigid_beads": false,
+      "sample_count": 256,
+      "smoothing_length_m": 0.0131580798219579,
+      "total_mass_kg": 0.1,
+      "version": "numpy_pbf_v1",
+      "xsph_coefficient": 0.02
+    },
+    "max_fluid_compression": 0.010014308721672194,
+    "maximum_unsupported_s": 0.0,
+    "observation_config": {
+      "noise_seed": 12000053,
+      "object_pose": {
+        "position": [
+          0.5479656542950839,
+          -0.017126374867137237,
+          0.645
+        ],
+        "quaternion": [
+          0.0,
+          0.0,
+          0.17338395996423092,
+          0.9848543051777364
+        ]
+      },
+      "position_noise_m": 0.003,
+      "source": "external_estimate",
+      "yaw_noise_deg": 2.0
+    },
+    "pour_proxy": null,
+    "primitive_log": [
+      {
+        "command": {
+          "duration_s": 1.0,
+          "kind": "move_tcp",
+          "path": "joint",
+          "target": {
+            "position": [
+              0.548167884349823,
+              -0.016706433147192,
+              0.7811498045921326
+            ],
+            "quaternion": [
+              0.5787526369094849,
+              0.8155032396316528,
+              0.0,
+              0.0
+            ]
+          },
+          "width": null
+        },
+        "feedback": {
+          "observation": {
+            "actions_executed": 1,
+            "elapsed_s": 1.0,
+            "gripper_width": 0.08005380343848434,
+            "initial_object_pose_estimate": {
+              "position": [
+                0.548167863836902,
+                -0.016706433766848976,
+                0.642734750482971
+              ],
+              "quaternion": [
+                0.0,
+                0.0,
+                0.16740794479846954,
+                0.9858877062797546
+              ]
+            },
+            "joint_positions": [
+              0.05626547287260665,
+              0.2139054407526875,
+              -0.07492612059472105,
+              -2.2383941354754175,
+              -1.133626832717545,
+              2.3920619046503324,
+              -1.0707970296004978
+            ],
+            "last_action": {
+              "kind": "move_tcp",
+              "status": "executed",
+              "tool_orientation_error_deg": 62.783029909283655,
+              "tool_position_error_m": 0.07089756921274107
+            },
+            "observation_source": "external_estimate",
+            "tool_pose": {
+              "position": [
+                0.5650023818016052,
+                -0.08429867029190063,
+                0.7943541407585144
+              ],
+              "quaternion": [
+                0.18839892745018005,
+                0.9130455851554871,
+                -0.30730316042900085,
+                0.19083622097969055
+              ]
+            }
+          },
+          "status": "executed",
+          "tool_orientation_error_deg": 62.783029909283655,
+          "tool_position_error_m": 0.07089756921274107
+        },
+        "stage": "pregrasp"
+      },
+      {
+        "command": {
+          "duration_s": 0.7,
+          "kind": "move_tcp",
+          "path": "cartesian",
+          "target": {
+            "position": [
+              0.548167884349823,
+              -0.016706433147192,
+              0.657734751701355
+            ],
+            "quaternion": [
+              0.5787526369094849,
+              0.8155031800270081,
+              0.0,
+              0.0
+            ]
+          },
+          "width": null
+        },
+        "feedback": {
+          "observation": {
+            "actions_executed": 2,
+            "elapsed_s": 2.5541666666666667,
+            "gripper_width": 0.07998510060980007,
+            "initial_object_pose_estimate": {
+              "position": [
+                0.548167863836902,
+                -0.016706433766848976,
+                0.642734750482971
+              ],
+              "quaternion": [
+                0.0,
+                0.0,
+                0.16740794479846954,
+                0.9858877062797546
+              ]
+            },
+            "joint_positions": [
+              -0.15661119610475044,
+              0.3966172414605213,
+              0.117165309731659,
+              -2.216319775151985,
+              -0.11160109116135071,
+              2.660275009544626,
+              -1.074541158774566
+            ],
+            "last_action": {
+              "kind": "move_tcp",
+              "status": "executed",
+              "tool_orientation_error_deg": 3.0179547246937615,
+              "tool_position_error_m": 0.041135554581810646
+            },
+            "observation_source": "external_estimate",
+            "tool_pose": {
+              "position": [
+                0.5614544153213501,
+                -0.01878354884684086,
+                0.6966100335121155
+              ],
+              "quaternion": [
+                0.578244686126709,
+                0.8154383897781372,
+                0.011338132433593273,
+                0.02376563660800457
+              ]
+            }
+          },
+          "status": "executed",
+          "tool_orientation_error_deg": 3.0179547246937615,
+          "tool_position_error_m": 0.041135554581810646
+        },
+        "stage": "approach"
+      }
+    ],
+    "scene_randomization": {
+      "approach_finger_contact": "final_only",
+      "disable_wrist_hand_collision": false,
+      "estimate_position_noise_m": 0.003,
+      "estimate_yaw_noise_deg": 2.0,
+      "filter_mode": "execution",
+      "ik_restarts": true,
+      "name": "wide_strict_v2",
+      "observation": "noisy_truth",
+      "x_range_m": [
+        -0.04,
+        0.04
+      ],
+      "y_range_m": [
+        -0.05,
+        0.0
+      ],
+      "yaw_range_rad": [
+        -1.0471975511965976,
+        1.0471975511965976
+      ]
+    },
+    "scene_version": "hollow_cup_sequences_v1",
+    "schema_version": "sequence_episode_v1",
+    "seed": 12,
+    "selected_id": "B3_599e9b16f5782406",
+    "stage_evaluation": {
+      "approach": {
+        "evidence": {
+          "collision_types": [],
+          "donor_contact_seen": true,
+          "endpoint": {
+            "donor_clearance_m": -0.0015579537743429963,
+            "donor_contact": true,
+            "receiver_contact": false,
+            "receiver_contact_links": [],
+            "source_angular_speed_deg_s": 0.2229148919782716,
+            "source_goal_error_m": 0.20137751764975637,
+            "source_linear_speed_m_s": 0.00023122126086750486,
+            "source_position": [
+              0.5739794222035447,
+              -0.019611219816074603,
+              0.6521564630252965
+            ],
+            "source_quaternion": [
+              0.016502166719423846,
+              0.10055575223760634,
+              0.020714323133006952,
+              0.9945788736961161
+            ],
+            "source_upright_deg": 11.697279451638764,
+            "source_xy_error_m": 0.18120486465057753,
+            "source_z_m": 0.6521564630252965,
+            "stage": "approach",
+            "table_contact": true,
+            "target_angular_speed_deg_s": 4.948812630367119e-12,
+            "target_displacement_m": 0.0009900001947454977,
+            "target_linear_speed_m_s": 9.844078728964282e-15,
+            "target_upright_deg": 0.0,
+            "time_s": 4.554166666666666,
+            "water": {
+              "accounting_error_kg": 0.0,
+              "finite_state": true,
+              "fluid_sample_count": 256,
+              "initial_mass_kg": 0.1,
+              "max_compression": 0.0036480583281508494,
+              "maximum_sample_speed_m_s": 0.015570568636010564,
+              "outside_mass_kg": 0.0,
+              "source_mass_kg": 0.1,
+              "spill_ratio": 0.0,
+              "target_mass_kg": 0.0,
+              "transfer_ratio": 0.0
+            }
+          },
+          "receiver_contact_seen": false,
+          "samples": 648,
+          "source_height_max_m": 0.6521580006945722,
+          "table_support_seen": true
+        },
+        "physical_checks": {
+          "collision_free": true
+        },
+        "physical_pass": true
+      },
+      "close": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "lift": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "pour_dwell": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "pregrasp": {
+        "evidence": {
+          "collision_types": [],
+          "donor_contact_seen": false,
+          "endpoint": {
+            "donor_clearance_m": 0.0818319004341445,
+            "donor_contact": false,
+            "receiver_contact": false,
+            "receiver_contact_links": [],
+            "source_angular_speed_deg_s": 0.012248283626105192,
+            "source_goal_error_m": 0.20362010932961067,
+            "source_linear_speed_m_s": 7.5422891874848455e-06,
+            "source_position": [
+              0.5641891464923855,
+              -0.017440726707697102,
+              0.6459893803844771
+            ],
+            "source_quaternion": [
+              3.336115219556678e-05,
+              -1.9081782442994123e-05,
+              0.010712875812055532,
+              0.9999426147608445
+            ],
+            "source_upright_deg": 0.004404075642887327,
+            "source_xy_error_m": 0.17800714416207578,
+            "source_z_m": 0.6459893803844771,
+            "stage": "pregrasp",
+            "table_contact": true,
+            "target_angular_speed_deg_s": 0.0002449262833563698,
+            "target_displacement_m": 0.0009899221420781822,
+            "target_linear_speed_m_s": 2.3648985222756857e-07,
+            "target_upright_deg": 0.00018975299357465645,
+            "time_s": 1.8541666666666667,
+            "water": {
+              "accounting_error_kg": 0.0,
+              "finite_state": true,
+              "fluid_sample_count": 256,
+              "initial_mass_kg": 0.1,
+              "max_compression": 0.0034266157508759942,
+              "maximum_sample_speed_m_s": 0.07323129343423276,
+              "outside_mass_kg": 0.0,
+              "source_mass_kg": 0.1,
+              "spill_ratio": 0.0,
+              "target_mass_kg": 0.0,
+              "transfer_ratio": 0.0
+            }
+          },
+          "receiver_contact_seen": false,
+          "samples": 445,
+          "source_height_max_m": 0.6512352157584664,
+          "table_support_seen": true
+        },
+        "physical_checks": {
+          "collision_free": true
+        },
+        "physical_pass": true
+      },
+      "return_upright": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "settle": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "terminal": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "tilt": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      },
+      "transport": {
+        "evidence": null,
+        "physical_checks": {},
+        "physical_pass": false
+      }
+    },
+    "stages": [
+      {
+        "control_status": "completed",
+        "end_s": 1.8541666666666667,
+        "feedback": {
+          "angle_error_deg": 0.9352410900065822,
+          "continuous_s": 0.1,
+          "position_error_m": 0.0011998784808240036
+        },
+        "id": "pregrasp",
+        "start_s": 0.0
+      },
+      {
+        "control_status": "failed",
+        "end_s": 4.554166666666666,
+        "feedback": null,
+        "id": "approach",
+        "start_s": 1.8541666666666667
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "close",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "lift",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "transport",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "tilt",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "pour_dwell",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "return_upright",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "settle",
+        "start_s": null
+      },
+      {
+        "control_status": "not_executed",
+        "end_s": null,
+        "feedback": null,
+        "id": "terminal",
+        "start_s": null
+      }
+    ],
+    "status": "execution_failed",
+    "success": false,
+    "success_checks": {
+      "fluid_density_valid": true,
+      "full_terminal_window": false,
+      "lift_achieved": false,
+      "no_drop": true,
+      "no_unintended_collision": true,
+      "sequence_complete": false,
+      "stage_outcomes": false,
+      "terminal_outcome": false
+    },
+    "task_id": "pour_water",
+    "task_spec": {
+      "config": {
+        "angular_speed_deg_s": 5.0,
+        "arrival_angle_deg": 10.0,
+        "arrival_continuous_s": 0.1,
+        "arrival_position_m": 0.02,
+        "arrival_timeout_s": 2.0,
+        "carry_height_m": 0.8,
+        "donor_clearance_m": 0.08,
+        "drop_contact_gap_s": 0.1,
+        "episode_timeout_s": 25.0,
+        "fluid_iterations": 8,
+        "fluid_particles": 256,
+        "fluid_substeps": 2,
+        "linear_speed_m_s": 0.02,
+        "placement_tolerance_m": 0.02,
+        "pour_angle_deg": -110.0,
+        "pour_dwell_s": 2.0,
+        "receiver_lift_m": 0.05,
+        "settle_s": 1.0,
+        "spill_max_ratio": 0.05,
+        "target_xy": [
+          0.55,
+          0.16
+        ],
+        "terminal_window_s": 1.0,
+        "transfer_min_ratio": 0.9,
+        "upright_tolerance_deg": 5.0,
+        "water_mass_kg": 0.1
+      },
+      "controller_version": "staged_sequences_v1",
+      "evaluation_version": "physical_outcomes_v1",
+      "handoff_pose": null,
+      "material_model": "position_based_fluid",
+      "note": "Stage evaluation never controls transitions. Thresholds come from config, not labels.",
+      "point_A": [
+        0.55,
+        0,
+        0.645
+      ],
+      "point_B": [
+        0.55,
+        0.16,
+        0.645
+      ],
+      "policy": "ID-only; same sequence/observation/limits for all selectors; no donor regrasp",
+      "pouring_pose": [
+        0.55,
+        0.115,
+        0.8
+      ],
+      "schema_version": "task_spec_v1",
+      "stages": [
+        {
+          "action": "Move to estimated pregrasp; jaws open",
+          "actor": "donor",
+          "allowed_contacts": [
+            "source_table",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "TCP arrival sustained",
+          "entry": "Fresh scene and selected candidate feasible",
+          "evaluation": "No unintended collision",
+          "id": "pregrasp",
+          "timeout_s": 3
+        },
+        {
+          "action": "Move to estimated candidate grasp pose",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "TCP arrival sustained",
+          "entry": "pregrasp control completed",
+          "evaluation": "No nonfinger source collision",
+          "id": "approach",
+          "timeout_s": 3
+        },
+        {
+          "action": "Close jaws under force-limited motor control",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "source_table",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "Fixed 0.75 s close; encoder feedback only",
+          "entry": "approach control completed",
+          "evaluation": "Physical source/finger contact formed",
+          "id": "close",
+          "timeout_s": 1
+        },
+        {
+          "action": "Raise nominal source by 0.14 m",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "TCP arrival sustained",
+          "entry": "close action completed, not an oracle grasp gate",
+          "evaluation": "Source lifted >=0.09 m with donor contact",
+          "id": "lift",
+          "timeout_s": 4
+        },
+        {
+          "action": "Move upright source from A to the B work region",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "TCP arrival sustained",
+          "entry": "lift control completed",
+          "evaluation": "Source near prescribed B pose; no drop/collision",
+          "id": "transport",
+          "timeout_s": 4
+        },
+        {
+          "action": "Rotate source about WORLD X at a fixed center above receiver",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "TCP arrival at final tilt",
+          "entry": "transport control completed",
+          "evaluation": "Water moves through physical open rim; source stays held",
+          "id": "tilt",
+          "timeout_s": 5
+        },
+        {
+          "action": "Maintain tilt for a fixed time, not until an oracle mass threshold",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "Fixed pour_dwell_s",
+          "entry": "tilt control completed",
+          "evaluation": "No drop or source/receiver collision",
+          "id": "pour_dwell",
+          "timeout_s": 2.0
+        },
+        {
+          "action": "Restore upright at B safety pose",
+          "actor": "donor",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "TCP arrival sustained",
+          "entry": "pour dwell completed",
+          "evaluation": "Source remains held; receiver not displaced/tipped",
+          "id": "return_upright",
+          "timeout_s": 5
+        },
+        {
+          "action": "Keep final motor targets for a fixed settling interval",
+          "actor": "all_actuators",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "Fixed settle_s; no oracle stability gate",
+          "entry": "last physical action control completed",
+          "evaluation": "Continue collision/drop sampling; no terminal stability score yet",
+          "id": "settle",
+          "timeout_s": 1.0
+        },
+        {
+          "action": "Observe water and vessels in final window",
+          "actor": "evaluator",
+          "allowed_contacts": [
+            "donor_fingers_source",
+            "water_vessels",
+            "water_table_floor",
+            "target_cup_table"
+          ],
+          "control_exit": "Fixed terminal window",
+          "entry": "settle control completed",
+          "evaluation": "Every step: transfer >= 0.9, spill <= 0.05, stable upright source and receiver; valid fluid state",
+          "id": "terminal",
+          "timeout_s": 1.0
+        }
+      ],
+      "task_id": "pour_water"
+    },
+    "task_spec_sha256": "d28b0e578b0a9b5f15e23ef7b5b886ae1543ba0678a2d8b40a80f923e37c3b16",
+    "terminal_checks": {},
+    "terminal_samples": 0,
+    "trajectory": [
+      {
+        "donor_clearance_m": 0.07576273939502773,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.05804574794590799,
+        "source_goal_error_m": 0.20292907059380058,
+        "source_linear_speed_m_s": 4.6701859151322804e-05,
+        "source_position": [
+          0.5479792395259052,
+          -0.01712493892642692,
+          0.6459898550976009
+        ],
+        "source_quaternion": [
+          -2.42699841481398e-05,
+          -3.242055809717012e-08,
+          0.17357266647500952,
+          0.9848210643887152
+        ],
+        "source_upright_deg": 0.0027811377412134677,
+        "source_xy_error_m": 0.17713646564890057,
+        "source_z_m": 0.6459898550976009,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.017055677489938557,
+        "target_displacement_m": 0.0009899840514207398,
+        "target_linear_speed_m_s": 1.369773516184873e-05,
+        "target_upright_deg": 0.0008172232860163156,
+        "time_s": 0.1,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0012403093131638787,
+          "maximum_sample_speed_m_s": 0.0946786454412137,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.0591127700795813,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.00784654856715755,
+        "source_goal_error_m": 0.20293021017156337,
+        "source_linear_speed_m_s": 6.312864448838138e-06,
+        "source_position": [
+          0.5479795776299685,
+          -0.017126840302831268,
+          0.6459899803087096
+        ],
+        "source_quaternion": [
+          -3.2791142016793545e-06,
+          -2.216743781836747e-10,
+          0.17357266628857407,
+          0.9848210647151708
+        ],
+        "source_upright_deg": 0.00037575838150436625,
+        "source_xy_error_m": 0.1771383630448752,
+        "source_z_m": 0.6459899803087096,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0023055615186489695,
+        "target_displacement_m": 0.000989998347668794,
+        "target_linear_speed_m_s": 1.8516101543565782e-06,
+        "target_upright_deg": 0.00011044742714175576,
+        "time_s": 0.2,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0012544521014823395,
+          "maximum_sample_speed_m_s": 0.08116642728099972,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.04191649038939548,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.0010608757384077052,
+        "source_goal_error_m": 0.20293036422880004,
+        "source_linear_speed_m_s": 8.535048918317538e-07,
+        "source_position": [
+          0.5479796233280656,
+          -0.017127097330098717,
+          0.6459899972233636
+        ],
+        "source_quaternion": [
+          -4.4153749174471626e-07,
+          4.037527995136864e-09,
+          0.17357266628529858,
+          0.9848210647211083
+        ],
+        "source_upright_deg": 5.059644443917643e-05,
+        "source_xy_error_m": 0.17713861953420196,
+        "source_z_m": 0.6459899972233636,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.00031168961001624317,
+        "target_displacement_m": 0.0009900003015710277,
+        "target_linear_speed_m_s": 2.5031830799395926e-07,
+        "target_upright_deg": 1.4910515715604623e-05,
+        "time_s": 0.3,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0015129449605593148,
+          "maximum_sample_speed_m_s": 0.05992916479579329,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.023888641324532417,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.0001403829872568123,
+        "source_goal_error_m": 0.2029303849441849,
+        "source_linear_speed_m_s": 1.13091267747749e-07,
+        "source_position": [
+          0.5479796293181999,
+          -0.01712713199667632,
+          0.6459899995901693
+        ],
+        "source_quaternion": [
+          -5.914525353702566e-08,
+          2.7553810934712582e-09,
+          0.17357266628529006,
+          0.984821064721207
+        ],
+        "source_upright_deg": 6.776618231767655e-06,
+        "source_xy_error_m": 0.17713865413020352,
+        "source_z_m": 0.6459899995901693,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 4.2134199248935486e-05,
+        "target_displacement_m": 0.0009900005657074297,
+        "target_linear_speed_m_s": 3.383808315292479e-08,
+        "target_upright_deg": 1.9090959104164224e-06,
+        "time_s": 0.4,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0011514976530098142,
+          "maximum_sample_speed_m_s": 0.055110480478877746,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.01364981759868066,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 1.841315190018888e-05,
+        "source_goal_error_m": 0.20293038762337837,
+        "source_linear_speed_m_s": 1.4881227566074242e-08,
+        "source_position": [
+          0.5479796300700028,
+          -0.01712713658743473,
+          0.645989999988553
+        ],
+        "source_quaternion": [
+          -8.584734019479873e-09,
+          2.1419173857703333e-09,
+          0.17357266628528994,
+          0.9848210647212088
+        ],
+        "source_upright_deg": 8.537736462515939e-07,
+        "source_xy_error_m": 0.1771386587120886,
+        "source_z_m": 0.645989999988553,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 5.695641194443192e-06,
+        "target_displacement_m": 0.0009900006014408596,
+        "target_linear_speed_m_s": 4.574183848035613e-09,
+        "target_upright_deg": 0.0,
+        "time_s": 0.5,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0012123858572361534,
+          "maximum_sample_speed_m_s": 0.04119951662119483,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.0016398862333856057,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 2.489047349755137e-06,
+        "source_goal_error_m": 0.20293038794987645,
+        "source_linear_speed_m_s": 2.0116113016164845e-09,
+        "source_position": [
+          0.5479796302465746,
+          -0.017127137174035422,
+          0.6459900000592805
+        ],
+        "source_quaternion": [
+          -1.972290687933931e-09,
+          2.9253301743543226e-09,
+          0.17357266628528994,
+          0.9848210647212088
+        ],
+        "source_upright_deg": 0.0,
+        "source_xy_error_m": 0.17713865929663722,
+        "source_z_m": 0.6459900000592805,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 7.699295839741285e-07,
+        "target_displacement_m": 0.0009900006062714013,
+        "target_linear_speed_m_s": 6.1833237946843e-10,
+        "target_upright_deg": 0.0,
+        "time_s": 0.6,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0011558901395105625,
+          "maximum_sample_speed_m_s": 0.05996531219937459,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.00011839060714022407,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 123.91537124610923,
+        "source_goal_error_m": 0.2045690578048658,
+        "source_linear_speed_m_s": 0.22407734173661564,
+        "source_position": [
+          0.5602280634449424,
+          -0.021913904792647744,
+          0.6483475394074777
+        ],
+        "source_quaternion": [
+          0.032502490286952956,
+          0.02070776518264432,
+          0.14191521109612232,
+          0.9891283280979419
+        ],
+        "source_upright_deg": 4.417291750662466,
+        "source_xy_error_m": 0.18220121305507894,
+        "source_z_m": 0.6483475394074777,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 2.28958915302991e-07,
+        "target_displacement_m": 0.0009900005981198835,
+        "target_linear_speed_m_s": 2.1543053463741727e-10,
+        "target_upright_deg": 0.0,
+        "time_s": 0.7,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.001503217892346198,
+          "maximum_sample_speed_m_s": 0.5265345128386919,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.0062749082676852065,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 146.6442943032327,
+        "source_goal_error_m": 0.20555229178523463,
+        "source_linear_speed_m_s": 0.12690068263781615,
+        "source_position": [
+          0.5672848946597151,
+          -0.02472204721523758,
+          0.6502310893518027
+        ],
+        "source_quaternion": [
+          0.061515850520518514,
+          0.025827251341431975,
+          0.07768157316474496,
+          0.9947433470064196
+        ],
+        "source_upright_deg": 7.65096443760839,
+        "source_xy_error_m": 0.1855289797060985,
+        "source_z_m": 0.6502310893518027,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 3.257185080215421e-08,
+        "target_displacement_m": 0.000990000593188267,
+        "target_linear_speed_m_s": 3.095520691203617e-11,
+        "target_upright_deg": 0.0,
+        "time_s": 0.8,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.004936392008234813,
+          "maximum_sample_speed_m_s": 0.4284724095203417,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.03313433032931907,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 66.15903223926937,
+        "source_goal_error_m": 0.20033126202153612,
+        "source_linear_speed_m_s": 0.04855567433047651,
+        "source_position": [
+          0.5670010349045822,
+          -0.014834037877463303,
+          0.6483863397851369
+        ],
+        "source_quaternion": [
+          -0.032641051293168764,
+          0.025044712680204917,
+          0.020908948173937125,
+          0.9989345023691505
+        ],
+        "source_upright_deg": 4.7158732596033195,
+        "source_xy_error_m": 0.17565869175297044,
+        "source_z_m": 0.6483863397851369,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 4.402884863546879e-09,
+        "target_displacement_m": 0.0009900005925012531,
+        "target_linear_speed_m_s": 4.1850485169852695e-12,
+        "target_upright_deg": 0.0,
+        "time_s": 0.9,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.004062882370413634,
+          "maximum_sample_speed_m_s": 0.38328437932435927,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.06778690377844207,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 23.19593198040166,
+        "source_goal_error_m": 0.20361503052369148,
+        "source_linear_speed_m_s": 0.018674289911626746,
+        "source_position": [
+          0.5641416244233618,
+          -0.017422418179888356,
+          0.6459759814924206
+        ],
+        "source_quaternion": [
+          -0.00021422932203553352,
+          -0.0006082430042714367,
+          0.010608907656891651,
+          0.9999435160170662
+        ],
+        "source_upright_deg": 0.07389634728972198,
+        "source_xy_error_m": 0.17798511177660506,
+        "source_z_m": 0.6459759814924206,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.8779440809467997,
+        "target_displacement_m": 0.0009705402531466862,
+        "target_linear_speed_m_s": 0.0007943411955881571,
+        "target_upright_deg": 0.04069987482245323,
+        "time_s": 1.0,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.009291189048802773,
+          "maximum_sample_speed_m_s": 0.3073239942231045,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.08044324327708001,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 1.9592889207305504,
+        "source_goal_error_m": 0.2036181276750499,
+        "source_linear_speed_m_s": 0.0016203598428879197,
+        "source_position": [
+          0.5641927944091328,
+          -0.017435959306130545,
+          0.6459882368537457
+        ],
+        "source_quaternion": [
+          -5.3573958730205986e-05,
+          -4.079893713982536e-05,
+          0.010623619417251162,
+          0.9999435654954508
+        ],
+        "source_upright_deg": 0.007716635341835182,
+        "source_xy_error_m": 0.1780026827551392,
+        "source_z_m": 0.6459882368537457,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.1640235084933311,
+        "target_displacement_m": 0.00098664904179751,
+        "target_linear_speed_m_s": 0.00013971373453744055,
+        "target_upright_deg": 0.006705067183652118,
+        "time_s": 1.1,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0036947266344449226,
+          "maximum_sample_speed_m_s": 0.22707818719618494,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.08037887843309363,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.015588820905894573,
+        "source_goal_error_m": 0.20362172747185123,
+        "source_linear_speed_m_s": 1.0411132297848042e-05,
+        "source_position": [
+          0.5641938443643184,
+          -0.017442854811749363,
+          0.6459895039612682
+        ],
+        "source_quaternion": [
+          2.882981098466567e-05,
+          -1.7016037092325753e-05,
+          0.010643050107519429,
+          0.9999433605778406
+        ],
+        "source_upright_deg": 0.003836171354913895,
+        "source_xy_error_m": 0.17800964002430333,
+        "source_z_m": 0.6459895039612682,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0188671342653802,
+        "target_displacement_m": 0.0009894703634583772,
+        "target_linear_speed_m_s": 1.789582700021398e-05,
+        "target_upright_deg": 0.0011016624831291027,
+        "time_s": 1.2,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0035378444033913325,
+          "maximum_sample_speed_m_s": 0.15083593031763873,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.07936863161333206,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.01194699275579294,
+        "source_goal_error_m": 0.203621732382773,
+        "source_linear_speed_m_s": 7.4911311452317185e-06,
+        "source_position": [
+          0.5641929819374455,
+          -0.017442825176433863,
+          0.6459893925030826
+        ],
+        "source_quaternion": [
+          3.276486258133448e-05,
+          -1.88564331361332e-05,
+          0.01065383571506231,
+          0.9999432455671947
+        ],
+        "source_upright_deg": 0.004331956954910759,
+        "source_xy_error_m": 0.1780095417186144,
+        "source_z_m": 0.6459893925030826,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.002797433802291082,
+        "target_displacement_m": 0.0009898564621771398,
+        "target_linear_speed_m_s": 2.609019653666861e-06,
+        "target_upright_deg": 0.0003230616752426178,
+        "time_s": 1.3,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034016350117649363,
+          "maximum_sample_speed_m_s": 0.12021174251800977,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.07862226756276514,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012279295015427715,
+        "source_goal_error_m": 0.20362147610547718,
+        "source_linear_speed_m_s": 8.437749396008731e-06,
+        "source_position": [
+          0.5641922766017301,
+          -0.01744249069488471,
+          0.645989378694946
+        ],
+        "source_quaternion": [
+          3.3376147444733045e-05,
+          -1.9003589242891087e-05,
+          0.010664550526538242,
+          0.9999431313264586
+        ],
+        "source_upright_deg": 0.004401126878610692,
+        "source_xy_error_m": 0.17800915206568527,
+        "source_z_m": 0.645989378694946,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.00044931727073115415,
+        "target_displacement_m": 0.0009899133284091539,
+        "target_linear_speed_m_s": 4.035585417864805e-07,
+        "target_upright_deg": 0.00020775490096157115,
+        "time_s": 1.4,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003359878407329875,
+          "maximum_sample_speed_m_s": 0.08664876332227585,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.07823536934728809,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012101900380914712,
+        "source_goal_error_m": 0.20362115624309654,
+        "source_linear_speed_m_s": 7.734832430788026e-06,
+        "source_position": [
+          0.5641915948056984,
+          -0.017442079611161926,
+          0.645989385252454
+        ],
+        "source_quaternion": [
+          3.310554479482139e-05,
+          -1.8975698744713e-05,
+          0.01067513677855904,
+          0.9999430183758997
+        ],
+        "source_upright_deg": 0.004372616629467755,
+        "source_xy_error_m": 0.17800868793365973,
+        "source_z_m": 0.645989385252454,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0002501637567326373,
+        "target_displacement_m": 0.0009899210003872718,
+        "target_linear_speed_m_s": 2.3593029537983094e-07,
+        "target_upright_deg": 0.00019218442880700385,
+        "time_s": 1.5,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034408087337804982,
+          "maximum_sample_speed_m_s": 0.10267513950993354,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.0781929013779687,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012313528904063875,
+        "source_goal_error_m": 0.20362089210640527,
+        "source_linear_speed_m_s": 8.320146140504439e-06,
+        "source_position": [
+          0.564190879656366,
+          -0.01744173817391808,
+          0.6459893749566018
+        ],
+        "source_quaternion": [
+          3.3629009669357376e-05,
+          -1.924720224159511e-05,
+          0.010685824873864744,
+          0.9999429041927345
+        ],
+        "source_upright_deg": 0.004440131009963209,
+        "source_xy_error_m": 0.17800829056985734,
+        "source_z_m": 0.6459893749566018,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.000245023060215145,
+        "target_displacement_m": 0.000989922022431056,
+        "target_linear_speed_m_s": 2.3584870001991068e-07,
+        "target_upright_deg": 0.0001900811550486229,
+        "time_s": 1.6,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003174649529777973,
+          "maximum_sample_speed_m_s": 0.07160756577541154,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.0786227844346358,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012374293198311974,
+        "source_goal_error_m": 0.20362057235694722,
+        "source_linear_speed_m_s": 7.359637843288869e-06,
+        "source_position": [
+          0.5641902149835261,
+          -0.017441318976168668,
+          0.6459893759718349
+        ],
+        "source_quaternion": [
+          3.3311553505070906e-05,
+          -1.8963612607130505e-05,
+          0.010696509216482835,
+          0.9999427899741582
+        ],
+        "source_upright_deg": 0.004392427941047271,
+        "source_xy_error_m": 0.17800781971947502,
+        "source_z_m": 0.6459893759718349,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0002449280626157015,
+        "target_displacement_m": 0.0009899221460534075,
+        "target_linear_speed_m_s": 2.3639681917757874e-07,
+        "target_upright_deg": 0.00018979716527820278,
+        "time_s": 1.7,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0032131978136553663,
+          "maximum_sample_speed_m_s": 0.0524631575535706,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.08123308810251972,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012172928919037396,
+        "source_goal_error_m": 0.20362026465885882,
+        "source_linear_speed_m_s": 7.845687006823192e-06,
+        "source_position": [
+          0.5641895241946598,
+          -0.017440927248504233,
+          0.6459893822737235
+        ],
+        "source_quaternion": [
+          3.325286968503089e-05,
+          -1.903022704487953e-05,
+          0.010707102941717849,
+          0.99994267659636
+        ],
+        "source_upright_deg": 0.004390371737156551,
+        "source_xy_error_m": 0.17800737417219492,
+        "source_z_m": 0.6459893822737235,
+        "stage": "pregrasp",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.00024492631492312,
+        "target_displacement_m": 0.0009899221487210273,
+        "target_linear_speed_m_s": 2.3648101696493857e-07,
+        "target_upright_deg": 0.0001897587556843181,
+        "time_s": 1.8,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034165295918469063,
+          "maximum_sample_speed_m_s": 0.07497118137116442,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.07816108868219845,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012206250433796624,
+        "source_goal_error_m": 0.2036199733162936,
+        "source_linear_speed_m_s": 7.69852709596784e-06,
+        "source_position": [
+          0.5641888311868224,
+          -0.017440549691672635,
+          0.6459893789368812
+        ],
+        "source_quaternion": [
+          3.3376446167749576e-05,
+          -1.907300970820281e-05,
+          0.01071776758655695,
+          0.9999425623405545
+        ],
+        "source_upright_deg": 0.004405098142988466,
+        "source_xy_error_m": 0.17800694257621272,
+        "source_z_m": 0.6459893789368812,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0002449262782294493,
+        "target_displacement_m": 0.0009899221355273782,
+        "target_linear_speed_m_s": 2.364925357400108e-07,
+        "target_upright_deg": 0.00018975299357465645,
+        "time_s": 1.9,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003143818467949755,
+          "maximum_sample_speed_m_s": 0.05621727795709791,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.06415383889280538,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.012227818960684811,
+        "source_goal_error_m": 0.2036196710880215,
+        "source_linear_speed_m_s": 7.86675372448062e-06,
+        "source_position": [
+          0.5641881397337153,
+          -0.017440160473083194,
+          0.6459893801104788
+        ],
+        "source_quaternion": [
+          3.337512096050135e-05,
+          -1.9094333497116682e-05,
+          0.010728436698636701,
+          0.9999424479276351
+        ],
+        "source_upright_deg": 0.0044061792177893895,
+        "source_xy_error_m": 0.17800649948194855,
+        "source_z_m": 0.6459893801104788,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0002449262737221466,
+        "target_displacement_m": 0.0009899221206783936,
+        "target_linear_speed_m_s": 2.3649407314771373e-07,
+        "target_upright_deg": 0.00018975107283255235,
+        "time_s": 2.0,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.002993806958261791,
+          "maximum_sample_speed_m_s": 0.04616032948573301,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.0482325267692064,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.01226479136310346,
+        "source_goal_error_m": 0.20361936964109126,
+        "source_linear_speed_m_s": 8.681754234040588e-06,
+        "source_position": [
+          0.5641874550054636,
+          -0.017439770203394423,
+          0.6459893799701613
+        ],
+        "source_quaternion": [
+          3.335172124379858e-05,
+          -1.9061879499723036e-05,
+          0.010739077849635547,
+          0.9999423337029226
+        ],
+        "source_upright_deg": 0.004402005422870949,
+        "source_xy_error_m": 0.1780060558783478,
+        "source_z_m": 0.6459893799701613,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.00024492626992629694,
+        "target_displacement_m": 0.0009899221060940848,
+        "target_linear_speed_m_s": 2.3649425532921884e-07,
+        "target_upright_deg": 0.00018975107283255235,
+        "time_s": 2.1,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0029823090054750256,
+          "maximum_sample_speed_m_s": 0.06463664534707131,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.03182753468060491,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.0185895888903967,
+        "source_goal_error_m": 0.2036175030539192,
+        "source_linear_speed_m_s": 1.5543890329439836e-05,
+        "source_position": [
+          0.5641887368740391,
+          -0.01743723075156551,
+          0.6459897821354419
+        ],
+        "source_quaternion": [
+          7.156465173449128e-06,
+          -2.663723143176794e-06,
+          0.010742185506134493,
+          0.9999423010315351
+        ],
+        "source_upright_deg": 0.0008750355214908584,
+        "source_xy_error_m": 0.1780036266789669,
+        "source_z_m": 0.6459897821354419,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0009113411880675026,
+        "target_displacement_m": 0.0009899786479092977,
+        "target_linear_speed_m_s": 8.585376404759977e-07,
+        "target_upright_deg": 4.3642784331378985e-05,
+        "time_s": 2.2,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0028663360643372826,
+          "maximum_sample_speed_m_s": 0.047578641473319624,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": 0.013887640919510445,
+        "donor_contact": false,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.0025648875971504407,
+        "source_goal_error_m": 0.20361700728353965,
+        "source_linear_speed_m_s": 2.145961360810454e-06,
+        "source_position": [
+          0.5641889616077645,
+          -0.0174366540842546,
+          0.6459899624096991
+        ],
+        "source_quaternion": [
+          9.149863975357901e-07,
+          -1.5379057681444052e-07,
+          0.010742185503834314,
+          0.9999423010602864
+        ],
+        "source_upright_deg": 0.00010632138891370123,
+        "source_xy_error_m": 0.17800306976038935,
+        "source_z_m": 0.6459899624096991,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.00012251576412606775,
+        "target_displacement_m": 0.0009899972633554666,
+        "target_linear_speed_m_s": 1.1596662899900986e-07,
+        "target_upright_deg": 5.853177225625916e-06,
+        "time_s": 2.3,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0027926575980219415,
+          "maximum_sample_speed_m_s": 0.04203051607929865,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0011490601451482404,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 11.792204926763297,
+        "source_goal_error_m": 0.2035810316686944,
+        "source_linear_speed_m_s": 0.009211609246514553,
+        "source_position": [
+          0.5649637993504405,
+          -0.017715890766376037,
+          0.646351656363054
+        ],
+        "source_quaternion": [
+          0.0022424527707455813,
+          0.008818542231549265,
+          0.011616614222084827,
+          0.9998911235692096
+        ],
+        "source_upright_deg": 1.0427049007814664,
+        "source_xy_error_m": 0.17834475916574263,
+        "source_z_m": 0.646351656363054,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 1.6640915208521242e-05,
+        "target_displacement_m": 0.0009899997927616715,
+        "target_linear_speed_m_s": 1.568682477038522e-08,
+        "target_upright_deg": 8.537736462515939e-07,
+        "time_s": 2.4,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0026696500495153597,
+          "maximum_sample_speed_m_s": 0.11342071091797246,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0011901452943848916,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 40.97895848453345,
+        "source_goal_error_m": 0.2023857176993394,
+        "source_linear_speed_m_s": 0.04153089454264129,
+        "source_position": [
+          0.5687786560663606,
+          -0.018579668923235537,
+          0.6491231864885236
+        ],
+        "source_quaternion": [
+          0.009127328939519482,
+          0.04895569602695303,
+          0.015288693166432025,
+          0.9986422219965513
+        ],
+        "source_upright_deg": 5.708938479475082,
+        "source_xy_error_m": 0.17956429510454208,
+        "source_z_m": 0.6491231864885236,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 2.250903306137857e-06,
+        "target_displacement_m": 0.0009900001331496098,
+        "target_linear_speed_m_s": 2.120682701784877e-09,
+        "target_upright_deg": 0.0,
+        "time_s": 2.5,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0021697731367056328,
+          "maximum_sample_speed_m_s": 0.1039597333495423,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015743868717144657,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 22.287432986382633,
+        "source_goal_error_m": 0.20134181969958517,
+        "source_linear_speed_m_s": 0.0235488765211999,
+        "source_position": [
+          0.5731706692704469,
+          -0.019234989808733963,
+          0.65173464343769
+        ],
+        "source_quaternion": [
+          0.01532276901838789,
+          0.09240635268976131,
+          0.01670406954824252,
+          0.9954633357350294
+        ],
+        "source_upright_deg": 10.749336558988313,
+        "source_xy_error_m": 0.18072648252588053,
+        "source_z_m": 0.65173464343769,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.010728068190876038,
+        "target_displacement_m": 0.0009898875816428201,
+        "target_linear_speed_m_s": 9.145735446467812e-06,
+        "target_upright_deg": 0.0003080975612836926,
+        "time_s": 2.6,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034149567151713356,
+          "maximum_sample_speed_m_s": 0.09493119703705119,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015592609904992345,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 2.496056249697433,
+        "source_goal_error_m": 0.20125275030202178,
+        "source_linear_speed_m_s": 0.0024664992808285623,
+        "source_position": [
+          0.573820978531011,
+          -0.019342587473510767,
+          0.6520564307687721
+        ],
+        "source_quaternion": [
+          0.016437062749672177,
+          0.09862164710823454,
+          0.016644550520986526,
+          0.9948500151418688
+        ],
+        "source_upright_deg": 11.476271364835556,
+        "source_xy_error_m": 0.18091766829104544,
+        "source_z_m": 0.6520564307687721,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0007322662832501836,
+        "target_displacement_m": 0.000989986097348109,
+        "target_linear_speed_m_s": 6.572619200461818e-07,
+        "target_upright_deg": 3.508791561959799e-05,
+        "time_s": 2.7,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003462022238607032,
+          "maximum_sample_speed_m_s": 0.13265681957061906,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015302326840266574,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.5257227594569408,
+        "source_goal_error_m": 0.20123915661096722,
+        "source_linear_speed_m_s": 0.0004611938455007395,
+        "source_position": [
+          0.5739268764729535,
+          -0.01936213278503685,
+          0.6521097704065697
+        ],
+        "source_quaternion": [
+          0.01641836355073917,
+          0.0996637118895986,
+          0.01699443563827892,
+          0.994740554631226
+        ],
+        "source_upright_deg": 11.59432423177325,
+        "source_xy_error_m": 0.18095101573339997,
+        "source_z_m": 0.6521097704065697,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.5331082241006849,
+        "target_displacement_m": 0.0009760709609381348,
+        "target_linear_speed_m_s": 0.0005200406202226959,
+        "target_upright_deg": 0.025544548603467023,
+        "time_s": 2.8,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003519176776522359,
+          "maximum_sample_speed_m_s": 0.09099080217088999,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015274252111306405,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.45581607600265406,
+        "source_goal_error_m": 0.20125127102673374,
+        "source_linear_speed_m_s": 0.00038473093653898293,
+        "source_position": [
+          0.5739398575068306,
+          -0.019387516201788517,
+          0.6521184500975781
+        ],
+        "source_quaternion": [
+          0.016448722657083387,
+          0.09982352036668694,
+          0.01735462608186582,
+          0.9947178098627322
+        ],
+        "source_upright_deg": 11.613054831599571,
+        "source_xy_error_m": 0.1809778929772758,
+        "source_z_m": 0.6521184500975781,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.07204105413576344,
+        "target_displacement_m": 0.0009880942339322999,
+        "target_linear_speed_m_s": 7.026761669642121e-05,
+        "target_upright_deg": 0.003450467225719483,
+        "time_s": 2.9,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0036612987226340987,
+          "maximum_sample_speed_m_s": 0.05397950381672863,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015314182142843959,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.5689049653853977,
+        "source_goal_error_m": 0.2012616395912321,
+        "source_linear_speed_m_s": 0.0006080165649914892,
+        "source_position": [
+          0.5739476126926695,
+          -0.019407605602033848,
+          0.6521238525873729
+        ],
+        "source_quaternion": [
+          0.01644206976380842,
+          0.09993172534884288,
+          0.01768673066021453,
+          0.9947012054728991
+        ],
+        "source_upright_deg": 11.625228133517465,
+        "source_xy_error_m": 0.1809988317684206,
+        "source_z_m": 0.6521238525873729,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.009601023782120296,
+        "target_displacement_m": 0.0009897353410717904,
+        "target_linear_speed_m_s": 9.488187424774183e-06,
+        "target_upright_deg": 0.00046004933599998063,
+        "time_s": 3.0,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.004167382670751341,
+          "maximum_sample_speed_m_s": 0.0526347167653776,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015321576129752094,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.36891022664665646,
+        "source_goal_error_m": 0.20127598020342977,
+        "source_linear_speed_m_s": 0.000293205042543251,
+        "source_position": [
+          0.5739464878408272,
+          -0.019430944377457883,
+          0.652125366878814
+        ],
+        "source_quaternion": [
+          0.016478740999072726,
+          0.09995255317562118,
+          0.018000868112361904,
+          0.9946928706671027
+        ],
+        "source_upright_deg": 11.62828170606199,
+        "source_xy_error_m": 0.18102181658600508,
+        "source_z_m": 0.652125366878814,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0012978527872923992,
+        "target_displacement_m": 0.0009899643843285211,
+        "target_linear_speed_m_s": 1.2825972422395248e-06,
+        "target_upright_deg": 6.219083215003167e-05,
+        "time_s": 3.1,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0038752306465139608,
+          "maximum_sample_speed_m_s": 0.056203129214244765,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015355635950982677,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.3969836142918227,
+        "source_goal_error_m": 0.20128547720122925,
+        "source_linear_speed_m_s": 0.0003563432892159216,
+        "source_position": [
+          0.5739518475400645,
+          -0.019448717018448757,
+          0.6521294660061134
+        ],
+        "source_quaternion": [
+          0.01647464947226331,
+          0.1000334843570979,
+          0.018288982378179927,
+          0.9946795469173552
+        ],
+        "source_upright_deg": 11.637403069888874,
+        "source_xy_error_m": 0.1810401420684092,
+        "source_z_m": 0.6521294660061134,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 0.0001754418431895852,
+        "target_displacement_m": 0.0009899953538109688,
+        "target_linear_speed_m_s": 1.733796088638861e-07,
+        "target_upright_deg": 8.408695236852925e-06,
+        "time_s": 3.2,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003956826528864976,
+          "maximum_sample_speed_m_s": 0.03907842339802252,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015387959083079934,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.44139179529253675,
+        "source_goal_error_m": 0.2012942613982566,
+        "source_linear_speed_m_s": 0.0004232001781570089,
+        "source_position": [
+          0.573956981097842,
+          -0.019465217338769412,
+          0.6521333436687473
+        ],
+        "source_quaternion": [
+          0.01646984569456031,
+          0.10011028821361814,
+          0.01855661386890041,
+          0.994666942477885
+        ],
+        "source_upright_deg": 11.64604242138459,
+        "source_xy_error_m": 0.1810571765431409,
+        "source_z_m": 0.6521333436687473,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 2.3715916349537712e-05,
+        "target_displacement_m": 0.0009899995403571857,
+        "target_linear_speed_m_s": 2.34371433434126e-08,
+        "target_upright_deg": 1.2074182697257333e-06,
+        "time_s": 3.3,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0035963330447872366,
+          "maximum_sample_speed_m_s": 0.024915668761160564,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015416854654836435,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.5041396867027723,
+        "source_goal_error_m": 0.2013027566164544,
+        "source_linear_speed_m_s": 0.0005647701148162501,
+        "source_position": [
+          0.5739613754338165,
+          -0.01948082743913261,
+          0.6521366869031084
+        ],
+        "source_quaternion": [
+          0.016466764281045293,
+          0.10017822421572906,
+          0.018806136774419488,
+          0.9946554671275464
+        ],
+        "source_upright_deg": 11.65370641555879,
+        "source_xy_error_m": 0.1810732308512664,
+        "source_z_m": 0.6521366869031084,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 3.205895188553483e-06,
+        "target_displacement_m": 0.0009900001062904562,
+        "target_linear_speed_m_s": 3.168204750466927e-09,
+        "target_upright_deg": 0.0,
+        "time_s": 3.4,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003649331629162811,
+          "maximum_sample_speed_m_s": 0.03142127824396199,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015438783942927996,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.49308547408513803,
+        "source_goal_error_m": 0.20131137630980078,
+        "source_linear_speed_m_s": 0.0005574654188445379,
+        "source_position": [
+          0.5739642727647764,
+          -0.01949616538973061,
+          0.6521393718461205
+        ],
+        "source_quaternion": [
+          0.016470294894283782,
+          0.10023012587523962,
+          0.01903977741145867,
+          0.9946457349877146
+        ],
+        "source_upright_deg": 11.659671624428002,
+        "source_xy_error_m": 0.18108881732112045,
+        "source_z_m": 0.6521393718461205,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 4.333622630376867e-07,
+        "target_displacement_m": 0.0009900001827925138,
+        "target_linear_speed_m_s": 4.2826916420511677e-10,
+        "target_upright_deg": 0.0,
+        "time_s": 3.5,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0035961867804423786,
+          "maximum_sample_speed_m_s": 0.02921082734324993,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015458877625902682,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.47761611290737255,
+        "source_goal_error_m": 0.20131952685967502,
+        "source_linear_speed_m_s": 0.0005466866988053374,
+        "source_position": [
+          0.5739668175391883,
+          -0.01951058934546663,
+          0.6521418081201387
+        ],
+        "source_quaternion": [
+          0.016474086743602984,
+          0.10027711692730942,
+          0.0192573597819894,
+          0.9946367469488235
+        ],
+        "source_upright_deg": 11.665083609734264,
+        "source_xy_error_m": 0.18110345118222762,
+        "source_z_m": 0.6521418081201387,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 5.8579552257840524e-08,
+        "target_displacement_m": 0.000990000193133884,
+        "target_linear_speed_m_s": 5.789242997039319e-11,
+        "target_upright_deg": 0.0,
+        "time_s": 3.6,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.003680844643836556,
+          "maximum_sample_speed_m_s": 0.01906054598828418,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015477670291794354,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.46306220028993716,
+        "source_goal_error_m": 0.20132714839425556,
+        "source_linear_speed_m_s": 0.0005364673367652979,
+        "source_position": [
+          0.5739691672202814,
+          -0.01952406396814792,
+          0.6521440704035769
+        ],
+        "source_quaternion": [
+          0.016477206298179923,
+          0.10032083193271261,
+          0.019459858631869387,
+          0.994628345793022
+        ],
+        "source_upright_deg": 11.670110713744531,
+        "source_xy_error_m": 0.18111711824362015,
+        "source_z_m": 0.6521440704035769,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 7.91694562942233e-09,
+        "target_displacement_m": 0.0009900001945318162,
+        "target_linear_speed_m_s": 7.82539393403153e-12,
+        "target_upright_deg": 0.0,
+        "time_s": 3.6999999999999997,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0036185080603925446,
+          "maximum_sample_speed_m_s": 0.02799113777282805,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015495249361043048,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.44962815911721826,
+        "source_goal_error_m": 0.2013342711970461,
+        "source_linear_speed_m_s": 0.0005270211188296144,
+        "source_position": [
+          0.5739713440206389,
+          -0.019536648572275852,
+          0.652146174837342
+        ],
+        "source_quaternion": [
+          0.01647962701996403,
+          0.10036159091927935,
+          0.019648329422720396,
+          0.9946204884840902
+        ],
+        "source_upright_deg": 11.674788814258102,
+        "source_xy_error_m": 0.18112988023714005,
+        "source_z_m": 0.652146174837342,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 1.0719732974696018e-09,
+        "target_displacement_m": 0.000990000194720648,
+        "target_linear_speed_m_s": 1.0614613087154998e-12,
+        "target_upright_deg": 0.0,
+        "time_s": 3.8,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0035973301688458914,
+          "maximum_sample_speed_m_s": 0.018655110463002823,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.001551169304797556,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.43732759564974055,
+        "source_goal_error_m": 0.2013409298090641,
+        "source_linear_speed_m_s": 0.0005183429529239657,
+        "source_position": [
+          0.5739733610797649,
+          -0.019548406003885705,
+          0.6521481335365319
+        ],
+        "source_quaternion": [
+          0.016481388221263,
+          0.10039961820375919,
+          0.01982377641919854,
+          0.9946131400676954
+        ],
+        "source_upright_deg": 11.679144141077854,
+        "source_xy_error_m": 0.18114180119452541,
+        "source_z_m": 0.6521481335365319,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 1.4947739740139697e-11,
+        "target_displacement_m": 0.0009900001947455003,
+        "target_linear_speed_m_s": 1.6329835659505377e-14,
+        "target_upright_deg": 0.0,
+        "time_s": 3.9,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034567909729854573,
+          "maximum_sample_speed_m_s": 0.030845684671742032,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015527070150500666,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.4259707521017392,
+        "source_goal_error_m": 0.2013471573394029,
+        "source_linear_speed_m_s": 0.0005103078877043799,
+        "source_position": [
+          0.5739752273330192,
+          -0.019559394441966034,
+          0.6521499556631798
+        ],
+        "source_quaternion": [
+          0.016482537548183036,
+          0.10043508845148663,
+          0.01998711117095845,
+          0.9946062710192182
+        ],
+        "source_upright_deg": 11.683197436429317,
+        "source_xy_error_m": 0.18115293996520038,
+        "source_z_m": 0.6521499556631798,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 4.945555525791358e-12,
+        "target_displacement_m": 0.0009900001947455,
+        "target_linear_speed_m_s": 9.836696207096454e-15,
+        "target_upright_deg": 0.0,
+        "time_s": 4.0,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0035342093516537165,
+          "maximum_sample_speed_m_s": 0.01887509907245527,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.001553817787447813,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.3903242346775675,
+        "source_goal_error_m": 0.20135334285473233,
+        "source_linear_speed_m_s": 0.0003950223463229907,
+        "source_position": [
+          0.573976240856011,
+          -0.019570141471171233,
+          0.6521514775940629
+        ],
+        "source_quaternion": [
+          0.016487350805623982,
+          0.10046132594414149,
+          0.02014005739929108,
+          0.9946004561334719
+        ],
+        "source_upright_deg": 11.686269624057514,
+        "source_xy_error_m": 0.1811637265943762,
+        "source_z_m": 0.6521514775940629,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 4.947794058893509e-12,
+        "target_displacement_m": 0.0009900001947454997,
+        "target_linear_speed_m_s": 9.83743882088821e-15,
+        "target_upright_deg": 0.0,
+        "time_s": 4.1,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0036194771975390783,
+          "maximum_sample_speed_m_s": 0.018380489007013955,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015547528224449112,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.34228516476213583,
+        "source_goal_error_m": 0.20135942102870114,
+        "source_linear_speed_m_s": 0.0003523471355944383,
+        "source_position": [
+          0.5739768350262289,
+          -0.019580391588826865,
+          0.6521526259315481
+        ],
+        "source_quaternion": [
+          0.016493055812825626,
+          0.10048259334911783,
+          0.020282974241357075,
+          0.994595308906952
+        ],
+        "source_upright_deg": 11.688793510206198,
+        "source_xy_error_m": 0.1811739651855956,
+        "source_z_m": 0.6521526259315481,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 1.802539643118895e-11,
+        "target_displacement_m": 0.000990000194745499,
+        "target_linear_speed_m_s": 1.5853677047104056e-14,
+        "target_upright_deg": 0.0,
+        "time_s": 4.2,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0036215305708227064,
+          "maximum_sample_speed_m_s": 0.02434042434331857,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015555875192240175,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.2885138417637537,
+        "source_goal_error_m": 0.20136519470142103,
+        "source_linear_speed_m_s": 0.00029703391296470355,
+        "source_position": [
+          0.573977260378478,
+          -0.01959007040273164,
+          0.6521536420101205
+        ],
+        "source_quaternion": [
+          0.016498709801138628,
+          0.10050134932015643,
+          0.02041619816794752,
+          0.9945905942708753
+        ],
+        "source_upright_deg": 11.691030983025582,
+        "source_xy_error_m": 0.1811836151601889,
+        "source_z_m": 0.6521536420101205,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 1.1933463566102035e-11,
+        "target_displacement_m": 0.0009900001947454988,
+        "target_linear_speed_m_s": 1.0170860105150557e-14,
+        "target_upright_deg": 0.0,
+        "time_s": 4.3,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.00357539716961508,
+          "maximum_sample_speed_m_s": 0.013344074878383145,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.001556277909745993,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 0.231045460704503,
+        "source_goal_error_m": 0.20137072137049955,
+        "source_linear_speed_m_s": 0.00023683875943434122,
+        "source_position": [
+          0.5739774596426428,
+          -0.01959925581758431,
+          0.6521545090720948
+        ],
+        "source_quaternion": [
+          0.016504657394329134,
+          0.10051710704433973,
+          0.02054046953836787,
+          0.9945863444602866
+        ],
+        "source_upright_deg": 11.692933140507764,
+        "source_xy_error_m": 0.18119274616039313,
+        "source_z_m": 0.6521545090720948,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 4.949754551470774e-12,
+        "target_displacement_m": 0.0009900001947454984,
+        "target_linear_speed_m_s": 9.844433384037216e-15,
+        "target_upright_deg": 0.0,
+        "time_s": 4.4,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034815271029691175,
+          "maximum_sample_speed_m_s": 0.014384686287561243,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      },
+      {
+        "donor_clearance_m": -0.0015594488747565464,
+        "donor_contact": true,
+        "receiver_contact": false,
+        "receiver_contact_links": [],
+        "source_angular_speed_deg_s": 1.8261750344418388,
+        "source_goal_error_m": 0.2013733829191855,
+        "source_linear_speed_m_s": 0.0016524230809887926,
+        "source_position": [
+          0.5739842353063654,
+          -0.01960390832563477,
+          0.6521562187018003
+        ],
+        "source_quaternion": [
+          0.016474579525201077,
+          0.100594846299251,
+          0.020648696988308634,
+          0.9945767423583677
+        ],
+        "source_upright_deg": 11.701209318626892,
+        "source_xy_error_m": 0.18119825448683033,
+        "source_z_m": 0.6521562187018003,
+        "stage": "approach",
+        "table_contact": true,
+        "target_angular_speed_deg_s": 1.1935945456026958e-11,
+        "target_displacement_m": 0.000990000194745498,
+        "target_linear_speed_m_s": 1.0172718592542786e-14,
+        "target_upright_deg": 0.0,
+        "time_s": 4.5,
+        "water": {
+          "accounting_error_kg": 0.0,
+          "finite_state": true,
+          "fluid_sample_count": 256,
+          "initial_mass_kg": 0.1,
+          "max_compression": 0.0034454257417737555,
+          "maximum_sample_speed_m_s": 0.017537845526689546,
+          "outside_mass_kg": 0.0,
+          "source_mass_kg": 0.1,
+          "spill_ratio": 0.0,
+          "target_mass_kg": 0.0,
+          "transfer_ratio": 0.0
+        }
+      }
+    ]
+  },
+  "error": null,
+  "execution_sha256": "aaf96432f61dd5e4e7a5f92244bf9a800ded671abf2fc2083d00faba124bdb4f",
+  "manifest_sha256": "6c81d9eef0fedb36a7306e67c777e18cf0a339b25442082d84baf804b1ebedbc",
+  "record_sha256": "7b9cb15e10822c101c064a7f257da004d05e87a5c884a8d7ca903842b5f218af",
+  "seconds": 40.92827216698788,
+  "seed": 12
+}

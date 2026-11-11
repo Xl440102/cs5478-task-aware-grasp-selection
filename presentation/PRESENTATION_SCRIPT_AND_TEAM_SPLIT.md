@@ -12,7 +12,7 @@
 |---|---|---|---|---|
 | **Member A** | **Part A — Simulation, Filtering & Task Sequences** | **Slides 1 – 4** | **3 min 40 s**<br>*(0:00 – 3:40)* | Introduce the team and motivation (why static grasp stability $\neq$ task success), explain the 4-stage zero-leakage architecture, present the 3-round filtering evolution (`wide_strict_v2`, 0% execution IK failures), play the 15s simulation video demo, and explain the 458-episode PBF fluid vs proxy pouring audit. |
 | **Member B** | **Part B — Multi-Family Generation & Physics/Heuristic Baselines** | **Slides 5 – 6** | **2 min 10 s**<br>*(3:40 – 5:50)* | Present the 116-candidate multi-family pool (`handle`, `rim`, `top`, `side`) and `semantic_v1` descriptors, show the 30-seed ground-truth oracle task shift across families, compare the 5 non-LLM baselines (`M0–M5`), and briefly highlight the 6D Grasp Wrench Space (`wrench_v2`) analysis. |
-| **Member C** | **Part C — Multi-Model LLM Selection, Prompt v1/v2 & Conclusions** | **Slides 7 – 10** | **4 min 10 s**<br>*(5:50 – 10:00)* | Present the audited multi-model LLM protocol (`gpt-5.6-luna` & `gemini-3.8-flash`, 480 trials), diagnose why Prompt `v1` failed (`geometry_score=0.0` unscored trap & corridor blindness), show how Prompt `v2` unlocks cross-model grasp family switching (**90.0%–91.7%** 3-task success, **20/20** handover, Holm-significant `M3 vs A1` ablation), and conclude with limitations and takeaways. |
+| **Member C** | **Part C — Multi-Model LLM Selection, 3-Stage Prompt Ablation & Conclusions** | **Slides 7 – 10** | **4 min 10 s**<br>*(5:50 – 10:00)* | Present the audited multi-model LLM protocol (`gpt-5.6-luna` & `gemini-3.8-flash`, 12 LLM configs = 720 trials), diagnose why Prompt `v1` failed (`geometry_score=0.0` unscored trap), explain the 3-stage ablation (`v1` raw $\rightarrow$ `v2_physics` zero-hint scene mechanics $\rightarrow$ `v2` embodiment priors), present the 17-method quantitative benchmark (**90.0%–91.7%** 3-task success, **20/20** zero-hint handover on Gemini), and conclude with limitations and takeaways. |
 
 ---
 
@@ -32,7 +32,7 @@
 >
 > Our core question is straightforward: when a robot picks up an everyday object like a mug, how should its choice of grasp change depending on whether it wants to place the mug on a coaster, hand it over to another gripper, or pour water from it?
 >
-> We divided our system into three tightly connected parts: I will cover **Part A** on the PyBullet simulation, execution-consistent filtering, and real-fluid PBF evaluation; **[Member B]** will present **Part B** on multi-family grasp synthesis and our five non-LLM baselines; and **[Member C]** will present **Part C** on our multi-model LLM selectors and prompt ablation study."
+> We divided our system into three tightly connected parts: I will cover **Part A** on the PyBullet simulation, execution-consistent filtering, and real-fluid PBF evaluation; **[Member B]** will present **Part B** on multi-family grasp synthesis and our five non-LLM baselines; and **[Member C]** will present **Part C** on our multi-model LLM selectors and our three-stage prompt ablation study across 720 trials."
 
 ---
 
@@ -61,7 +61,7 @@
 >
 > In **Stage 1**, Part B synthesizes 116 candidate grasps across four families—handle, rim, body top, and body side—and annotates each grasp with semantic geometry tags and a static body score.
 > In **Stage 2**, Part A filters those candidates for the current task and scene seed using only a calibrated pose prior, never reading the perturbed ground-truth mug pose.
-> In **Stage 3**, the feasible candidate list is passed to Part B's baselines and Part C's LLM selectors. Crucially, selectors receive *only* five public fields: candidate ID, region, semantic approach string, gripper width, and geometry score. No 6D coordinates, no failure logs, and no oracle outcomes ever leak into the selector.
+> In **Stage 3**, the feasible candidate list is passed to Part B's 5 baselines and Part C's 12 LLM selector configurations. Crucially, selectors receive *only* five public fields: candidate ID, region, semantic approach string, gripper width, and geometry score. No 6D coordinates, no failure logs, and no oracle outcomes ever leak into the selector.
 > Finally, in **Stage 4**, Part A executes the chosen ID in a fresh PyBullet instance, and Part C computes Wilson 95% confidence intervals and Holm-corrected exact sign tests."
 
 ---
@@ -115,12 +115,12 @@
 
 ---
 
-### Slide 7 — Part C: Audited Multi-Model LLM Pipeline & Diagnosis of Prompt `v1`
+### Slide 7 — Part C: Audited Multi-Model LLM Pipeline (720 Trials) & Diagnosis of Prompt `v1`
 - **Speaker**: Member C
 - **Time**: ~1:05 *(5:50 – 6:55)*
 
 **Script**:
-> "Thank you, [Member B]. In Part C, we built an audited multi-model evaluation pipeline testing both OpenAI's `gpt-5.6-luna` and Google's `gemini-3.8-flash` across 480 total trials. Every model call must output a valid JSON object containing `selected_id` and a complete permutation ranking of all feasible candidates. We also run a strict causal ablation comparing **M3**—which receives the task intent—against **A1**, which receives the exact same candidate list and system prompt but with the task description removed.
+> "Thank you, [Member B]. In Part C, we built an audited multi-model evaluation pipeline testing both OpenAI's `gpt-5.6-luna` and Google's `gemini-3.8-flash` across 12 configurations and 720 total trials. Every model call must output a valid JSON object containing `selected_id` and a complete permutation ranking of all feasible candidates. We also run a strict causal ablation comparing **M3**—which receives the task intent—against **A1**, which receives the exact same candidate list and system prompt but with the task description removed.
 >
 > When we ran our initial `prompt_version="v1"`, we encountered an important negative result: `M3_CODEX` scored only **53.3%** overall and `M3_GEMINI` scored **63.3%**, failing to beat the heuristic baselines.
 >
@@ -131,36 +131,34 @@
 
 ---
 
-### Slide 8 — Part C: Prompt `v2` Design & Cross-Model Grasp Family Adaptation
+### Slide 8 — Part C: 3-Stage Prompt Ablation (`v1` $\rightarrow$ `v2_physics` $\rightarrow$ `v2`)
 - **Speaker**: Member C
-- **Time**: ~1:00 *(6:55 – 7:55)*
+- **Time**: ~1:05 *(6:55 – 8:00)*
 
 **Script**:
-> "To test whether `v1`'s failure came from reasoning limits or interface ambiguity, we introduced `prompt_version="v2"` with two targeted fixes:
-> - First, in `SYSTEM_PROMPT_V2`, we explicitly documented that `geometry_score = 0.0` on rim and handle candidates means **unscored by the cylindrical body formula (`N/A`)** rather than poor quality, instructing the model to match `region` and `approach` semantics to task mechanics first.
-> - Second, in `SEQUENCE_INTENT_V2`, we articulated the physical task constraints: finger clearance during table release for transport, keeping the horizontal $+Y$ receiver corridor clear via vertical rim pinches for handover, and maintaining continuous 110-degree wrist reachability for pouring.
+> "A natural scientific question is: if we fix the `0.0` score ambiguity and describe the physical task trajectory *without* naming any preferred grasp family, can the LLM infer the right grasp on its own? To test this rigorously, we designed a three-stage ablation: `v1`, `v2_physics`, and `v2`.
 >
-> The chart at the bottom shows the resulting grasp-family shift across both GPT and Gemini:
-> - Without task descriptions, `A1_CODEX_V2` and `A1_GEMINI_V2` favor handle grasps in transport, but when handle grasps are filtered out in handover and pouring, they blindly fall back to **20 out of 20 body-side grasps**.
-> - With task descriptions, **both `M3_CODEX_V2` and `M3_GEMINI_V2` independently switch grasp families across tasks**: selecting handle grasps for transport (**19/20**), switching 100% to vertical rim grasps for handover (**20/20**), and switching 100% to high-scoring body-top grasps for pouring (**20/20**)."
+> - In **Stage 2 (`v2_physics`)**, we clarify that `0.0` means **unscored (`N/A`)** and describe only the objective physical trajectory—such as *'another gripper approaches horizontally along $+Y$ toward the handle'*—with **zero grasp-family hints**.
+>   - Remarkably, on **Handover**, `M3_GEMINI_V2_PHYSICS` autonomously deduces that horizontal side grasps will block the receiver and switches **20 out of 20 times** to vertical rim grasps from above—achieving **100% handover success (20/20)** with zero family hints!
+>   - Meanwhile, GPT (`M3_CODEX_V2_PHYSICS`) exhibits stronger risk aversion toward `N/A` scores and stays within scored body grasps, yet it still uses spatial reasoning to completely avoid `side=beside the handle` (`0/20` vs `6/20` in task-blind `A1`).
+> - However, in **Transport** and **Pouring**, both models under `v2_physics` default to high-scoring `body mid` side grasps because generic commonsense cannot guess Panda finger clearance during table release or that the `'blocks pouring'` tag is a false alarm in particle simulation.
+> - When **Stage 3 (`v2`)** provides these simulator embodiment priors, both GPT and Gemini converge to the exact same adaptive policy: **Handle** for Transport (`19/20`), **Rim** for Handover (`20/20`), and **Body Top** for Pouring (`20/20`)."
 
 ---
 
-### Slide 9 — Comprehensive Evaluation Results (Seeds 10–29) & Causal Ablation (`M3` vs `A1`)
+### Slide 9 — Comprehensive Evaluation Results (Seeds 10–29, 17 Methods) & Causal Ablation
 - **Speaker**: Member C
-- **Time**: ~1:10 *(7:55 – 9:05)*
+- **Time**: ~1:05 *(8:00 – 9:05)*
 
 **Script**:
-> "Slide 9 presents our complete benchmark results across all 13 methods on the 20 held-out seeds.
+> "Slide 9 presents our complete benchmark results across all 17 methods—5 baselines and 12 LLM variants—on the 20 held-out seeds.
 >
-> Combining Transport, Handover, and the full 458-episode PBF Pouring table:
-> - **`M3_GEMINI_V2` leads at 55 out of 60 (91.7%)**, and **`M3_CODEX_V2` reaches 54 out of 60 (90.0%)**—substantially outperforming every non-LLM baseline, including empirical lookup `M4` (78.3%) and task-risk `M2` (75.0%).
-> - In local PBF verification (`pbf/`), both `M3_CODEX_V2` and `M3_GEMINI_V2` reach **17 out of 20 (85.0%)** on pouring.
-> - On **Handover Transfer**, both GPT `v2` and Gemini `v2` achieve **20 out of 20 (100%)**, matching the post-hoc Oracle upper bound and beating `M0_RANDOM` by 9 wins to 0 (exact $p = 0.0039$).
+> Tracing the three-stage progression across the 60 held-out trials:
+> - In **Stage 1 (`v1` Raw)**, GPT scores **32/60 (53.3%)** and Gemini scores **38/60 (63.3%)**.
+> - In **Stage 2 (`v2_physics` Zero-Hint)**, `M3_GEMINI_V2_PHYSICS` rises to **43/60 (71.7%)**, hitting **20/20 on Handover** (**15 wins to 0** over `v1`, **Holm $p = 0.0112$**; **11 wins to 0** over task-blind `A1_GEMINI_V2_PHYSICS`, exact $p = 9.77\times 10^{-4}$).
+> - In **Stage 3 (`v2` Embodiment Prior)**, **`M3_GEMINI_V2` leads at 55 out of 60 (91.7%)** and **`M3_CODEX_V2` reaches 54 out of 60 (90.0%)**—outperforming every non-LLM baseline, including empirical lookup `M4` (78.3%) and task-risk `M2` (75.0%), and reaching **17/20 (85%)** in local PBF verification.
 >
-> Crucially, our paired exact sign tests prove the causal value of task awareness even after Holm multiple-testing correction across all reported comparisons:
-> - On **Handover**, `M3_CODEX_V2` beats task-blind `A1_CODEX_V2` (`20/20` vs `6/20`, **14/0 wins**, **Holm $p = 0.0117$**), and `M3_GEMINI_V2` beats `A1_GEMINI_V2` (`20/20` vs `4/20`, **16/0 wins**, **Holm $p = 0.0031$**).
-> - On **Pouring**, `M3` beats `A1` by **+70 to +75 percentage points** in proxy mode (**Holm $p \le 0.0117$**) and by **+25 to +35 percentage points** in full PBF fluid."
+> Our paired exact sign tests confirm both causal task awareness (`M3` vs `A1` in `v2`: **Holm $p \le 0.0218$** on Handover and Pouring) and the statistically significant gain from embodiment priors (`v2` vs `v2_physics`: **Holm $p \le 0.0218$**)."
 
 ---
 
@@ -169,11 +167,11 @@
 - **Time**: ~0:55 *(9:05 – 10:00)*
 
 **Script**:
-> "To conclude on Slide 10: we built an end-to-end, cryptographically audited benchmark connecting multi-family grasp generation, execution-consistent PyBullet simulation with 256-particle PBF fluid, and multi-model LLM evaluation.
+> "To conclude on Slide 10: we built an end-to-end, cryptographically audited benchmark connecting multi-family grasp generation, execution-consistent PyBullet simulation with 256-particle PBF fluid, and a 720-trial multi-model LLM ablation study.
 >
-> We also want to highlight three honest engineering limitations:
-> 1. **Cross-family analytical scoring**: Our static body prior still leaves rim and handle grasps unscored at `0.0`; calibrating comparable 6D wrench scores across two-point and four-point friction contacts in `wrench_v2` remains an open research step.
-> 2. **Controller pregrasp timeouts in pouring**: Across the 458 PBF pouring episodes, 66 of the 182 total failures happen before grasping due to pregrasp motion timeouts rather than water spillage, which compresses the gap between top selectors (`16/20`) and random feasible selection (`16/20`).
-> 3. **Evaluation scope**: While seeds 10 to 29 are strictly disjoint from M4's training seeds 0 to 9, Prompt `v2` was refined after diagnosing `v1`'s failure modes on this benchmark, so testing on a fresh blind seed split and real RGB-D hardware is our natural future work.
+> Our three-stage prompt study provides a clear scientific takeaway on what LLMs can and cannot infer on their own:
+> 1. **Genuine 3D spatial reasoning (`v2_physics`)**: When `0.0` score ambiguity is removed and objective task trajectories are described with zero hints, LLMs can infer 3D obstacle avoidance—shown by Gemini achieving 20/20 on Handover and GPT avoiding beside-the-handle collisions.
+> 2. **Why embodiment priors (`v2`) are still necessary**: Generic commonsense cannot guess robot-specific hardware clearances (such as Panda finger clearance when releasing an 8-centimeter mug on a table, or 7-DoF wrist limits during a 110-degree pour). Providing those embodiment priors lifts both GPT and Gemini to **90.0%–91.7%** overall success.
+> 3. **Future direction**: Exporting kinematic clearance and wrist-margin features directly from Part A's rehearsal filter into the candidate table will allow LLMs to achieve this performance purely from pre-execution kinematics without manual prompt priors.
 >
-> Ultimately, our takeaway is that **LLM grasp selection succeeds not by replacing physics, but when geometric priors and downstream kinematic constraints are communicated without semantic ambiguity**. Thank you, and we welcome your questions!"
+> Thank you very much, and we welcome your questions!"

@@ -94,3 +94,28 @@ SEQUENCE_INTENT_V2 = {
         "(region='rim', closing=across handle axis)."
     ),
 }
+
+SEQUENCE_INTENT_V2_PHYSICS = {
+    "transport_place": (
+        "Pick up the upright mug from the table, translate it horizontally to the target coaster "
+        "on the table, lower it until the mug base rests on the table, open the gripper, and retreat. "
+        "Choose a grasp that holds the mug securely during horizontal transport and allows the fingers "
+        "and wrist to open and withdraw near the table surface without colliding with the table or tipping the mug."
+    ),
+    "handover_transfer": (
+        "Pick up the upright mug, move it to the handover pose in mid-air, and hold it steady while a "
+        "cooperative parallel-jaw receiving gripper approaches horizontally from the side toward the mug "
+        "handle (+Y direction) to grasp the handle. Once the receiver closes on the handle, open the donor "
+        "gripper and retreat along the donor approach direction so the receiver carries the mug alone. "
+        "Choose a donor grasp that leaves the handle unobstructed for the receiver and does not occupy the "
+        "horizontal side space around the mug where the receiving gripper fingers and wrist enter."
+    ),
+    "pour_water": (
+        "Pick up the water-filled mug, carry it adjacent to the receiving cup on the table, rotate the wrist "
+        "by 110 degrees to tilt the mug and pour water into the receiving cup, hold the tilt, and rotate back upright. "
+        "Choose a grasp that remains kinematically reachable for a 7-DoF arm across the full 110-degree wrist "
+        "rotation near the receiving cup without hitting wrist limits, slipping under tilted load, or colliding "
+        "with the receiving cup."
+    ),
+}
+

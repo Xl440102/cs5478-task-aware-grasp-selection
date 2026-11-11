@@ -1,0 +1,37 @@
+{
+  "created_at": "2026-11-11T03:28:12.707773+00:00",
+  "base_commit": "238050b",
+  "planned_selections": 120,
+  "saved_selections": 120,
+  "methods": [
+    "M0_RANDOM",
+    "M1_STATIC_V2",
+    "M2_TASK_RISK",
+    "M4_FAMILY_PRIOR",
+    "M5_PAPER_STYLE",
+    "M3_CODEX_V2_PHYSICS",
+    "A1_CODEX_V2_PHYSICS"
+  ],
+  "llm_methods": [
+    "M3_CODEX_V2_PHYSICS",
+    "A1_CODEX_V2_PHYSICS"
+  ],
+  "prompt_versions": {
+    "M3_CODEX_V2_PHYSICS": "v2_physics",
+    "A1_CODEX_V2_PHYSICS": "v2_physics"
+  },
+  "pbf_table_source": "/Users/bytedance/PycharmProjects/cs5478-task-aware-grasp-selection/results/oracle_20261103/r3_pbf_v3p_wide_strict_v2",
+  "pbf_table_sha256": "df6cd48360d0654633a5d4545882346ce094cebebf1098478e9ade1bc1011989",
+  "fingerprints": {
+    "manifest.json": "400ccd96b443ca84543e444f480001dbd761f78d53a058cee8521e530446674a",
+    "pbf_manifest.json": "a07072d3a2a052b3d7e95be2b9e65685b3bc88d0659de40909e565aedc1922c2",
+    "summary.json": "994b3fba861f4e9763be55d29ed22733e38fed5edf0ac6a9133c9bb55e68fdb5"
+  },
+  "record_files_count": 196,
+  "record_files_sha256": "f4544722cd16adb6cdce6f874216a08a9256f5ca9f794bbf3b08ec27516b1917",
+  "artifacts_sha256": {
+    "success_rates.png": "f6d3d6709d1bfd5d91679faa92d303395bea37c2a9f47c6b1936a3e6d4ba3747",
+    "method_results.csv": "cbf7fee3041aca7ea9ee94e5bf500a0fca8325c9f8fe7ae2ad203f42484f275a",
+    "report.md": "1ef2ced77fb863228108997bdfac6f619cabd1a3e1998cc3c67c5acffe99ace8"
+  }
+}

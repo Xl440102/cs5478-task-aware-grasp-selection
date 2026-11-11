@@ -1,0 +1,167 @@
+# C frozen-table evaluation
+
+Seeds: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
+
+Success includes physical execution failures in the denominator; numerical/call/missing outcomes are excluded and counted.
+Wilson intervals use scene seeds as units. Holm correction covers all reported comparisons with valid pairs.
+
+## transport_place (rigid-body)
+
+| Method | Success/scored | Planned | 95% Wilson CI | Families |
+|---|---:|---:|---|---|
+| M0_RANDOM | 15/20 | 20 | 0.531–0.888 | {'handle': 5, 'rim': 4, 'top': 5, 'side': 6} |
+| M1_STATIC_V2 | 17/20 | 20 | 0.640–0.948 | {'top': 20} |
+| M2_TASK_RISK | 19/20 | 20 | 0.764–0.991 | {'top': 20} |
+| M4_FAMILY_PRIOR | 18/20 | 20 | 0.699–0.972 | {'rim': 20} |
+| M5_PAPER_STYLE | 20/20 | 20 | 0.839–1.000 | {'handle': 20} |
+| M3_CODEX_V2_PHYSICS | 9/20 | 20 | 0.258–0.658 | {'side': 20} |
+| A1_CODEX_V2_PHYSICS | 10/20 | 20 | 0.299–0.701 | {'side': 17, 'top': 3} |
+
+| Comparison | Paired n | Wins/losses | Exact p | Holm p |
+|---|---:|---:|---:|---:|
+| M1_STATIC_V2 vs M0_RANDOM | 20 | 5/3 | 0.7265625 | 1.0 |
+| M2_TASK_RISK vs M0_RANDOM | 20 | 5/1 | 0.21875 | 1.0 |
+| M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 4/1 | 0.375 | 1.0 |
+| M5_PAPER_STYLE vs M0_RANDOM | 20 | 5/0 | 0.0625 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 1/7 | 0.0703125 | 1.0 |
+| A1_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 2/7 | 0.1796875 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs A1_CODEX_V2_PHYSICS | 20 | 1/2 | 1.0 | 1.0 |
+
+## handover_transfer (rigid-body)
+
+| Method | Success/scored | Planned | 95% Wilson CI | Families |
+|---|---:|---:|---|---|
+| M0_RANDOM | 11/20 | 20 | 0.342–0.742 | {'top': 9, 'rim': 4, 'side': 2, 'handle': 5} |
+| M1_STATIC_V2 | 5/20 | 20 | 0.112–0.469 | {'side': 13, 'top': 7} |
+| M2_TASK_RISK | 11/20 | 20 | 0.342–0.742 | {'side': 20} |
+| M4_FAMILY_PRIOR | 17/20 | 20 | 0.640–0.948 | {'rim': 20} |
+| M5_PAPER_STYLE | 5/20 | 20 | 0.112–0.469 | {'side': 13, 'top': 7} |
+| M3_CODEX_V2_PHYSICS | 5/20 | 20 | 0.112–0.469 | {'side': 16, 'top': 4} |
+| A1_CODEX_V2_PHYSICS | 2/20 | 20 | 0.028–0.301 | {'side': 20} |
+
+| Comparison | Paired n | Wins/losses | Exact p | Holm p |
+|---|---:|---:|---:|---:|
+| M1_STATIC_V2 vs M0_RANDOM | 20 | 3/9 | 0.14599609375 | 1.0 |
+| M2_TASK_RISK vs M0_RANDOM | 20 | 6/6 | 1.0 | 1.0 |
+| M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 8/2 | 0.109375 | 1.0 |
+| M5_PAPER_STYLE vs M0_RANDOM | 20 | 3/9 | 0.14599609375 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 3/9 | 0.14599609375 | 1.0 |
+| A1_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 2/11 | 0.0224609375 | 0.763671875 |
+| M3_CODEX_V2_PHYSICS vs A1_CODEX_V2_PHYSICS | 20 | 3/0 | 0.25 | 1.0 |
+
+## pour_water (proxy_margin)
+
+| Method | Success/scored | Planned | 95% Wilson CI | Families |
+|---|---:|---:|---|---|
+| M0_RANDOM | 13/20 | 20 | 0.433–0.819 | {'rim': 5, 'top': 10, 'side': 5} |
+| M1_STATIC_V2 | 12/20 | 20 | 0.387–0.781 | {'side': 11, 'top': 9} |
+| M2_TASK_RISK | 13/20 | 20 | 0.433–0.819 | {'side': 18, 'top': 2} |
+| M4_FAMILY_PRIOR | 14/20 | 20 | 0.481–0.855 | {'rim': 20} |
+| M5_PAPER_STYLE | 12/20 | 20 | 0.387–0.781 | {'side': 11, 'top': 9} |
+| M3_CODEX_V2_PHYSICS | 4/20 | 20 | 0.081–0.416 | {'side': 19, 'top': 1} |
+| A1_CODEX_V2_PHYSICS | 7/20 | 20 | 0.181–0.567 | {'side': 17, 'top': 3} |
+
+| Comparison | Paired n | Wins/losses | Exact p | Holm p |
+|---|---:|---:|---:|---:|
+| M1_STATIC_V2 vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M2_TASK_RISK vs M0_RANDOM | 20 | 3/3 | 1.0 | 1.0 |
+| M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 5/4 | 1.0 | 1.0 |
+| M5_PAPER_STYLE vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 0/9 | 0.00390625 | 0.13671875 |
+| A1_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 3/9 | 0.14599609375 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs A1_CODEX_V2_PHYSICS | 20 | 1/4 | 0.375 | 1.0 |
+
+## pour_water_pbf (pbf)
+
+| Method | Success/scored | Planned | 95% Wilson CI | Families |
+|---|---:|---:|---|---|
+| M0_RANDOM | 16/20 | 20 | 0.584–0.919 | {'rim': 5, 'top': 10, 'side': 5} |
+| M1_STATIC_V2 | 15/20 | 20 | 0.531–0.888 | {'side': 11, 'top': 9} |
+| M2_TASK_RISK | 15/20 | 20 | 0.531–0.888 | {'side': 18, 'top': 2} |
+| M4_FAMILY_PRIOR | 13/20 | 20 | 0.433–0.819 | {'rim': 20} |
+| M5_PAPER_STYLE | 15/20 | 20 | 0.531–0.888 | {'side': 11, 'top': 9} |
+| M3_CODEX_V2_PHYSICS | 12/20 | 20 | 0.387–0.781 | {'side': 19, 'top': 1} |
+| A1_CODEX_V2_PHYSICS | 15/20 | 20 | 0.531–0.888 | {'side': 17, 'top': 3} |
+
+| Comparison | Paired n | Wins/losses | Exact p | Holm p |
+|---|---:|---:|---:|---:|
+| M1_STATIC_V2 vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M2_TASK_RISK vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 2/5 | 0.453125 | 1.0 |
+| M5_PAPER_STYLE vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 3/7 | 0.34375 | 1.0 |
+| A1_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 3/4 | 1.0 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs A1_CODEX_V2_PHYSICS | 20 | 0/3 | 0.25 | 1.0 |
+
+## pour_water_pbf_table (pbf)
+
+| Method | Success/scored | Planned | 95% Wilson CI | Families |
+|---|---:|---:|---|---|
+| M0_RANDOM | 16/20 | 20 | 0.584–0.919 | {'rim': 5, 'top': 10, 'side': 5} |
+| M1_STATIC_V2 | 13/20 | 20 | 0.433–0.819 | {'side': 11, 'top': 9} |
+| M2_TASK_RISK | 15/20 | 20 | 0.531–0.888 | {'side': 18, 'top': 2} |
+| M4_FAMILY_PRIOR | 12/20 | 20 | 0.387–0.781 | {'rim': 20} |
+| M5_PAPER_STYLE | 13/20 | 20 | 0.433–0.819 | {'side': 11, 'top': 9} |
+| M3_CODEX_V2_PHYSICS | 11/20 | 20 | 0.342–0.742 | {'side': 19, 'top': 1} |
+| A1_CODEX_V2_PHYSICS | 12/20 | 20 | 0.387–0.781 | {'side': 17, 'top': 3} |
+| ORACLE | 20/20 | 20 | 0.839–1.000 | — |
+| UNIFORM_FEASIBLE_EXPECTATION | 12.3/20 (0.614) | 20 | — | — |
+
+| Comparison | Paired n | Wins/losses | Exact p | Holm p |
+|---|---:|---:|---:|---:|
+| M1_STATIC_V2 vs M0_RANDOM | 20 | 4/7 | 0.548828125 | 1.0 |
+| M2_TASK_RISK vs M0_RANDOM | 20 | 4/5 | 1.0 | 1.0 |
+| M4_FAMILY_PRIOR vs M0_RANDOM | 20 | 1/5 | 0.21875 | 1.0 |
+| M5_PAPER_STYLE vs M0_RANDOM | 20 | 4/7 | 0.548828125 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 4/9 | 0.266845703125 | 1.0 |
+| A1_CODEX_V2_PHYSICS vs M0_RANDOM | 20 | 4/8 | 0.3876953125 | 1.0 |
+| M3_CODEX_V2_PHYSICS vs A1_CODEX_V2_PHYSICS | 20 | 1/2 | 1.0 | 1.0 |
+
+## Model-call audit
+
+```json
+{
+  "M3_CODEX_V2_PHYSICS": {
+    "planned_n": 60,
+    "saved_n": 60,
+    "selected_n": 60,
+    "errors": 0,
+    "live_requests": 63,
+    "cache_hits": 0,
+    "initial_valid_n": 57,
+    "repairs": 3,
+    "fallbacks": 0,
+    "live_token_usage": {
+      "input_tokens": 775311,
+      "output_tokens": 42980,
+      "reasoning_output_tokens": 16245
+    },
+    "mean_selection_seconds": 18.27733053746668,
+    "synthetic": false
+  },
+  "A1_CODEX_V2_PHYSICS": {
+    "planned_n": 60,
+    "saved_n": 60,
+    "selected_n": 60,
+    "errors": 0,
+    "live_requests": 62,
+    "cache_hits": 0,
+    "initial_valid_n": 58,
+    "repairs": 2,
+    "fallbacks": 1,
+    "live_token_usage": {
+      "input_tokens": 755700,
+      "output_tokens": 42895,
+      "reasoning_output_tokens": 16336,
+      "cached_input_tokens": 14848
+    },
+    "mean_selection_seconds": 17.825852476383336,
+    "synthetic": false
+  }
+}
+```
+
+- One response per method/task/seed; no repeated-model stability claim.
+- M4 training seeds excluded; seeds 10-29 already appeared in upstream analysis, not a blind test.
+- Proxy pouring is separate from PBF; pour_water_pbf_table reports full PBF table lookup and Oracle.
+- Historical table lacks environment fingerprints; table lookup is retrospective.

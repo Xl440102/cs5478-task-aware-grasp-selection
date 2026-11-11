@@ -1,4 +1,6 @@
 """Observable control contracts. No simulator object/contact queries live here."""
+from __future__ import annotations
+
 from dataclasses import asdict, dataclass
 import math
 

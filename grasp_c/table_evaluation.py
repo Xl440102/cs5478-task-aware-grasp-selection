@@ -452,7 +452,8 @@ def summarize(out, *, pbf_table=None, summary_path=None, report_path=None):
         pairs += [(a["id"], b["id"]) for a in config["methods"] for b in config["methods"]
                   if a["variant"] == b["variant"]
                   and (a["provider"], a["model"]) == (b["provider"], b["model"])
-                  and a.get("prompt_version") == "v2" and b.get("prompt_version") == "v1"]
+                  and (a.get("prompt_version"), b.get("prompt_version")) in {
+                      ("v2", "v1"), ("v2_physics", "v1"), ("v2", "v2_physics")}]
         for a, b in pairs:
             result["comparisons"].append(dict(task=key, method=a, reference=b, **paired(scores[a], scores[b])))
     holm(result["comparisons"])

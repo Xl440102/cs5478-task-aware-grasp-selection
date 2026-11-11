@@ -4,12 +4,13 @@
 之前，必须固定候选文件、`grasp_a/simulation.py` 中的待机位姿与控制参数。
 建议把个人重跑结果写到 `results/local/`，以免覆盖下面的参考文件。
 
-## 2026 年 11 月 6 日 / 11 月 9 日 C 多模型与 Prompt v1/v2 真实评估
+## 2026 年 11 月 6 日 / 11 月 11 日 C 多模型与三阶段 Prompt（`v1` / `v2_physics` / `v2`）真实评估
 
-- [`c_evaluation_multimodel_20261109/`](c_evaluation_multimodel_20261109/)：汇总第三轮留出集 seed 10–29 上 `gpt-5.6-luna`（`v1` 与 `v2`）及 `gemini-3.8-flash`（`v1` 与 `v2`）共 8 组 LLM 方法（480 条密封 trial）、89 条去重本机 PBF 复核记录与五种基线（M0–M5）的完整对比，并接入 [`oracle_20261103/r3_pbf_v3p_wide_strict_v2/`](oracle_20261103/r3_pbf_v3p_wide_strict_v2/) 全量 458 条默认 PBF 流体表。包含 [`summary.json`](c_evaluation_multimodel_20261109/summary.json)、[`report.md`](c_evaluation_multimodel_20261109/report.md)、[`method_results.csv`](c_evaluation_multimodel_20261109/method_results.csv)、[`success_rates.png`](c_evaluation_multimodel_20261109/success_rates.png) 与 [`validation.json`](c_evaluation_multimodel_20261109/validation.json)。
+- [`c_evaluation_multimodel_20261109/`](c_evaluation_multimodel_20261109/)：汇总第三轮留出集 seed 10–29 上 `gpt-5.6-luna`（`v1`、`v2_physics`、`v2`）及 `gemini-3.8-flash`（`v1`、`v2_physics`、`v2`）共 12 组 LLM 方法（720 条密封 trial）、98 条去重本机 PBF 复核记录与五种基线（M0–M5）的完整对比，并接入 [`oracle_20261103/r3_pbf_v3p_wide_strict_v2/`](oracle_20261103/r3_pbf_v3p_wide_strict_v2/) 全量 458 条默认 PBF 流体表。包含 [`summary.json`](c_evaluation_multimodel_20261109/summary.json)、[`report.md`](c_evaluation_multimodel_20261109/report.md)、[`method_results.csv`](c_evaluation_multimodel_20261109/method_results.csv)、[`success_rates.png`](c_evaluation_multimodel_20261109/success_rates.png) 与 [`validation.json`](c_evaluation_multimodel_20261109/validation.json)。
+- [`c_evaluation_v2_physics/`](c_evaluation_v2_physics/)：保存 `gpt-5.6-luna` 在零抓法暗示的纯物理推理版 `prompt_version="v2_physics"` 下的 120 条真实 `M3_CODEX_V2_PHYSICS`/`A1_CODEX_V2_PHYSICS` 选择、65 条去重 PBF 复核记录、全量 PBF 表对账及统计图表。
 - [`c_evaluation_v2/`](c_evaluation_v2/)：保存 `gpt-5.6-luna` 在 `prompt_version="v2"` 下的 120 条真实 `M3_CODEX_V2`/`A1_CODEX_V2` 选择、73 条去重 PBF 复核记录、全量 PBF 表对账及统计图表。
 - [`c_evaluation_20261106/`](c_evaluation_20261106/)：保存初始 `gpt-5.6-luna`（`v1`）120 条真实 M3/A1 选择、冻结运行清单、逐条原始响应及 73 条去重本机默认 PBF 完整 episode（另附接入全量 PBF 表的 [`summary_with_pbf_table.json`](c_evaluation_20261106/summary_with_pbf_table.json) 与 [`report_with_pbf_table.md`](c_evaluation_20261106/report_with_pbf_table.md)）。
-- 中文结论、Prompt `v1`/`v2` 消融分析与局限见 [C 评估报告](../docs/PART_C_EVALUATION_20261106.md)。历史 oracle 表只读，模型不接收结果标签。物理异常、模型回退和缺失样本分别保留，倒水代理不与真实流体合并。
+- 中文结论、Prompt `v1`/`v2_physics`/`v2` 三阶段消融分析与局限见 [C 评估报告](../docs/PART_C_EVALUATION_20261106.md)。历史 oracle 表只读，模型不接收结果标签。物理异常、模型回退和缺失样本分别保留，倒水代理不与真实流体合并。
 
 ## 2026 年 10 月 24 日 A/B/C 集成验证
 

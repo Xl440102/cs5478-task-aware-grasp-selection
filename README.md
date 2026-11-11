@@ -11,7 +11,7 @@
 主流程为 **B 生成候选 → A 筛选 → B/C 选择已有 ID → A 统一执行 → C 汇总评价**。
 B 的使用方式见[第 9 节](#9-part-b--candidate-generation-and-geometry-based-selection)；C 的安装、账号接入和多模型配置见 [docs/PART_C.md](docs/PART_C.md)。
 
-2026-11-06 / 2026-11-09 的 C 评估补全：在第三轮 116 个多族候选、留出集 seed 10–29 上完成多模型（`gpt-5.6-luna` 与 `gemini-3.8-flash`）及 `prompt_version="v1"/"v2"` 的 M3/A1 对比评估，并与五种基线（M0–M5）、本机 PBF 复核及上游全量 458 条 PBF 流体表（`r3_pbf_v3p_wide_strict_v2`）完整对账。配置、统计口径、8 组 LLM 方法（共 480 条模型回答）审计及结论见 [C 评估报告](docs/PART_C_EVALUATION_20261106.md)、[Codex v2 结果目录](results/c_evaluation_v2/report.md) 与 [多模型汇总目录](results/c_evaluation_multimodel_20261109/report.md)。
+2026-11-06 / 2026-11-11 的 C 评估补全：在第三轮 116 个多族候选、留出集 seed 10–29 上完成多模型（`gpt-5.6-luna` 与 `gemini-3.8-flash`）及三阶段提示词版本（`prompt_version="v1"` 原始接口、`"v2_physics"` 零暗示纯物理推理、`"v2"` 显式机构先验）的 M3/A1 对比评估，并与五种基线（M0–M5）、本机 PBF 复核（98 条去重 episode）及上游全量 458 条 PBF 流体表（`r3_pbf_v3p_wide_strict_v2`）完整对账。配置、统计口径、12 组 LLM 方法（共 720 条模型回答）审计及结论见 [C 评估报告](docs/PART_C_EVALUATION_20261106.md)、[Codex v2_physics 结果目录](results/c_evaluation_v2_physics/report.md)、[Codex v2 结果目录](results/c_evaluation_v2/report.md) 与 [多模型汇总目录](results/c_evaluation_multimodel_20261109/report.md)。
 
 2026-10-17 新增独立的完整小序列轨道：`transport_place`（放置后松手撤离）、`handover_transfer`（接收夹爪独立抬升）、`pour_water`（开口双杯与 PBF 数值液体，按接水量和撒漏评分）。逐步入口、动作、退出、超时、成功定义与 B/C 接口见 [完整任务定义](docs/TASK_SEQUENCES.md)。液体使用密度约束和黏性求解，不是刚体小球；属于低分辨率近似，未做真实水 CFD 标定。C 已显式接入 `track=sequence`；旧配置默认 `track=prep`，两轨道分别运行和统计。
 

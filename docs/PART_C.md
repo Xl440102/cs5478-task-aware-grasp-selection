@@ -552,9 +552,9 @@ PBF 记录中缺失的数值状态补成有效。已保存的物理失败同样�
 
 针对 `prompt_version="v1"` 中 `geometry_score=0.0`（杯沿/把手在静态杯身模型下未评分）
 被模型当作零质量候选、以及交接水平走廊干涉和倒水 `mouth=hand over the opening`
-标签误导的问题，已新增 `prompt_version="v2"`（见 `grasp_c/prompts.py`、
-`grasp_c/tasks.py` 和 `configs/c.r3.codex.v2.json`、`configs/c.r3.gemini.v2.json`），同时完整保留 `v1` 默认行为与
-已有运行指纹。在 `gpt-5.6-luna` 与 `gemini-3.8-flash` 上的 `v1` 与 `v2` 对照表明：消除零分未评分歧义并显式编码任务几何/运动学约束后，`M3_CODEX_V2`（搬运 18/20、交接 20/20、倒水代理 18/20、全量 PBF 16/20）与 `M3_GEMINI_V2`（搬运 19/20、交接 20/20、倒水代理 18/20、全量 PBF 16/20）跨模型同步实现大幅提升，并在交接与倒水代理上显著优于各自的无任务消融 `A1_CODEX_V2` 与 `A1_GEMINI_V2`。
+标签误导的问题，已新增三阶段提示词消融（见 `grasp_c/prompts.py`、`grasp_c/tasks.py`）：
+- `prompt_version="v2_physics"`（零抓法暗示的纯物理推理版，见 `configs/c.r3.codex.v2_physics.json`、`configs/c.r3.gemini.v2_physics.json` 与 `results/c_evaluation_v2_physics/`）：仅将 `0.0` 解释为 `N/A (unscored)` 并描述客观物理运动轨迹，不点名任何推荐抓取族。实验表明 `M3_GEMINI_V2_PHYSICS` 在交接任务上自主推理出垂直杯沿抓法并达到 20/20（100%），`M3_CODEX_V2_PHYSICS` 在交接上也完全避开挡住把手的 `side=beside the handle`（0/20 vs `A1` 的 6/20）。
+- `prompt_version="v2"`（含机构运动学先验版，见 `configs/c.r3.codex.v2.json`、`configs/c.r3.gemini.v2.json` 与 `results/c_evaluation_v2/`）：进一步提供桌面松爪净空、水平交接走廊与 110° 倾倒腕部可达性先验后，`M3_CODEX_V2`（搬运 18/20、交接 20/20、倒水代理 18/20、全量 PBF 16/20，总计 54/60 = 90.0%）与 `M3_GEMINI_V2`（搬运 19/20、交接 20/20、倒水代理 18/20、全量 PBF 16/20，总计 55/60 = 91.7%）跨模型同步实现大幅提升，并在交接与倒水代理上显著优于各自的无任务消融 `A1_CODEX_V2` 与 `A1_GEMINI_V2`。12 组 LLM 方法（共 720 条选择）的完整多模型对比汇总在 `results/c_evaluation_multimodel_20261109/`。
 
 输出的 `manifest.json` 冻结配置、provider 身份、代码/资产、包版本、历史源文件
 逐文件 SHA-256；`trials/` 保存提示词与响应审计；`summary.json` 和 `report.md`
