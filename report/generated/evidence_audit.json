@@ -1,0 +1,74 @@
+{
+  "saved_trials": 720,
+  "output_audit": {
+    "initial_valid_n": 712,
+    "repairs": 8,
+    "fallbacks": 2,
+    "errors": 0
+  },
+  "paired_comparisons": 170,
+  "m6_primary_successes": {
+    "transport_place": 18,
+    "handover_transfer": 20,
+    "pour_water": 16
+  },
+  "proxy_pbf_agreement": [
+    347,
+    458
+  ],
+  "local_pbf_unique_episodes": 98,
+  "pregrasp_timeouts": {
+    "r3_v3p_wide_strict_v2": 222,
+    "r4_v3p_wide_strict_v3": 2
+  },
+  "pooled_counts": {
+    "transport_place/side": [
+      171,
+      350
+    ],
+    "transport_place/top": [
+      280,
+      347
+    ],
+    "transport_place/handle": [
+      339,
+      382
+    ],
+    "transport_place/rim": [
+      182,
+      195
+    ],
+    "handover_transfer/side": [
+      84,
+      347
+    ],
+    "handover_transfer/top": [
+      219,
+      347
+    ],
+    "handover_transfer/handle": [
+      56,
+      118
+    ],
+    "handover_transfer/rim": [
+      163,
+      189
+    ],
+    "pour_water/top": [
+      142,
+      211
+    ],
+    "pour_water/side": [
+      89,
+      185
+    ],
+    "pour_water/rim": [
+      45,
+      62
+    ],
+    "pour_water/handle": [
+      0,
+      0
+    ]
+  }
+}

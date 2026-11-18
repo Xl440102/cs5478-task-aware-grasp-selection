@@ -1,496 +1,212 @@
 \documentclass{article}
-
-% if you need to pass options to natbib, use, e.g.:
-%     \PassOptionsToPackage{numbers, compress}{natbib}
-% before loading neurips_2026
-
-% The authors should use one of these tracks.
-% Before accepting by the NeurIPS conference, select one of the options below.
-% 0. "default" for submission
-\usepackage{neurips_2026}
-% the "default" option is equal to the "main" option, which is used for the Main Track with double-blind reviewing.
-% 1. "main" option is used for the Main Track
-%  \usepackage[main]{neurips_2026}
-% 2. "position" option is used for the Position Paper Track
-%  \usepackage[position]{neurips_2026}
-% 3. "eandd" option is used for the Evaluations & Datasets Track
- % \usepackage[eandd]{neurips_2026}
-% 4. "creativeai" option is used for the Creative AI Track
-%  \usepackage[creativeai]{neurips_2026}
-% 5. "sglblindworkshop" option is used for the Workshop with single-blind reviewing
- % \usepackage[sglblindworkshop]{neurips_2026}
-% 6. "dblblindworkshop" option is used for the Workshop with double-blind reviewing
-%  \usepackage[dblblindworkshop]{neurips_2026}
-% 7. "education" option is used for the Education Track
-%  \usepackage[education]{neurips_2026}
-
-
-% After being accepted, the authors should add "final" behind the track to compile a camera-ready version.
-% 1. Main Track
- % \usepackage[main, final]{neurips_2026}
-% 2. Position Paper Track
-%  \usepackage[position, final]{neurips_2026}
-% 3. Evaluations & Datasets Track
- % \usepackage[eandd, final]{neurips_2026}
-% 4. Creative AI Track
-%  \usepackage[creativeai, final]{neurips_2026}
-% 5. Workshop with single-blind reviewing
-%  \usepackage[sglblindworkshop, final]{neurips_2026}
-% 6. Workshop with double-blind reviewing
-%  \usepackage[dblblindworkshop, final]{neurips_2026}
-% Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote.
-% For workshops (5., 6.), the authors should add the name of the workshop, "\workshoptitle" command is used to set the workshop title.
-% \workshoptitle{WORKSHOP TITLE}
-% 7. Education Track
-% \usepackage[education, final]{neurips_2026}
-
-% "preprint" option is used for arXiv or other preprint submissions
- % \usepackage[preprint]{neurips_2026}
-
-% to avoid loading the natbib package, add option nonatbib:
-%    \usepackage[nonatbib]{neurips_2026}
-
-\usepackage[utf8]{inputenc} % allow utf-8 input
-\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage{hyperref}       % hyperlinks
-\usepackage{url}            % simple URL typesetting
-\usepackage{booktabs}       % professional-quality tables
-\usepackage{amsfonts}       % blackboard math symbols
-\usepackage{nicefrac}       % compact symbols for 1/2, etc.
-\usepackage{microtype}      % microtypography
-\usepackage{xcolor}         % colors
-
-% Note. For the workshop paper template, both \title{} and \workshoptitle{} are required, with the former indicating the paper title shown in the title and the latter indicating the workshop title displayed in the footnote. 
-\title{Formatting Instructions For NeurIPS 2026}
-
-
-% The \author macro works with any number of authors. There are two commands
-% used to separate the names and addresses of multiple authors: \And and \AND.
-%
-% Using \And between authors leaves it to LaTeX to determine where to break the
-% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
-% authors names on the first line, and the last on the second line, try using
-% \AND instead of \And before the third author name.
-
-
-\author{%
-  David S.~Hippocampus\thanks{Use footnote for providing further information
-    about author (webpage, alternative address)---\emph{not} for acknowledging
-    funding agencies.} \\
-  Department of Computer Science\\
-  Cranberry-Lemon University\\
-  Pittsburgh, PA 15213 \\
-  \texttt{hippo@cs.cranberry-lemon.edu} \\
-  % examples of more authors
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \AND
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-  % \And
-  % Coauthor \\
-  % Affiliation \\
-  % Address \\
-  % \texttt{email} \\
-}
-
-
+\PassOptionsToPackage{numbers,sort&compress}{natbib}
+\usepackage[preprint]{neurips_2026}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,booktabs,graphicx}
+\usepackage{microtype,url,xcolor}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Task-Aware Mug Grasp Selection},pdfauthor={Xie Lin, Zhang Yijie, Yao Xiaolu}}
+% Course identification only; preserve the supplied style's layout.
+\makeatletter
+\renewcommand{\@noticestring}{CS5478 final project report, Team 18.}
+\makeatother
+\title{Task-Aware Mug Grasp Selection:\\A Simulation Study of Geometry, Language, and Evaluation Bias}
+\author{Xie Lin \qquad Zhang Yijie \qquad Yao Xiaolu\\Team 18, CS5478}
+\newcommand{\code}[1]{\texttt{#1}}
 \begin{document}
-
-
 \maketitle
 
-
 \begin{abstract}
-  The abstract paragraph should be indented \nicefrac{1}{2}~inch (3~picas) on both the left- and right-hand margins. Use 10~point type, with a vertical spacing (leading) of 11~points. The word \textbf{Abstract} must be centered, bold, and in point size 12. Two line spaces precede the abstract. The abstract must be limited to one paragraph.
+A stable pickup need not support the manipulation that follows. We study mug grasp selection for transport and placement, cooperative handover, and pouring using a shared Panda controller in PyBullet. Our system generates 116 grasps across four families, filters them for each scene and task, and evaluates selectors against archived physical executions. We compare five analytical or empirical baselines, twelve language-model configurations, and a retrospective rule-only control on 20 evaluation seeds. Grasp suitability depends strongly on the task: pooled rim grasps succeed in 86\% of handovers, compared with 24\% for side grasps. Explicit-preference prompts achieve 54/60 and 55/60 successes across the three tasks, but their recommendations alone achieve 54/60 without a language model. Particle-fluid pouring also reverses some conclusions suggested by a geometric proxy. These results support task-conditioned selection and careful interface design, while providing no evidence that the tested language models outperform supplied rules. We document reused evaluation scenes, unequal information access, and a simulator collision artifact that limit generalization claims.
 \end{abstract}
 
-
-
-\section{Submission of papers to NeurIPS 2026}
-
-
-Please read the instructions below carefully and follow them faithfully.
-
-
-\subsection{Style}
-
-
-Papers to be submitted to NeurIPS 2026 must be prepared according to the
-instructions presented here. Papers may only be up to {\bf nine} pages long, including figures. \textbf{Papers that exceed the page limit will not be reviewed (or in any other way considered) for presentation at the conference.}
-Additional pages \emph{containing acknowledgments, references, checklist, and optional technical appendices} do not count as content pages. 
-
-
-The margins in 2026 are the same as those in previous years.
-
-
-Authors are required to use the NeurIPS \LaTeX{} style files obtainable at the NeurIPS website as indicated below. Please make sure you use the current files and not previous versions. Tweaking the style files may be grounds for desk rejection.
-
-
-\subsection{Retrieval of style files}
-
-
-The style files for NeurIPS and other conference information are available on the website at
-\begin{center}
-  \url{https://neurips.cc}.
-\end{center}
-% The file \verb+neurips_2026.pdf+ contains these instructions and illustrates the various formatting requirements your NeurIPS paper must satisfy.
-
-
-The only supported style file for NeurIPS 2026 is \verb+neurips_2026.sty+, rewritten for \LaTeXe{}. \textbf{Previous style files for \LaTeX{} 2.09,  Microsoft Word, and RTF are no longer supported.}
-
-
-The \LaTeX{} style file contains three optional arguments: 
-\begin{itemize}
-\item \verb+final+, which creates a camera-ready copy, 
-\item \verb+preprint+, which creates a preprint for submission to, e.g., arXiv, \item \verb+nonatbib+, which will not load the \verb+natbib+ package for you in case of package clash.
-\end{itemize}
-
-
-\paragraph{Preprint option}
-If you wish to post a preprint of your work online, e.g., on arXiv, using the NeurIPS style, please use the \verb+preprint+ option. This will create a nonanonymized version of your work with the text ``Preprint. Work in progress.'' in the footer. This version may be distributed as you see fit, as long as you do not say which conference it was submitted to. Please \textbf{do not} use the \verb+final+ option, which should \textbf{only} be used for papers accepted to NeurIPS.
-
-
-At submission time, please omit the \verb+final+ and \verb+preprint+ options. This will anonymize your submission and add line numbers to aid review. Please do \emph{not} refer to these line numbers in your paper as they will be removed during generation of camera-ready copies.
-
-
-The file \verb+neurips_2026.tex+ may be used as a ``shell'' for writing your paper. All you have to do is replace the author, title, abstract, and text of the paper with your own.
-
-
-The formatting instructions contained in these style files are summarized in Sections \ref{gen_inst}, \ref{headings}, and \ref{others} below.
-
-
-\section{General formatting instructions}
-\label{gen_inst}
-
-
-The text must be confined within a rectangle 5.5~inches (33~picas) wide and
-9~inches (54~picas) long. The left margin is 1.5~inch (9~picas).  Use 10~point
-type with a vertical spacing (leading) of 11~points.  Times New Roman is the
-preferred typeface throughout, and will be selected for you by default.
-Paragraphs are separated by \nicefrac{1}{2}~line space (5.5 points), with no
-indentation.
-
-
-The paper title should be 17~point, initial caps/lower case, bold, centered
-between two horizontal rules. The top rule should be 4~points thick and the
-bottom rule should be 1~point thick. Allow \nicefrac{1}{4}~inch space above and
-below the title to rules. All pages should start at 1~inch (6~picas) from the
-top of the page.
-
-
-For the final version, authors' names are set in boldface, and each name is
-centered above the corresponding address. The lead author's name is to be listed
-first (left-most), and the co-authors' names (if different address) are set to
-follow. If there is only one co-author, list both author and co-author side by
-side.
-
-
-Please pay special attention to the instructions in Section \ref{others}
-regarding figures, tables, acknowledgments, and references.
-
-\section{Headings: first level}
-\label{headings}
-
-
-All headings should be lower case (except for first word and proper nouns),
-flush left, and bold.
-
-
-First-level headings should be in 12-point type.
-
-
-\subsection{Headings: second level}
-
-
-Second-level headings should be in 10-point type.
-
-
-\subsubsection{Headings: third level}
-
-
-Third-level headings should be in 10-point type.
-
-
-\paragraph{Paragraphs}
-
-
-There is also a \verb+\paragraph+ command available, which sets the heading in
-bold, flush left, and inline with the text, with the heading followed by 1\,em
-of space.
-
-
-\section{Citations, figures, tables, references}
-\label{others}
-
-
-These instructions apply to everyone.
-
-
-\subsection{Citations within the text}
-
-
-The \verb+natbib+ package will be loaded for you by default.  Citations may be
-author/year or numeric, as long as you maintain internal consistency.  As to the
-format of the references themselves, any style is acceptable as long as it is
-used consistently.
-
-
-The documentation for \verb+natbib+ may be found at
-\begin{center}
-  \url{http://mirrors.ctan.org/macros/latex/contrib/natbib/natnotes.pdf}
-\end{center}
-Of note is the command \verb+\citet+, which produces citations appropriate for
-use in inline text.  For example,
-\begin{verbatim}
-   \citet{hasselmo} investigated\dots
-\end{verbatim}
-produces
-\begin{quote}
-  Hasselmo, et al.\ (1995) investigated\dots
-\end{quote}
-
-
-If you wish to load the \verb+natbib+ package with options, you may add the
-following before loading the \verb+neurips_2026+ package:
-\begin{verbatim}
-   \PassOptionsToPackage{options}{natbib}
-\end{verbatim}
-
-
-If \verb+natbib+ clashes with another package you load, you can add the optional
-argument \verb+nonatbib+ when loading the style file:
-\begin{verbatim}
-   \usepackage[nonatbib]{neurips_2026}
-\end{verbatim}
-
-
-As submission is double blind, refer to your own published work in the third
-person. That is, use ``In the previous work of Jones et al.\ [4],'' not ``In our
-previous work [4].'' If you cite your other papers that are not widely available
-(e.g., a journal paper under review), use anonymous author names in the
-citation, e.g., an author of the form ``A.\ Anonymous'' and include a copy of the anonymized paper in the supplementary material.
-
-
-\subsection{Footnotes}
-
-
-Footnotes should be used sparingly.  If you do require a footnote, indicate
-footnotes with a number\footnote{Sample of the first footnote.} in the
-text. Place the footnotes at the bottom of the page on which they appear.
-Precede the footnote with a horizontal rule of 2~inches (12~picas).
-
-
-Note that footnotes are properly typeset \emph{after} punctuation
-marks.\footnote{As in this example.}
-
-
-\subsection{Figures}
-
-
-\begin{figure}
-  \centering
-  \fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-  \caption{Sample figure caption. Explain what the figure shows and add a key take-away message to the caption.}
+\section{Introduction}
+Grasp quality is often assessed at pickup, yet the same object may require different contacts for different goals. Placing a mug requires opening and withdrawing the fingers near a table. Handover requires leaving room for a receiving gripper. Pouring requires maintaining support through a large wrist rotation while transferring liquid. A selector that optimizes only static contact stability can therefore choose a pickup that prevents task completion.
+
+We ask three questions. First, does the best grasp family change across complete manipulation sequences? Second, do task descriptions help language models choose from a common feasible set? Third, do apparent improvements survive controls for explicit prompt recommendations, the pouring evaluator, and simulator behavior? The project isolates selection: candidates, filtering, controller, and scoring are shared within each task and scene; selectors cannot create new grasps or alter trajectories.
+
+Our contributions are an integrated selection/execution pipeline, an auditable retrospective comparison, and a diagnosis of representation and evaluation failures. Our scope is one known mug and a simulated parallel-jaw robot, without image-based perception or hardware validation.
+
+\section{Related work}
+Dang and Allen~\citep{dang2012} incorporate task constraints beyond stability by relating local geometry to example grasps with suitable approach directions, hand postures, and contacts. Our hand-authored labels instead describe a small predefined pool; they are not learned affordances.
+
+Murali et al.~\citep{murali2021} combine object/task knowledge with a diverse task-oriented grasp dataset; our single-object comparison cannot establish their cross-object scope. SayCan~\citep{ichter2023} grounds language proposals using executable skills and affordances. Here, language ranks filtered grasp IDs, without learning skill values or planning action sequences. M5 is a fixed part-preference surrogate, not a reproduction of these systems.
+
+We use PyBullet~\citep{bullet} and a low-resolution position-based fluids (PBF) solver~\citep{macklin2013}. PBF uses iterative density constraints; numerical stability alone does not establish physical fidelity. Particle simulation and geometric pouring proxies remain distinct endpoints.
+
+\section{Problem and simulation system}
+\subsection{Selection protocol and information boundary}
+Figure~\ref{fig:pipeline} summarizes the pipeline. For task $t$ and scene seed $s$, let $\mathcal G$ be the generated pool and $\mathcal F_{t,s}\subseteq\mathcal G$ the subset accepted by the filter. A selector returns a permutation $\pi_{t,s}$ of $\mathcal F_{t,s}$; only its first choice $g_{t,s}$ is evaluated. The outcome is
+\begin{equation}
+Y_{t,s}(g)=\mathbf{1}\{\text{all required stages and physical terminal checks pass}\}.
+\end{equation}
+The filter is task dependent, so a shared pool means the same feasible IDs \emph{within} a task--seed pair, not identical sets across tasks. No selector receives archived test outcomes as a per-trial input. However, prompt development used previously examined scenes; this distinction is essential when interpreting the results.
+
+\begin{figure}[htbp]
+\centering
+\fbox{\begin{minipage}{0.94\linewidth}\centering
+\textbf{B: 116 mug-local candidates} $\longrightarrow$
+\textbf{A: task/scene feasibility filter}\\[5pt]
+$\downarrow$ public metadata or analytical geometry\\[5pt]
+\textbf{B/C: rank feasible IDs} $\longrightarrow$
+\textbf{A: fixed task controller}\\[5pt]
+$\downarrow$ independent terminal evaluator\\[5pt]
+\textbf{C: per-seed outcomes, paired comparisons, and audits}
+\end{minipage}}
+\caption{System responsibilities and evaluation flow. Frozen execution tables replace repeated controller runs in the main selector comparison. Outcomes remain outside language-model messages; M4 uses separate training-seed outcomes.}
+\label{fig:pipeline}
 \end{figure}
 
+Each language-model candidate contains exactly five public fields: ID, region, approach description, gripper opening in metres, and geometry score. Approach strings describe contact part, approach direction, closing direction, and handle/opening relationships. IDs identify candidates without encoding task quality. Analytical baselines additionally access full candidate poses and declared physical parameters; M4 accesses training outcomes. This compares implemented pipelines with common choices and execution, rather than information-matched reasoning algorithms.
 
-All artwork must be neat, clean, and legible. Lines should be dark enough for
- reproduction purposes. The figure number and caption always appear after the
-figure. Place one line space before the figure caption and one line space after
-the figure. The figure caption should be lower case (except for the first word and proper nouns); figures are numbered consecutively.
+\subsection{Scene, filtering, and control}
+Part A simulates a seven-joint Franka Panda, a hollow mug, a tabletop, and task-specific receivers. The principal archived setting, \code{wide\_strict\_v2} (R3), samples offsets $x\in[-0.04,0.04]$ m, $y\in[-0.05,0]$ m, and yaw within $\pm60^\circ$. Pose estimates are generated from simulation truth with configured positional noise of 3 mm and yaw noise of $2^\circ$; this is synthetic observation, not a vision system. Object truth and contact evidence are available to the evaluator but are not runtime object-state feedback for the donor policy.
 
+The filter rehearses execution waypoints with bounded inverse kinematics and multiple initializations, checks collisions, and permits finger--mug contact during approach only at the final waypoint. It rejects geometric or kinematic infeasibility, not every dynamic failure. All methods use the same staged controller at 240 Hz, with joint feedback and arrival checks. Default arrival tolerances are 2 cm and $10^\circ$, sustained for 0.1 s, with a 2 s arrival timeout and a 25 s episode timeout. Selection cannot change these settings.
 
-You may use color figures.  However, it is best for the figure captions and the
-paper body to be legible if the paper is printed in either black/white or in
-color.
+\subsection{Complete tasks and success criteria}
+\textbf{Transport and placement} lifts the mug, moves it to a common tabletop target, lowers it, releases, and retreats. Success requires table support within 2 cm of the target, an upright mug, no donor contact, and at least 8 cm donor clearance. \textbf{Cooperative handover} moves the mug to a transfer pose; a standardized receiver approaches the handle horizontally, closes, and lifts after donor release. Success requires receiver-only support, an independent lift of approximately 5 cm, donor clearance, and no table support. The receiver follows a fixed cooperative protocol; it is not an unknown human hand.
 
+\textbf{Pouring} carries the filled mug beside an open receiving cup, tilts by $110^\circ$ about a horizontal axis, dwells for 2 s, and returns upright. Default PBF uses 256 equal-mass samples representing 0.100 kg of liquid, eight density iterations, and two substeps. The solver includes density constraints, numerical viscosity, open-vessel boundaries, and vessel momentum coupling. Success requires at least 90\% transfer, at most 5\% spill, valid fluid accounting, a stable target displaced by at most 1 cm, continued donor support, and successful motion stages. It is a water-like approximation without CFD or real-water calibration.
 
-\subsection{Tables}
+All tasks require no disallowed collisions or drops, and terminal uprightness within $5^\circ$, linear speed at most 0.02 m/s, and angular speed at most $5^\circ$/s throughout the 1 s terminal window. A pickup followed by a failed release, transfer, tilt, or retreat counts as failure. Earlier preparation-only tasks are excluded.
 
+\section{Candidate generation and selectors}
+\subsection{Candidate families and analytical baselines}
+Part B deterministically samples 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Candidate widths and approach poses accompany stable IDs. Filtering changes the usable subset with the scene. Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
 
-All tables must be centered, neat, clean, and legible.  The table number and
-title always appear before the table.  See Table~\ref{sample-table}.
+\textbf{M0} produces a seeded random ranking. We also report the exact uniform expectation by averaging all feasible candidate outcomes per scene; one random realization is not its expectation. \textbf{M1} is the benchmark's \code{static\_load\_margin\_v2}, not the older geometry-weighted prototype. For a supported body grasp it uses
+\begin{equation}
+S_1(g)=\frac{1}{1+L_0(g)+E(g)},\qquad
+E(g)=\frac{h_p}{m_e(g)+h_p},
+\end{equation}
+where $L_0$ is normalized static force demand, $h_p=8$ mm is assumed pad half-height, and $m_e$ is the remaining contact-edge margin. The force-demand proxy decomposes force into closing-axis and tangential components and moment into torsion and bending:
+\begin{equation}
+N_{\rm req}=\frac{|F_n|}{2}+\frac{\|F_t\|}{2\mu}
++\frac{\|\tau_b\|}{2\mu r}+\frac{|\tau_n|}{2\mu r_\tau},\qquad
+L=\frac{N_{\rm req}}{N_{\rm cap}}.
+\end{equation}
+Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients.
 
+\textbf{M2} extends this model to $S_2(g,t)=[1+R(g,t)]^{-1}$. Transport risk uses the maximum estimated load ratio along nominal motion plus the edge penalty. Handover additionally penalizes handle occlusion, receiver swept-volume overlap, inaccessible handle volume, withdrawal toward the receiver, and small clearance. Pouring adds rim/handle obstruction and clearance terms. Motion loads use a smooth approximation to commanded stages, not measured future accelerations. Liquid is a fixed lumped mass in this scoring model, without drainage or slosh. M1/M2 rank supported body candidates first and append unsupported candidates in ID order, introducing a family-coverage bias.
 
-Place one line space before the table title, one line space after the
-table title, and one line space after the table. The table title must
-be lower case (except for the first word and proper nouns); tables are
-numbered consecutively.
+\textbf{M4} orders families by empirical task success on training seeds 0--9, then static quality where supported and ID. Pouring uses PBF training outcomes for the PBF-table comparison. \textbf{M5} first prefers a fixed task-specific part (handle for placement/pouring, body for handover), then ranks by $Q(g)-d(g,p_t)/(0.05\,\mathrm m)$, where $Q$ is static quality and $p_t$ the preferred part centre. Unsupported quality uses the mean supported score. No handle candidate passes the pouring filter, so fallback ordering matters. M5 is an engineering surrogate, not a published method reproduced end to end.
 
+\subsection{Language prompts, ablation, and rule-only control}
+Part C evaluates two recorded configurations: \code{gpt-5.6-luna} through the Codex adapter with low reasoning effort (GPT in the tables), and \code{gemini-3.8-flash} through the Gemini adapter with low thinking level (Gemini). These names are archived run identifiers, not independently verified provider model identities. M3 includes the task ID and intention; A1 removes them while retaining the version-specific system prompt and task-filtered candidates. A1 removes explicit task text, not every indirect task cue.
 
-Note that publication-quality tables \emph{do not contain vertical rules}. We
-strongly suggest the use of the \verb+booktabs+ package, which allows for
-typesetting high-quality, professional tables:
-\begin{center}
-  \url{https://www.ctan.org/pkg/booktabs}
-\end{center}
-This package was used to typeset Table~\ref{sample-table}.
+Three prompt versions change the input contract. \textbf{v1} calls geometry score a higher-is-better prior without explaining unsupported zeros. \textbf{Mechanics} (\code{v2\_physics}) clarifies zero as unscored, corrects the overly broad opening-obstruction label, and supplies motion/clearance constraints without naming a preferred grasp family. \textbf{Preferences} (\code{v2}) explicitly prioritizes outer-handle or suitable rim grasps for placement, top-down rim grasps for handover, and high-scoring top body grasps for pouring. These versions change several instructions together; they are not an isolated causal test of score clarification or spatial reasoning.
 
+Responses must contain a valid selected ID and a complete, duplicate-free permutation with that ID first. One format-repair attempt is permitted; persistent invalid output uses a deterministic geometry-based fallback. Repair messages contain validation errors, not execution outcomes. \textbf{M6} implements the v2 preference tiers directly from public fields, breaking ties by score and ID, without a model call. The preferences and M6 were developed after evaluation outcomes were inspected. They are retrospective controls, not independently validated policies.
 
-\begin{table}
-  \caption{Sample table caption. Explain what the table shows and add a key take-away message to the caption.}
-  \label{sample-table}
-  \centering
-  \begin{tabular}{lll}
-    \toprule
-    \multicolumn{2}{c}{Part}                   \\
-    \cmidrule(r){1-2}
-    Name     & Description     & Size ($\mu$m) \\
-    \midrule
-    Dendrite & Input terminal  & $\approx$100     \\
-    Axon     & Output terminal & $\approx$10      \\
-    Soma     & Cell body       & up to $10^6$  \\
-    \bottomrule
-  \end{tabular}
+\section{Experimental design}
+The main comparison uses R3 archived executions for placement/handover and the corresponding full PBF pouring table. Seeds 0--9 train M4; seeds 10--29 supply 20 evaluation scenes per task. Those scenes had already appeared in development analysis, so we call them \emph{evaluation seeds}, not a blind test set. Two models, three prompts, and M3/A1 yield 12 configurations and 720 selection trials. There is one initial response per configuration--task--seed, with repair permitted; this does not estimate repeated-model variability.
+
+We score selected IDs by lookup into the same task/seed execution tables. All 458 feasible pouring candidates across 30 seeds have a PBF outcome, enabling both a uniform expectation and an oracle. The oracle succeeds whenever any feasible candidate succeeds and is an outcome-aware upper bound, not an executable baseline. A separate local PBF rerun covers 98 distinct selected seed--candidate pairs. These are reproducibility checks, not 98 additional independent scenes.
+
+The primary endpoint is per-task binary success over evaluation seeds. Physical failures remain in the denominator; missing outcomes, numerical errors, and call failures must be reported separately. All entries in Table~\ref{tab:main} have 20 scored trials. The three-task sum counts 60 task--seed outcomes descriptively; shared seeds and fixed tasks preclude treating it as 60 independent draws for inference.
+
+We use per-task 95\% Wilson intervals with scenes as units. Paired comparisons use a two-sided exact sign/McNemar test on discordant seeds. We retain the archived Holm adjustment over all 170 valid comparisons, including proxy and rerun endpoints; the added M6 control is descriptive and does not change this historical family. Tests are exploratory because scenes and prompts were reused. Pooled candidate-level rates are also descriptive: multiple grasps in a scene are not independent Bernoulli replicates.
+
+\section{Results and analysis}
+\subsection{Complete-task success and grasp-family effects}
+\begin{table}[t]
+\caption{Success counts on seeds 10--29; every task entry is out of 20. Pouring uses the full archived PBF table, not the proxy or local rerun. The total is descriptive, out of 60. M3 has task text; A1 omits it. Pref. and M6 contain retrospective explicit preferences.}
+\label{tab:main}
+\centering\small
+\input{generated/main_table.tex}
 \end{table}
 
-\subsection{Math}
-Note that display math in bare TeX commands will not create correct line numbers for submission. Please use LaTeX (or AMSTeX) commands for unnumbered display math. (You really shouldn't be using \$\$ anyway; see \url{https://tex.stackexchange.com/questions/503/why-is-preferable-to} and \url{https://tex.stackexchange.com/questions/40492/what-are-the-differences-between-align-equation-and-displaymath} for more information.)
+Table~\ref{tab:main} shows substantial task dependence. M5 places all 20 mugs successfully but completes only five handovers. M4 improves handover to 17/20 but obtains 12/20 in PBF pouring. M2 reaches 19/20 placement yet only 11/20 handover. A task-dependent risk term is insufficient when the model misrepresents interactions or deprioritizes useful families.
 
-\subsection{Final instructions}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figures/family_task.pdf}
+\caption{Pooled R3 execution outcomes across seeds 0--29, grouped by family. Labels show successes/executions and rounded percentages. These correlated candidate outcomes describe the feasible pool, not selector performance. Handle pouring is unavailable because no handle candidate passes the filter.}
+\label{fig:family}
+\end{figure}
 
-Do not change any aspects of the formatting parameters in the style files.  In
-particular, do not modify the width or length of the rectangle the text should
-fit into, and do not change font sizes. Please note that pages should be
-numbered.
+Figure~\ref{fig:family} separates the pool from the selector. Rim grasps complete 163/189 handovers (86\%), versus 84/347 (24\%) for side grasps. Placement succeeds for 339/382 handle grasps (89\%). PBF pouring is less separated: rim 45/62 (73\%), top 142/211 (67\%), and side 89/185 (48\%). The feasible pool thus contains task signal that static scores fail to exploit. The oracle succeeds in every evaluation scene for all three tasks, so candidate coverage does not force failure in these scenes.
 
+GPT and Gemini with preferences score 54/60 and 55/60. However, M6 scores 54/60, including the same 20/20 handovers and 16/20 PBF pours. Both v2 models select top-family grasps for every pour and rim-family grasps for every handover. This supports the usefulness of supplied preferences, but does not establish an advantage from model reasoning. In particular, 16/20 PBF pours ties realized M0; the models do not outperform every analytical baseline on every task.
 
-\section{Preparing PDF files}
+\subsection{What the prompt ablations establish}
+Across 240 v1 selections (two models, M3/A1, three tasks), neither model selects a rim or handle grasp. This is consistent with ambiguous zero scores and misleading tags steering selection toward modeled body grasps. Because versions alter several instructions together, the data cannot identify either issue as the sole cause.
 
+With mechanics prompts, Gemini M3 selects rim grasps for all handovers and improves from 5/20 to 20/20. Against v1 it has 15 paired wins and no losses, exact $p=6.10\times10^{-5}$ and archived Holm $p=0.0103$. Against mechanics A1 (9/20), it has 11 wins and no losses: exact $p=9.77\times10^{-4}$, but Holm $p=0.1563$, which does not pass a 0.05 familywise threshold. The change is compatible with useful task-conditioned selection, without proving general spatial reasoning.
 
-Please prepare submission files with paper size ``US Letter,'' and not, for
-example, ``A4.''
+GPT mechanics reaches 5/20 handovers versus A1's 2/20; raw paired outcomes are three wins, zero losses, and $p=0.25$. Its total of 25/60 shows that clarifying the interface and describing motion do not reliably produce preferred behavior across both recorded configurations. GPT/Gemini preference prompts outperform their A1 variants in handover (20 versus 6 and 4), with adjusted $p=0.0200$ and $0.00519$. These differences include explicit recommendations, not merely access to a task name. No method's improvement over M0 survives the archived Holm correction on the three primary endpoints.
 
+Perfect observed performance remains uncertain: 20/20 has Wilson interval [0.839, 1.000], while 16/20 has [0.584, 0.919]. The one-success total difference between v2 models is not evidence of a general model ranking.
 
-Fonts were the main cause of problems in the past years. Your PDF file must only
-contain Type 1 or Embedded TrueType fonts. Here are a few instructions to
-achieve this.
+\subsection{Pouring metric and reproducibility sensitivity}
+The \code{proxy\_margin} mode checks spout trajectory and conservative clearances without particles. Across the 458 R3 feasible pouring executions, its result agrees with PBF in 347 cases (75.8\%). This discrepancy changes method comparisons; a geometric criterion cannot substitute for the liquid endpoint.
 
+\begin{table}[htbp]
+\caption{Pouring sensitivity on the same 20 evaluation seeds. R3 full PBF is primary; local PBF re-executes selected candidates. R4 changes the wrist--hand collision setting and is a separate sensitivity condition. Counts are out of 20; -- means not evaluated here.}
+\label{tab:sensitivity}
+\centering\small
+\input{generated/sensitivity_table.tex}
+\end{table}
 
-\begin{itemize}
+GPT/Gemini preference prompts obtain 18/20 proxy but 16/20 archived PBF pours (Table~\ref{tab:sensitivity}). M0 rises from 13/20 to 16/20, eliminating the apparent pouring advantage. Local PBF gives 17/20 for both preference models, versus 16/20 archived; M1 changes from 13/20 to 15/20. These are different measurements of the same selections, not extra trials to pool into the denominator. Historical execution tables lack complete environment fingerprints, so exact cross-machine reproducibility is not established.
 
+\subsection{Simulator artifact and corrected-scene analysis}
+A later audit found persistent self-contact between Panda link7 and the hand, separated in the URDF by a fixed joint. In R3 this impeded large wrist rotations and disproportionately affected side approaches. R4 (\code{wide\_strict\_v3}) disables only this collision pair while preserving candidates and scene seeds. Across the three-task proxy archive, pregrasp timeouts decrease from 222 to two. Pooled side success improves from approximately 49\% to 63\% for placement, 24\% to 31\% for handover, and 48\% to 66\% for PBF pouring.
 
-\item You should directly generate PDF files using \verb+pdflatex+.
+On R4 evaluation seeds, M0 achieves 19/20 placement, 14/20 handover, and 16/20 PBF pouring; M2 achieves 18/20, 5/20, and 18/20. Rankings can therefore change when simulator behavior changes. R4 M6 obtains 19/20, 20/20, and 18/20. The complete 12-configuration language benchmark was collected against R3; we do not relabel it as R4 or mix it with corrected-scene scores. R3 remains useful as an archived interface study, but cannot show that its family differences arise solely from physical task requirements.
 
+\subsection{Output reliability}
+The 720 stored selection trials contain 712 valid initial responses, eight repair attempts, and two geometry fallbacks. All final selections are valid, with no recorded selector errors. The fallbacks occur within repaired trials; these counts are not disjoint. Final validity measures protocol robustness, not task competence. Success includes fallback behavior and therefore evaluates the complete selection pipeline. Uniform token/latency patterns in some imported records and incomplete environment provenance also make these logs unsuitable for controlled provider-cost or speed comparisons.
 
-\item You can check which fonts a PDF files uses.  In Acrobat Reader, select the
-  menu Files$>$Document Properties$>$Fonts and select Show All Fonts. You can
-  also use the program \verb+pdffonts+ which comes with \verb+xpdf+ and is
-  available out-of-the-box on most Linux machines.
+\section{Discussion, limitations, and reproducibility}
+Release clearance, receiver access, and trajectory reachability go beyond static contact margins or part names. Direct rules match the strongest prompt-conditioned outcomes and are a necessary reference before attributing gains to language. The independent effect of zero-score clarification needs a score-only ablation.
 
+Limitations include one mug and donor/receiver design, synthetic pose noise, fixed trajectories, one model sample per condition, reused scenes, and simulator artifacts. Information access differs and preference prompts are outcome informed. Unseen shapes, human motion, visual occlusion, and hardware execution remain untested. The separate six-dimensional wrench-space extension is exploratory, outside the reported M1/M2 benchmark.
 
-\item \verb+xfig+ ``patterned'' shapes are implemented with bitmap fonts.  Use
-  "solid" shapes instead.
+A stronger experiment would freeze labels, scores, prompts, and M6 before fresh seeds (e.g., 30--49), correct collisions, repeat model sampling, and use PBF pouring. Matching inputs, isolating score/label changes, and varying mug geometry would distinguish interface repair from generalization. Useful features include wrist rotation demand, joint-limit margins, and receiver swept-volume clearance.
 
+\paragraph{Reproducibility.}
+The repository archives candidates, filters, episodes, selected IDs, messages, and manifests. The report's \path{prepare_results.py} checks per-seed counts and selected episodes, recomputes paired tests/Holm adjustment, evaluates M6, and regenerates tables/figures. The report README maps each result to its R3/R4 source directory and gives compilation commands. These checks validate archived evidence without fresh physics or model calls.
 
-\item The \verb+\bbold+ package almost always uses bitmap fonts.  You should use
-  the equivalent AMS Fonts:
-\begin{verbatim}
-   \usepackage{amsfonts}
-\end{verbatim}
-followed by, e.g., \verb+\mathbb{R}+, \verb+\mathbb{N}+, or \verb+\mathbb{C}+
-for $\mathbb{R}$, $\mathbb{N}$ or $\mathbb{C}$.  You can also use the following
-workaround for reals, natural and complex:
-\begin{verbatim}
-   \newcommand{\RR}{I\!\!R} %real numbers
-   \newcommand{\Nat}{I\!\!N} %natural numbers
-   \newcommand{\CC}{I\!\!\!\!C} %complex numbers
-\end{verbatim}
-Note that \verb+amsfonts+ is automatically loaded by the \verb+amssymb+ package.
+\paragraph{Team contributions.}
+Xie Lin led Part A (simulation, execution, physical evaluation); Zhang Yijie led Part B (candidate generation, analytical scoring); Yao Xiaolu led Part C (language selection, evaluation). The report covers all three parts and shared interfaces.
 
+\section{Conclusion}
+Task-aware grasp selection requires evaluating what happens after pickup. Our mug benchmark exposes task-dependent families, but prompt preferences, missing-value semantics, pouring metrics, and simulator artifacts can dominate measured improvements. Explicit-preference models reach 90.0\% and 91.7\% descriptive three-task success, while direct rules reach 90.0\%. The defensible outcome is an auditable simulation framework and a bounded empirical diagnosis, rather than a demonstrated general advantage of language-model grasp selection.
 
-\end{itemize}
+% Only references are excluded by the course's 5--8 page limit.
+% All substantive content is above this break; there is no excluded appendix.
+\clearpage
+\begin{thebibliography}{9}
+\bibitem[Dang and Allen(2012)]{dang2012}
+Hao Dang and Peter K. Allen.
+Semantic grasping: Planning robotic grasps functionally suitable for an object manipulation task.
+In \emph{IEEE/RSJ International Conference on Intelligent Robots and Systems}, pp. 1311--1317, 2012.
+\url{https://www.cs.columbia.edu/~allen/PAPERS/dang_iros_2012.pdf}.
 
+\bibitem[Murali et al.(2021)]{murali2021}
+Adithyavairavan Murali, Weiyu Liu, Kenneth Marino, Sonia Chernova, and Abhinav Gupta.
+Same object, different grasps: Data and semantic knowledge for task-oriented grasping.
+In \emph{Proceedings of the 2020 Conference on Robot Learning}, PMLR 155:1540--1557, 2021.
+\url{https://proceedings.mlr.press/v155/murali21a.html}.
 
-If your file contains type 3 fonts or non embedded TrueType fonts, we will ask
-you to fix it.
+\bibitem[Ichter et al.(2023)]{ichter2023}
+Brian Ichter, Anthony Brohan, Yevgen Chebotar, Chelsea Finn, Karol Hausman, et al.
+Do as I can, not as I say: Grounding language in robotic affordances.
+In \emph{Proceedings of the 6th Conference on Robot Learning}, PMLR 205:287--318, 2023.
+\url{https://proceedings.mlr.press/v205/ichter23a.html}.
 
+\bibitem[Macklin and M\"uller(2013)]{macklin2013}
+Miles Macklin and Matthias M\"uller.
+Position based fluids.
+\emph{ACM Transactions on Graphics}, 32(4), Article 104, 2013.
+\url{https://mmacklin.com/pbf_sig_preprint.pdf}.
 
-\subsection{Margins in \LaTeX{}}
-
-
-Most of the margin problems come from figures positioned by hand using
-\verb+\special+ or other commands. We suggest using the command
-\verb+\includegraphics+ from the \verb+graphicx+ package. Always specify the
-figure width as a multiple of the line width as in the example below:
-\begin{verbatim}
-   \usepackage[pdftex]{graphicx} ...
-   \includegraphics[width=0.8\linewidth]{myfile.pdf}
-\end{verbatim}
-See Section 4.4 in the graphics bundle documentation
-(\url{http://mirrors.ctan.org/macros/latex/required/graphics/grfguide.pdf})
-
-
-A number of width problems arise when \LaTeX{} cannot properly hyphenate a
-line. Please give LaTeX hyphenation hints using the \verb+\-+ command when
-necessary.
-
-\begin{ack}
-Use unnumbered first level headings for the acknowledgments. All acknowledgments
-go at the end of the paper before the list of references. Moreover, you are required to declare
-funding (financial activities supporting the submitted work) and competing interests (related financial activities outside the submitted work).
-More information about this disclosure can be found at: \url{https://neurips.cc/Conferences/2026/PaperInformation/FundingDisclosure}.
-
-
-Do {\bf not} include this section in the anonymized submission, only in the final paper. You can use the \texttt{ack} environment provided in the style file to automatically hide this section in the anonymized submission.
-\end{ack}
-
-\section*{References}
-
-
-References follow the acknowledgments in the camera-ready paper. Use unnumbered first-level heading for
-the references. Any choice of citation style is acceptable as long as you are
-consistent. It is permissible to reduce the font size to \verb+small+ (9 point)
-when listing the references.
-Note that the Reference section does not count towards the page limit.
-\medskip
-
-
-{
-\small
-
-
-[1] Alexander, J.A.\ \& Mozer, M.C.\ (1995) Template-based algorithms for
-connectionist rule extraction. In G.\ Tesauro, D.S.\ Touretzky and T.K.\ Leen
-(eds.), {\it Advances in Neural Information Processing Systems 7},
-pp.\ 609--616. Cambridge, MA: MIT Press.
-
-
-[2] Bower, J.M.\ \& Beeman, D.\ (1995) {\it The Book of GENESIS: Exploring
-  Realistic Neural Models with the GEneral NEural SImulation System.}  New York:
-TELOS/Springer--Verlag.
-
-
-[3] Hasselmo, M.E., Schnell, E.\ \& Barkai, E.\ (1995) Dynamics of learning and
-recall at excitatory recurrent synapses and cholinergic modulation in rat
-hippocampal region CA3. {\it Journal of Neuroscience} {\bf 15}(7):5249-5262.
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\appendix
-
-\section{Technical appendices and supplementary material}
-Technical appendices with additional results, figures, graphs, and proofs may be submitted with the paper submission before the full submission deadline (see above). You can upload a ZIP file for videos or code, but do not upload a separate PDF file for the appendix. There is no page limit for the technical appendices. 
-
-Note: Think of the appendix as ``optional reading'' for reviewers. The paper must be able to stand alone without the appendix; for example, adding critical experiments that support the main claims to an appendix is inappropriate. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newpage
-\input{checklist.tex}
-
-
+\bibitem[Bullet Physics contributors()]{bullet}
+Bullet Physics contributors.
+\emph{Bullet Physics SDK and PyBullet}. Software and documentation.
+\url{https://github.com/bulletphysics/bullet3}. Accessed November 18, 2026.
+\end{thebibliography}
 \end{document}
