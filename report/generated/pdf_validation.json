@@ -1,60 +1,110 @@
 {
+  "base_commit": "577ed1ffb03dd069556ba35b41d33097143ad557",
   "body_pages": 7,
   "reference_pages": 1,
-  "total_pages": 8,
+  "appendix_pages": 2,
+  "total_pages": 10,
+  "page_ranges": {
+    "body": [
+      1,
+      7
+    ],
+    "references": [
+      8,
+      8
+    ],
+    "appendix": [
+      9,
+      10
+    ]
+  },
   "paper": "US Letter (612 x 792 pt)",
   "unresolved_references": false,
-  "overfull_or_underfull_boxes": false,
+  "overfull_or_underfull_boxes": true,
+  "overfull_boxes": 0,
+  "underfull_vboxes": 2,
+  "underfull_hboxes": 0,
+  "layout_notes": "All affected pages rendered and inspected. Two underfull vbox spacing warnings accepted visually. Local PBF sentence starts intact on page 7; Conclusion complete on page 7. Appendix A.3 naturally continues from page 9 to 10. No overflow or blank pages; no style/margin/font-size/global-spacing changes.",
   "all_fonts_embedded": true,
   "type3_fonts": false,
+  "font_count": 15,
   "fonts": {
-    "/XMIBND+NimbusRomNo9L-Medi": {
-      "subtype": "/Type1",
+    "AWNCHK+NimbusRomNo9L-Medi": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/PJDJCM+NimbusRomNo9L-Regu": {
-      "subtype": "/Type1",
+    "BYOCHW+NimbusRomNo9L-Regu": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/DSZQZB+SFTT1000": {
-      "subtype": "/Type1",
+    "SMMKPB+SFTT1000": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/DSGJHQ+CMMI10": {
-      "subtype": "/Type1",
+    "LDPQSB+CMMI10": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/CEEAEW+CMSY10": {
-      "subtype": "/Type1",
+    "KXFAQT+CMSY10": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/FSTPLY+CMMI7": {
-      "subtype": "/Type1",
+    "YBDWPG+CMMI7": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/IMWIWT+CMR10": {
-      "subtype": "/Type1",
+    "CVMHNE+CMR10": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/UAGOMC+CMBX10": {
-      "subtype": "/Type1",
+    "UAGOMC+CMBX10": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/PSYLNR+NimbusRomNo9L-ReguItal": {
-      "subtype": "/Type1",
+    "REZXHC+NimbusRomNo9L-ReguItal": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/SNWSPL+CMSY7": {
-      "subtype": "/Type1",
+    "HRJBSL+CMSY7": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/TNEZNN+CMR7": {
-      "subtype": "/Type1",
+    "RMFGLP+CMR7": {
+      "subtype": "Type1",
       "embedded": true
     },
-    "/BMQQDV+DejaVuSans": {
-      "subtype": "/CIDTrueType",
+    "BMQQDV+DejaVuSans": {
+      "subtype": "Type0",
+      "embedded": true
+    },
+    "OUALSJ+CMEX10": {
+      "subtype": "Type1",
+      "embedded": true
+    },
+    "WCQKSU+CMMI5": {
+      "subtype": "Type1",
+      "embedded": true
+    },
+    "QDTWCG+MSBM10": {
+      "subtype": "Type1",
       "embedded": true
     }
-  }
+  },
+  "compiler": "pdfTeX 3.141592653-2.6-1.40.29 (TeX Live 2026)",
+  "build": "pdflatex -halt-on-error -interaction=nonstopmode -output-directory=/tmp/cs5478-report-publication-20261122/build neurips_2026.tex (two passes)",
+  "tex_sha256": "32759be30a09e242c8151d6b1d6d471bef07dc0f7083b2e5fe281490c37c710e",
+  "pdf_sha256": "0c5b6481ab48bc46358f7415362373cb782051808f5b3d4decf1e88ad99660f3",
+  "approved_revision_tex_sha256": "a77e5983d7f820d35460e9a4a2e913d2307348a070a04cdf990133f5c130d60b",
+  "source_preservation_checks": {
+    "only_authorized_final_tex_corrections": true,
+    "abstract_unchanged_from_main": true,
+    "introduction_unchanged_from_main": true,
+    "experimental_design_unchanged_from_main": true,
+    "team_contributions_unchanged_from_main": true,
+    "main_results_wording_and_numbers_unchanged": true,
+    "appendix_verbatim_from_approved": true,
+    "bibliography_verbatim_from_approved": true,
+    "conclusion_verbatim_from_approved": true
+  },
+  "validation_scope": "Local document compilation, source comparison, PDF rendering and font checks only. No experiment assets regenerated and no simulation, numerical benchmark or model inference executed."
 }
