@@ -1,0 +1,304 @@
+{
+  "schema": "part_b_source_integration_v1",
+  "original_branch": "feature/part-b-contact-refinement",
+  "original_head": "3b95a757c3f281f2dbc2809304ab9751a19ed73e",
+  "original_source_dirty": true,
+  "integration_base": "5c08cdd721ce211819ed54dc91938693f9d75679",
+  "purpose": "Source identity only; no historical experimental outcome is regenerated or certified by this manifest",
+  "files": [
+    {
+      "path": "grasp_b/contact_refinement/__init__.py",
+      "release_sha256": "bdb0ebbb61d0ce77176f039d8fd6fe13cc30f51b16763b49b2312981d391213d",
+      "original_worktree_sha256": "bdb0ebbb61d0ce77176f039d8fd6fe13cc30f51b16763b49b2312981d391213d",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/bullet_alignment.py",
+      "release_sha256": "5d6daaf9a698f100166680e01283afa310f1d40460eed9a804a91f4f7bd66ff8",
+      "original_worktree_sha256": "5d6daaf9a698f100166680e01283afa310f1d40460eed9a804a91f4f7bd66ff8",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/collision_regions.py",
+      "release_sha256": "a41aac6aee33b35d749a4f3ffef03b78f3ced207e043e08fd2aa2c2732ab753f",
+      "original_worktree_sha256": "a41aac6aee33b35d749a4f3ffef03b78f3ced207e043e08fd2aa2c2732ab753f",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/contact_evidence.py",
+      "release_sha256": "93a4a6f6f57283ad760121351a546d18ab2e77b0f0509f08a5429a600df6a958",
+      "original_worktree_sha256": "93a4a6f6f57283ad760121351a546d18ab2e77b0f0509f08a5429a600df6a958",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/contact_regions.py",
+      "release_sha256": "caa3222b33462a1994d2b39d3ff3e3a962c9d702d6019b0ab7cfcde209abf9fd",
+      "original_worktree_sha256": "caa3222b33462a1994d2b39d3ff3e3a962c9d702d6019b0ab7cfcde209abf9fd",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/diagnostics.py",
+      "release_sha256": "2356919b083037575a9f28db8a912736ea5dd176d166f52a8d22200e8ae39030",
+      "original_worktree_sha256": "2356919b083037575a9f28db8a912736ea5dd176d166f52a8d22200e8ae39030",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/evaluation_report.py",
+      "release_sha256": "a0d42c48012718375405e29273f9db20260757117594cef161c693fe6fa2434c",
+      "original_worktree_sha256": "a0d42c48012718375405e29273f9db20260757117594cef161c693fe6fa2434c",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/geometry_validation.py",
+      "release_sha256": "0ecf3bcb89387d4fad1b831f4d6ff021ef5455c42ada274a5a978bf503b279a2",
+      "original_worktree_sha256": "0ecf3bcb89387d4fad1b831f4d6ff021ef5455c42ada274a5a978bf503b279a2",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/numerical_oracles.py",
+      "release_sha256": "31f3e15dc20f986d20be004016700e1b7b6deff8917caa50fab1229e8c03739d",
+      "original_worktree_sha256": "31f3e15dc20f986d20be004016700e1b7b6deff8917caa50fab1229e8c03739d",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/phase1.py",
+      "release_sha256": "fb495ea7d684bedfaf8efd306db119c98cbefcf036eaef682e872f0d8c91346e",
+      "original_worktree_sha256": "fb495ea7d684bedfaf8efd306db119c98cbefcf036eaef682e872f0d8c91346e",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/phase1_cli.py",
+      "release_sha256": "3a952550e57212e7ca43e9355b2a5255ebcf29bacfd4aa384920150bab94a700",
+      "original_worktree_sha256": "3a952550e57212e7ca43e9355b2a5255ebcf29bacfd4aa384920150bab94a700",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/phase2.py",
+      "release_sha256": "19c3fd44dfecbcbe242dcda8b8e55f45a1a372b91c34c4fb264076e04115f159",
+      "original_worktree_sha256": "19c3fd44dfecbcbe242dcda8b8e55f45a1a372b91c34c4fb264076e04115f159",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/phase2_authorization.py",
+      "release_sha256": "7334e6de80fb6ed0a578538368d7ab710f4530792ff4c6e4ac0c9f032b5ab6f3",
+      "original_worktree_sha256": "7334e6de80fb6ed0a578538368d7ab710f4530792ff4c6e4ac0c9f032b5ab6f3",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/phase2_cli.py",
+      "release_sha256": "1afc0aa6f6f3d214442b3ba0f3a1ebfc87219463c004171264f528fc10df20fb",
+      "original_worktree_sha256": "1afc0aa6f6f3d214442b3ba0f3a1ebfc87219463c004171264f528fc10df20fb",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/ranking_stability_audit.py",
+      "release_sha256": "680e1cc7d45f1b510a9d0e45e4b9c043506a71b8ffe0e823a231fae6a9da18cf",
+      "original_worktree_sha256": "680e1cc7d45f1b510a9d0e45e4b9c043506a71b8ffe0e823a231fae6a9da18cf",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/relaxed_ranking.py",
+      "release_sha256": "3a26d1a01683916331576d1e99fd3f3b91d64d3f684b1247141d6ffb76a0d8fb",
+      "original_worktree_sha256": "3a26d1a01683916331576d1e99fd3f3b91d64d3f684b1247141d6ffb76a0d8fb",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/relaxed_solver.py",
+      "release_sha256": "1f9b4a6cf6eac97c23ddafc0e33bb4dae478030dbb843a361f918c7e9f7d6630",
+      "original_worktree_sha256": "1f9b4a6cf6eac97c23ddafc0e33bb4dae478030dbb843a361f918c7e9f7d6630",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/contact_refinement/validation.py",
+      "release_sha256": "9515a1c17f387647e50cae178f63926e22344e0a7847775acef504d5cc39b900",
+      "original_worktree_sha256": null,
+      "matches_original": false
+    },
+    {
+      "path": "grasp_b/contact_refinement/validation_protocol.py",
+      "release_sha256": "5eee10ce1b122111f74d6747e17d39de3f25f27639f776f2ad8e2a00a2e6b59e",
+      "original_worktree_sha256": "5eee10ce1b122111f74d6747e17d39de3f25f27639f776f2ad8e2a00a2e6b59e",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/__init__.py",
+      "release_sha256": "18bcccb8e796b3d133e735005f706c4588d319a492215ee617252582d9e201cd",
+      "original_worktree_sha256": "18bcccb8e796b3d133e735005f706c4588d319a492215ee617252582d9e201cd",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/adapter.py",
+      "release_sha256": "a9b6298b5c42076ed7e1e99f4fc013eb5fdc9db9763dd15774cdedbc516739c1",
+      "original_worktree_sha256": "a9b6298b5c42076ed7e1e99f4fc013eb5fdc9db9763dd15774cdedbc516739c1",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/constraints.py",
+      "release_sha256": "c28f6b617a6ee821430bf913d0e1be6d8d2329e6ecdd65501e5bc7948faa5385",
+      "original_worktree_sha256": "c28f6b617a6ee821430bf913d0e1be6d8d2329e6ecdd65501e5bc7948faa5385",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/contacts.py",
+      "release_sha256": "ae959924f471ff7077b12e03dce00e327409e436f5167393499bc7d45ed1f694",
+      "original_worktree_sha256": "ae959924f471ff7077b12e03dce00e327409e436f5167393499bc7d45ed1f694",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/diagnostics.py",
+      "release_sha256": "38b6f9a510a675203af22dceb455b6933d4c69bf110a09f1083c82ecb00ba00e",
+      "original_worktree_sha256": "38b6f9a510a675203af22dceb455b6933d4c69bf110a09f1083c82ecb00ba00e",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/dynamics.py",
+      "release_sha256": "8b0d6eb414198ea547d8f0d8b9b3d9c3f1fce1bed4925c60531e46182e9dc73e",
+      "original_worktree_sha256": "8b0d6eb414198ea547d8f0d8b9b3d9c3f1fce1bed4925c60531e46182e9dc73e",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/episode_store.py",
+      "release_sha256": "715121af14168afefd1d83b31f7cb054d9ab74b5656bee6199cdc07d80307f73",
+      "original_worktree_sha256": "715121af14168afefd1d83b31f7cb054d9ab74b5656bee6199cdc07d80307f73",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/evaluation.py",
+      "release_sha256": "385a45b0c4894431691661eab19e0647dd961e7fe4fe2a3ef61e7be4cadc89da",
+      "original_worktree_sha256": "385a45b0c4894431691661eab19e0647dd961e7fe4fe2a3ef61e7be4cadc89da",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/evaluation_cli.py",
+      "release_sha256": "4bb1818115da2745856abbb3e168820b3fb17b7099121e25a430dfed4a54c247",
+      "original_worktree_sha256": "4bb1818115da2745856abbb3e168820b3fb17b7099121e25a430dfed4a54c247",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/geometry.py",
+      "release_sha256": "a8be1ea0da816695072d18a474805ad543d990c36d301c97b78a2b9db8f6566f",
+      "original_worktree_sha256": "a8be1ea0da816695072d18a474805ad543d990c36d301c97b78a2b9db8f6566f",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/gws.py",
+      "release_sha256": "ca400b9f2a3a22dbdad81d79cee8b6af7c7351c8103ab2e46699ad5c47c0460d",
+      "original_worktree_sha256": "ca400b9f2a3a22dbdad81d79cee8b6af7c7351c8103ab2e46699ad5c47c0460d",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/m1.py",
+      "release_sha256": "e0702f972ede9ef7bd9cbb1e2b257d58cfa267ac89fe52d0954423cdb48f4aee",
+      "original_worktree_sha256": "e0702f972ede9ef7bd9cbb1e2b257d58cfa267ac89fe52d0954423cdb48f4aee",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/m1_smoke.py",
+      "release_sha256": "5d6198f39f2b8dbde776fe914908c96e2ee9318a0320910ecbd092c5a29fcaa2",
+      "original_worktree_sha256": "5d6198f39f2b8dbde776fe914908c96e2ee9318a0320910ecbd092c5a29fcaa2",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/m1_validation.py",
+      "release_sha256": "246757d7a731605893e81d8f8051bc3f489e5a99b20ff0a241492b08c697bee6",
+      "original_worktree_sha256": "246757d7a731605893e81d8f8051bc3f489e5a99b20ff0a241492b08c697bee6",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/m2.py",
+      "release_sha256": "69e60d47bcf127b9a64ce09fa75612d04a12e45dc40ba08661d9acb7711c337d",
+      "original_worktree_sha256": "69e60d47bcf127b9a64ce09fa75612d04a12e45dc40ba08661d9acb7711c337d",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/m2_smoke.py",
+      "release_sha256": "14a5055a806cd2d55a2117604fc61fea26304c856432f42995c61e17e4e3cf1f",
+      "original_worktree_sha256": "14a5055a806cd2d55a2117604fc61fea26304c856432f42995c61e17e4e3cf1f",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/motion_diagnostics.py",
+      "release_sha256": "f0e5ed2a16dc9260c0468ab102e45da8b1c3fe25b1856fe9e63835f771f123f7",
+      "original_worktree_sha256": "f0e5ed2a16dc9260c0468ab102e45da8b1c3fe25b1856fe9e63835f771f123f7",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/motion_prediction.py",
+      "release_sha256": "f973a814067f6335a1c500cb8424418d9077d57b66a77212740b01af7c8847c0",
+      "original_worktree_sha256": "f973a814067f6335a1c500cb8424418d9077d57b66a77212740b01af7c8847c0",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/motion_source_profiles.py",
+      "release_sha256": "95429de1835dce2fe6c5e15f2e032954fb0e383cf880170cd905d8c5a419e802",
+      "original_worktree_sha256": "c1de7274db913f25ca069e0f6d52e0d4e9a488e03c881d82e856aa8585cd053a",
+      "matches_original": false
+    },
+    {
+      "path": "grasp_b/wrench_v2/physics_snapshot.py",
+      "release_sha256": "a30f2921a660d4977e86bec6a053dbaffa5f6c8d725e642140bf2e4213556cf2",
+      "original_worktree_sha256": "a30f2921a660d4977e86bec6a053dbaffa5f6c8d725e642140bf2e4213556cf2",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/pilot.py",
+      "release_sha256": "d5744d19f2d1f0021b533f07fc0fa0a4f1b856248b2c85e2eb81d364b91fb236",
+      "original_worktree_sha256": "d5744d19f2d1f0021b533f07fc0fa0a4f1b856248b2c85e2eb81d364b91fb236",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/pilot_cli.py",
+      "release_sha256": "8604e9e754827b2dbc6bbf2223747282610c3f4bd5412833edbc950ae84dd8ac",
+      "original_worktree_sha256": "8604e9e754827b2dbc6bbf2223747282610c3f4bd5412833edbc950ae84dd8ac",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/profiling.py",
+      "release_sha256": "8fc8b2b338ee35eabe147a12e2a9e19db75cb81d56d8a4a08b358d23bbfd204f",
+      "original_worktree_sha256": "8fc8b2b338ee35eabe147a12e2a9e19db75cb81d56d8a4a08b358d23bbfd204f",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/ranking.py",
+      "release_sha256": "75d78e695d92cd09b7d6866d62fbe1aba5d14527dac03df8ce33b5d5ef008b06",
+      "original_worktree_sha256": "75d78e695d92cd09b7d6866d62fbe1aba5d14527dac03df8ce33b5d5ef008b06",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/solver.py",
+      "release_sha256": "7c70e2f87e9c52e3da7aefa636cb3ea0d093ab917cb89fdc204d3663be8f1af5",
+      "original_worktree_sha256": "7c70e2f87e9c52e3da7aefa636cb3ea0d093ab917cb89fdc204d3663be8f1af5",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/tasks.py",
+      "release_sha256": "919e4815292e332d6681fdafa2f7bc0c62e5c8df54b873506d3df2dd952bcf87",
+      "original_worktree_sha256": "919e4815292e332d6681fdafa2f7bc0c62e5c8df54b873506d3df2dd952bcf87",
+      "matches_original": true
+    },
+    {
+      "path": "grasp_b/wrench_v2/wet_payload.py",
+      "release_sha256": "e4d52b16da7d055eef49b1bb2b5e0c75d53ba9865c15dc92034a8ab3c4823d86",
+      "original_worktree_sha256": "e4d52b16da7d055eef49b1bb2b5e0c75d53ba9865c15dc92034a8ab3c4823d86",
+      "matches_original": true
+    }
+  ],
+  "extracted_helpers": {
+    "exact_candidates": {
+      "origin": "grasp_b/contact_refinement/frozen_audit.py",
+      "ast_unchanged": true
+    },
+    "verify_manifest": {
+      "origin": "grasp_b/contact_refinement/numerical_ranking_audit.py",
+      "ast_unchanged": true
+    },
+    "verify_nested": {
+      "origin": "grasp_b/contact_refinement/numerical_ranking_audit.py",
+      "ast_unchanged": true
+    }
+  },
+  "expected_differences": [
+    "grasp_b/wrench_v2/motion_source_profiles.py: exact reviewed main tuple added",
+    "grasp_b/contact_refinement/validation.py: unchanged helper extraction, no historical driver"
+  ]
+}

@@ -223,9 +223,10 @@ class PredictedMotionContext:
 
 
 def audited_sources(root=None):
+    from .motion_source_profiles import is_reviewed_nominal_profile
     root = Path(root) if root is not None else Path(__file__).resolve().parents[2]
     hashes = {name: hashlib.sha256((root/name).read_bytes()).hexdigest() for name in AUDITED_SOURCE_SHA256}
-    if hashes != AUDITED_SOURCE_SHA256:
+    if hashes != AUDITED_SOURCE_SHA256 and not is_reviewed_nominal_profile(hashes):
         raise ValueError("A command/control source changed; review the analytical mirror first")
     return hashes
 

@@ -1,0 +1,197 @@
+[
+  {
+    "version": "matched_static_five_method_comparison_v1",
+    "method_label": "M0_random",
+    "task": "handover_transfer",
+    "scene_seed": 2,
+    "selector_seed": 2305478,
+    "candidate_pool_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "feasible_ids": [
+      "a",
+      "b"
+    ],
+    "candidate_hashes": {
+      "a": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "b": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "common_input_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "ranking": [
+      "b",
+      "a"
+    ],
+    "selected_id": "b",
+    "selected_family": "body",
+    "scores": {
+      "a": {
+        "status": "random_ranked",
+        "residual": null,
+        "utilization": null
+      },
+      "b": {
+        "status": "random_ranked",
+        "residual": null,
+        "utilization": null
+      }
+    },
+    "provenance": {
+      "filter_record_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "fixture_kind": "synthetic_contract_only_never_experimental_evidence"
+    }
+  },
+  {
+    "version": "matched_static_five_method_comparison_v1",
+    "method_label": "M1_strict_gws_v2",
+    "task": "handover_transfer",
+    "scene_seed": 2,
+    "selector_seed": 2305478,
+    "candidate_pool_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "feasible_ids": [
+      "a",
+      "b"
+    ],
+    "candidate_hashes": {
+      "a": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "b": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "common_input_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "ranking": [
+      "a",
+      "b"
+    ],
+    "selected_id": "a",
+    "selected_family": "body",
+    "scores": {
+      "a": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      },
+      "b": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      }
+    },
+    "provenance": {
+      "filter_record_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "fixture_kind": "synthetic_contract_only_never_experimental_evidence"
+    }
+  },
+  {
+    "version": "matched_static_five_method_comparison_v1",
+    "method_label": "M2_strict_trajectory_gws_v2",
+    "task": "handover_transfer",
+    "scene_seed": 2,
+    "selector_seed": 2305478,
+    "candidate_pool_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "feasible_ids": [
+      "a",
+      "b"
+    ],
+    "candidate_hashes": {
+      "a": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "b": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "common_input_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "ranking": [
+      "a",
+      "b"
+    ],
+    "selected_id": "a",
+    "selected_family": "body",
+    "scores": {
+      "a": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      },
+      "b": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      }
+    },
+    "provenance": {
+      "filter_record_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "fixture_kind": "synthetic_contract_only_never_experimental_evidence"
+    }
+  },
+  {
+    "version": "matched_static_five_method_comparison_v1",
+    "method_label": "M1_relaxed_joint_lex_v1",
+    "task": "handover_transfer",
+    "scene_seed": 2,
+    "selector_seed": 2305478,
+    "candidate_pool_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "feasible_ids": [
+      "a",
+      "b"
+    ],
+    "candidate_hashes": {
+      "a": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "b": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "common_input_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "ranking": [
+      "a",
+      "b"
+    ],
+    "selected_id": "a",
+    "selected_family": "body",
+    "scores": {
+      "a": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      },
+      "b": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      }
+    },
+    "provenance": {
+      "filter_record_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "fixture_kind": "synthetic_contract_only_never_experimental_evidence"
+    }
+  },
+  {
+    "version": "matched_static_five_method_comparison_v1",
+    "method_label": "M2_relaxed_joint_lex_v1",
+    "task": "handover_transfer",
+    "scene_seed": 2,
+    "selector_seed": 2305478,
+    "candidate_pool_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "feasible_ids": [
+      "a",
+      "b"
+    ],
+    "candidate_hashes": {
+      "a": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "b": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    "common_input_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "ranking": [
+      "a",
+      "b"
+    ],
+    "selected_id": "a",
+    "selected_family": "body",
+    "scores": {
+      "a": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      },
+      "b": {
+        "status": "scored",
+        "residual": null,
+        "utilization": 0.5
+      }
+    },
+    "provenance": {
+      "filter_record_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "fixture_kind": "synthetic_contract_only_never_experimental_evidence"
+    }
+  }
+]
