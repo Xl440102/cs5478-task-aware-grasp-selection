@@ -46,6 +46,7 @@ pdffonts report/final_report.pdf
 | M6 回顾性规则对照 | `grasp_c/rules.py`、`results/oracle_20261103/m6_prompt_rules.md` |
 | R4 碰撞修复后敏感性分析 | `results/oracle_20261103/r4_v3p_wide_strict_v3/`、`r4_pbf_v3p_wide_strict_v3/` |
 | 任务截图（图 2） | `figures/task_*.png`：取自演示稿，为 `results/sequence_v1_20261017/videos/with_landmarks/*_seed0_G02*` 演示的末帧，非基准 episode |
+| 力旋量排序（第 4.3 节） | 方法：`grasp_b/wrench_v2/`（严格版）、`grasp_b/contact_refinement/relaxed_solver.py`、`relaxed_ranking.py`（放宽版）；13/278、254/278、24 个几何无效、4/9 族变化与执行案例来自 B 的本地开发研究，按 `docs/part-b-release/README.md` 未随仓库发布、不可由当前提交复现，报告中已注明 |
 | 作者与 A/B/C 分工 | `presentation/PRESENTATION_SCRIPT_AND_TEAM_SPLIT.md` |
 
 ## 本次审核修正的主要问题

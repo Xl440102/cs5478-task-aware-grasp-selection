@@ -37,22 +37,11 @@ We use PyBullet~\citep{bullet} and a low-resolution position-based fluids (PBF) 
 
 \section{Problem and simulation system}
 \subsection{Selection protocol and information boundary}
-Figure~\ref{fig:pipeline} summarizes the pipeline. For task $t$ and scene seed $s$, let $\mathcal G$ be the generated pool and $\mathcal F_{t,s}\subseteq\mathcal G$ the subset accepted by the filter. A selector returns a permutation $\pi_{t,s}$ of $\mathcal F_{t,s}$; only its first choice $g_{t,s}$ is evaluated. The outcome is
+The pipeline generates 116 candidates, filters them per task and scene, lets a selector rank the feasible IDs, executes the first choice with a fixed controller, and scores it with an independent terminal evaluator; the main comparison looks up frozen execution tables instead of re-running the controller. For task $t$ and scene seed $s$, let $\mathcal G$ be the generated pool and $\mathcal F_{t,s}\subseteq\mathcal G$ the subset accepted by the filter. A selector returns a permutation $\pi_{t,s}$ of $\mathcal F_{t,s}$; only its first choice $g_{t,s}$ is evaluated. The outcome is
 \begin{equation}
 Y_{t,s}(g)=\mathbf{1}\{\text{all required stages and physical terminal checks pass}\}.
 \end{equation}
 The filter is task dependent, so a shared pool means the same feasible IDs \emph{within} a task--seed pair, not identical sets across tasks. No selector receives archived test outcomes as a per-trial input. However, prompt development used previously examined scenes; this distinction is essential when interpreting the results.
-
-\begin{figure}[htbp]
-\centering
-\fbox{\begin{minipage}{0.97\linewidth}\centering\small
-\textbf{116 candidates} $\rightarrow$ \textbf{task/scene feasibility filter} $\rightarrow$ \textbf{selector ranks feasible IDs}\\
-$\rightarrow$ \textbf{fixed task controller} $\rightarrow$ \textbf{independent terminal evaluator} $\rightarrow$ \textbf{per-seed outcomes, paired tests, audits}
-\end{minipage}}
-\caption{Selection and evaluation pipeline. Frozen execution tables replace repeated controller runs in the main selector comparison. Outcomes remain outside language-model messages; M4 uses separate training-seed outcomes.}
-\label{fig:pipeline}
-\end{figure}
-
 Each language-model candidate contains exactly five public fields: ID, region, approach description, gripper opening in metres, and geometry score. Approach strings describe contact part, approach direction, closing direction, and handle/opening relationships. Analytical baselines additionally access full candidate poses and declared physical parameters; M4 accesses training outcomes. This compares implemented pipelines with common choices and execution, rather than information-matched reasoning algorithms.
 
 \subsection{Scene, filtering, and control}
@@ -67,9 +56,9 @@ The filter rehearses execution waypoints with bounded inverse kinematics and mul
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.26\linewidth]{figures/task_transport.png}\hfill
-\includegraphics[width=0.26\linewidth]{figures/task_handover.png}\hfill
-\includegraphics[width=0.26\linewidth]{figures/task_pour.png}
+\includegraphics[width=0.24\linewidth]{figures/task_transport.png}\hfill
+\includegraphics[width=0.24\linewidth]{figures/task_handover.png}\hfill
+\includegraphics[width=0.24\linewidth]{figures/task_pour.png}
 \caption{The three complete tasks in PyBullet: transport and placement (left), cooperative handover to a receiving gripper (centre), and PBF pouring into a receiving cup (right). Final frames of seed-0 demonstrations that used an earlier candidate set; they illustrate the controllers and are not benchmark episodes.}
 \label{fig:tasks}
 \end{figure}
@@ -91,7 +80,7 @@ N_{\rm req}=\frac{|F_n|}{2}+\frac{\|F_t\|}{2\mu}
 +\frac{\|\tau_b\|}{2\mu r}+\frac{|\tau_n|}{2\mu r_\tau},\qquad
 L=\frac{N_{\rm req}}{N_{\rm cap}}.
 \end{equation}
-Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients. The separate wrench-space extension (Section~\ref{sec:discussion}) is a different formulation with its own, equally uncalibrated, assumptions ($\mu=0.5$, a shared 5 N budget per finger, 16-edge friction pyramids); none of its scores enter Table~\ref{tab:main}.
+Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients. The wrench-space ranker in Section~\ref{sec:wrench} is a different formulation with its own assumptions; none of its scores enter Table~\ref{tab:main}.
 
 \textbf{M2} extends this model to $S_2(g,t)=[1+R(g,t)]^{-1}$. Transport risk uses the maximum estimated load ratio along nominal motion plus the edge penalty. Handover additionally penalizes handle occlusion, receiver swept-volume overlap, inaccessible handle volume, withdrawal toward the receiver, and small clearance. Pouring adds rim/handle obstruction and clearance terms. Motion loads use a smooth approximation to commanded stages, not measured future accelerations. Liquid is a fixed lumped mass in this scoring model, without drainage or slosh. M1/M2 rank supported body candidates first and append unsupported candidates in ID order, introducing a family-coverage bias.
 
@@ -103,6 +92,10 @@ We evaluate two recorded language-model configurations: \code{gpt-5.6-luna} thro
 Three prompt versions change the input contract. \textbf{v1} calls geometry score a higher-is-better prior without explaining unsupported zeros. \textbf{Mechanics} (\code{v2\_physics}) clarifies zero as unscored, corrects the overly broad opening-obstruction label, and supplies motion/clearance constraints without naming a preferred grasp family. \textbf{Preferences} (\code{v2}) explicitly prioritizes outer-handle or suitable rim grasps for placement, top-down rim grasps for handover, and high-scoring top body grasps for pouring. These versions change several instructions together; they are not an isolated causal test of score clarification or spatial reasoning.
 
 Responses must contain a valid selected ID and a complete, duplicate-free permutation with that ID first. One format-repair attempt is permitted; persistent invalid output uses a deterministic geometry-based fallback. Repair messages contain validation errors, not execution outcomes. \textbf{M6} implements the v2 preference tiers directly from public fields, breaking ties by score and ID, without a model call. The preferences and M6 were developed after evaluation outcomes were inspected. They are retrospective controls, not independently validated policies.
+
+\subsection{Exploratory wrench-space ranking}
+\label{sec:wrench}
+We also implement a physics-based ranker outside the benchmark. Predicted mug-local contacts (four points for some body grasps) carry linearized friction cones ($\mu=0.5$, 16 edges) and a shared 5 N normal-force budget per finger. Each task defines finite required wrenches $w_k$ (static task loads, or inertial loads along a predicted trajectory). The \emph{strict} score is $1-\max_k u_k$, where $u_k$ is the smallest budget fraction for which contact forces $\lambda\ge0$ satisfy $A\lambda=w_k$; it exists only if every demand balances exactly. The \emph{relaxed} variant solves two task-level linear programs: it first minimizes one shared worst scaled residual $R^*=\min\max_k\|S(A\lambda_k-w_k)\|_\infty$, then minimizes utilization with all residuals within $R^*+\delta$, and ranks by $R^*$, then utilization, using explicit near-tie bands. B's development study (seeds 5--7, 278 candidate--task instances) reports complete scores for 13 instances under the strict model and 254 under the relaxed one, with 24 geometry-invalid instances unscored; reducing body contacts from four to two changed 4 of 9 top family choices. Visualization reruns showed high-ranked grasps failing through collisions or control, and lower-ranked or strict-unscored grasps succeeding. These studies use uncalibrated parameters and are not reproduced by the committed release, which ships the solvers and unit tests; we report coverage, not selection success.
 
 \section{Experimental design}
 The main comparison uses R3 archived executions for placement/handover and the corresponding full PBF pouring table. Seeds 0--9 train M4; seeds 10--29 supply 20 evaluation scenes per task. Those scenes had already appeared in development analysis, so we call them \emph{evaluation seeds}, not a blind test set. Two models, three prompts, and M3/A1 yield 12 configurations and 720 selection trials. There is one initial response per configuration--task--seed, with repair permitted; this does not estimate repeated-model variability.
@@ -126,7 +119,7 @@ Table~\ref{tab:main} shows substantial task dependence. M5 places all 20 mugs su
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.72\linewidth]{figures/family_task.pdf}
+\includegraphics[width=0.62\linewidth]{figures/family_task.pdf}
 \caption{Pooled R3 execution outcomes across seeds 0--29, grouped by family. Labels show successes/executions and rounded percentages. These correlated candidate outcomes describe the feasible pool, not selector performance. Handle pouring is unavailable because no handle candidate passes the filter.}
 \label{fig:family}
 \end{figure}
@@ -140,7 +133,7 @@ Across 240 v1 selections (two models, M3/A1, three tasks), neither model selects
 
 With mechanics prompts, Gemini M3 selects rim grasps for all handovers and improves from 5/20 to 20/20. Against v1 it has 15 paired wins and no losses, exact $p=6.10\times10^{-5}$ and archived Holm $p=0.0103$. Against mechanics A1 (9/20), it has 11 wins and no losses: exact $p=9.77\times10^{-4}$, but Holm $p=0.1563$, which does not pass a 0.05 familywise threshold. The change is compatible with useful task-conditioned selection, without proving general spatial reasoning.
 
-GPT mechanics reaches 5/20 handovers versus A1's 2/20; raw paired outcomes are three wins, zero losses, and $p=0.25$. Its total of 25/60 shows that clarifying the interface and describing motion do not reliably produce preferred behavior across both recorded configurations. GPT/Gemini preference prompts outperform their A1 variants in handover (20 versus 6 and 4), with adjusted $p=0.0200$ and $0.00519$. These differences include explicit recommendations, not merely access to a task name. No method's improvement over M0 survives the archived Holm correction on the three primary endpoints. Perfect observed performance remains uncertain: 20/20 has Wilson interval [0.839, 1.000], and 16/20 has [0.584, 0.919].
+GPT mechanics reaches 5/20 handovers versus A1's 2/20; raw paired outcomes are three wins, zero losses, and $p=0.25$. Its 25/60 total shows that the clarified interface does not reliably help both configurations. GPT/Gemini preference prompts outperform their A1 variants in handover (20 versus 6 and 4), with adjusted $p=0.0200$ and $0.00519$. These differences include explicit recommendations, not merely access to a task name. No method's improvement over M0 survives the archived Holm correction on the three primary endpoints. Perfect observed performance remains uncertain: 20/20 has Wilson interval [0.839, 1.000], and 16/20 has [0.584, 0.919].
 
 \subsection{Pouring metric and reproducibility sensitivity}
 The \code{proxy\_margin} mode checks spout trajectory and conservative clearances without particles. Across the 458 R3 feasible pouring executions, its result agrees with PBF in 347 cases (75.8\%). This discrepancy changes method comparisons; a geometric criterion cannot substitute for the liquid endpoint.
@@ -157,7 +150,7 @@ GPT/Gemini preference prompts obtain 18/20 proxy but 16/20 archived PBF pours (T
 \subsection{Simulator artifact and corrected-scene analysis}
 A later audit found persistent self-contact between Panda link7 and the hand, separated in the URDF by a fixed joint. In R3 this impeded large wrist rotations and disproportionately affected side approaches. R4 (\code{wide\_strict\_v3}) disables only this collision pair while preserving candidates and scene seeds. Across the three-task proxy archive, pregrasp timeouts decrease from 222 to two. Pooled side success improves from approximately 49\% to 63\% for placement, 24\% to 31\% for handover, and 48\% to 66\% for PBF pouring.
 
-On R4 evaluation seeds, M0 achieves 19/20 placement, 14/20 handover, and 16/20 PBF pouring; M2 achieves 18/20, 5/20, and 18/20. Rankings can therefore change when simulator behavior changes. R4 M6 obtains 19/20, 20/20, and 18/20. The complete 12-configuration language benchmark was collected against R3; we do not relabel it as R4 or mix it with corrected-scene scores. R3 remains useful as an archived interface study, but cannot show that its family differences arise solely from physical task requirements.
+On R4 evaluation seeds, M0 achieves 19/20 placement, 14/20 handover, and 16/20 PBF pouring; M2 achieves 18/20, 5/20, and 18/20. R4 M6 obtains 19/20, 20/20, and 18/20. The complete 12-configuration language benchmark was collected against R3; we do not relabel it as R4 or mix it with corrected-scene scores. R3 remains useful as an archived interface study, but cannot show that its family differences arise solely from physical task requirements.
 
 \subsection{Output reliability}
 The 720 stored selection trials contain 712 valid initial responses, eight repair attempts, and two geometry fallbacks (within repaired trials, so the counts are not disjoint); all final selections are valid. Final validity measures protocol robustness, not task competence, and success includes fallback behavior. Every Gemini record stores the same latency value, so per-call latency was not measured for that adapter; together with incomplete environment provenance, the logs do not support provider cost or speed comparisons.
@@ -166,7 +159,7 @@ The 720 stored selection trials contain 712 valid initial responses, eight repai
 \label{sec:discussion}
 Release clearance, receiver access, and trajectory reachability go beyond static contact margins or part names. Direct rules match the strongest prompt-conditioned outcomes and are a necessary reference before attributing gains to language. The independent effect of zero-score clarification needs a score-only ablation.
 
-Limitations include one mug and donor/receiver design, synthetic pose noise, fixed trajectories, one model sample per condition, reused scenes, and simulator artifacts. Information access differs and preference prompts are outcome informed. Unseen shapes, human motion, visual occlusion, and hardware execution remain untested. The separate six-dimensional wrench-space extension is exploratory, outside the reported M1/M2 benchmark.
+Limitations include one mug and donor/receiver design, synthetic pose noise, fixed trajectories, one model sample per condition, reused scenes, and simulator artifacts. Information access differs and preference prompts are outcome informed. Unseen shapes, human motion, visual occlusion, and hardware execution remain untested. The wrench-space ranker uses uncalibrated contact and force models and has not been evaluated on the evaluation seeds.
 
 A stronger experiment would freeze labels, scores, prompts, and M6 before fresh seeds (e.g., 30--49), correct collisions, repeat model sampling, and use PBF pouring. Matching inputs, isolating score/label changes, and varying mug geometry would distinguish interface repair from generalization. Useful features include wrist rotation demand, joint-limit margins, and receiver swept-volume clearance.
 
