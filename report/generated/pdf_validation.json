@@ -8,11 +8,15 @@
   "all_fonts_embedded": true,
   "type3_fonts": false,
   "fonts": {
-    "/MFCKJA+NimbusRomNo9L-Medi": {
+    "/XMIBND+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
       "embedded": true
     },
     "/PJDJCM+NimbusRomNo9L-Regu": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/DSZQZB+SFTT1000": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -37,10 +41,6 @@
       "embedded": true
     },
     "/PSYLNR+NimbusRomNo9L-ReguItal": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/DSZQZB+SFTT1000": {
       "subtype": "/Type1",
       "embedded": true
     },
