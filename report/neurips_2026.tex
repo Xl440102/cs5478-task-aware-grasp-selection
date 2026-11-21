@@ -30,9 +30,11 @@ We ask three questions. First, does the best grasp family change across complete
 Our contributions are an integrated selection/execution pipeline, an auditable retrospective comparison, and a diagnosis of representation and evaluation failures. Our scope is one known mug and a simulated parallel-jaw robot, without image-based perception or hardware validation.
 
 \section{Related work}
-Classical grasp-quality measures score the wrenches a grasp can resist~\citep{ferrari1992}, and learned planners such as Dex-Net~2.0~\citep{mahler2017} predict robust pickups; both target stability rather than the task that follows, as do our M1 and the wrench-space ranker. Dang and Allen~\citep{dang2012} incorporate task constraints beyond stability by relating local geometry to example grasps with suitable approach directions, hand postures, and contacts. Our rule-generated semantic labels instead describe a small predefined pool.
+Classical wrench measures~\citep{ferrari1992} and learned pickup planners such as Dex-Net~2.0~\citep{mahler2017} emphasize stability. Our wrench extension instead evaluates specified task loads. Dang and Allen~\citep{dang2012} incorporate task constraints beyond stability by relating local geometry to example grasps with suitable approach directions, hand postures, and contacts. Our rule-generated semantic labels instead describe a small predefined pool.
 
 Murali et al.~\citep{murali2021} combine object/task knowledge with a diverse task-oriented grasp dataset. GraspGPT~\citep{tang2023} uses language-model knowledge to generalize task-oriented grasping to novel concepts; we instead rank a fixed feasible pool and score complete task execution. SayCan~\citep{ichter2023} grounds language proposals in executable skills and affordances. M5 is a fixed part-preference surrogate, not a reproduction of these systems.
+
+Appius et al.~\citep{appius2025} select task-relevant grasps from a Quality Diversity archive using foundation models. Our deterministic multifamily pool similarly separates diverse proposals from task-conditioned selection, without reproducing their archive search, perception, or generation approach.
 
 We use PyBullet~\citep{bullet} and a low-resolution position-based fluids (PBF) solver~\citep{macklin2013}. PBF uses iterative density constraints; numerical stability alone does not establish physical fidelity.
 
@@ -70,26 +72,26 @@ Figure~\ref{fig:tasks} shows the three sequences. All tasks require no disallowe
 
 \section{Candidate generation and selectors}
 \subsection{Candidate families and analytical baselines}
-Methods M0--M2, M4, and M5 are analytical or empirical baselines; the language-model selector M3, its ablation A1, and the rule-only control M6 are described in Section~\ref{sec:llm}.
+M0--M2, M4, and M5 are analytical or empirical baselines; Section~\ref{sec:llm} describes language-based M3, its ablation A1, and rule-only M6.
 
-We deterministically sample 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
+We deterministically sample 116 mug-local poses (\code{multifamily\_v3p}) across four families: handle, rim, top-down body (top), and side body (side). Rim and handle grasps remain selectable outside the ideal cylindrical-body contact model; their zero geometry-score placeholder means \emph{unmodeled}, not zero success probability.
 
 \textbf{M0} produces a seeded random ranking. We also report the exact uniform expectation by averaging all feasible candidate outcomes per scene; one random realization is not its expectation.
 
-\textbf{M1} is the benchmark's \code{static\_load\_margin\_v2}. For a supported body grasp it uses
+\textbf{M1}, the benchmark's \code{static\_load\_margin\_v2}, scores a supported body grasp as
 \begin{equation}
 S_1(g)=\frac{1}{1+L_0(g)+E(g)},\qquad
 E(g)=\frac{h_p}{m_e(g)+h_p},
 \end{equation}
-where $L_0$ is normalized static force demand, $h_p=8$ mm is assumed pad half-height, and $m_e$ is the remaining contact-edge margin. The force-demand proxy decomposes force into closing-axis and tangential components and moment into torsion and bending:
+where $L_0$ is normalized static force demand, $h_p=8$ mm is assumed pad half-height, and $m_e$ is the remaining contact-edge margin. The demand proxy resolves force into closing-axis and tangential components, and moment into torsion and bending:
 \begin{equation}
 N_{\rm req}=\frac{|F_n|}{2}+\frac{\|F_t\|}{2\mu}
 +\frac{\|\tau_b\|}{2\mu r}+\frac{|\tau_n|}{2\mu r_\tau},\qquad
-L=\frac{N_{\rm req}}{N_{\rm cap}}.
+L_0(g)=\frac{N_{\rm req}}{N_{\rm cap}}.
 \end{equation}
-Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients. The wrench-space ranker in Section~\ref{sec:wrench} is a different formulation with its own assumptions; none of its scores enter Table~\ref{tab:main}.
+Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients. Section~\ref{sec:wrench} uses a distinct wrench formulation; its scores do not enter Table~\ref{tab:main}.
 
-\textbf{M2} extends this model to $S_2(g,t)=[1+R(g,t)]^{-1}$. Transport risk uses the maximum estimated load ratio along nominal motion plus the edge penalty. Handover additionally penalizes handle occlusion, receiver swept-volume overlap, inaccessible handle volume, withdrawal toward the receiver, and small clearance. Pouring adds rim/handle obstruction and clearance terms. Motion loads use a smooth approximation to commanded stages, not measured future accelerations. Liquid is a fixed lumped mass in this scoring model, without drainage or slosh. M1/M2 rank supported body candidates first and append unsupported candidates in ID order, introducing a family-coverage bias.
+\textbf{M2} extends this model to $S_2(g,t)=[1+R(g,t)]^{-1}$. Transport risk uses the maximum estimated load ratio along nominal motion plus the edge penalty. Handover additionally penalizes handle occlusion, receiver swept-volume overlap, inaccessible handle volume, withdrawal toward the receiver, and small clearance. Pouring adds rim/handle obstruction and clearance terms. Motion loads smoothly approximate commanded stages, not measured future accelerations; liquid is a fixed lumped mass without drainage or slosh. M1/M2 rank supported body candidates first and append unsupported candidates in ID order, introducing a family-coverage bias.
 
 \textbf{M4} orders families by empirical task success on training seeds 0--9, then static quality where supported and ID. Pouring uses PBF training outcomes for the PBF-table comparison.
 
@@ -103,9 +105,9 @@ Three prompt versions change the input contract. \textbf{v1} calls geometry scor
 
 Responses must contain a valid selected ID and a complete, duplicate-free permutation with that ID first. One format-repair attempt is permitted; persistent invalid output uses a deterministic geometry-based fallback. Repair messages contain validation errors, not execution outcomes. \textbf{M6} implements the v2 preference tiers directly from public fields, breaking ties by score and ID, without a model call. The preferences and M6 were developed after evaluation outcomes were inspected. They are retrospective controls, not independently validated policies.
 
-\subsection{Exploratory wrench-space ranking}
+\subsection{Task-conditioned wrench-space evaluation}
 \label{sec:wrench}
-We also implement a physics-based ranker outside the benchmark. Predicted mug-local contacts (four points for some body grasps) carry linearized friction cones ($\mu=0.5$, 16 edges) and a shared 5 N normal-force budget per finger. Each task defines finite required wrenches $w_k$ (static task loads, or inertial loads along a predicted trajectory). The \emph{strict} score is $1-\max_k u_k$, where $u_k$ is the smallest budget fraction for which contact forces $\lambda\ge0$ satisfy $A\lambda=w_k$; it exists only if every demand balances exactly. The \emph{relaxed} variant solves two task-level linear programs: it first minimizes one shared worst scaled residual $R^*=\min\max_k\|S(A\lambda_k-w_k)\|_\infty$, then minimizes utilization with all residuals within $R^*+\delta$, and ranks by $R^*$, then utilization, using explicit near-tie bands. A development study (seeds 5--7, 278 candidate--task instances) reports complete scores for 13 instances under the strict model and 254 under the relaxed one, with 24 geometry-invalid instances unscored; in a separate ablation (seeds 2--4), reducing body contacts from four to two changed 4 of 9 top family choices. Visualization reruns showed high-ranked grasps failing through collisions or control and strict-unscored grasps succeeding. These studies use uncalibrated parameters and are not reproduced by the committed release, which ships the solvers and unit tests; we report coverage, not selection success.
+Static and task-risk surrogates use body-contact proxies, leaving rim and handle grasps unmodeled. Our extension evaluates finite task-required wrenches through predicted contacts, linearized friction cones, and shared finger capacities. Strict equilibrium minimizes worst utilization; relaxed optimization minimizes worst scaled residual under capacity bounds, then utilization within that checked residual bound plus slack (Appendix~\ref{app:wrench}). Neither establishes complete-task success: contact simultaneity, collisions, tracking, release, receiver access, and liquid transfer remain outside this numerical guarantee. We examine these uncalibrated formulations through numerical consistency and contact-model checks. The main archived benchmark evaluates complete-task selection using surrogate rankings, without comparing the wrench-space methods with language-based selectors.
 
 \section{Experimental design}
 The main comparison uses R3 archived executions for placement/handover and the corresponding full PBF pouring table. Seeds 0--9 train M4; seeds 10--29 supply 20 evaluation scenes per task. Those scenes had already appeared in development analysis, so we call them \emph{evaluation seeds}, not a blind test set. Two models, three prompts, and M3/A1 yield 12 configurations and 720 selection trials. There is one initial response per configuration--task--seed, with repair permitted; this does not estimate repeated-model variability. Of the 720 trials, 712 had valid initial responses, eight needed a repair attempt, and two of those used the geometry fallback; all final selections are valid, and success includes fallback behavior. Gemini records store one constant latency value, so the logs do not support provider cost or speed comparisons.
@@ -155,7 +157,9 @@ The \code{proxy\_margin} mode checks spout trajectory and conservative clearance
 \input{generated/sensitivity_table.tex}
 \end{table}
 
-GPT/Gemini preference prompts obtain 18/20 proxy but 16/20 archived PBF pours (Table~\ref{tab:sensitivity}). M0 rises from 13/20 to 16/20, eliminating the apparent pouring advantage. Local PBF gives 17/20 for both preference models, versus 16/20 archived; M1 changes from 13/20 to 15/20. Historical tables lack complete environment fingerprints, so cross-machine reproducibility is not established.
+GPT/Gemini preference prompts obtain 18/20 proxy but 16/20 archived PBF pours (Table~\ref{tab:sensitivity}). M0 rises from 13/20 to 16/20, eliminating the apparent pouring advantage.
+
+Local PBF gives 17/20 for both preference models, versus 16/20 archived; M1 changes from 13/20 to 15/20. Historical tables lack complete environment fingerprints, so cross-machine reproducibility is not established.
 
 \subsection{Simulator artifact and corrected-scene analysis}
 A later audit found persistent self-contact between Panda link7 and the hand, separated in the URDF by a fixed joint. In R3 this impeded large wrist rotations and disproportionately affected side approaches. R4 (\code{wide\_strict\_v3}) disables only this collision pair while preserving candidates and scene seeds. Across the three-task proxy archive, pregrasp timeouts decrease from 222 to two. Pooled side success improves from approximately 49\% to 63\% for placement, 24\% to 31\% for handover, and 48\% to 66\% for PBF pouring.
@@ -171,7 +175,7 @@ Limitations include one mug and donor/receiver design, synthetic pose noise, fix
 A stronger experiment would freeze labels, scores, prompts, and M6 before fresh seeds (e.g., 30--49), use the corrected collisions, repeat model sampling, and vary mug geometry; useful features include wrist rotation demand, joint-limit margins, and receiver swept-volume clearance.
 
 \paragraph{Reproducibility.}
-The public repository (linked in the abstract) archives candidates, filters, episodes, selected IDs, and messages; its README gives run instructions. \path{prepare_results.py} re-checks per-seed counts, selected episodes, paired tests, and the Holm adjustment, evaluates M6, and regenerates all tables and figures without new physics or model calls; the report README maps each result to its source directory.
+The public repository (linked in the abstract) archives candidates, filters, episodes, selected IDs, and messages; its README gives run instructions. \path{prepare_results.py} re-checks per-seed counts, selected episodes, paired tests, and the Holm adjustment, evaluates M6, and regenerates the benchmark tables and pooled-family figure without new physics or model calls; the report README maps each result to its source directory.
 
 \paragraph{Team contributions.}
 \textbf{Xie Lin (Part A, simulation)} built the PyBullet scenes, staged controllers, and terminal evaluator, including PBF pouring; the execution-consistent feasibility filter; and the R3/R4 execution archives, including the collision-artifact correction. \textbf{Zhang Yijie (Part B, grasps and baselines)} built the grasp candidate generator and geometric features; the analytical baselines, including the static and task-risk scores; and the exploratory wrench-space scoring extension. \textbf{Yao Xiaolu (Part C, language-model evaluation)} built the language-model selector interface and prompt versions; the 720-trial multi-model evaluation with its output audit; and the paired statistical analysis and report draft.
@@ -179,8 +183,7 @@ The public repository (linked in the abstract) archives candidates, filters, epi
 \section{Conclusion}
 Task-aware grasp selection requires evaluating what happens after pickup. Our mug benchmark exposes task-dependent families, but prompt preferences, missing-value semantics, pouring metrics, and simulator artifacts can dominate measured improvements: explicit-preference models reach 90.0\% and 91.7\% three-task success, and direct rules 90.0\%. The defensible outcome is an auditable framework and a bounded empirical diagnosis, not a general advantage of language-model grasp selection.
 
-% Only references are excluded by the course's 5--8 page limit.
-% All substantive content is above this break; there is no excluded appendix.
+% References and the technical appendix are excluded from the confirmed main-paper limit.
 \clearpage
 \begin{thebibliography}{9}
 \bibitem[Dang and Allen(2012)]{dang2012}
@@ -230,5 +233,112 @@ Erwin Coumans and Yunfei Bai.
 PyBullet, a Python module for physics simulation for games, robotics and machine learning.
 2016--2021.
 \url{http://pybullet.org}.
+\bibitem[Appius et al.(2025)]{appius2025}
+Aurel X. Appius, \'Emiland Garrab\'e, Fran\c{c}ois H\'el\'enon, Mahdi Khoramshahi, Mohamed Chetouani, and St\'ephane Doncieux.
+Task-Aware Robotic Grasping by evaluating Quality Diversity Solutions through Foundation Models.
+In \emph{2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, pp. 1035--1040, 2025.
+\url{https://doi.org/10.1109/IROS60139.2025.11246636}. Preprint: \url{https://arxiv.org/abs/2411.14917}.
+
 \end{thebibliography}
+
+\clearpage
+\appendix
+\numberwithin{equation}{section}
+\section{Task-Conditioned Wrench-Space Formulation}
+\label{app:wrench}
+This appendix specifies the implemented evaluation extension in Section~\ref{sec:wrench}, independently of the benchmark's surrogate M1/M2. The distinct method identifiers are \path{m1_gws_v2}, \path{m2_gws_trajectory_v2}, \path{relaxed_m1_task_lex_v1}, and \path{relaxed_m2_task_lex_v1}.
+
+\subsection{Contact wrench map and linearized friction}
+For contact $i$, let $p_i$ be its predicted position, $n_i$ its outward unit normal, and $o$ the common wrench reference point, all in mug coordinates. Let $d_i=-n_i$ and let $t_{i1},t_{i2}$ be the deterministic orthonormal tangents constructed by the implementation. With friction coefficient $\mu_i\ge0$, the polyhedral cone generators are
+\begin{equation}
+\theta_j=\frac{2\pi j}{k},\qquad
+v_{ij}=d_i+\mu_i\bigl(t_{i1}\cos\theta_j+t_{i2}\sin\theta_j\bigr),
+\quad j=0,\ldots,k-1.
+\label{eq:cone}
+\end{equation}
+The supported direction counts $k\in\{8,16,32\}$ use nested samples of one 32-angle grid. For $\mu_i=0$, the implementation retains only $d_i$. Each generator has unit inward normal component, not unit Euclidean norm; its nonnegative coefficient $\lambda_{ij}$ is therefore a normal-force contribution in newtons. The point-contact wrench map is
+\begin{equation}
+  a_{ij}=\begin{bmatrix}v_{ij}\\(p_i-o)\times v_{ij}\end{bmatrix},\qquad
+ A=[\,a_{ij}\,]_{i,j},\qquad w_{\rm contact}=A\lambda,\quad\lambda\ge0.
+\label{eq:wrench-map}
+\end{equation}
+The top three rows are forces (N), and the bottom three are moments (N\,m). No independent torsional moment is added at a contact. Multiple points per finger assume simultaneous, independent load-bearing contacts.
+
+\subsection{Shared capacity and finite task demands}
+Let $I_f$ contain the modeled contacts assigned to finger capacity group $f$, with declared capacity $b_f$ (N). Shared capacity requires
+\begin{equation}
+ \sum_{i\in I_f}\sum_j\lambda_{ij}\le b_f\quad\text{for every }f,
+ \qquad B\lambda\le b.
+\label{eq:capacity}
+\end{equation}
+The development settings are $\mu_i=0.5$, $k=16$, and $b_f=5$ N per finger, distinct from the benchmark surrogate assumptions. Each group row of $B$ has a one for every generator assigned to that group and zero elsewhere. Explicitly supplied local contact limits add rows to $B,b$; unspecified local limits add none. Additional points or cone directions do not grant extra finger capacity.
+
+For task $t$ and candidate $g$, the input is a finite required-contact-wrench set
+\begin{equation}
+ \mathcal W_{t,g}=\{w_s\in\mathbb R^6:s=1,\ldots,K\}.
+\label{eq:demands}
+\end{equation}
+Quasi-static evaluation uses a common declared task-wrench set across candidates; trajectory evaluation may use candidate-dependent predicted motion and inertial loads. Required contact wrench balances external loads (the negative external wrench in static equilibrium). All forces and moments use the same mug frame and reference $o$. Only the declared donor-supported motion scope is modeled: unknown support allocation and missing required loads cannot silently become zero demands. Trajectory liquid loads use the declared rigid/lumped approximation, not simulated drainage or sloshing. Bitwise-identical demands may share a computational block, while every original required scenario and its residual are retained and checked.
+
+\subsection{Strict equilibrium and worst utilization}
+For each required $w_s$, the strict LP is
+\begin{equation}
+ \begin{aligned}
+ u_s^*=\min_{\lambda_s,u_s}\;&u_s\\
+ \text{subject to }&A\lambda_s=w_s,\quad B\lambda_s\le u_s b,\\
+ &\lambda_s\ge0,\quad u_s\ge0.
+ \end{aligned}
+\label{eq:strict}
+\end{equation}
+There is deliberately no upper bound $u_s\le1$. A finite solution with $u_s>1$ expresses excess demand relative to the declared capacity; it is distinct from an equilibrium that cannot be represented at any capacity scaling. Only if every required scenario has a checked optimal result is the task score defined as
+\begin{equation}
+ \rho=\max_s u_s^*,\qquad Q_{\rm strict}=1-\rho.
+\label{eq:strict-score}
+\end{equation}
+A negative score is retained. No partial maximum substitutes for a complete task score. Exact equilibrium is the mathematical constraint; the solver's floating-point witness is checked in physical units against explicit tolerances. Optional positive row scaling changes numerical conditioning, not the required wrench or feasible set. Strict ranking orders scored candidates by increasing $\rho$, then ID.
+
+\subsection{Relaxed task-level two-stage optimization}
+The relaxed solver uses common, explicit scales $F_*>0$ (N) and $L>0$ (m):
+\begin{equation}
+ S=\operatorname{diag}\!\left(\frac1{F_*},\frac1{F_*},\frac1{F_*},
+ \frac1{F_*L},\frac1{F_*L},\frac1{F_*L}\right),\qquad
+ r_s=\|S(A\lambda_s-w_s)\|_\infty.
+\label{eq:scale}
+\end{equation}
+The residual is dimensionless and does not equate force error with torque error in unscaled SI units. Stage 1 includes all required demands in one LP with one shared residual objective:
+\begin{equation}
+ \begin{aligned}
+ R^*=\min_{\{\lambda_s\},R}\;&R\\
+ \text{subject to }&-R\mathbf1\le S(A\lambda_s-w_s)\le R\mathbf1,\quad s=1,\ldots,K,\\
+ &B\lambda_s\le b,\quad\lambda_s\ge0\quad(s=1,\ldots,K),\qquad R\ge0.
+ \end{aligned}
+\label{eq:relaxed-one}
+\end{equation}
+There is one force vector per demand, with the same per-finger bounds at each demand; capacities are not summed across time. In floating-point execution, the recorded risk $\widehat R$ is the checked objective upper bound, namely the maximum of the returned $R$ and the independently recomputed worst residual. Stage 2 fixes
+\begin{equation}
+ \delta=\delta_{\rm abs}+\delta_{\rm rel}|\widehat R|,\qquad \varepsilon=\widehat R+\delta,
+\label{eq:radius}
+\end{equation}
+then solves one shared-utilization LP:
+\begin{equation}
+ \begin{aligned}
+ u^*=\min_{\{\lambda_s\},u}\;&u\\
+ \text{subject to }&-\varepsilon\mathbf1\le S(A\lambda_s-w_s)\le\varepsilon\mathbf1,
+                       \quad s=1,\ldots,K,\\
+ &B\lambda_s\le u b,\quad\lambda_s\ge0\quad(s=1,\ldots,K),\qquad 0\le u\le1.
+ \end{aligned}
+\label{eq:relaxed-two}
+\end{equation}
+The development scales are $F_*=1$ N and $L=0.1$ m; the configured slack defaults are $\delta_{\rm abs}=10^{-7}$ and $\delta_{\rm rel}=0$. The recorded utilization $\widehat u$ is the checked upper bound: the maximum of the returned $u$ and reconstructed capacity ratios for positive entries of $b$. Zero-capacity rows are checked directly. Independent per-scenario lexicographic minimization would define a different method.
+
+\subsection{Numerical statuses, ranking, and interpretation}
+Strict solver outcomes distinguish \path{optimal}, \path{infeasible}, missing parameters/dependencies, invalid input, and numerical failure. At task level, an unscored demand prevents a complete strict score. Relaxed results receive \path{scored_conditional} only when both stages pass original-matrix primal, dual, and objective-gap checks; numerical errors and missing parameters remain explicit, rather than becoming physical failures. Geometry-invalid contacts remain separately unscored. The Stage-2 realized residual, the Stage-1 objective, and numerical constraint violations are different quantities. A positive relaxed residual is permitted by design and is not an exact-equilibrium certificate.
+
+Relaxed ranking minimizes $(\widehat R,\widehat u)$ using anchored numerical bands. For either objective $z$, the lowest remaining value $a$ anchors a band
+\begin{equation}
+ z\le a+\eta_{\rm abs}+\eta_{\rm rel}\max(1,|a|).
+\label{eq:bands}
+\end{equation}
+Residual bands are formed first, then utilization bands within each residual band; IDs resolve ties within the second band. Defaults are $\eta_{\rm abs}=10^{-6}$ for each objective and $\eta_{\rm rel}=10^{-8}$. Bands are anchored, not chained through pairwise near-ties. Unscored IDs appear only in a diagnostic tail; if no candidate has a complete score, the selector abstains. Neither near-ties nor complete scores establish force closure or physical success probability.
+
 \end{document}
