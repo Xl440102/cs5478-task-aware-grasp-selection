@@ -1,14 +1,14 @@
 {
-  "body_pages": 8,
+  "body_pages": 7,
   "reference_pages": 1,
-  "total_pages": 9,
+  "total_pages": 8,
   "paper": "US Letter (612 x 792 pt)",
   "unresolved_references": false,
   "overfull_or_underfull_boxes": false,
   "all_fonts_embedded": true,
   "type3_fonts": false,
   "fonts": {
-    "/GYJCVK+NimbusRomNo9L-Medi": {
+    "/AWKEZW+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -20,7 +20,7 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/DDDPKE+CMSY10": {
+    "/QSQAQL+CMSY10": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -37,6 +37,10 @@
       "embedded": true
     },
     "/RWRHTU+NimbusRomNo9L-ReguItal": {
+      "subtype": "/Type1",
+      "embedded": true
+    },
+    "/URVXZM+CMSY9": {
       "subtype": "/Type1",
       "embedded": true
     },
