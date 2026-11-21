@@ -18,6 +18,7 @@ from grasp_b.wrench_v2.adapter import GeneratorInfo
 from grasp_b.wrench_v2.m1 import development_config,prepare_candidate,fingerprint
 from grasp_b.wrench_v2.dynamics import object_parameters_from_snapshot
 from grasp_b.wrench_v2.wet_payload import ROOT,LABEL,build_wet_payload,combine_wet_object
+from tests.wrench_historical_fixture import historical_filter
 
 CACHE=ROOT/'results/local/task07_shared_feasible_20261106_final'
 
@@ -30,7 +31,7 @@ class WetIntegrationTests(unittest.TestCase):
         panda=Path(pybullet_data.getDataPath())/'franka_panda/panda.urdf'
         model=read_model('hollow',panda)
         cls.candidates,records=generate_multifamily(model,pruned_config())
-        cls.record,_=verified_cached_filter(CACHE,'pour_water',0,cls.candidates,sequence_config=SequenceConfig(),scene_config=scene_randomization('wide_strict_v2'),root=ROOT)
+        cls.record,_=historical_filter(CACHE,'pour_water',0,cls.candidates)
         infos={r['id']:GeneratorInfo('grasp_b.multifamily',VERSION,r['family'],r['id']) for r in records}
         allowed={r['id'] for r in cls.record['feasible_candidates']}
         cls.config=development_config()
@@ -40,19 +41,28 @@ class WetIntegrationTests(unittest.TestCase):
 
     def test_cached_filter_validates_and_never_calls_A(self):
         with patch('grasp_a.sequence.get_sequence_candidates',side_effect=AssertionError('cached filter only')):
-            r,metrics=verified_cached_filter(CACHE,'pour_water',0,self.candidates,sequence_config=SequenceConfig(),scene_config=scene_randomization('wide_strict_v2'),root=ROOT)
+            r,metrics=historical_filter(CACHE,'pour_water',0,self.candidates)
         self.assertEqual(len(r['feasible_candidates']),16)
         self.assertTrue(metrics['cache_hit'])
         with self.assertRaises(ValueError):
-            verified_cached_filter(CACHE,'pour_water',100,self.candidates,sequence_config=SequenceConfig(),scene_config=scene_randomization('wide_strict_v2'),root=ROOT)
+            historical_filter(CACHE,'pour_water',100,self.candidates)
 
     def test_stale_filter_code_and_config_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             bad=json.loads(json.dumps(self.manifest));bad['source_sha256']['grasp_a/sequence.py']='a'*64
             (Path(tmp)/'summary.json').write_text(json.dumps(bad))
-            with self.assertRaises(ValueError):verified_cached_filter(tmp,'pour_water',0,self.candidates,sequence_config=SequenceConfig(),scene_config=scene_randomization('wide_strict_v2'),root=ROOT)
+            with self.assertRaisesRegex(ValueError,'stale filter source'):
+                historical_filter(tmp,'pour_water',0,self.candidates)
         with self.assertRaises(ValueError):
-            verified_cached_filter(CACHE,'pour_water',0,self.candidates,sequence_config=SequenceConfig(),scene_config=scene_randomization('wide_strict'),root=ROOT)
+            historical_filter(CACHE,'pour_water',0,self.candidates,scene='wide_strict')
+
+    def test_live_identity_does_not_accept_historical_cache(self):
+        from dataclasses import asdict
+        current=asdict(scene_randomization('wide_strict_v2'))
+        if json.dumps(current,sort_keys=True) != json.dumps(self.manifest['scene_config'],sort_keys=True):
+            with self.assertRaisesRegex(ValueError,'configuration mismatch'):
+                verified_cached_filter(CACHE,'pour_water',0,self.candidates,
+                    sequence_config=SequenceConfig(),scene_config=scene_randomization('wide_strict_v2'),root=ROOT)
 
     def test_real_dry_regression_against_frozen_trial(self):
         r=evaluate_selection(self.candidates,self.record,self.prepared,body=self.body,config=self.config,

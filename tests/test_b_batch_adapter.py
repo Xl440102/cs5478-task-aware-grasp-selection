@@ -327,13 +327,22 @@ class BatchTests(unittest.TestCase):
              patch('grasp_b.wrench_v2.pilot.random_ranking',side_effect=AssertionError('selector')), \
              patch('grasp_a.sequence.get_sequence_candidates',side_effect=AssertionError('filter')), \
              patch('grasp_a.sequence.run_sequence',side_effect=AssertionError('episode')):
+            from grasp_b.canary_adapter import resources
+            from grasp_b.wrench_v2.episode_store import digest,StoreError
+            # Preparing dispatch requires LIVE physical identity (semantics A).
+            # Reading old outcomes requires checksum/provenance, not live parity.
+            compatible=digest(resources())==digest(store.read('protocol.json')['resources'])
             for label,n in [('A',10),('B',5)]:
-                manifest=ba.prepare_batch(store,label)
-                self.assertEqual(len(manifest['ordered_episode_keys']),n)
-                original=store.read('episode_plan.json')
-                for p in (path/'episodes').glob('*.json'):
-                    record=store.read('episodes/'+p.name)
-                    self.assertEqual(ba.validate_outcome(record['raw_outcome'],original['episodes'][p.stem]),record['category'])
+                if compatible:
+                    manifest=ba.prepare_batch(store,label)
+                    self.assertEqual(len(manifest['ordered_episode_keys']),n)
+                else:
+                    with self.assertRaisesRegex(StoreError,'runtime source/asset/dependency mismatch'):
+                        ba.prepare_batch(store,label)
+            original=store.read('episode_plan.json')
+            for p in (path/'episodes').glob('*.json'):
+                record=store.read('episodes/'+p.name)
+                self.assertEqual(ba.validate_outcome(record['raw_outcome'],original['episodes'][p.stem]),record['category'])
         self.assertEqual(before,{str(p):p.stat().st_mtime_ns for p in path.rglob('*.json')})
 
 

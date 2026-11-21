@@ -1,0 +1,3 @@
+# Part B strict/relaxed optimization and numerical validation.
+-r requirements.txt
+scipy>=1.14,<2
