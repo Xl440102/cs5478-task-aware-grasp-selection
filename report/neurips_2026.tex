@@ -29,9 +29,9 @@ We ask three questions. First, does the best grasp family change across complete
 Our contributions are an integrated selection/execution pipeline, an auditable retrospective comparison, and a diagnosis of representation and evaluation failures. Our scope is one known mug and a simulated parallel-jaw robot, without image-based perception or hardware validation.
 
 \section{Related work}
-Dang and Allen~\citep{dang2012} incorporate task constraints beyond stability by relating local geometry to example grasps with suitable approach directions, hand postures, and contacts. Our hand-authored labels instead describe a small predefined pool; they are not learned affordances.
+Classical grasp-quality measures score the wrenches a grasp can resist~\citep{ferrari1992}, and learned planners such as Dex-Net~2.0~\citep{mahler2017} predict robust pickups; both target stability rather than the task that follows, as do our M1 and the wrench-space ranker. Dang and Allen~\citep{dang2012} incorporate task constraints beyond stability by relating local geometry to example grasps with suitable approach directions, hand postures, and contacts. Our hand-authored labels instead describe a small predefined pool.
 
-Murali et al.~\citep{murali2021} combine object/task knowledge with a diverse task-oriented grasp dataset; our single-object comparison cannot establish their cross-object scope. SayCan~\citep{ichter2023} grounds language proposals using executable skills and affordances. Here, language ranks filtered grasp IDs, without learning skill values or planning action sequences. M5 is a fixed part-preference surrogate, not a reproduction of these systems.
+Murali et al.~\citep{murali2021} combine object/task knowledge with a diverse task-oriented grasp dataset. GraspGPT~\citep{tang2023} uses language-model knowledge to generalize task-oriented grasping to novel concepts; we instead rank a fixed feasible pool and score complete task execution. SayCan~\citep{ichter2023} grounds language proposals in executable skills and affordances. M5 is a fixed part-preference surrogate, not a reproduction of these systems.
 
 We use PyBullet~\citep{bullet} and a low-resolution position-based fluids (PBF) solver~\citep{macklin2013}. PBF uses iterative density constraints; numerical stability alone does not establish physical fidelity.
 
@@ -115,7 +115,7 @@ We use per-task 95\% Wilson intervals with scenes as units. Paired comparisons u
 \input{generated/main_table.tex}
 \end{table}
 
-Table~\ref{tab:main} shows substantial task dependence. M5 places all 20 mugs successfully but completes only five handovers. M4 improves handover to 17/20 but obtains 12/20 in PBF pouring. M2 reaches 19/20 placement yet only 11/20 handover. A task-dependent risk term is insufficient when the model misrepresents interactions or deprioritizes useful families.
+Table~\ref{tab:main} shows substantial task dependence. M5 places all 20 mugs successfully but completes only five handovers. M4 improves handover to 17/20 but obtains 12/20 in PBF pouring. M2 reaches 19/20 placement yet only 11/20 handover.
 
 \begin{figure}[t]
 \centering
@@ -136,7 +136,7 @@ With mechanics prompts, Gemini M3 selects rim grasps for all handovers and impro
 GPT mechanics reaches 5/20 handovers versus A1's 2/20; raw paired outcomes are three wins, zero losses, and $p=0.25$. Its 25/60 total shows that the clarified interface does not reliably help both configurations. GPT/Gemini preference prompts outperform their A1 variants in handover (20 versus 6 and 4), with adjusted $p=0.0200$ and $0.00519$. These differences include explicit recommendations, not merely access to a task name. No method's improvement over M0 survives the archived Holm correction on the three primary endpoints. Perfect observed performance remains uncertain: 20/20 has Wilson interval [0.839, 1.000], and 16/20 has [0.584, 0.919].
 
 \subsection{Pouring metric and reproducibility sensitivity}
-The \code{proxy\_margin} mode checks spout trajectory and conservative clearances without particles. Across the 458 R3 feasible pouring executions, its result agrees with PBF in 347 cases (75.8\%). This discrepancy changes method comparisons; a geometric criterion cannot substitute for the liquid endpoint.
+The \code{proxy\_margin} mode checks spout trajectory and conservative clearances without particles. Across the 458 R3 feasible pouring executions, its result agrees with PBF in 347 cases (75.8\%). A geometric criterion therefore cannot substitute for the liquid endpoint.
 
 \begin{table}[htbp]
 \caption{Pouring sensitivity on the same 20 evaluation seeds. R3 full PBF is primary; local PBF re-executes selected candidates. R4 changes the wrist--hand collision setting and is a separate sensitivity condition. Counts are out of 20; -- means not evaluated here.}
@@ -161,7 +161,7 @@ Release clearance, receiver access, and trajectory reachability go beyond static
 
 Limitations include one mug and donor/receiver design, synthetic pose noise, fixed trajectories, one model sample per condition, reused scenes, and simulator artifacts. Information access differs and preference prompts are outcome informed. Unseen shapes, human motion, visual occlusion, and hardware execution remain untested. The wrench-space ranker uses uncalibrated contact and force models and has not been evaluated on the evaluation seeds.
 
-A stronger experiment would freeze labels, scores, prompts, and M6 before fresh seeds (e.g., 30--49), correct collisions, repeat model sampling, and use PBF pouring. Matching inputs, isolating score/label changes, and varying mug geometry would distinguish interface repair from generalization. Useful features include wrist rotation demand, joint-limit margins, and receiver swept-volume clearance.
+A stronger experiment would freeze labels, scores, prompts, and M6 before fresh seeds (e.g., 30--49), use the corrected collisions, repeat model sampling, and vary mug geometry; useful features include wrist rotation demand, joint-limit margins, and receiver swept-volume clearance.
 
 \paragraph{Reproducibility.}
 The repository archives candidates, filters, episodes, selected IDs, messages, and manifests. \path{prepare_results.py} re-checks per-seed counts, selected episodes, paired tests, and the Holm adjustment, evaluates M6, and regenerates all tables and figures without new physics or model calls; the report README maps each result to its source directory.
@@ -187,6 +187,24 @@ Adithyavairavan Murali, Weiyu Liu, Kenneth Marino, Sonia Chernova, and Abhinav G
 Same object, different grasps: Data and semantic knowledge for task-oriented grasping.
 In \emph{Proceedings of the 2020 Conference on Robot Learning}, PMLR 155:1540--1557, 2021.
 \url{https://proceedings.mlr.press/v155/murali21a.html}.
+
+\bibitem[Ferrari and Canny(1992)]{ferrari1992}
+Carlo Ferrari and John Canny.
+Planning optimal grasps.
+In \emph{Proceedings of the IEEE International Conference on Robotics and Automation}, vol.~3, pp. 2290--2295, 1992.
+\url{https://doi.org/10.1109/ROBOT.1992.219918}.
+
+\bibitem[Mahler et al.(2017)]{mahler2017}
+Jeffrey Mahler, Jacky Liang, Sherdil Niyaz, Michael Laskey, Richard Doan, Xinyu Liu, Juan Aparicio Ojea, and Ken Goldberg.
+Dex-Net 2.0: Deep learning to plan robust grasps with synthetic point clouds and analytic grasp metrics.
+In \emph{Robotics: Science and Systems XIII}, 2017.
+\url{https://www.roboticsproceedings.org/rss13/p58.html}.
+
+\bibitem[Tang et al.(2023)]{tang2023}
+Chao Tang, Dehao Huang, Wenqi Ge, Weiyu Liu, and Hong Zhang.
+GraspGPT: Leveraging semantic knowledge from a large language model for task-oriented grasping.
+\emph{IEEE Robotics and Automation Letters}, 8(11):7551--7558, 2023.
+\url{https://arxiv.org/abs/2307.13204}.
 
 \bibitem[Ichter et al.(2023)]{ichter2023}
 Brian Ichter, Anthony Brohan, Yevgen Chebotar, Chelsea Finn, Karol Hausman, et al.
