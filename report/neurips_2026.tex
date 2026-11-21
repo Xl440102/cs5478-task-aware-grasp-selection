@@ -46,22 +46,22 @@ The filter is task dependent, so a shared pool means the same feasible IDs \emph
 \begin{figure}[htbp]
 \centering
 \fbox{\begin{minipage}{0.94\linewidth}\centering
-\textbf{B: 116 mug-local candidates} $\longrightarrow$
-\textbf{A: task/scene feasibility filter}\\[5pt]
+\textbf{Candidate generation: 116 mug-local grasps} $\longrightarrow$
+\textbf{Task/scene feasibility filter}\\[5pt]
 $\downarrow$ public metadata or analytical geometry\\[5pt]
-\textbf{B/C: rank feasible IDs} $\longrightarrow$
-\textbf{A: fixed task controller}\\[5pt]
+\textbf{Selectors rank feasible IDs} $\longrightarrow$
+\textbf{Fixed task controller}\\[5pt]
 $\downarrow$ independent terminal evaluator\\[5pt]
-\textbf{C: per-seed outcomes, paired comparisons, and audits}
+\textbf{Per-seed outcomes, paired comparisons, and audits}
 \end{minipage}}
-\caption{System responsibilities and evaluation flow. Frozen execution tables replace repeated controller runs in the main selector comparison. Outcomes remain outside language-model messages; M4 uses separate training-seed outcomes.}
+\caption{Selection and evaluation pipeline. Frozen execution tables replace repeated controller runs in the main selector comparison. Outcomes remain outside language-model messages; M4 uses separate training-seed outcomes.}
 \label{fig:pipeline}
 \end{figure}
 
 Each language-model candidate contains exactly five public fields: ID, region, approach description, gripper opening in metres, and geometry score. Approach strings describe contact part, approach direction, closing direction, and handle/opening relationships. IDs identify candidates without encoding task quality. Analytical baselines additionally access full candidate poses and declared physical parameters; M4 accesses training outcomes. This compares implemented pipelines with common choices and execution, rather than information-matched reasoning algorithms.
 
 \subsection{Scene, filtering, and control}
-Part A simulates a seven-joint Franka Panda, a hollow mug, a tabletop, and task-specific receivers. The principal archived setting, \code{wide\_strict\_v2} (R3), samples offsets $x\in[-0.04,0.04]$ m, $y\in[-0.05,0]$ m, and yaw within $\pm60^\circ$. Pose estimates are generated from simulation truth with configured positional noise of 3 mm and yaw noise of $2^\circ$; this is synthetic observation, not a vision system. Object truth and contact evidence are available to the evaluator but are not runtime object-state feedback for the donor policy.
+The simulator models a seven-joint Franka Panda, a hollow mug, a tabletop, and task-specific receivers. The principal archived setting, \code{wide\_strict\_v2} (R3), samples offsets $x\in[-0.04,0.04]$ m, $y\in[-0.05,0]$ m, and yaw within $\pm60^\circ$. Pose estimates are generated from simulation truth with configured positional noise of 3 mm and yaw noise of $2^\circ$; this is synthetic observation, not a vision system. Object truth and contact evidence are available to the evaluator but are not runtime object-state feedback for the donor policy.
 
 The filter rehearses execution waypoints with bounded inverse kinematics and multiple initializations, checks collisions, and permits finger--mug contact during approach only at the final waypoint. It rejects geometric or kinematic infeasibility, not every dynamic failure. All methods use the same staged controller at 240 Hz, with joint feedback and arrival checks. Default arrival tolerances are 2 cm and $10^\circ$, sustained for 0.1 s, with a 2 s arrival timeout and a 25 s episode timeout. Selection cannot change these settings.
 
@@ -70,11 +70,20 @@ The filter rehearses execution waypoints with bounded inverse kinematics and mul
 
 \textbf{Pouring} carries the filled mug beside an open receiving cup, tilts by $110^\circ$ about a horizontal axis, dwells for 2 s, and returns upright. Default PBF uses 256 equal-mass samples representing 0.100 kg of liquid, eight density iterations, and two substeps. The solver includes density constraints, numerical viscosity, open-vessel boundaries, and vessel momentum coupling. Success requires at least 90\% transfer, at most 5\% spill, valid fluid accounting, a stable target displaced by at most 1 cm, continued donor support, and successful motion stages. It is a water-like approximation without CFD or real-water calibration.
 
-All tasks require no disallowed collisions or drops, and terminal uprightness within $5^\circ$, linear speed at most 0.02 m/s, and angular speed at most $5^\circ$/s throughout the 1 s terminal window. A pickup followed by a failed release, transfer, tilt, or retreat counts as failure. Earlier preparation-only tasks are excluded.
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.32\linewidth]{figures/task_transport.png}\hfill
+\includegraphics[width=0.32\linewidth]{figures/task_handover.png}\hfill
+\includegraphics[width=0.32\linewidth]{figures/task_pour.png}
+\caption{The three complete tasks in PyBullet: transport and placement (left), cooperative handover to a receiving gripper (centre), and PBF pouring into a receiving cup (right). Final frames of seed-0 demonstrations that used an earlier candidate set; they illustrate the controllers and are not benchmark episodes.}
+\label{fig:tasks}
+\end{figure}
+
+Figure~\ref{fig:tasks} shows the three sequences. All tasks require no disallowed collisions or drops, and terminal uprightness within $5^\circ$, linear speed at most 0.02 m/s, and angular speed at most $5^\circ$/s throughout the 1 s terminal window. A pickup followed by a failed release, transfer, tilt, or retreat counts as failure. Earlier preparation-only tasks are excluded.
 
 \section{Candidate generation and selectors}
 \subsection{Candidate families and analytical baselines}
-Part B deterministically samples 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Candidate widths and approach poses accompany stable IDs. Filtering changes the usable subset with the scene. Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
+We deterministically sample 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Candidate widths and approach poses accompany stable IDs. Filtering changes the usable subset with the scene. Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
 
 \textbf{M0} produces a seeded random ranking. We also report the exact uniform expectation by averaging all feasible candidate outcomes per scene; one random realization is not its expectation. \textbf{M1} is the benchmark's \code{static\_load\_margin\_v2}, not the older geometry-weighted prototype. For a supported body grasp it uses
 \begin{equation}
@@ -87,14 +96,14 @@ N_{\rm req}=\frac{|F_n|}{2}+\frac{\|F_t\|}{2\mu}
 +\frac{\|\tau_b\|}{2\mu r}+\frac{|\tau_n|}{2\mu r_\tau},\qquad
 L=\frac{N_{\rm req}}{N_{\rm cap}}.
 \end{equation}
-Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients.
+Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per finger. These are declared surrogate assumptions, not measured forces or calibrated simulator coefficients. The separate wrench-space extension (Section~\ref{sec:discussion}) is a different formulation with its own, equally uncalibrated, assumptions ($\mu=0.5$, a shared 5 N budget per finger, 16-edge friction pyramids); none of its scores enter Table~\ref{tab:main}.
 
 \textbf{M2} extends this model to $S_2(g,t)=[1+R(g,t)]^{-1}$. Transport risk uses the maximum estimated load ratio along nominal motion plus the edge penalty. Handover additionally penalizes handle occlusion, receiver swept-volume overlap, inaccessible handle volume, withdrawal toward the receiver, and small clearance. Pouring adds rim/handle obstruction and clearance terms. Motion loads use a smooth approximation to commanded stages, not measured future accelerations. Liquid is a fixed lumped mass in this scoring model, without drainage or slosh. M1/M2 rank supported body candidates first and append unsupported candidates in ID order, introducing a family-coverage bias.
 
 \textbf{M4} orders families by empirical task success on training seeds 0--9, then static quality where supported and ID. Pouring uses PBF training outcomes for the PBF-table comparison. \textbf{M5} first prefers a fixed task-specific part (handle for placement/pouring, body for handover), then ranks by $Q(g)-d(g,p_t)/(0.05\,\mathrm m)$, where $Q$ is static quality and $p_t$ the preferred part centre. Unsupported quality uses the mean supported score. No handle candidate passes the pouring filter, so fallback ordering matters. M5 is an engineering surrogate, not a published method reproduced end to end.
 
 \subsection{Language prompts, ablation, and rule-only control}
-Part C evaluates two recorded configurations: \code{gpt-5.6-luna} through the Codex adapter with low reasoning effort (GPT in the tables), and \code{gemini-3.8-flash} through the Gemini adapter with low thinking level (Gemini). These names are archived run identifiers, not independently verified provider model identities. M3 includes the task ID and intention; A1 removes them while retaining the version-specific system prompt and task-filtered candidates. A1 removes explicit task text, not every indirect task cue.
+We evaluate two recorded language-model configurations: \code{gpt-5.6-luna} through the Codex adapter with low reasoning effort (GPT in the tables), and \code{gemini-3.8-flash} through the Gemini adapter with low thinking level (Gemini). These names are archived run identifiers, not independently verified provider model identities. M3 includes the task ID and intention; A1 removes them while retaining the version-specific system prompt and task-filtered candidates. A1 removes explicit task text, not every indirect task cue.
 
 Three prompt versions change the input contract. \textbf{v1} calls geometry score a higher-is-better prior without explaining unsupported zeros. \textbf{Mechanics} (\code{v2\_physics}) clarifies zero as unscored, corrects the overly broad opening-obstruction label, and supplies motion/clearance constraints without naming a preferred grasp family. \textbf{Preferences} (\code{v2}) explicitly prioritizes outer-handle or suitable rim grasps for placement, top-down rim grasps for handover, and high-scoring top body grasps for pouring. These versions change several instructions together; they are not an isolated causal test of score clarification or spatial reasoning.
 
@@ -158,9 +167,10 @@ A later audit found persistent self-contact between Panda link7 and the hand, se
 On R4 evaluation seeds, M0 achieves 19/20 placement, 14/20 handover, and 16/20 PBF pouring; M2 achieves 18/20, 5/20, and 18/20. Rankings can therefore change when simulator behavior changes. R4 M6 obtains 19/20, 20/20, and 18/20. The complete 12-configuration language benchmark was collected against R3; we do not relabel it as R4 or mix it with corrected-scene scores. R3 remains useful as an archived interface study, but cannot show that its family differences arise solely from physical task requirements.
 
 \subsection{Output reliability}
-The 720 stored selection trials contain 712 valid initial responses, eight repair attempts, and two geometry fallbacks. All final selections are valid, with no recorded selector errors. The fallbacks occur within repaired trials; these counts are not disjoint. Final validity measures protocol robustness, not task competence. Success includes fallback behavior and therefore evaluates the complete selection pipeline. Uniform token/latency patterns in some imported records and incomplete environment provenance also make these logs unsuitable for controlled provider-cost or speed comparisons.
+The 720 stored selection trials contain 712 valid initial responses, eight repair attempts, and two geometry fallbacks. All final selections are valid, with no recorded selector errors. The fallbacks occur within repaired trials; these counts are not disjoint. Final validity measures protocol robustness, not task competence. Success includes fallback behavior and therefore evaluates the complete selection pipeline. Every Gemini record stores the same latency value, so per-call latency was not measured for that adapter; together with incomplete environment provenance, the logs do not support provider cost or speed comparisons.
 
 \section{Discussion, limitations, and reproducibility}
+\label{sec:discussion}
 Release clearance, receiver access, and trajectory reachability go beyond static contact margins or part names. Direct rules match the strongest prompt-conditioned outcomes and are a necessary reference before attributing gains to language. The independent effect of zero-score clarification needs a score-only ablation.
 
 Limitations include one mug and donor/receiver design, synthetic pose noise, fixed trajectories, one model sample per condition, reused scenes, and simulator artifacts. Information access differs and preference prompts are outcome informed. Unseen shapes, human motion, visual occlusion, and hardware execution remain untested. The separate six-dimensional wrench-space extension is exploratory, outside the reported M1/M2 benchmark.
@@ -171,7 +181,7 @@ A stronger experiment would freeze labels, scores, prompts, and M6 before fresh 
 The repository archives candidates, filters, episodes, selected IDs, messages, and manifests. The report's \path{prepare_results.py} checks per-seed counts and selected episodes, recomputes paired tests/Holm adjustment, evaluates M6, and regenerates tables/figures. The report README maps each result to its R3/R4 source directory and gives compilation commands. These checks validate archived evidence without fresh physics or model calls.
 
 \paragraph{Team contributions.}
-Xie Lin led Part A (simulation, execution, physical evaluation); Zhang Yijie led Part B (candidate generation, analytical scoring); Yao Xiaolu led Part C (language selection, evaluation). The report covers all three parts and shared interfaces.
+\textbf{Xie Lin (Part A)} built the PyBullet scenes, staged controllers, terminal evaluator, and PBF pouring evaluation; developed the execution-consistent filter and final-waypoint contact rule; extended the candidate pool to the multi-family set with semantic labels (\code{multifamily\_v3p}); built the oracle-table runner with the M4--M6 reference baselines; ran the R3/R4 execution archives, including the 458-episode PBF table and the proxy--PBF audit; and diagnosed and corrected the link7--hand collision artifact. \textbf{Zhang Yijie (Part B)} implemented the original candidate generator and geometric features, the M0--M2 baselines including the static and task-risk scores, and the exploratory wrench-space scoring extension. \textbf{Yao Xiaolu (Part C)} implemented the language-model selector interface and prompt versions, ran the 720-trial multi-model evaluation with its output audit and paired statistics, and drafted this report. All members contributed to the shared selection interface and the presentation.
 
 \section{Conclusion}
 Task-aware grasp selection requires evaluating what happens after pickup. Our mug benchmark exposes task-dependent families, but prompt preferences, missing-value semantics, pouring metrics, and simulator artifacts can dominate measured improvements. Explicit-preference models reach 90.0\% and 91.7\% descriptive three-task success, while direct rules reach 90.0\%. The defensible outcome is an auditable simulation framework and a bounded empirical diagnosis, rather than a demonstrated general advantage of language-model grasp selection.

@@ -1,55 +1,59 @@
 {
-  "body_pages": 7,
+  "body_pages": 8,
   "reference_pages": 1,
-  "total_pages": 8,
+  "total_pages": 9,
   "paper": "US Letter (612 x 792 pt)",
   "unresolved_references": false,
   "overfull_or_underfull_boxes": false,
   "all_fonts_embedded": true,
   "type3_fonts": false,
   "fonts": {
-    "/IHAIZV+NimbusRomNo9L-Medi": {
+    "/GYJCVK+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/BZIVMZ+NimbusRomNo9L-Regu": {
+    "/NDNHYK+NimbusRomNo9L-Regu": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/IXFAWU+CMMI10": {
+    "/CVEIUV+CMMI10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/TQTHRL+CMSY10": {
+    "/DDDPKE+CMSY10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/YEUUOC+CMMI7": {
+    "/CVPMVZ+CMMI7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/AKHCZK+CMR10": {
+    "/BHQWWT+CMR10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/VDVGTR+CMBX10": {
+    "/UAGOMC+CMBX10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/CAFSZL+NimbusRomNo9L-ReguItal": {
+    "/RWRHTU+NimbusRomNo9L-ReguItal": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/DDIEWW+LMMono10-Regular": {
+    "/RLRDMB+SFTT1000": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/FKPJSN+CMSY7": {
+    "/DEGAOD+CMSY7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/PVTTLK+CMR7": {
+    "/TNEZNN+CMR7": {
       "subtype": "/Type1",
+      "embedded": true
+    },
+    "/BMQQDV+DejaVuSans": {
+      "subtype": "/CIDTrueType",
       "embedded": true
     }
   }
