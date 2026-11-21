@@ -8,27 +8,27 @@
   "all_fonts_embedded": true,
   "type3_fonts": false,
   "fonts": {
-    "/AWKEZW+NimbusRomNo9L-Medi": {
+    "/MFCKJA+NimbusRomNo9L-Medi": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/NDNHYK+NimbusRomNo9L-Regu": {
+    "/VHKUTM+NimbusRomNo9L-Regu": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/CVEIUV+CMMI10": {
+    "/DSGJHQ+CMMI10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/QSQAQL+CMSY10": {
+    "/CEEAEW+CMSY10": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/CVPMVZ+CMMI7": {
+    "/FSTPLY+CMMI7": {
       "subtype": "/Type1",
       "embedded": true
     },
-    "/BHQWWT+CMR10": {
+    "/IMWIWT+CMR10": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -36,11 +36,7 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/RWRHTU+NimbusRomNo9L-ReguItal": {
-      "subtype": "/Type1",
-      "embedded": true
-    },
-    "/URVXZM+CMSY9": {
+    "/LYMFIE+NimbusRomNo9L-ReguItal": {
       "subtype": "/Type1",
       "embedded": true
     },
@@ -48,7 +44,7 @@
       "subtype": "/Type1",
       "embedded": true
     },
-    "/DEGAOD+CMSY7": {
+    "/SNWSPL+CMSY7": {
       "subtype": "/Type1",
       "embedded": true
     },
