@@ -19,6 +19,7 @@
 
 \begin{abstract}
 A stable pickup need not support the manipulation that follows. We study mug grasp selection for transport and placement, cooperative handover, and pouring using a shared Panda controller in PyBullet. Our system generates 116 grasps across four families, filters them for each scene and task, and evaluates selectors against archived physical executions. We compare five analytical or empirical baselines, twelve language-model configurations, and a retrospective rule-only control on 20 evaluation seeds. Grasp suitability depends strongly on the task: pooled rim grasps succeed in 86\% of handovers, compared with 24\% for side grasps. Explicit-preference prompts achieve 54/60 and 55/60 successes across the three tasks, but their recommendations alone achieve 54/60 without a language model. Evaluating pouring with particle fluid instead of a geometric proxy removes the apparent pouring advantage of preference prompts over random selection. These results support task-conditioned selection and careful interface design, while providing no evidence that the tested language models outperform supplied rules. We document reused evaluation scenes, unequal information access, and a simulator collision artifact that limit generalization claims.
+\par\smallskip\noindent Code and data:\\\url{https://github.com/Xl440102/cs5478-task-aware-grasp-selection}
 \end{abstract}
 
 \section{Introduction}
@@ -107,7 +108,7 @@ Responses must contain a valid selected ID and a complete, duplicate-free permut
 We also implement a physics-based ranker outside the benchmark. Predicted mug-local contacts (four points for some body grasps) carry linearized friction cones ($\mu=0.5$, 16 edges) and a shared 5 N normal-force budget per finger. Each task defines finite required wrenches $w_k$ (static task loads, or inertial loads along a predicted trajectory). The \emph{strict} score is $1-\max_k u_k$, where $u_k$ is the smallest budget fraction for which contact forces $\lambda\ge0$ satisfy $A\lambda=w_k$; it exists only if every demand balances exactly. The \emph{relaxed} variant solves two task-level linear programs: it first minimizes one shared worst scaled residual $R^*=\min\max_k\|S(A\lambda_k-w_k)\|_\infty$, then minimizes utilization with all residuals within $R^*+\delta$, and ranks by $R^*$, then utilization, using explicit near-tie bands. A development study (seeds 5--7, 278 candidate--task instances) reports complete scores for 13 instances under the strict model and 254 under the relaxed one, with 24 geometry-invalid instances unscored; in a separate ablation (seeds 2--4), reducing body contacts from four to two changed 4 of 9 top family choices. Visualization reruns showed high-ranked grasps failing through collisions or control and strict-unscored grasps succeeding. These studies use uncalibrated parameters and are not reproduced by the committed release, which ships the solvers and unit tests; we report coverage, not selection success.
 
 \section{Experimental design}
-The main comparison uses R3 archived executions for placement/handover and the corresponding full PBF pouring table. Seeds 0--9 train M4; seeds 10--29 supply 20 evaluation scenes per task. Those scenes had already appeared in development analysis, so we call them \emph{evaluation seeds}, not a blind test set. Two models, three prompts, and M3/A1 yield 12 configurations and 720 selection trials. There is one initial response per configuration--task--seed, with repair permitted; this does not estimate repeated-model variability.
+The main comparison uses R3 archived executions for placement/handover and the corresponding full PBF pouring table. Seeds 0--9 train M4; seeds 10--29 supply 20 evaluation scenes per task. Those scenes had already appeared in development analysis, so we call them \emph{evaluation seeds}, not a blind test set. Two models, three prompts, and M3/A1 yield 12 configurations and 720 selection trials. There is one initial response per configuration--task--seed, with repair permitted; this does not estimate repeated-model variability. Of the 720 trials, 712 had valid initial responses, eight needed a repair attempt, and two of those used the geometry fallback; all final selections are valid, and success includes fallback behavior. Gemini records store one constant latency value, so the logs do not support provider cost or speed comparisons.
 
 We score selected IDs by lookup into the same task/seed execution tables. All 458 feasible pouring candidates across 30 seeds have a PBF outcome, enabling both a uniform expectation and an oracle. The oracle, which succeeds whenever any feasible candidate succeeds, is an outcome-aware upper bound, not an executable baseline. A separate local PBF rerun of 98 distinct selected seed--candidate pairs is a reproducibility check, not additional scenes.
 
@@ -128,7 +129,7 @@ Table~\ref{tab:main} shows substantial task dependence. M5 places all 20 mugs su
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.62\linewidth]{figures/family_task.pdf}
+\includegraphics[width=0.56\linewidth]{figures/family_task.pdf}
 \caption{Pooled R3 execution outcomes across seeds 0--29, grouped by family. Labels show successes/executions and rounded percentages. These correlated candidate outcomes describe the feasible pool, not selector performance. Handle pouring is unavailable because no handle candidate passes the filter.}
 \label{fig:family}
 \end{figure}
@@ -161,25 +162,22 @@ A later audit found persistent self-contact between Panda link7 and the hand, se
 
 On R4 evaluation seeds, M0 achieves 19/20 placement, 14/20 handover, and 16/20 PBF pouring; M2 achieves 18/20, 5/20, and 18/20. R4 M6 obtains 19/20, 20/20, and 18/20. The complete 12-configuration language benchmark was collected against R3; we do not relabel it as R4 or mix it with corrected-scene scores. Because the artifact mainly affected side approaches, R3 alone cannot show that its family differences arise solely from physical task requirements.
 
-\subsection{Output reliability}
-The 720 stored selection trials contain 712 valid initial responses, eight repair attempts, and two geometry fallbacks (within repaired trials, so the counts are not disjoint); all final selections are valid. Final validity measures protocol robustness, not task competence, and success includes fallback behavior. Gemini records store one constant latency value, so the logs do not support provider cost or speed comparisons.
-
 \section{Discussion, limitations, and reproducibility}
 \label{sec:discussion}
-Release clearance, receiver access, and trajectory reachability go beyond static contact margins or part names. Direct rules match the strongest prompt-conditioned outcomes and are a necessary reference before attributing gains to language. The independent effect of zero-score clarification needs a score-only ablation.
+Release clearance, receiver access, and trajectory reachability go beyond static contact margins or part names. Direct rules match the strongest prompt-conditioned outcomes and are a necessary reference before attributing gains to language.
 
 Limitations include one mug and donor/receiver design, synthetic pose noise, fixed trajectories, one model sample per condition, reused scenes, and simulator artifacts. Information access differs and preference prompts are outcome informed. Unseen shapes, human motion, visual occlusion, and hardware execution remain untested. The wrench-space ranker uses uncalibrated contact and force models and has not been evaluated on the evaluation seeds.
 
 A stronger experiment would freeze labels, scores, prompts, and M6 before fresh seeds (e.g., 30--49), use the corrected collisions, repeat model sampling, and vary mug geometry; useful features include wrist rotation demand, joint-limit margins, and receiver swept-volume clearance.
 
 \paragraph{Reproducibility.}
-The repository archives candidates, filters, episodes, selected IDs, messages, and manifests. \path{prepare_results.py} re-checks per-seed counts, selected episodes, paired tests, and the Holm adjustment, evaluates M6, and regenerates all tables and figures without new physics or model calls; the report README maps each result to its source directory.
+The public repository (linked in the abstract) archives candidates, filters, episodes, selected IDs, and messages; its README gives run instructions. \path{prepare_results.py} re-checks per-seed counts, selected episodes, paired tests, and the Holm adjustment, evaluates M6, and regenerates all tables and figures without new physics or model calls; the report README maps each result to its source directory.
 
 \paragraph{Team contributions.}
 \textbf{Xie Lin (Part A, simulation)} built the PyBullet scenes, staged controllers, and terminal evaluator, including PBF pouring; the execution-consistent feasibility filter; and the R3/R4 execution archives, including the collision-artifact correction. \textbf{Zhang Yijie (Part B, grasps and baselines)} built the grasp candidate generator and geometric features; the analytical baselines, including the static and task-risk scores; and the exploratory wrench-space scoring extension. \textbf{Yao Xiaolu (Part C, language-model evaluation)} built the language-model selector interface and prompt versions; the 720-trial multi-model evaluation with its output audit; and the paired statistical analysis and report draft.
 
 \section{Conclusion}
-Task-aware grasp selection requires evaluating what happens after pickup. Our mug benchmark exposes task-dependent families, but prompt preferences, missing-value semantics, pouring metrics, and simulator artifacts can dominate measured improvements: explicit-preference models reach 90.0\% and 91.7\% descriptive three-task success, and direct rules 90.0\%. The defensible outcome is an auditable framework and a bounded empirical diagnosis, not a general advantage of language-model grasp selection.
+Task-aware grasp selection requires evaluating what happens after pickup. Our mug benchmark exposes task-dependent families, but prompt preferences, missing-value semantics, pouring metrics, and simulator artifacts can dominate measured improvements: explicit-preference models reach 90.0\% and 91.7\% three-task success, and direct rules 90.0\%. The defensible outcome is an auditable framework and a bounded empirical diagnosis, not a general advantage of language-model grasp selection.
 
 % Only references are excluded by the course's 5--8 page limit.
 % All substantive content is above this break; there is no excluded appendix.

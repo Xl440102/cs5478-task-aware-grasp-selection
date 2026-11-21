@@ -1,11 +1,11 @@
 # A B C 接口入口
 
-C 的多模型选择、账号接入、观测配置与批量运行已在 `grasp_c/` 实现，使用说明见 [docs/PART_C.md](docs/PART_C.md)。
+C 的多模型选择、账号接入、观测配置与批量运行已在 `grasp_c/` 实现，使用说明见 [docs/PART_C.md](PART_C.md)。
 
 旧准备任务当前控制器：`observable_primitives_v2`，评分：`fixed_target_hold_v2`。
-C 请以 [完整评估协议](docs/EVALUATION_INTERFACE.md) 为准；本页是快速入口。
-完整放置、物理交接和液体倒水的新轨道见 [任务序列与新接口](docs/TASK_SEQUENCES.md)；下文仍描述旧准备任务。
-新轨道函数签名、字段、统计规则、两种视频开关和 C 迁移边界见 [完整任务接口](docs/SEQUENCE_INTERFACE.md)，控制器 `staged_sequences_v1`、评分 `physical_outcomes_v1`。三个任务的 [双版本视频](results/sequence_v1_20261017/README.md) 已随代码保存。
+C 请以 [完整评估协议](EVALUATION_INTERFACE.md) 为准；本页是快速入口。
+完整放置、物理交接和液体倒水的新轨道见 [任务序列与新接口](TASK_SEQUENCES.md)；下文仍描述旧准备任务。
+新轨道函数签名、字段、统计规则、两种视频开关和 C 迁移边界见 [完整任务接口](SEQUENCE_INTERFACE.md)，控制器 `staged_sequences_v1`、评分 `physical_outcomes_v1`。三个任务的 [双版本视频](../results/sequence_v1_20261017/README.md) 已随代码保存。
 旧 v0.1/v0.2 和 `bounded_ik_v1` 结果保留追溯，不与新版混算。
 
 ## Candidate input
@@ -80,7 +80,7 @@ A没有实现视觉估计，外部位姿应由调用方提供。
 观测只有机器人本体反馈、冻结的初始估计及上次动作状态。
 策略可选路径、开口、时长、重试或停止；停止后只等待两秒评分，不自动抓取。
 此轨道标记incremental，不能混入固定控制器的抓取选择对比。
-限制、字段和边界见 [完整定义第7节](docs/EVALUATION_INTERFACE.md#7-增量-primitive-接口)。
+限制、字段和边界见 [完整定义第7节](EVALUATION_INTERFACE.md#7-增量-primitive-接口)。
 
 ```bat
 python -m examples.incremental_policy --task pour_prep --id G02
@@ -94,4 +94,4 @@ B仍需提供有实际任务差异的可行候选与独立标签。
 
 ## 完整任务扩展说明
 
-新增完整任务 `transport_place / handover_transfer / pour_water` 使用独立接口 `grasp_a.sequence.get_sequence_candidates / run_sequence` 和 `sequence_episode_v1` 结果，不改变旧准备任务白名单。逐阶段定义、液体质量成功判据、新字段及 C 适配注意事项见 [完整任务定义与接口](docs/TASK_SEQUENCES.md)。候选数据格式和五个公开选择字段不变，但空心模型需要重新筛选。新旧轨道不能共用结果统计或缓存。
+新增完整任务 `transport_place / handover_transfer / pour_water` 使用独立接口 `grasp_a.sequence.get_sequence_candidates / run_sequence` 和 `sequence_episode_v1` 结果，不改变旧准备任务白名单。逐阶段定义、液体质量成功判据、新字段及 C 适配注意事项见 [完整任务定义与接口](TASK_SEQUENCES.md)。候选数据格式和五个公开选择字段不变，但空心模型需要重新筛选。新旧轨道不能共用结果统计或缓存。
