@@ -50,7 +50,9 @@ The simulator models a seven-joint Franka Panda, a hollow mug, a tabletop, and t
 The filter rehearses execution waypoints with bounded inverse kinematics and multiple initializations, checks collisions, and permits finger--mug contact during approach only at the final waypoint. It rejects geometric or kinematic infeasibility, not every dynamic failure. All methods use the same staged controller at 240 Hz, with joint feedback and arrival checks. Default arrival tolerances are 2 cm and $10^\circ$, sustained for 0.1 s, with a 2 s arrival timeout and a 25 s episode timeout. Selection cannot change these settings.
 
 \subsection{Complete tasks and success criteria}
-\textbf{Transport and placement} lifts the mug, moves it to a common tabletop target, lowers it, releases, and retreats. Success requires table support within 2 cm of the target, an upright mug, no donor contact, and at least 8 cm donor clearance. \textbf{Cooperative handover} moves the mug to a transfer pose; a standardized receiver approaches the handle horizontally, closes, and lifts after donor release. Success requires receiver-only support, an independent lift of approximately 5 cm, donor clearance, and no table support. The receiver follows a fixed cooperative protocol; it is not an unknown human hand.
+\textbf{Transport and placement} lifts the mug, moves it to a common tabletop target, lowers it, releases, and retreats. Success requires table support within 2 cm of the target, an upright mug, no donor contact, and at least 8 cm donor clearance.
+
+\textbf{Cooperative handover} moves the mug to a transfer pose; a standardized receiver approaches the handle horizontally, closes, and lifts after donor release. Success requires receiver-only support, an independent lift of approximately 5 cm, donor clearance, and no table support. The receiver follows a fixed cooperative protocol; it is not an unknown human hand.
 
 \textbf{Pouring} carries the filled mug beside an open receiving cup, tilts by $110^\circ$ about a horizontal axis, dwells for 2 s, and returns upright. Default PBF uses 256 equal-mass samples representing 0.100 kg of liquid, eight density iterations, and two substeps. Success requires at least 90\% transfer, at most 5\% spill, valid fluid accounting, a stable target displaced by at most 1 cm, continued donor support, and successful motion stages. It is a water-like approximation without CFD or real-water calibration.
 
@@ -69,7 +71,9 @@ Figure~\ref{fig:tasks} shows the three sequences. All tasks require no disallowe
 \subsection{Candidate families and analytical baselines}
 We deterministically sample 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
 
-\textbf{M0} produces a seeded random ranking. We also report the exact uniform expectation by averaging all feasible candidate outcomes per scene; one random realization is not its expectation. \textbf{M1} is the benchmark's \code{static\_load\_margin\_v2}, not the older geometry-weighted prototype. For a supported body grasp it uses
+\textbf{M0} produces a seeded random ranking. We also report the exact uniform expectation by averaging all feasible candidate outcomes per scene; one random realization is not its expectation.
+
+\textbf{M1} is the benchmark's \code{static\_load\_margin\_v2}, not the older geometry-weighted prototype. For a supported body grasp it uses
 \begin{equation}
 S_1(g)=\frac{1}{1+L_0(g)+E(g)},\qquad
 E(g)=\frac{h_p}{m_e(g)+h_p},
@@ -84,7 +88,9 @@ Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per fi
 
 \textbf{M2} extends this model to $S_2(g,t)=[1+R(g,t)]^{-1}$. Transport risk uses the maximum estimated load ratio along nominal motion plus the edge penalty. Handover additionally penalizes handle occlusion, receiver swept-volume overlap, inaccessible handle volume, withdrawal toward the receiver, and small clearance. Pouring adds rim/handle obstruction and clearance terms. Motion loads use a smooth approximation to commanded stages, not measured future accelerations. Liquid is a fixed lumped mass in this scoring model, without drainage or slosh. M1/M2 rank supported body candidates first and append unsupported candidates in ID order, introducing a family-coverage bias.
 
-\textbf{M4} orders families by empirical task success on training seeds 0--9, then static quality where supported and ID. Pouring uses PBF training outcomes for the PBF-table comparison. \textbf{M5} first prefers a fixed task-specific part (handle for placement/pouring, body for handover), then ranks by $Q(g)-d(g,p_t)/(0.05\,\mathrm m)$, where $Q$ is static quality and $p_t$ the preferred part centre. Unsupported quality uses the mean supported score. No handle candidate passes the pouring filter, so fallback ordering matters. M5 is an engineering surrogate, not a published method reproduced end to end.
+\textbf{M4} orders families by empirical task success on training seeds 0--9, then static quality where supported and ID. Pouring uses PBF training outcomes for the PBF-table comparison.
+
+\textbf{M5} first prefers a fixed task-specific part (handle for placement/pouring, body for handover), then ranks by $Q(g)-d(g,p_t)/(0.05\,\mathrm m)$, where $Q$ is static quality and $p_t$ the preferred part centre. Unsupported quality uses the mean supported score. No handle candidate passes the pouring filter, so fallback ordering matters. M5 is an engineering surrogate, not a published method reproduced end to end.
 
 \subsection{Language prompts, ablation, and rule-only control}
 We evaluate two recorded language-model configurations: \code{gpt-5.6-luna} through the Codex adapter with low reasoning effort (GPT in the tables), and \code{gemini-3.8-flash} through the Gemini adapter with low thinking level (Gemini). These names are archived run identifiers, not independently verified provider model identities. M3 includes the task ID and intention; A1 removes them while retaining the version-specific system prompt and task-filtered candidates. A1 removes explicit task text, not every indirect task cue.
