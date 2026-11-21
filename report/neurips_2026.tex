@@ -46,22 +46,22 @@ The filter is task dependent, so a shared pool means the same feasible IDs \emph
 \begin{figure}[htbp]
 \centering
 \fbox{\begin{minipage}{0.94\linewidth}\centering
-\textbf{B: 116 mug-local candidates} $\longrightarrow$
-\textbf{A: task/scene feasibility filter}\\[5pt]
+\textbf{Candidate generation: 116 mug-local grasps} $\longrightarrow$
+\textbf{Task/scene feasibility filter}\\[5pt]
 $\downarrow$ public metadata or analytical geometry\\[5pt]
-\textbf{B/C: rank feasible IDs} $\longrightarrow$
-\textbf{A: fixed task controller}\\[5pt]
+\textbf{Selectors rank feasible IDs} $\longrightarrow$
+\textbf{Fixed task controller}\\[5pt]
 $\downarrow$ independent terminal evaluator\\[5pt]
-\textbf{C: per-seed outcomes, paired comparisons, and audits}
+\textbf{Per-seed outcomes, paired comparisons, and audits}
 \end{minipage}}
-\caption{System responsibilities and evaluation flow. Frozen execution tables replace repeated controller runs in the main selector comparison. Outcomes remain outside language-model messages; M4 uses separate training-seed outcomes.}
+\caption{Selection and evaluation pipeline. Frozen execution tables replace repeated controller runs in the main selector comparison. Outcomes remain outside language-model messages; M4 uses separate training-seed outcomes.}
 \label{fig:pipeline}
 \end{figure}
 
 Each language-model candidate contains exactly five public fields: ID, region, approach description, gripper opening in metres, and geometry score. Approach strings describe contact part, approach direction, closing direction, and handle/opening relationships. IDs identify candidates without encoding task quality. Analytical baselines additionally access full candidate poses and declared physical parameters; M4 accesses training outcomes. This compares implemented pipelines with common choices and execution, rather than information-matched reasoning algorithms.
 
 \subsection{Scene, filtering, and control}
-Part A simulates a seven-joint Franka Panda, a hollow mug, a tabletop, and task-specific receivers. The principal archived setting, \code{wide\_strict\_v2} (R3), samples offsets $x\in[-0.04,0.04]$ m, $y\in[-0.05,0]$ m, and yaw within $\pm60^\circ$. Pose estimates are generated from simulation truth with configured positional noise of 3 mm and yaw noise of $2^\circ$; this is synthetic observation, not a vision system. Object truth and contact evidence are available to the evaluator but are not runtime object-state feedback for the donor policy.
+The simulator models a seven-joint Franka Panda, a hollow mug, a tabletop, and task-specific receivers. The principal archived setting, \code{wide\_strict\_v2} (R3), samples offsets $x\in[-0.04,0.04]$ m, $y\in[-0.05,0]$ m, and yaw within $\pm60^\circ$. Pose estimates are generated from simulation truth with configured positional noise of 3 mm and yaw noise of $2^\circ$; this is synthetic observation, not a vision system. Object truth and contact evidence are available to the evaluator but are not runtime object-state feedback for the donor policy.
 
 The filter rehearses execution waypoints with bounded inverse kinematics and multiple initializations, checks collisions, and permits finger--mug contact during approach only at the final waypoint. It rejects geometric or kinematic infeasibility, not every dynamic failure. All methods use the same staged controller at 240 Hz, with joint feedback and arrival checks. Default arrival tolerances are 2 cm and $10^\circ$, sustained for 0.1 s, with a 2 s arrival timeout and a 25 s episode timeout. Selection cannot change these settings.
 
@@ -83,7 +83,7 @@ Figure~\ref{fig:tasks} shows the three sequences. All tasks require no disallowe
 
 \section{Candidate generation and selectors}
 \subsection{Candidate families and analytical baselines}
-Part B deterministically samples 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Candidate widths and approach poses accompany stable IDs. Filtering changes the usable subset with the scene. Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
+We deterministically sample 116 mug-local grasp poses (\code{multifamily\_v3p}): handle, rim, top-down body (top), and side body (side). Candidate widths and approach poses accompany stable IDs. Filtering changes the usable subset with the scene. Rim and handle candidates lie outside the ideal cylindrical-body contact model, but remain available for selection. Their placeholder geometry score of zero means \emph{unmodeled}, not zero probability of success.
 
 \textbf{M0} produces a seeded random ranking. We also report the exact uniform expectation by averaging all feasible candidate outcomes per scene; one random realization is not its expectation. \textbf{M1} is the benchmark's \code{static\_load\_margin\_v2}, not the older geometry-weighted prototype. For a supported body grasp it uses
 \begin{equation}
@@ -103,7 +103,7 @@ Here $r$ is body radius, $\mu=0.6$, $r_\tau=8$ mm, and $N_{\rm cap}=15$ N per fi
 \textbf{M4} orders families by empirical task success on training seeds 0--9, then static quality where supported and ID. Pouring uses PBF training outcomes for the PBF-table comparison. \textbf{M5} first prefers a fixed task-specific part (handle for placement/pouring, body for handover), then ranks by $Q(g)-d(g,p_t)/(0.05\,\mathrm m)$, where $Q$ is static quality and $p_t$ the preferred part centre. Unsupported quality uses the mean supported score. No handle candidate passes the pouring filter, so fallback ordering matters. M5 is an engineering surrogate, not a published method reproduced end to end.
 
 \subsection{Language prompts, ablation, and rule-only control}
-Part C evaluates two recorded configurations: \code{gpt-5.6-luna} through the Codex adapter with low reasoning effort (GPT in the tables), and \code{gemini-3.8-flash} through the Gemini adapter with low thinking level (Gemini). These names are archived run identifiers, not independently verified provider model identities. M3 includes the task ID and intention; A1 removes them while retaining the version-specific system prompt and task-filtered candidates. A1 removes explicit task text, not every indirect task cue.
+We evaluate two recorded language-model configurations: \code{gpt-5.6-luna} through the Codex adapter with low reasoning effort (GPT in the tables), and \code{gemini-3.8-flash} through the Gemini adapter with low thinking level (Gemini). These names are archived run identifiers, not independently verified provider model identities. M3 includes the task ID and intention; A1 removes them while retaining the version-specific system prompt and task-filtered candidates. A1 removes explicit task text, not every indirect task cue.
 
 Three prompt versions change the input contract. \textbf{v1} calls geometry score a higher-is-better prior without explaining unsupported zeros. \textbf{Mechanics} (\code{v2\_physics}) clarifies zero as unscored, corrects the overly broad opening-obstruction label, and supplies motion/clearance constraints without naming a preferred grasp family. \textbf{Preferences} (\code{v2}) explicitly prioritizes outer-handle or suitable rim grasps for placement, top-down rim grasps for handover, and high-scoring top body grasps for pouring. These versions change several instructions together; they are not an isolated causal test of score clarification or spatial reasoning.
 
