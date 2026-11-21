@@ -4,7 +4,7 @@
 
 老师的要求是 **正文 5–8 页，参考文献不计页数**。本报告将参考文献另起一页；标题、摘要、图表、贡献说明和所有实质讨论均计入正文，没有借用“附录不计页数”的会议惯例。`checklist.tex` 是原始模板随附的会议投稿检查表，不是课程已要求的内容，因此保留原文件但不编入报告。
 
-本次编译验收：**正文 7 页 + 参考文献 1 页，共 8 页**，US Letter。已逐页渲染检查；无未解析引用、文字溢出或异常分页，11 个字体均已嵌入且没有 Type 3 字体。记录见 `generated/pdf_validation.json`。后续改动内容后，应重新编译核验页数。
+本次编译验收：**正文 8 页 + 参考文献 1 页，共 9 页**，US Letter（加入任务截图图后正文由 7 页增至 8 页，仍在 5–8 页要求内）。已逐页渲染检查；无未解析引用、文字溢出或异常分页，12 个字体均已嵌入且没有 Type 3 字体。使用 pdflatex 时需安装 `cm-super`，否则等宽字体会退化为 Type 3 位图。记录见 `generated/pdf_validation.json`。后续改动内容后，应重新编译核验页数。
 
 ## 编译与复核
 
@@ -45,6 +45,7 @@ pdffonts report/final_report.pdf
 | 720 条 LLM trial、98 条去重 PBF 复核、170 组比较 | `results/c_evaluation_multimodel_20261109/` |
 | M6 回顾性规则对照 | `grasp_c/rules.py`、`results/oracle_20261103/m6_prompt_rules.md` |
 | R4 碰撞修复后敏感性分析 | `results/oracle_20261103/r4_v3p_wide_strict_v3/`、`r4_pbf_v3p_wide_strict_v3/` |
+| 任务截图（图 2） | `figures/task_*.png`：取自演示稿，为 `results/sequence_v1_20261017/videos/with_landmarks/*_seed0_G02*` 演示的末帧，非基准 episode |
 | 作者与 A/B/C 分工 | `presentation/PRESENTATION_SCRIPT_AND_TEAM_SPLIT.md` |
 
 ## 本次审核修正的主要问题
